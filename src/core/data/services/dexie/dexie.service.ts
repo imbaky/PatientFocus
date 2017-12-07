@@ -9,7 +9,10 @@ export class DexieService extends Dexie {
     super('store');
 
     this.version(1).stores({
-
+      'directory': '++id',
+      'profile': '++id, directory',
+      'item': '++id, name, type, type_id, directory_id',
+      'file': '++id, path, size'
     });
   }
 }
