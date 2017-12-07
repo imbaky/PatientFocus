@@ -11,11 +11,12 @@ log.txt
 *.sublime-workspace
 .vscode/
 npm-debug.log*
-
+.sourcemaps
 .idea/
 .sass-cache/
 .tmp/
 .versions/
+
 coverage/
 dist/
 node_modules/
