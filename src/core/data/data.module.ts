@@ -7,6 +7,7 @@ import { FileService } from './services/file/file.service';
 import { ItemService } from './services/item/item.service';
 import { ProfileService } from './services/profile/profile.service';
 import { DexieService } from './services/dexie/dexie.service';
+import { FileSystemService } from './services/file-system/file-system.service';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ export class DataModule {
         DirectoryService,
         ItemService,
         ProfileService,
-        FileService
+        FileService,
+        FileSystemService
       ],
       ngModule: DataModule
     };
