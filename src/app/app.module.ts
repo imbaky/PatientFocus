@@ -12,6 +12,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // modules
 import { DataModule } from '../core/data/data.module';
+import { PortfolioModule } from '../core/portfolio/portfolio.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { DataModule } from '../core/data/data.module';
   ],
   imports: [
     BrowserModule,
+    PortfolioModule,
     DataModule.forRoot(),
     IonicModule.forRoot(MyApp, {}, { links: [] })
   ],
