@@ -21,8 +21,12 @@ export class FileService {
   }
 
   async getFilesByIds(ids: number[]): Promise<File[]> {
-    const files = ids.map((id) => this.table.get(id));
-
+    const files = ids.map((id) => this.table.get(id, function(file) { 
+        console.log(file);
+        return file; 
+      })
+    );
+    
     return Promise.all(files);
   }
 

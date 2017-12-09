@@ -10,6 +10,7 @@ import { Directory } from '../directory/directory.service';
 export interface Item {
   id?: number;
   name: string;
+  description: string;
   type: ItemType;
   type_id: number;
   created_at: string;
