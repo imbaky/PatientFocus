@@ -8,28 +8,26 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>My Documents</h3>
-
-  <div class="row header">
-    <div class="col">Name</div>
-    <div class="col">Description</div>
-    <div class="col">Path</div>
-    <div class="col">Format</div>
-    <div class="col">Date</div>
-  </div>
-
-  <div class="row" *ngFor="let item of (directory | async)?.items">
-    <div *ngIf="item.type === ItemType.FILE">
-      <div>this is file</div>
-      <div>{{ item.name }}</div>
-      <div>{{ item.value.path }}</div>
-    </div>
-    <div *ngIf="item.type === ItemType.DIRECTORY">
-      <div>this is directory</div>
-      <div>{{ item.name }}</div>
-    </div>
-  </div>
-
+  
+  <ion-grid>
+    <ion-row class="fileheader">
+      <ion-col>Name</ion-col>
+      <ion-col>Description</ion-col>
+      <ion-col>Path</ion-col>
+      <ion-col>Size</ion-col>
+      <ion-col>Type</ion-col>
+      <ion-col>Created</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let item of (directory$ | async)?.items">
+        <ion-col class="dir" *ngIf="item.type === ItemType.DIRECTORY" (click)="handleDir($event, item)">{{ item.name }}</ion-col>
+        <ion-col *ngIf="item.type === ItemType.FILE">{{ item.name }}</ion-col>
+        <ion-col>{{ item.description }}</ion-col>
+        <ion-col *ngIf="item.type === ItemType.FILE">{{ item.value.path }}</ion-col>
+        <ion-col *ngIf="item.type === ItemType.FILE">{{ item.value.size }}</ion-col>
+        <ion-col *ngIf="item.type === ItemType.FILE">{{ item.value.type }}</ion-col>
+        <ion-col *ngIf="item.type === ItemType.FILE">{{ item.created }}</ion-col>
+    </ion-row>
+  </ion-grid>
 
   <button ion-button secondary menuToggle>Toggle Menu</button>
 </ion-content>

@@ -12,9 +12,10 @@ export class DexieService extends Dexie {
     this.version(1).stores({
       'directory': '++id',
       'profile': '++id, directory',
-      'item': '++id, name, description, type, type_id, directory_id',
+      'item': '++id, name, description, type, type_id, directory_id, created',
       'file': '++id, path, size, type'
     });
+    let d = new Date();
 
     this.on('populate', () => {
       this.table('profile').add({
@@ -30,14 +31,16 @@ export class DexieService extends Dexie {
           description: 'lab test1',
           type: ItemType.FILE,
           type_id: 1,
-          directory_id: 1
+          directory_id: 1,
+          created: d.toString()
         },
         {
           name: 'Filename2.txt',
           description: 'lab test2',
           type: ItemType.FILE,
           type_id: 2,
-          directory_id: 1
+          directory_id: 1,
+          created: d.toString()
         },
         {
           name: 'Sub Folder1',
@@ -51,7 +54,8 @@ export class DexieService extends Dexie {
           description: 'blood test',
           type: ItemType.FILE,
           type_id: 3,
-          directory_id: 2
+          directory_id: 2,
+          created: d.toString()
         },
       ]);
       this.table('file').bulkAdd([
@@ -71,7 +75,6 @@ export class DexieService extends Dexie {
           type: 'jpeg'
         }
       ]);
-    });
-    
+    }); 
   }
 }
