@@ -3,31 +3,48 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Documents</ion-title>
+    <ion-title>
+      <ng-container *ngIf="currentItem; else rootName">
+        {{ currentItem.name }}
+      </ng-container>
+      <ng-template #rootName>
+        Documents
+      </ng-template>
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  
-  <ion-grid>
-    <ion-row class="fileheader">
-      <ion-col>Name</ion-col>
-      <ion-col>Description</ion-col>
-      <ion-col>Path</ion-col>
-      <ion-col>Size</ion-col>
-      <ion-col>Type</ion-col>
-      <ion-col>Created</ion-col>
-    </ion-row>
-    <ion-row *ngFor="let item of (directory$ | async)?.items">
-        <ion-col class="dir" *ngIf="item.type === ItemType.DIRECTORY" (click)="handleDir($event, item)">{{ item.name }}</ion-col>
-        <ion-col *ngIf="item.type === ItemType.FILE">{{ item.name }}</ion-col>
-        <ion-col>{{ item.description }}</ion-col>
-        <ion-col *ngIf="item.type === ItemType.FILE">{{ item.value.path }}</ion-col>
-        <ion-col *ngIf="item.type === ItemType.FILE">{{ item.value.size }}</ion-col>
-        <ion-col *ngIf="item.type === ItemType.FILE">{{ item.value.type }}</ion-col>
-        <ion-col *ngIf="item.type === ItemType.FILE">{{ item.created }}</ion-col>
-    </ion-row>
-  </ion-grid>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <ion-list>
+    <ng-container *ngFor="let item of (directory$ | async)?.items">
+      <ion-item  *ngIf="item.type === ItemType.DIRECTORY" (click)="handleDir($event, item)">
+        <ion-icon name="folder" item-start></ion-icon>
+        <ion-label class="item-label">
+          <div class="item-label--name">{{ item.name }}</div>
+        </ion-label>
+        <ion-icon name="arrow-forward" item-end></ion-icon>
+      </ion-item>
+      <ion-item  *ngIf="item.type === ItemType.FILE">
+        <ion-icon name="document" item-start></ion-icon>
+        <ion-label class="item-label">
+          <div class="item-label--name">{{ item.name }}</div>
+          <div class="item-label--type">{{ item.value.type }}</div>
+        </ion-label>
+        <ion-checkbox color="dark" item-end></ion-checkbox>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+
+  <div *ngIf="!((directory$ | async)?.items.length)" padding-top="50" text-center>
+    Start adding files to begin!
+  </div>
+
+
+  <ion-fab right bottom>
+    <button ion-fab color="light">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
 </ion-content>

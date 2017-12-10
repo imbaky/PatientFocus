@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
 import { Directory, DirectoryService } from '../../core/data/services/directory/directory.service';
 import { ItemType } from '../../core/data/enum/item-type.enum';
+import { Item } from '../../core/data/services/item/item.service';
 
 @Component({
   selector: 'page-documents',
   templateUrl: 'documents.html'
 })
-export class Documents implements OnInit {
+export class Documents {
 
   directory$: Promise<Directory>;
-  selectedItem: any;
-  dirLevel: any;
+
+  currentItem: Item;
 
   ItemType = ItemType;
 
@@ -22,24 +23,16 @@ export class Documents implements OnInit {
     public navParams: NavParams,
     private directoryService: DirectoryService
   ) {
-      this.selectedItem = navParams.get('item');
-      if (typeof this.selectedItem === 'undefined') {
-        this.dirLevel = 1;
-      } else if (this.selectedItem.type === ItemType.DIRECTORY) {
-          this.dirLevel = this.selectedItem.directory_id + 1;
-      }
-  }
+    this.currentItem = this.navParams.get('item');
 
-  ngOnInit() {
-    this.directory$ = this.directoryService.getDirectoryById(this.dirLevel);
+    // TODO: get current profile directory id, currently set to 1.
+    const id = (!this.currentItem) ? 1 : this.currentItem.type_id;
 
-    this.directory$.then((directory) => {
-      console.log(directory);
-    });
+    this.directory$ = this.directoryService.getDirectoryById(id);
   }
 
   handleDir(event, item) {
     // pass selected item to page
-    this.navCtrl.push(Documents, {item: item});
+    this.navCtrl.push(Documents, { item: item });
   }
 }

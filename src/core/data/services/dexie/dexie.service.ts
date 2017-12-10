@@ -2,28 +2,22 @@ import { Injectable } from '@angular/core';
 
 import Dexie from 'dexie';
 import { ItemType } from '../../enum/item-type.enum';
+import { SCHEMA } from './database';
 
 @Injectable()
 export class DexieService extends Dexie {
 
   constructor() {
     super('store');
+    this.version(1).stores(SCHEMA);
 
-    this.version(1).stores({
-      'directory': '++id',
-      'profile': '++id, directory',
-      'item': '++id, name, description, type, type_id, directory_id, created',
-      'file': '++id, path, size, type'
-    });
-    let d = new Date();
-
+    const date = new Date();
     this.on('populate', () => {
       this.table('profile').add({
         directory: 1
       });
       this.table('directory').bulkAdd([
-        { id: 1 },
-        { id: 2 },
+        { id: 1 }
       ]);
       this.table('item').bulkAdd([
         {
@@ -32,7 +26,7 @@ export class DexieService extends Dexie {
           type: ItemType.FILE,
           type_id: 1,
           directory_id: 1,
-          created: d.toString()
+          created: date
         },
         {
           name: 'Filename2.txt',
@@ -40,22 +34,15 @@ export class DexieService extends Dexie {
           type: ItemType.FILE,
           type_id: 2,
           directory_id: 1,
-          created: d.toString()
-        },
-        {
-          name: 'Sub Folder1',
-          description: '',
-          type: ItemType.DIRECTORY,
-          type_id: 1,
-          directory_id: 1
+          created: date
         },
         {
           name: 'Filename2.txt',
           description: 'blood test',
           type: ItemType.FILE,
           type_id: 3,
-          directory_id: 2,
-          created: d.toString()
+          directory_id: 1,
+          created: date
         },
       ]);
       this.table('file').bulkAdd([
@@ -75,6 +62,6 @@ export class DexieService extends Dexie {
           type: 'jpeg'
         }
       ]);
-    }); 
+    });
   }
 }
