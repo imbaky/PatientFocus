@@ -7,6 +7,7 @@ export interface File {
   id?: number;
   path: string;
   size: number;
+  type: string; // TODO: Replace this to ENUM
 }
 
 @Injectable()
@@ -21,12 +22,8 @@ export class FileService {
   }
 
   async getFilesByIds(ids: number[]): Promise<File[]> {
-    const files = ids.map((id) => this.table.get(id, function(file) { 
-        console.log(file);
-        return file; 
-      })
-    );
-    
+    const files = ids.map((id) => this.table.get(id));
+
     return Promise.all(files);
   }
 

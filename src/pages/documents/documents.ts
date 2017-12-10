@@ -1,33 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
-import { DirectoryService } from '../../core/data/services/directory/directory.service';
-import { directiveDef } from '@angular/core/src/view/provider';
-import { digest } from '@angular/compiler/src/i18n/serializers/xmb';
+import { Directory, DirectoryService } from '../../core/data/services/directory/directory.service';
+import { ItemType } from '../../core/data/enum/item-type.enum';
 
 @Component({
   selector: 'page-documents',
   templateUrl: 'documents.html'
 })
-export class Documents {
-  documents: any[];
+export class Documents implements OnInit {
 
-  constructor(public navCtrl: NavController, private directory: DirectoryService) {
+  directory: Promise<Directory>;
 
-    this.documents = [];
-    this.directory.getDirectoryById(1).then((directory) => {
-      console.log(directory.items);
-      for (let i = 0; i < directory.items.length; i++) {
-        this.documents.push({
-            name: directory.items[i].name,
-            description: directory.items[i].description,
-            doctype: directory.items[i].type,
-            created: directory.items[i].created_at,
-            file_attribs: directory.items[i].value
-        });
-        
-      }
+  ItemType = ItemType;
+
+  constructor(
+    public navCtrl: NavController,
+    private directoryService: DirectoryService)
+  { }
+
+  ngOnInit() {
+    this.directory = this.directoryService.getDirectoryById(1);
+
+    this.directory.then((directory) => {
+      console.log(directory);
     });
   }
 

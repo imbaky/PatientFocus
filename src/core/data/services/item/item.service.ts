@@ -36,7 +36,7 @@ export class ItemService {
 
     items.forEach((item) => {
       if (item.type === ItemType.FILE) {
-        files.push(item.id);
+        files.push(item.type_id);
       }
     });
 

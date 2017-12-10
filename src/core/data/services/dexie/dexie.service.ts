@@ -12,8 +12,8 @@ export class DexieService extends Dexie {
     this.version(1).stores({
       'directory': '++id',
       'profile': '++id, directory',
-      'item': '++id, name, type, type_id, directory_id',
-      'file': '++id, path, size'
+      'item': '++id, name, description, type, type_id, directory_id',
+      'file': '++id, path, size, type'
     });
 
     this.on('populate', () => {
@@ -33,10 +33,10 @@ export class DexieService extends Dexie {
           directory_id: 1
         },
         {
-          name: 'Filename11.txt',
+          name: 'Filename2.txt',
           description: 'lab test2',
           type: ItemType.FILE,
-          type_id: 1,
+          type_id: 2,
           directory_id: 1
         },
         {
@@ -50,14 +50,25 @@ export class DexieService extends Dexie {
           name: 'Filename2.txt',
           description: 'blood test',
           type: ItemType.FILE,
-          type_id: 1,
+          type_id: 3,
           directory_id: 2
         },
       ]);
       this.table('file').bulkAdd([
         {
           path: '::directory/subdirectory/subsubdirectory',
-          size: 4576543
+          size: 4576543,
+          type: 'jpeg'
+        },
+        {
+          path: '::directory/subdirectory/subsubdirectory',
+          size: 245364,
+          type: 'jpeg'
+        },
+        {
+          path: '::directory/subdirectory/subsubdirectory',
+          size: 34564,
+          type: 'jpeg'
         }
       ]);
     });
