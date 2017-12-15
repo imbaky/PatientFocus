@@ -10,4 +10,9 @@
 
 <ion-content padding>
   <button ion-button color="primary" full (click)="selectFile()">Select Document</button>
+
+  <ion-item>
+    <ion-label>Date</ion-label>
+    <ion-datetime displayFormat="MMMM DD, YYYY" [(ngModel)]="date"></ion-datetime>
+  </ion-item>
 </ion-content>
