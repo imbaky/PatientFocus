@@ -3,6 +3,7 @@ import { ViewController } from 'ionic-angular';
 import { FileChooser } from '@ionic-native/file-chooser';
 import * as moment from 'moment';
 //import { File as NativeFile} from '@ionic-native/file';
+import { FilePath } from '@ionic-native/file-path';
 import { File } from '../../../data/services/file/file.service'
 
 
@@ -12,7 +13,7 @@ declare var window;
   templateUrl: 'add-document.html'
 })
 export class AddDocumentModal {
-  constructor(public viewCtrl: ViewController, private fileChooser: FileChooser) {}
+  constructor(public viewCtrl: ViewController, private fileChooser: FileChooser, private filePath: FilePath) {}
   date : String = new Date().toISOString();
   document : File;
 
@@ -27,13 +28,12 @@ export class AddDocumentModal {
     .then(uri => window.resolveLocalFileSystemURL(uri, (fileEntry) => {
         fileEntry.getMetadata((metadata) => {
             this.uri = uri;
-            this.document.size = metadata.size;
-            //this.document.path = metadata.
-            //console.log("image size : " + metadata.size);
-            //console.log("image date : " + metadata.modificationTime);
+            this.filePath.resolveNativePath(uri)
+              .then(filePath => console.log(filePath))
+              .catch(err => console.log(err));
         });
     }))
-    .catch(e => console.log(e));
+    .catch(err => console.log(err));
   }
 
 

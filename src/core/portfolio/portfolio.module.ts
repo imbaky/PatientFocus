@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
 
 import { FileChooser } from '@ionic-native/file-chooser';
-
+import { FilePath } from '@ionic-native/file-path';
 import { PortfolioPage } from './portfolio';
 import { AddDocumentModal } from './modals/add-document/add-document';
 
@@ -22,7 +22,8 @@ import { AddDocumentModal } from './modals/add-document/add-document';
     AddDocumentModal
   ],
   providers: [
-    FileChooser
+    FileChooser,
+    FilePath
   ]
 })
 export class PortfolioModule { }
