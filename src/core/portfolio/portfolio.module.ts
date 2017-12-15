@@ -7,6 +7,8 @@ import { FilePath } from '@ionic-native/file-path';
 import { PortfolioPage } from './portfolio';
 import { AddDocumentModal } from './modals/add-document/add-document';
 
+import { PortfolioService} from "./portfolio.service";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { AddDocumentModal } from './modals/add-document/add-document';
   ],
   providers: [
     FileChooser,
-    FilePath
+    FilePath,
+    PortfolioService
   ]
 })
 export class PortfolioModule { }
