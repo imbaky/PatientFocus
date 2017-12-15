@@ -1,0 +1,18 @@
+.item-label {
+  display: flex;
+}
+
+.item-label--name {
+  flex-grow: 1;
+  font-size: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.item-label--type {
+  padding-right: 1rem;
+  padding-left: 1rem;
+  text-transform: uppercase;
+}
+  
