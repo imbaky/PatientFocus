@@ -16,8 +16,10 @@
 
 <ion-content padding>
 
+  <ion-searchbar [(ngModel)]="searchTerm"></ion-searchbar>
+
   <ion-list>
-    <ng-container *ngFor="let item of (directory$ | async)?.items">
+    <ng-container *ngFor="let item of (directory$ | async)?.items | filterItem:searchTerm">
       <ion-item  *ngIf="item.type === ItemType.DIRECTORY" (click)="handleDir($event, item)">
         <ion-icon name="folder" item-start></ion-icon>
         <ion-label class="item-label">
