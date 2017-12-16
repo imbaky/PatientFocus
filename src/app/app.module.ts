@@ -6,6 +6,7 @@ import { MyApp } from './app.component';
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
 import { Documents } from '../pages/documents/documents';
+import { FilterItemPipe } from '../pipes/filteritem.pipe';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -18,6 +19,7 @@ import { DataModule } from '../core/data/data.module';
     MyApp,
     Page1,
     Page2,
+    FilterItemPipe,
     Documents
   ],
   imports: [
