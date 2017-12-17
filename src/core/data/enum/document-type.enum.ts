@@ -1,0 +1,6 @@
+export enum DocumentType {
+  LABTEST,
+  IMAGEREPORT,
+  PRESCRIPTION,
+  DISCHARGESUMMARY
+}

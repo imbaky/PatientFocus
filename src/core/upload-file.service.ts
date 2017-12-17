@@ -1,7 +1,7 @@
 
 export interface Document {
-    uri:string;
-    date:string;
+    uri: string;
+    date: string;
     type: string;
 }
 
