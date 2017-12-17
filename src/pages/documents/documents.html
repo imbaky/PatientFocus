@@ -16,7 +16,17 @@
 
 <ion-content padding>
 
-  <ion-searchbar [(ngModel)]="searchTerm"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="searchTerm" placeholder="Filter by name"></ion-searchbar>
+  <ion-item>
+    <ion-label>Filter by extension</ion-label>
+    <ion-select [(ngModel)]="searchTerm" interface="popover">
+      <ion-option value="" selected="true">All</ion-option>
+      <ion-option value="jpeg">.jpg</ion-option>
+      <ion-option value="png">.png</ion-option>
+      <ion-option value="pdf">.pdf</ion-option>
+      <ion-option value="txt">.txt</ion-option>
+    </ion-select>
+  </ion-item>
 
   <ion-list>
     <ng-container *ngFor="let item of (directory$ | async)?.items | filterItem:searchTerm">
@@ -52,3 +62,4 @@
   </ion-fab>
 
 </ion-content>
+
