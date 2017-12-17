@@ -9,6 +9,11 @@
 
 <ion-content padding>
   <ion-item>
+      <ion-label>Document Name</ion-label>
+      <ion-input type="text" [(ngModel)]="documentName"> </ion-input>
+  </ion-item>
+
+  <ion-item>
     <ion-label>Date</ion-label>
     <ion-datetime displayFormat="MMMM DD, YYYY" [(ngModel)]="date"></ion-datetime>
   </ion-item>
@@ -19,6 +24,12 @@
       <ion-option *ngFor="let type of documentTypes" [value]="type.value">{{type.name}}</ion-option>
     </ion-select>
   </ion-item>
+  <ion-item>
+    <ion-label>Selected File</ion-label>
+    <ion-input type="text" readonly="true" [(ngModel)]="selectedFileName">{{selectedFileName}}</ion-input>
+  </ion-item>
 
-  <button ion-button color="primary" full (click)="selectFile()">Select File</button>
+  <button ion-button outline="true" (click)="selectFile()">Select a File</button>
+
+  <button ion-button color="primary" (click)="importFile()">Import</button>
 </ion-content>
