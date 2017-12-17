@@ -5,7 +5,7 @@ import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { FileSystemService} from '../../../data/services/file-system/file-system.service';
 import { Directory } from '../../../data/services/directory/directory.service';
-import { DocumentType } from '../../../../core/data/enum/document-type.enum';
+import { DocumentType } from '../../../../core/data/enum/file-type.enum';
 
 declare var window;
 

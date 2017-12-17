@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { DexieService } from '../dexie/dexie.service';
-
+import { File, Entry } from '@ionic-native/file';
 import Dexie from 'dexie';
+
+import { DexieService } from '../dexie/dexie.service';
 import { Item, ItemService } from '../item/item.service';
-import {File, Entry} from "@ionic-native/file";
+import { DocumentType } from '../../enum/file-type.enum';
 
 export interface Directory {
   id?: number;
@@ -49,12 +50,11 @@ export class DirectoryService {
    * Adds a file to a directory
    * @param {Entry} fileEntry file to be added to the directory
    * @param {string} creationDate Date in which the document should be placed
-   * @param {string} type type of file
+   * @param {DocumentType} type type of medical document
    * @param {Directory} directory the directory in which the file will be added to
    */
-
-  addFileToDirectory(fileEntry: Entry, creationDate: string, type: string, directory: Directory) {
-    var item : Item = this.items.createItemWithFileEntry(fileEntry, creationDate, type);
+  addFileToDirectory(fileEntry: Entry, creationDate: string, type: DocumentType, directory: Directory) {
+    let item: Item = this.items.createItemWithFileEntry(fileEntry, creationDate, type);
     directory.items.push(item); //TODO update directory in table
     this.table.update(directory.id, { items: directory.items });
   }
