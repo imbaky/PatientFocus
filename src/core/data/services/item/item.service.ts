@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { DexieService } from '../dexie/dexie.service';
-import { Entry } from "@ionic-native/file";
+import { Entry } from '@ionic-native/file';
 
 import Dexie from 'dexie';
 
+import { DexieService } from '../dexie/dexie.service';
 import { FileService, File } from '../file/file.service';
 import { ItemType } from '../../enum/item-type.enum';
 import { Directory } from '../directory/directory.service';
+import { DocumentType } from '../../enum/file-type.enum';
 
 export interface Item {
   id?: number;
@@ -55,16 +56,16 @@ export class ItemService {
   /**
    * Creates an item of type file
    * @param {Entry} fileEntry the file to be added to the item
-   * @param {string} creationDate Date in which the document should be placed)
-   * @param {string} type The type of the file
+   * @param {string} creationDate date in which the document should be placed
+   * @param {DocumentType} type type of medical document
    * @returns {Item}
    */
-  createItemWithFileEntry(fileEntry: Entry, creationDate: string, type: string): Item { //TODO need to return Promise<Item>
-    var item : Item = { } as any;
+  createItemWithFileEntry(fileEntry: Entry, creationDate: string, type: DocumentType): Item { //TODO need to return Promise<Item>
+    let item: Item = { } as any;
     fileEntry.getMetadata(metadata => {
-      item.created = creationDate;
+      item.effective = creationDate;
       this.file.createFile(fileEntry.nativeURL, metadata.size, type);
-    })
+    });
     this.table.add(item);
     return item;
   }
