@@ -4,10 +4,9 @@ import { IonicModule } from 'ionic-angular';
 
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
+import { File } from '@ionic-native/file';
 import { PortfolioPage } from './portfolio';
 import { AddDocumentModal } from './modals/add-document/add-document';
-
-import { PortfolioService} from "./portfolio.service";
 
 @NgModule({
   imports: [
@@ -26,7 +25,7 @@ import { PortfolioService} from "./portfolio.service";
   providers: [
     FileChooser,
     FilePath,
-    PortfolioService
+    File
   ]
 })
 export class PortfolioModule { }
