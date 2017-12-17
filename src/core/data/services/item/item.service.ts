@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DexieService } from '../dexie/dexie.service';
+import { Entry } from "@ionic-native/file";
 
 import Dexie from 'dexie';
 
@@ -24,7 +25,7 @@ export class ItemService {
 
   constructor(
     private dexie: DexieService,
-    private file: FileService
+    private file: FileService,
   ) {
     this.table = this.dexie.table('item');
   }
@@ -51,4 +52,20 @@ export class ItemService {
     return items;
   }
 
+  /**
+   * Creates an item of type file
+   * @param {Entry} fileEntry the file to be added to the item
+   * @param {string} creationDate Date in which the document should be placed)
+   * @param {string} type The type of the file
+   * @returns {Item}
+   */
+  createItemWithFileEntry(fileEntry: Entry, creationDate: string, type: string): Item { //TODO need to return Promise<Item>
+    var item : Item = { } as any;
+    fileEntry.getMetadata(metadata => {
+      item.created = creationDate;
+      this.file.createFile(fileEntry.nativeURL, metadata.size, type);
+    })
+    this.table.add(item);
+    return item;
+  }
 }
