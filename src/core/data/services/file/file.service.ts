@@ -29,4 +29,14 @@ export class FileService {
     return Promise.all(files);
   }
 
+  createFile(path: string, size: number, type: string) : File { //TODO return Promise<File>
+    var file : File = {
+      path : path,
+      size : size,
+      type : type
+    };
+    this.table.add(file);
+    return file;
+  }
+
 }
