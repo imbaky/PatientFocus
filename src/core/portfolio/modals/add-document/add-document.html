@@ -7,12 +7,18 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
-  <button ion-button color="primary" full (click)="selectFile()">Select Document</button>
-
   <ion-item>
     <ion-label>Date</ion-label>
     <ion-datetime displayFormat="MMMM DD, YYYY" [(ngModel)]="date"></ion-datetime>
   </ion-item>
+
+  <ion-item>
+    <ion-label>Document type</ion-label>
+    <ion-select [(ngModel)]="selectedDocumentType">
+      <ion-option *ngFor="let type of documentTypes" [value]="type.value">{{type.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <button ion-button color="primary" full (click)="selectFile()">Select File</button>
 </ion-content>

@@ -33,8 +33,8 @@ export class PortfolioPage {
   }
 
   importNewDocument(directory: Directory) {
-    const myModal = this.modalCtrl.create(AddDocumentModal, { directory: directory });
-    myModal.present();
+    const importNewDocumentModal = this.modalCtrl.create(AddDocumentModal, { directory: directory });
+    importNewDocumentModal.present();
   }
 }
 
