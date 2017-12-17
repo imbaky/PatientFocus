@@ -6,6 +6,8 @@ module.exports = function(config) {
 
     frameworks: ['jasmine'],
 
+    mime: { 'text/x-typescript': ['ts']},
+
     files: [
       {
         pattern: './test-config/karma-test-shim.js',
