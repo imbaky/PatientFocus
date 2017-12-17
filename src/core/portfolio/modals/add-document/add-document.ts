@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { NavParams, ViewController} from 'ionic-angular';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
-import { File } from '../../../data/services/file/file.service'
-import { PortfolioService } from "../../portfolio.service";
-import {FileSystemService} from "../../../data/services/file-system/file-system.service";
-
+import { FileSystemService} from "../../../data/services/file-system/file-system.service";
+import { Directory } from "../../../data/services/directory/directory.service";
 
 declare var window;
 
@@ -13,9 +11,23 @@ declare var window;
   templateUrl: 'add-document.html'
 })
 export class AddDocumentModal {
-  constructor(public viewCtrl: ViewController, private fileChooser: FileChooser, private filePath: FilePath,
-              private portfolioservice: PortfolioService, private fileSystemService: FileSystemService) {}
-  document: File = { date: new Date().toISOString() } as any;
+
+  directory: Directory;
+  date: string = new Date().toISOString();
+  fullPath: string;
+  newFileName: string = new Date().toISOString(); //TODO Darrel need to add input to change file name. original file name is a number
+  documentType: string = "Lab"; //TODO
+
+
+  constructor(public viewCtrl: ViewController,
+              private fileChooser: FileChooser,
+              private filePath: FilePath,
+              private fileSystemService: FileSystemService,
+              private params: NavParams) {
+
+    this.directory = this.params.get('directory');
+  }
+
   dismiss() {
     this.viewCtrl.dismiss();
   }
@@ -25,14 +37,16 @@ export class AddDocumentModal {
     .then(uri => window.resolveLocalFileSystemURL(uri, (fileEntry) => {
         fileEntry.getMetadata((metadata) => {
             this.filePath.resolveNativePath(uri)
-              .then(filePath => {
-                  this.document.path = filePath;
+              .then(fullPath => {
+                this.fullPath = fullPath;
               }).catch(err => console.log(err));
-            this.document.size = metadata.size;
         });
     }))
     .catch(err => console.log(err));
-    this.fileSystemService.addFile(this.document, this.portfolioservice.getDirectory());
+  }
+
+  importFile() { //TODO need import button
+    this.fileSystemService.addFile(this.fullPath, this.date, this.documentType, this.directory);
   }
 
 
