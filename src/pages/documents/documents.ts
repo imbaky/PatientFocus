@@ -15,6 +15,7 @@ export class Documents {
   directory$: Promise<Directory>;
 
   currentItem: Item;
+  searchTerm: string;
 
   ItemType = ItemType;
 
@@ -30,9 +31,10 @@ export class Documents {
 
     this.directory$ = this.directoryService.getDirectoryById(id);
   }
-
+  
   handleDir(event, item) {
     // pass selected item to page
     this.navCtrl.push(Documents, { item: item });
   }
+
 }
