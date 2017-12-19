@@ -30,7 +30,7 @@ export class FileService {
   }
 
   createFile(path: string, size: number, type: DocumentType): File { //TODO return Promise<File>
-    let file: File = {
+    const file: File = {
       path : path,
       size : size,
       document_type : type

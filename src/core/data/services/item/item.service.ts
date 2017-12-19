@@ -61,7 +61,7 @@ export class ItemService {
    * @returns {Item}
    */
   createItemWithFileEntry(fileEntry: Entry, creationDate: string, type: DocumentType): Item { //TODO need to return Promise<Item>
-    let item: Item = { } as any;
+    const item: Item = { } as any;
     fileEntry.getMetadata(metadata => {
       item.effective = creationDate;
       this.file.createFile(fileEntry.nativeURL, metadata.size, type);

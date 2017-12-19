@@ -54,7 +54,7 @@ export class DirectoryService {
    * @param {Directory} directory the directory in which the file will be added to
    */
   addFileToDirectory(fileEntry: Entry, creationDate: string, type: DocumentType, directory: Directory) {
-    let item: Item = this.items.createItemWithFileEntry(fileEntry, creationDate, type);
+    const item: Item = this.items.createItemWithFileEntry(fileEntry, creationDate, type);
     directory.items.push(item); //TODO update directory in table
     this.table.update(directory.id, { items: directory.items });
   }

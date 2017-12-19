@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController, NavParams } from 'ionic-angular';
+import { ActionSheetController, ModalController, NavController, NavParams } from 'ionic-angular';
 
 import { Directory, DirectoryService } from '../../core/data/services/directory/directory.service';
 import { ItemType } from '../../core/data/enum/item-type.enum';
@@ -18,6 +18,7 @@ export class PortfolioPage {
   constructor(
     public modalCtrl: ModalController,
     public navCtrl: NavController,
+    public actionSheetCtrl: ActionSheetController,
     public navParams: NavParams,
     private directoryService: DirectoryService,
   ) {
@@ -33,8 +34,33 @@ export class PortfolioPage {
   }
 
   importNewDocument(directory: Directory) {
-    const importNewDocumentModal = this.modalCtrl.create(AddDocumentModal, { directory: directory });
-    importNewDocumentModal.present();
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Document Source',
+      buttons: [
+        {
+          text: 'Take Picture',
+          icon: 'md-camera',
+          handler: () => {
+            //TODO - User Story #1
+          }
+        }, {
+          text: 'Import File',
+          icon: 'md-document',
+          handler: () => {
+            const importNewDocumentModal = this.modalCtrl.create(AddDocumentModal, { directory: directory });
+            importNewDocumentModal.present();
+          }
+        }, {
+          text: 'Cancel',
+          role: 'cancel',
+          icon: 'md-close',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 }
 
