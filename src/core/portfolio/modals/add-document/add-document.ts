@@ -55,7 +55,9 @@ export class AddDocumentModal {
   }
 
   importFile() {
-    this.fileSystemService.addFile(this.fullPath, this.date, this.selectedDocumentType, this.documentName, this.directory);
+    if(this.fullPath != "") { //TODO need to throw some sort of an alert that no file was selected
+      this.fileSystemService.addFile(this.fullPath, this.date, this.selectedDocumentType, this.documentName, this.directory);
+    }
   }
 
 
