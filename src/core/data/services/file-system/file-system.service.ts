@@ -26,6 +26,9 @@ export class FileSystemService {
    */
   async addFile(fullPath: string, creationDate: string, type: DocumentType, newFileName: string, directory: Directory) {
       const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
+      var extension = filename.substring(filename.lastIndexOf("."));
+      newFileName = newFileName.concat(extension);
+      console.log(newFileName);
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
       console.log(filename);
       console.log(url);
