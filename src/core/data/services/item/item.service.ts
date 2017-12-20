@@ -60,13 +60,23 @@ export class ItemService {
    * @param {DocumentType} type type of medical document
    * @returns {Item}
    */
-  createItemWithFileEntry(fileEntry: Entry, creationDate: string, type: DocumentType): Item { //TODO need to return Promise<Item>
-    const item: Item = { } as any;
-    fileEntry.getMetadata(metadata => {
-      item.effective = creationDate;
-      this.file.createFile(fileEntry.nativeURL, metadata.size, type);
+  async createItemWithFileEntry(fileEntry: Entry, creationDate: string, type: DocumentType): Promise<Item> {
+    let size;
+    await fileEntry.getMetadata(metadata => {
+      size = metadata.size
     });
-    this.table.add(item);
+    let file: File = await this.file.createFile(fileEntry.nativeURL, size, type);
+    let item: Item =  {
+      name: fileEntry.name,
+      effective : creationDate,
+      description: "Temporary description",
+      type: ItemType.FILE,
+      type_id: file.id,
+      value: file
+    };
+    var pk = await this.table.add(item);
+    item.id = pk;
+    console.log(item);
     return item;
   }
 }

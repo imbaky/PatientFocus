@@ -19,6 +19,7 @@ export class DirectoryService {
   constructor(
     private dexie: DexieService,
     private items: ItemService,
+    private file: File
   ) {
     this.table = this.dexie.table('directory');
   }
@@ -53,10 +54,15 @@ export class DirectoryService {
    * @param {DocumentType} type type of medical document
    * @param {Directory} directory the directory in which the file will be added to
    */
-  addFileToDirectory(fileEntry: Entry, creationDate: string, type: DocumentType, directory: Directory) {
-    const item: Item = this.items.createItemWithFileEntry(fileEntry, creationDate, type);
-    directory.items.push(item); //TODO update directory in table
-    this.table.update(directory.id, { items: directory.items });
+  async addFileToDirectory(fileEntry: Entry, creationDate: string, type: DocumentType, directory: Directory) {
+    var item = await this.items.createItemWithFileEntry(fileEntry, creationDate, type);
+    directory.items.push(item);
+    console.log(directory.items);
+    await this.table.update(directory.id, { items: directory.items });
+  }
+
+  addDirectoryToDevice(directory: Directory) {
+    this.file.createDir(this.file.dataDirectory + 'Documents/', directory.id.toString() , false);
   }
 
 }
