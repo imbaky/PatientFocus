@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import Dexie from 'dexie';
 import { ItemType } from '../../enum/item-type.enum';
+import { Document_Type, FileFormat_Type } from '../../enum/file-type.enum';
 import { SCHEMA } from './database';
 
 @Injectable()
@@ -49,17 +50,20 @@ export class DexieService extends Dexie {
         {
           path: '::directory/subdirectory/subsubdirectory',
           size: 4576543,
-          type: 'jpeg'
+          document_type: Document_Type.BLOOD_TEST,
+          format: FileFormat_Type.JPG
         },
         {
           path: '::directory/subdirectory/subsubdirectory',
           size: 245364,
-          type: 'jpeg'
+          document_type: Document_Type.CONSULTATION,
+          format: FileFormat_Type.PNG
         },
         {
           path: '::directory/subdirectory/subsubdirectory',
           size: 34564,
-          type: 'jpeg'
+          document_type: Document_Type.PRESCRIPTION,
+          format: FileFormat_Type.PDF
         }
       ]);
     });
