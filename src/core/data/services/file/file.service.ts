@@ -29,13 +29,14 @@ export class FileService {
     return Promise.all(files);
   }
 
-  createFile(path: string, size: number, type: DocumentType): File { //TODO return Promise<File>
+  async createFile(path: string, size: number, type: DocumentType): Promise<File> { //TODO return Promise<File>
     const file: File = {
       path : path,
       size : size,
       document_type : type
     };
-    this.table.add(file);
+    var pk = await this.table.add(file)
+    file.id = pk;
     return file;
   }
 

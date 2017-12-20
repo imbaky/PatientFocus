@@ -35,9 +35,10 @@ export class FileSystemService {
       // this.file.copyFile(url, filename, this.file.dataDirectory+"Documents/" + directory.id + "/", ""). //TODO need to add directory to phone
       const entry = await this.file.copyFile(url, filename, this.file.dataDirectory + 'Documents/', newFileName);
       console.log(entry);
-      this.directoryService.addFileToDirectory(entry, creationDate, type, directory);
+      await this.directoryService.addFileToDirectory(entry, creationDate, type, directory);
+      console.log(directory.items);
       const entries = await this.file.listDir(this.file.dataDirectory, 'Documents');
-      console.log(entries);
+      //console.log(entries);
   }
 
   /**
