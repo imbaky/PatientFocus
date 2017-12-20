@@ -60,7 +60,7 @@ export class ItemService {
    * @param {DocumentType} type type of medical document
    * @returns {Item}
    */
-  async createItemWithFileEntry(fileEntry: Entry, creationDate: string, type: DocumentType): Promise<Item> {
+  async createItemWithFileEntry(fileEntry: Entry, creationDate: string, type: DocumentType, directory_id: number): Promise<Item> {
     let size;
     await fileEntry.getMetadata(metadata => {
       size = metadata.size
@@ -75,8 +75,10 @@ export class ItemService {
       value: file
     };
     var pk = await this.table.add(item);
+    this.table.update( item.id, { directory_id: directory_id});
     item.id = pk;
     console.log(item);
     return item;
   }
+
 }
