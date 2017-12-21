@@ -8,28 +8,31 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-item>
+  <form [formGroup]="addDocumentForm" (ngSubmit)="importFile()">
+    <ion-item>
       <ion-label>Document Name</ion-label>
-      <ion-input type="text" [(ngModel)]="documentName"> </ion-input>
-  </ion-item>
+      <ion-input type="text" formControlName="name"> </ion-input>
+    </ion-item>
 
-  <ion-item>
-    <ion-label>Date</ion-label>
-    <ion-datetime displayFormat="MMMM DD, YYYY" [(ngModel)]="date"></ion-datetime>
-  </ion-item>
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="MMMM DD, YYYY" formControlName="date"></ion-datetime>
+    </ion-item>
 
-  <ion-item>
-    <ion-label>Document type</ion-label>
-    <ion-select [(ngModel)]="selectedDocumentType">
-      <ion-option *ngFor="let type of documentTypes" [value]="type.value">{{type.name}}</ion-option>
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-label>Selected File</ion-label>
-    <ion-input type="text" readonly="true" [(ngModel)]="selectedFileName">{{selectedFileName}}</ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label>Document type</ion-label>
+      <ion-select formControlName="type">
+        <ion-option *ngFor="let type of documentTypes" [value]="type.value">{{type.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Selected file</ion-label>
+      <ion-input type="text" readonly="true" formControlName="fullPath">{{selectedFileName}}</ion-input>
+    </ion-item>
 
-  <button ion-button outline="true" (click)="selectFile()">Select a File</button>
-
-  <button ion-button color="primary" (click)="importFile()">Import</button>
+    <ion-item>
+      <button ion-button outline="true" (click)="selectFile()">Select a File</button>
+      <button ion-button color="primary" type="submit" [disabled]="!addDocumentForm.valid">Submit</button>
+    </ion-item>
+  </form>
 </ion-content>

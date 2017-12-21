@@ -1,6 +1,7 @@
 export enum DocumentType {
-  LABTEST,
-  IMAGEREPORT,
-  PRESCRIPTION,
-  DISCHARGESUMMARY
+  LABTEST = 'Lab Test',
+  IMAGEREPORT = 'Image Report',
+  PRESCRIPTION = 'Prescription',
+  DISCHARGESUMMARY = 'Discharge Summary',
+  CONSULTATIONREPORT = 'Consultation Report'
 }

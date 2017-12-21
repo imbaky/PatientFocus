@@ -26,13 +26,12 @@ export class FileSystemService {
    */
   async addFile(fullPath: string, creationDate: string, type: DocumentType, newFileName: string, directory: Directory) {
       const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
-      var extension = filename.substring(filename.lastIndexOf("."));
+      let extension = filename.substring(filename.lastIndexOf('.'));
       newFileName = newFileName.concat(extension);
       console.log(newFileName);
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
       console.log(filename);
       console.log(url);
-      // this.file.copyFile(url, filename, this.file.dataDirectory+"Documents/" + directory.id + "/", ""). //TODO need to add directory to phone
       const entry = await this.file.copyFile(url, filename, this.file.dataDirectory + 'Documents/', newFileName);
       console.log(entry);
       await this.directoryService.addFileToDirectory(entry, creationDate, type, directory);

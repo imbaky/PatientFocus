@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { NavParams, ViewController} from 'ionic-angular';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { File } from '@ionic-native/file';
@@ -20,13 +21,10 @@ export interface DocumentTypeOption {
 export class AddDocumentModal {
   documentTypes: Array<DocumentTypeOption> = [];
   directory: Directory;
-  date: string = new Date().toISOString();
-  fullPath: string;
-  documentName: string;
-  selectedFileName: string;
-  selectedDocumentType: DocumentType = DocumentType.LABTEST;
+  addDocumentForm: FormGroup;
 
   constructor(public viewCtrl: ViewController,
+              private formBuilder: FormBuilder,
               private fileChooser: FileChooser,
               private filePath: FilePath,
               private fileSystemService: FileSystemService,
@@ -37,6 +35,12 @@ export class AddDocumentModal {
       { name: 'Discharge Summary', value: DocumentType.DISCHARGESUMMARY },
       { name: 'Prescription', value: DocumentType.PRESCRIPTION }
     ];
+    this.addDocumentForm = this.formBuilder.group({
+      name: [ 'Medical Document', Validators.required ],
+      date: [ new Date().toISOString(), Validators.required ],
+      type: [ DocumentType.LABTEST, Validators.required ],
+      fullPath: [ '', Validators.required ]
+    });
     this.directory = this.params.get('directory');
   }
 
@@ -48,17 +52,18 @@ export class AddDocumentModal {
     const uri = await this.fileChooser.open();
     window.resolveLocalFileSystemURL(uri, (fileEntry) => {
         fileEntry.getMetadata(async (metadata) => {
-            this.fullPath = await this.filePath.resolveNativePath(uri);
-            this.selectedFileName = this.fullPath.substring(this.fullPath.lastIndexOf('/') + 1);
+            this.addDocumentForm.controls['fullPath'].setValue(await this.filePath.resolveNativePath(uri));
         });
     });
   }
 
   importFile() {
-    if(this.fullPath != "") { //TODO need to throw some sort of an alert that no file was selected
-      this.fileSystemService.addFile(this.fullPath, this.date, this.selectedDocumentType, this.documentName, this.directory);
-    }
+    this.fileSystemService.addFile(
+      this.addDocumentForm.controls['fullPath'].value,
+      this.addDocumentForm.controls['date'].value,
+      this.addDocumentForm.controls['type'].value,
+      this.addDocumentForm.controls['name'].value,
+      this.directory
+    );
   }
-
-
 }

@@ -55,7 +55,7 @@ export class DirectoryService {
    * @param {Directory} directory the directory in which the file will be added to
    */
   async addFileToDirectory(fileEntry: Entry, creationDate: string, type: DocumentType, directory: Directory) {
-    var item = await this.items.createItemWithFileEntry(fileEntry, creationDate, type, directory.id);
+    let item = await this.items.createItemWithFileEntry(fileEntry, creationDate, type, directory.id);
     directory.items.push(item);
     console.log(directory.items);
   }

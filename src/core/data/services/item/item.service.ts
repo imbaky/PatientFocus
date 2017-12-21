@@ -63,10 +63,10 @@ export class ItemService {
   async createItemWithFileEntry(fileEntry: Entry, creationDate: string, type: DocumentType, directory_id: number): Promise<Item> {
     let size;
     await fileEntry.getMetadata(metadata => {
-      size = metadata.size
+      size = metadata.size;
     });
-    let file: File = await this.file.createFile(fileEntry.nativeURL, size, type);
-    let item: Item =  {
+    const file: File = await this.file.createFile(fileEntry.nativeURL, size, type);
+    const item: Item =  {
       name: fileEntry.name,
       effective : creationDate,
       description: "Temporary description",
@@ -74,7 +74,7 @@ export class ItemService {
       type_id: file.id,
       value: file
     };
-    var pk = await this.table.add(item);
+    const pk = await this.table.add(item);
     this.table.update( item.id, { directory_id: directory_id});
     item.id = pk;
     console.log(item);
