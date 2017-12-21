@@ -3,12 +3,12 @@
     <ion-buttons start>
       <button ion-button (click)="dismiss()">Close</button>
     </ion-buttons>
-    <ion-title>Add Document</ion-title>
+    <ion-title>Import Document</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="addDocumentForm" (ngSubmit)="importFile()">
+  <form [formGroup]="importDocumentForm" (ngSubmit)="importFile()">
     <ion-item>
       <ion-label>Document Name</ion-label>
       <ion-input type="text" formControlName="name"> </ion-input>
@@ -32,7 +32,7 @@
 
     <ion-item>
       <button ion-button outline="true" (click)="selectFile()">Select a File</button>
-      <button ion-button color="primary" type="submit" [disabled]="!addDocumentForm.valid">Submit</button>
+      <button ion-button color="primary" type="submit" [disabled]="!importDocumentForm.valid">Import</button>
     </ion-item>
   </form>
 </ion-content>
