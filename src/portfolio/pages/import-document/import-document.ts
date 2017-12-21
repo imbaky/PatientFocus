@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { NavParams, ViewController} from 'ionic-angular';
+import { NavParams, ViewController } from 'ionic-angular';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
-import { FileSystemService} from '../../../data/services/file-system/file-system.service';
-import { Directory } from '../../../data/services/directory/directory.service';
-import { DocumentType } from '../../../../core/data/enum/file-type.enum';
+import { FileSystemService } from '../../../core/data/services/file-system/file-system.service';
+import { Directory } from '../../../core/data/services/directory/directory.service';
+import { DocumentType } from '../../../core/data/enum/file-type.enum';
 
 declare var window;
 
@@ -16,12 +16,12 @@ export interface DocumentTypeOption {
 }
 
 @Component({
-  templateUrl: 'add-document.html'
+  templateUrl: 'import-document.html'
 })
-export class AddDocumentModal {
+export class ImportDocumentPage {
   documentTypes: Array<DocumentTypeOption> = [];
   directory: Directory;
-  addDocumentForm: FormGroup;
+  importDocumentForm: FormGroup;
 
   constructor(public viewCtrl: ViewController,
               private formBuilder: FormBuilder,
@@ -35,7 +35,7 @@ export class AddDocumentModal {
       { name: 'Discharge Summary', value: DocumentType.DISCHARGESUMMARY },
       { name: 'Prescription', value: DocumentType.PRESCRIPTION }
     ];
-    this.addDocumentForm = this.formBuilder.group({
+    this.importDocumentForm = this.formBuilder.group({
       name: [ 'Medical Document', Validators.required ],
       date: [ new Date().toISOString(), Validators.required ],
       type: [ DocumentType.LABTEST, Validators.required ],
@@ -52,17 +52,17 @@ export class AddDocumentModal {
     const uri = await this.fileChooser.open();
     window.resolveLocalFileSystemURL(uri, (fileEntry) => {
         fileEntry.getMetadata(async (metadata) => {
-            this.addDocumentForm.controls['fullPath'].setValue(await this.filePath.resolveNativePath(uri));
+            this.importDocumentForm.controls['fullPath'].setValue(await this.filePath.resolveNativePath(uri));
         });
     });
   }
 
-  importFile() {
-    this.fileSystemService.addFile(
-      this.addDocumentForm.controls['fullPath'].value,
-      this.addDocumentForm.controls['date'].value,
-      this.addDocumentForm.controls['type'].value,
-      this.addDocumentForm.controls['name'].value,
+  async importFile() {
+    await this.fileSystemService.addFile(
+      this.importDocumentForm.controls['fullPath'].value,
+      this.importDocumentForm.controls['date'].value,
+      this.importDocumentForm.controls['type'].value,
+      this.importDocumentForm.controls['name'].value,
       this.directory
     );
   }

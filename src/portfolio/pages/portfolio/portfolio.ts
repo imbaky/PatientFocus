@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActionSheetController, ModalController, NavController, NavParams } from 'ionic-angular';
 
-import { Directory, DirectoryService } from '../../core/data/services/directory/directory.service';
-import { ItemType } from '../../core/data/enum/item-type.enum';
-import { Item } from '../../core/data/services/item/item.service';
+import { Directory, DirectoryService } from '../../../core/data/services/directory/directory.service';
+import { ItemType } from '../../../core/data/enum/item-type.enum';
+import { Item } from '../../../core/data/services/item/item.service';
 
-import { AddDocumentModal } from './modals/add-document/add-document';
+import { ImportDocumentPage } from '../../pages/import-document/import-document';
 
 @Component({
   selector: 'page-portfolio',
@@ -47,7 +47,7 @@ export class PortfolioPage {
           text: 'Import File',
           icon: 'md-document',
           handler: () => {
-            const importNewDocumentModal = this.modalCtrl.create(AddDocumentModal, { directory: directory });
+            const importNewDocumentModal = this.modalCtrl.create(ImportDocumentPage, { directory: directory });
             importNewDocumentModal.present();
           }
         }, {

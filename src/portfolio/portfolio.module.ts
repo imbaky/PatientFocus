@@ -5,22 +5,22 @@ import { IonicModule } from 'ionic-angular';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import { File } from '@ionic-native/file';
-import { PortfolioPage } from './portfolio';
-import { AddDocumentModal } from './modals/add-document/add-document';
+import { PortfolioPage } from './pages/portfolio/portfolio';
+import { ImportDocumentPage } from './pages/import-document/import-document';
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule.forRoot(PortfolioPage),
-    IonicModule.forRoot(AddDocumentModal),
+    IonicModule.forRoot(ImportDocumentPage),
   ],
   declarations: [
     PortfolioPage,
-    AddDocumentModal
+    ImportDocumentPage
   ],
   exports: [
     PortfolioPage,
-    AddDocumentModal
+    ImportDocumentPage
   ],
   providers: [
     FileChooser,

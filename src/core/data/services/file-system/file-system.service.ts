@@ -28,16 +28,10 @@ export class FileSystemService {
       const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
       let extension = filename.substring(filename.lastIndexOf('.'));
       newFileName = newFileName.concat(extension);
-      console.log(newFileName);
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
-      console.log(filename);
-      console.log(url);
       const entry = await this.file.copyFile(url, filename, this.file.dataDirectory + 'Documents/', newFileName);
-      console.log(entry);
       await this.directoryService.addFileToDirectory(entry, creationDate, type, directory);
-      console.log(directory.items);
       const entries = await this.file.listDir(this.file.dataDirectory, 'Documents');
-      //console.log(entries);
   }
 
   /**
