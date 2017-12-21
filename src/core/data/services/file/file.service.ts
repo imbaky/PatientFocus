@@ -35,7 +35,7 @@ export class FileService {
       size : size,
       document_type : type
     };
-    var pk = await this.table.add(file)
+    let pk = await this.table.add(file);
     file.id = pk;
     return file;
   }
