@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { DexieService } from '../dexie/dexie.service';
-import { Document_Type, FileFormat_Type } from '../../enum/file-type.enum';
+import { DocumentType, FileFormatType } from '../../enum/file-type.enum';
 
 import Dexie from 'dexie';
 
 export interface File {
   id?: number;
   path: string;
-  document_type: Document_Type;
+  document_type: DocumentType;
   size: number;
-  format: FileFormat_Type;
+  format: FileFormatType;
 }
 
 @Injectable()

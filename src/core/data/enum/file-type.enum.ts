@@ -1,4 +1,4 @@
-export enum Document_Type {
+export enum DocumentType {
     BLOOD_TEST = 'Blood Test',
     PRESCRIPTION = 'Prescription',
     LAB_TEST = 'Lab Test',
@@ -9,7 +9,7 @@ export enum Document_Type {
     OTHER = 'Other'
 }
 
-export enum FileFormat_Type {
+export enum FileFormatType {
     JPG = 'JPG',
     PNG = 'PNG',
     PDF = 'PDF',
