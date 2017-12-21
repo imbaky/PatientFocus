@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController, ToastController } from 'ionic-angular';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
@@ -24,6 +24,7 @@ export class ImportDocumentPage {
   importDocumentForm: FormGroup;
 
   constructor(public viewCtrl: ViewController,
+              private toastCtrl: ToastController,
               private formBuilder: FormBuilder,
               private fileChooser: FileChooser,
               private filePath: FilePath,
@@ -65,5 +66,11 @@ export class ImportDocumentPage {
       this.importDocumentForm.controls['name'].value,
       this.directory
     );
+    let importToast = this.toastCtrl.create({
+      message: `${this.importDocumentForm.controls['name'].value} was successfully imported`,
+      duration: 3000,
+      position: 'bottom'
+    });
+    importToast.present();
   }
 }
