@@ -2,9 +2,10 @@ export enum Document_Type {
     BLOOD_TEST = 'Blood Test',
     PRESCRIPTION = 'Prescription',
     LAB_TEST = 'Lab Test',
-    CONSULTATION = 'Consultation Reports',
+    CONSULTATION = 'Consultation Report',
     IMAGE = 'Image Report',
-    DISCHARGE = 'Dischart Summaries',
+    DISCHARGE = 'Hospital Discharge',
+    DIAGNOSIS = 'Diagnosis Report',
     OTHER = 'Other'
 }
 
