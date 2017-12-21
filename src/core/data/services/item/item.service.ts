@@ -13,7 +13,7 @@ export interface Item {
   description: string;
   type: ItemType;
   type_id: number;
-  created: string;
+  effective: string;
   value: Directory | File;
 }
 

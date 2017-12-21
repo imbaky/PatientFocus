@@ -4,6 +4,7 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { Directory, DirectoryService } from '../../core/data/services/directory/directory.service';
 import { ItemType } from '../../core/data/enum/item-type.enum';
+import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enum';
 import { Item } from '../../core/data/services/item/item.service';
 
 @Component({
@@ -17,6 +18,8 @@ export class Documents {
   currentItem: Item;
 
   ItemType = ItemType;
+  Document_Type = DocumentType;
+  FileFormat_Type = FileFormatType;
 
   constructor(
     public navCtrl: NavController,
