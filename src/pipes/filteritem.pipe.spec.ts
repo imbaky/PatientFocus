@@ -1,5 +1,6 @@
 import { FilterItemPipe } from './filteritem.pipe';
 import { ItemType } from '../core/data/enum/item-type.enum';
+import { DocumentType, FileFormatType } from '../core/data/enum/file-type.enum';
 
 describe('FilterItemPipe', () => {
     const pipe = new FilterItemPipe();
@@ -9,7 +10,8 @@ describe('FilterItemPipe', () => {
         name: "FileName1.txt",
         type: ItemType.FILE,
         value: {
-            type: 'txt'
+            document_type: DocumentType.PRESCRIPTION,
+            format: FileFormatType.TXT
         }
     };
 
@@ -17,7 +19,8 @@ describe('FilterItemPipe', () => {
         name: "FileName2.jpg",
         type: ItemType.FILE,
         value: {
-            type: 'jpeg'
+            document_type: DocumentType.IMAGE,
+            format: FileFormatType.JPG
         }
     };
 
@@ -30,11 +33,11 @@ describe('FilterItemPipe', () => {
         expect(pipe.transform([], "")).toEqual([]);
     });
 
-    it('should return an same list', () => {
+    it('should return the same list', () => {
         expect(pipe.transform(mockData1, "")).toEqual(mockData1);
     });
 
-    it('should return an txt file', () => {
-        expect(pipe.transform(mockData1, "txt")).toEqual([mockFile1]);
+    it('should return a txt file', () => {
+        expect(pipe.transform(mockData1, FileFormatType.TXT)).toEqual([mockFile1]);
     });
 })

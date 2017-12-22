@@ -4,7 +4,7 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { Directory, DirectoryService } from '../../core/data/services/directory/directory.service';
 import { ItemType } from '../../core/data/enum/item-type.enum';
-import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enum';
+import { DocumentType, FileFormatType, documentValues, fileFormatValues } from '../../core/data/enum/file-type.enum';
 import { Item } from '../../core/data/services/item/item.service';
 
 @Component({
@@ -16,7 +16,8 @@ export class Documents {
   directory$: Promise<Directory>;
 
   currentItem: Item;
-  searchTerm: string;
+  documentValues = documentValues;
+  fileFormatValues = fileFormatValues;
 
   ItemType = ItemType;
   Document_Type = DocumentType;
@@ -34,7 +35,7 @@ export class Documents {
 
     this.directory$ = this.directoryService.getDirectoryById(id);
   }
-  
+
   handleDir(event, item) {
     // pass selected item to page
     this.navCtrl.push(Documents, { item: item });

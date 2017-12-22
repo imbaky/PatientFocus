@@ -16,3 +16,14 @@ export enum FileFormatType {
     TXT = 'TXT',
     Other = 'Other'
 }
+
+interface EnumObject {
+    [enumValue: number]: string;
+}
+
+function getEnumValues(e: EnumObject): string[] {
+    return Object.keys(e).map((i) => e[i]);
+}
+
+export const documentValues = getEnumValues(DocumentType);
+export const fileFormatValues = getEnumValues(FileFormatType);
