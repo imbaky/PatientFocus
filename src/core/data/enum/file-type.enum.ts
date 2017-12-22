@@ -25,5 +25,17 @@ function getEnumValues(e: EnumObject): string[] {
     return Object.keys(e).map((i) => e[i]);
 }
 
-export const documentValues = getEnumValues(DocumentType);
-export const fileFormatValues = getEnumValues(FileFormatType);
+// Extending the enums
+export namespace DocumentType {
+    export function values(): string[] {
+        const documentValues = getEnumValues(DocumentType);
+        return documentValues.slice(0, documentValues.length - 1);
+    }
+}
+
+export namespace FileFormatType {
+    export function values(): string[] {
+        const fileFormatValues = getEnumValues(FileFormatType);
+        return fileFormatValues.slice(0, fileFormatValues.length - 1);
+    }
+}

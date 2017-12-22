@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { ItemType } from '../core/data/enum/item-type.enum';
-import { DocumentType, FileFormatType, documentValues, fileFormatValues } from '../core/data/enum/file-type.enum';
+import { DocumentType, FileFormatType } from '../core/data/enum/file-type.enum';
 
 @Pipe({name: 'filterItem'})
 export class FilterItemPipe implements PipeTransform {
