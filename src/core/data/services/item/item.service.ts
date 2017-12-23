@@ -15,7 +15,7 @@ export interface Item {
   description: string;
   type: ItemType;
   type_id: number;
-  effective: string;
+  chosen_date: string;
   value: Directory | File;
 }
 
