@@ -50,12 +50,13 @@ export class DirectoryService {
   /**
    * Adds a file to a directory
    * @param {Entry} fileEntry file to be added to the directory
+   * @package {string} newDocumentName The document name associated to the file
    * @param {string} creationDate Date in which the document should be placed
    * @param {DocumentType} type type of medical document
    * @param {Directory} directory the directory in which the file will be added to
    */
-  async addFileToDirectory(fileEntry: Entry, creationDate: string, type: DocumentType, directory: Directory) {
-    let item = await this.items.createItemWithFileEntry(fileEntry, creationDate, type, directory.id);
+  async addFileToDirectory(fileEntry: Entry, newDocumentName: string, creationDate: string, type: DocumentType, directory: Directory) {
+    let item = await this.items.createItemWithFileEntry(fileEntry, newDocumentName, creationDate, type, directory.id);
     directory.items.push(item);
     console.log(directory.items);
   }
