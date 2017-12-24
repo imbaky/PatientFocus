@@ -34,6 +34,7 @@ export class MyApp {
   isProfileCreated() {
     this.profileService.getProfileById(1).then(profile => {
       if (profile && profile.loaded) {
+        console.log('a profile is loaded')
         this.rootPage = Page1;
       } else {
         this.rootPage = Profile;

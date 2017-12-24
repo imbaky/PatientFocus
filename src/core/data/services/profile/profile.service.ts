@@ -41,12 +41,12 @@ export class ProfileService {
         console.log('added');
     }
 
-    async getProfile() {
-        this.table.get('profile').then(profile => {
-            console.log(profile);
-        });
-        return this.table.get(1);
-    }
+    // async getProfile() {
+    //     this.table.get('profile').then(profile => {
+    //         console.log(profile);
+    //     });
+    //     return this.table.get(1);
+    // }
 
     clearDb() {
         this.table.clear();
