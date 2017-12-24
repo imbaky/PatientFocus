@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { File } from '@ionic-native/file';
 
 import { Directory, DirectoryService } from '../directory/directory.service';
-import { DocumentType } from '../../enum/file-type.enum';
+import {DocumentType, FileFormatType} from '../../enum/file-type.enum';
 import { Item } from '../item/item.service';
 
 
@@ -21,16 +21,16 @@ export class FileSystemService {
    * @param fullPath path of where the original file is located
    * @param creationDate in which the document should be placed
    * @param type type of medical document
-   * @param newFileName new name associated to the imported file
+   * @param newDocumentName new name associated to the document
    * @param directory user profile directory
    */
-  async addFile(fullPath: string, creationDate: string, type: DocumentType, newFileName: string, directory: Directory) {
+  async addFile(fullPath: string, creationDate: string, type: DocumentType, newDocumentName: string, directory: Directory) {
       const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
       let extension = filename.substring(filename.lastIndexOf('.'));
-      newFileName = newFileName.concat(extension);
+      const fileFormat = FileFormatType[extension];
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
-      const entry = await this.file.copyFile(url, filename, this.file.dataDirectory + 'Documents/', newFileName);
-      await this.directoryService.addFileToDirectory(entry, creationDate, type, directory);
+      const entry = await this.file.copyFile(url, filename, this.file.dataDirectory + 'Documents/', filename);
+      await this.directoryService.addFileToDirectory(entry, newDocumentName, creationDate, type, directory);
       const entries = await this.file.listDir(this.file.dataDirectory, 'Documents');
   }
 
