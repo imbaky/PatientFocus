@@ -1,3 +1,3 @@
 export const SCHEMA = {
-    'profile': '++id, name, password',
+    'profile': 'name, password'
 };
