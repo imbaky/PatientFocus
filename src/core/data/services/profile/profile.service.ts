@@ -2,20 +2,22 @@ import { Injectable } from '@angular/core';
 import { DexieService } from '../dexie/dexie.service';
 
 import Dexie from 'dexie';
+import {Profile} from '../../../../pages/profile/profile';
 
 export interface Profile {
     id?: number;
     directory: number;
+    name: string;
     password: string;
-    loaded: boolean;
 }
 
 @Injectable()
 export class ProfileService {
 
-    table: Dexie.Table<File, number>;
+    table: Dexie.Table<Profile, number>;
 
     constructor(private dexie: DexieService) {
+
         this.table = this.dexie.table('profile');
     }
 
@@ -31,13 +33,19 @@ export class ProfileService {
 
     save(profile: Profile) {
         console.log(profile);
-        this.table.put({
-            id: 1,
+        const entry = {
             name: profile.name,
             password: profile.password,
-            loaded: true
-        });
+        };
+        this.table.put(entry);
         console.log('added');
+    }
+
+    async getFirstProfile(): Promise<Profile> {
+        return this.table.toArray(profile => {
+                console.log(profile);
+                return profile[0];
+        });
     }
 
     // async getProfile() {
@@ -51,3 +59,4 @@ export class ProfileService {
         this.table.clear();
     }
 }
+
