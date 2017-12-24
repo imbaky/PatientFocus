@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 // services
 import { DexieService } from './services/dexie/dexie.service';
+import { ProfileService } from "./services/profile/profile.service";
 @NgModule({
   imports: [
     CommonModule
@@ -18,6 +19,7 @@ export class DataModule {
     return {
       providers: [
         DexieService,
+          ProfileService
       ],
       ngModule: DataModule
     };

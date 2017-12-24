@@ -11,28 +11,32 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // modules
 import { DataModule } from '../core/data/data.module';
+import { Profile } from "../pages/profile/profile";
 
 @NgModule({
-  declarations: [
-    MyApp,
-    Page1,
-    Page2
-  ],
-  imports: [
-    BrowserModule,
-    DataModule.forRoot(),
-    IonicModule.forRoot(MyApp, {}, { links: [] })
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    Page1,
-    Page2
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
-  ]
+    declarations: [
+        MyApp,
+        Page1,
+        Page2,
+        Profile
+    ],
+    imports: [
+        BrowserModule,
+        DataModule.forRoot(),
+        IonicModule.forRoot(MyApp, {}, {links: []})
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+        MyApp,
+        Page1,
+        Page2,
+        Profile
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        {provide: ErrorHandler, useClass: IonicErrorHandler}
+    ]
 })
-export class AppModule { }
+export class AppModule {
+}

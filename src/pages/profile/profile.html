@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Profile</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="createProfile" (ngSubmit)="logForm()">
+        <ion-item>
+            <ion-label>Name</ion-label>
+            <ion-input type="text" formControlName="name"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Password</ion-label>
+            <ion-input type="text" formControlName="password"></ion-input>
+        </ion-item>
+        <button ion-button type="submit" [disabled]="!createProfile.valid">Create Profile</button>
+    </form>
+    <button ion-button type="button" (click)="getProfile()">Get a Profile</button>
+    <button ion-button type="button" (click)="clear()">Clear db</button>
+
+</ion-content>

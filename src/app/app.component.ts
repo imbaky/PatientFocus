@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
+import { Profile } from "../pages/profile/profile";
+import { ProfileService } from "../core/data/services/profile/profile.service";
 
 
 @Component({
@@ -17,13 +19,27 @@ export class MyApp {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
+  private profileService: ProfileService) {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Page One', component: Page1 },
-      { title: 'Page Two', component: Page2 }
+      { title: 'Page Two', component: Page2 },
+      { title: 'Profile', component: Profile}
     ];
 
+    this.isProfileCreated();
+  }
+
+  isProfileCreated() {
+    this.profileService.getProfileById(1).then(profile => {
+      if (profile && profile.loaded) {
+        console.log('a profile is loaded')
+        this.rootPage = Page1;
+      } else {
+        this.rootPage = Profile;
+      }
+    })
   }
 
   ionViewDidLoad() {
