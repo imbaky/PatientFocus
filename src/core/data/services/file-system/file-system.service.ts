@@ -27,10 +27,10 @@ export class FileSystemService {
   async addFile(fullPath: string, creationDate: string, type: DocumentType, newDocumentName: string, directory: Directory) {
       const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
       let extension = filename.substring(filename.lastIndexOf('.'));
-      const fileFormat = FileFormatType[extension];
+      newDocumentName.concat(extension);
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
-      const entry = await this.file.copyFile(url, filename, this.file.dataDirectory + 'Documents/', filename);
-      await this.directoryService.addFileToDirectory(entry, newDocumentName, creationDate, type, directory);
+      const entry = await this.file.copyFile(url, filename, this.file.dataDirectory + 'Documents/', newDocumentName.concat(extension));
+      await this.directoryService.addFileToDirectory(entry, creationDate, type, directory);
       const entries = await this.file.listDir(this.file.dataDirectory, 'Documents');
   }
 

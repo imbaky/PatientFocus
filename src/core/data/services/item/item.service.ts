@@ -56,20 +56,20 @@ export class ItemService {
   /**
    * Creates an item of type file
    * @param {Entry} fileEntry the file to be added to the item
-   * @param {string} newDocumentName document name associated to the newly imported file
    * @param {string} creationDate date in which the document should be placed
    * @param {DocumentType} type type of medical document
    * @returns {Item}
    */
-  async createItemWithFileEntry(fileEntry: Entry, newDocumentName: string, creationDate: string,
+  async createItemWithFileEntry(fileEntry: Entry, creationDate: string,
                                 type: DocumentType, directory_id: number): Promise<Item> {
     let size;
     await fileEntry.getMetadata(metadata => {
       size = metadata.size;
     });
     const file: File = await this.file.createFile(fileEntry.nativeURL, size, type);
+    const filename = fileEntry.nativeURL.substring(fileEntry.nativeURL.lastIndexOf('/') + 1);
     const item: Item =  {
-      name: newDocumentName,
+      name: filename,
       effective : creationDate,
       description: "Temporary description",
       type: ItemType.FILE,
