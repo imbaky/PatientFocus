@@ -11,6 +11,7 @@ import { ProfileService } from '../../core/data/services/profile/profile.service
 export class Profile {
     name: string;
     password: string;
+
     private createProfile: FormGroup;
 
     constructor(private formBuilder: FormBuilder, private profileService: ProfileService) {
