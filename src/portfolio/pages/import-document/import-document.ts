@@ -31,15 +31,19 @@ export class ImportDocumentPage {
               private fileSystemService: FileSystemService,
               private params: NavParams) {
     this.documentTypes = [
-      { name: 'Lab Test', value: DocumentType.LABTEST },
-      { name: 'Image Report', value: DocumentType.IMAGEREPORT },
-      { name: 'Discharge Summary', value: DocumentType.DISCHARGESUMMARY },
-      { name: 'Prescription', value: DocumentType.PRESCRIPTION }
+      { name: 'Blood Test', value: DocumentType.BLOOD_TEST },
+      { name: 'Prescription', value: DocumentType.PRESCRIPTION },
+      { name: 'Lab Test', value: DocumentType.LAB_TEST },
+      { name: 'Consultation', value: DocumentType.CONSULTATION },
+      { name: 'Image Report', value: DocumentType.IMAGE },
+      { name: 'Discharge Summary', value: DocumentType.DISCHARGE },
+      { name: 'Diagnosis Report', value: DocumentType.DIAGNOSIS },
+      { name: 'Other', value: DocumentType.OTHER },
     ];
     this.importDocumentForm = this.formBuilder.group({
       name: [ 'Medical Document', Validators.required ],
       date: [ new Date().toISOString(), Validators.required ],
-      type: [ DocumentType.LABTEST, Validators.required ],
+      type: [ DocumentType.LAB_TEST, Validators.required ],
       fullPath: [ '', Validators.required ]
     });
     this.directory = this.params.get('directory');
