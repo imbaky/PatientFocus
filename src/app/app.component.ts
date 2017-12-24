@@ -5,13 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
-<<<<<<< HEAD
 import { Profile } from '../pages/profile/profile';
 import { ProfileService } from '../core/data/services/profile/profile.service';
-=======
-import { Profile } from "../pages/profile/profile";
-import { ProfileService } from "../core/data/services/profile/profile.service";
->>>>>>> 4f89be684d8b2d129f94b2ca262264d034c2da98
 
 
 @Component({
