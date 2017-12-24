@@ -12,7 +12,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // modules
 import { DataModule } from '../core/data/data.module';
-import { Profile } from "../pages/profile/profile";
+import { Profile } from "../pages/profile/profile.component";
 
 @NgModule({
     declarations: [

@@ -6,7 +6,7 @@ import { ProfileService } from '../../core/data/services/profile/profile.service
 
 
 @Component({
-    selector: 'page-backup',
+    selector: 'page-profile',
     templateUrl: 'profile.html'
 })
 export class Profile {
@@ -23,12 +23,10 @@ export class Profile {
     }
 
     logForm() {
-        // console.log(this.createProfile.value);
         this.profileService.save(this.createProfile.value);
     }
 
     getProfile() {
-        // this.profileService.getProfile();
         this.profileService.getFirstProfile();
     }
 
