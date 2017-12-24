@@ -27,7 +27,6 @@ export class FileSystemService {
   async addFile(fullPath: string, creationDate: string, type: DocumentType, newDocumentName: string, directory: Directory) {
       const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
       let extension = filename.substring(filename.lastIndexOf('.'));
-      newDocumentName.concat(extension);
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
       const entry = await this.file.copyFile(url, filename, this.file.dataDirectory + 'Documents/', newDocumentName.concat(extension));
       await this.directoryService.addFileToDirectory(entry, creationDate, type, directory);

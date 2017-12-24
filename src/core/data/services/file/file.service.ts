@@ -29,11 +29,18 @@ export class FileService {
     return Promise.all(files);
   }
 
-  async createFile(path: string, size: number, type: DocumentType): Promise<File> { //TODO return Promise<File>
+  async createFile(path: string, size: number, type: DocumentType): Promise<File> {
+    const filename = path.substring(path.lastIndexOf('/') + 1);
+    let extension = filename.substring(filename.lastIndexOf('.')+1).toUpperCase();
+    let fileFormat : FileFormatType = FileFormatType[extension];
+    if(fileFormat == undefined) {
+      fileFormat = FileFormatType.Other;
+    }
     const file: File = {
       path : path,
       size : size,
-      document_type : type
+      document_type : type,
+      format : fileFormat
     };
     let pk = await this.table.add(file);
     file.id = pk;
