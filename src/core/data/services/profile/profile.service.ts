@@ -4,8 +4,8 @@ import { DexieService } from '../dexie/dexie.service';
 import Dexie from 'dexie';
 
 export interface UserProfile {
-    name: any;
-    password: any;
+    name: string;
+    password: string;
 }
 
 @Injectable()
@@ -27,14 +27,13 @@ export class ProfileService {
         return userProfile;
     }
 
-    save(profile) {
+    save(profile: UserProfile) {
         console.log(profile);
         const entry = {
             name: profile.name,
             password: profile.password,
         };
         this.table.add(entry);
-        console.log('added');
     }
 
     async getFirstProfile(): Promise<UserProfile> {

@@ -21,7 +21,7 @@ export class Profile {
         });
     }
 
-    logForm() {
+    makeNewProfile() {
         this.profileService.save(this.createProfile.value);
     }
 

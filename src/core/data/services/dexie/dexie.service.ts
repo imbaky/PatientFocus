@@ -10,10 +10,5 @@ export class DexieService extends Dexie {
     super('store');
     this.version(1).stores(SCHEMA);
 
-    this.on('populate', () => {
-      this.table('profile').add({
-
-      });
-    });
   }
 }
