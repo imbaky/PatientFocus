@@ -41,7 +41,7 @@ export class PortfolioPage {
           text: 'Take Picture',
           icon: 'md-camera',
           handler: () => {
-            //TODO - User Story #1
+            // TODO - User Story #1
           }
         }, {
           text: 'Import File',

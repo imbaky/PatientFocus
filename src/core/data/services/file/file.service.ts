@@ -31,9 +31,9 @@ export class FileService {
 
   async createFile(path: string, size: number, type: DocumentType): Promise<File> {
     const filename = path.substring(path.lastIndexOf('/') + 1);
-    let extension = filename.substring(filename.lastIndexOf('.')+1).toUpperCase();
-    let fileFormat : FileFormatType = FileFormatType[extension];
-    if(fileFormat == undefined) {
+    const extension = filename.substring(filename.lastIndexOf('.') + 1).toUpperCase();
+    let fileFormat: FileFormatType = FileFormatType[extension];
+    if (fileFormat === undefined) {
       fileFormat = FileFormatType.Other;
     }
     const file: File = {
@@ -42,7 +42,7 @@ export class FileService {
       document_type : type,
       format : fileFormat
     };
-    let pk = await this.table.add(file);
+    const pk = await this.table.add(file);
     file.id = pk;
     return file;
   }
