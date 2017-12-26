@@ -75,6 +75,7 @@ export class ImportDocumentPage {
       duration: 3000,
       position: 'bottom'
     });
-    importToast.present();
+    await importToast.present();
+    this.viewCtrl.dismiss();
   }
 }
