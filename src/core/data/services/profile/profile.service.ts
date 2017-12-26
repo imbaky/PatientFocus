@@ -8,7 +8,6 @@ export interface UserProfile {
     directory: number;
     name: string;
     password: string;
-x
 }
 
 @Injectable()
@@ -29,14 +28,13 @@ export class ProfileService {
         return userProfile;
     }
 
-    save(profile) {
+    save(profile: UserProfile) {
         console.log(profile);
         const entry = {
             name: profile.name,
             password: profile.password,
         };
         this.table.add(entry);
-        console.log('added');
     }
 
     async getFirstProfile(): Promise<UserProfile> {

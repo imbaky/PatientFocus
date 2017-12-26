@@ -1,14 +1,11 @@
 <ion-header>
     <ion-navbar>
-        <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>Profile</ion-title>
+        <ion-title>Create a new profile</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <form [formGroup]="createProfile" (ngSubmit)="logForm()">
+    <form [formGroup]="createProfile" (ngSubmit)="makeNewProfile()">
         <ion-item>
             <ion-label>Name</ion-label>
             <ion-input type="text" formControlName="name"></ion-input>
@@ -21,5 +18,4 @@
     </form>
     <button ion-button type="button" (click)="getProfile()">Get a Profile</button>
     <button ion-button type="button" (click)="clear()">Clear db</button>
-
 </ion-content>

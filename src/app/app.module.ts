@@ -12,7 +12,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // modules
 import { DataModule } from '../core/data/data.module';
-import { Profile } from "../pages/profile/profile.component";
+import { Profile } from '../pages/profile/profile.component';
+import { Welcome } from '../pages/welcome/welcome';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { Profile } from "../pages/profile/profile.component";
         Page1,
         Page2,
         Documents,
-        Profile
+        Profile,
+        Welcome
     ],
     imports: [
         BrowserModule,
@@ -33,7 +35,8 @@ import { Profile } from "../pages/profile/profile.component";
         Page1,
         Page2,
         Documents,
-        Profile
+        Profile,
+        Welcome
     ],
     providers: [
         StatusBar,
