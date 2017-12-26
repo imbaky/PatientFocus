@@ -39,7 +39,6 @@ export class MyApp {
         console.log('a profile is loaded');
         this.rootPage = Welcome;
       } else {
-        console.log(profile);
         this.rootPage = Profile;
       }
     });
