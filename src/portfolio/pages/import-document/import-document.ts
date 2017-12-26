@@ -70,7 +70,7 @@ export class ImportDocumentPage {
       this.importDocumentForm.controls['name'].value,
       this.directory
     );
-    let importToast = this.toastCtrl.create({
+    const importToast = this.toastCtrl.create({
       message: `${this.importDocumentForm.controls['name'].value} was successfully imported`,
       duration: 3000,
       position: 'bottom'

@@ -71,7 +71,7 @@ export class ItemService {
     const item: Item =  {
       name: filename,
       effective : creationDate,
-      description: "Temporary description",
+      description: 'Temporary description', // TODO add a proper description
       type: ItemType.FILE,
       type_id: file.id,
       value: file
