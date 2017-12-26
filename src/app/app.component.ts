@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
+import { Welcome } from '../pages/welcome/welcome';
 import { Profile } from '../pages/profile/profile.component';
 import { ProfileService } from '../core/data/services/profile/profile.service';
 
@@ -25,7 +26,8 @@ export class MyApp {
     this.pages = [
       { title: 'Page One', component: Page1 },
       { title: 'Page Two', component: Page2 },
-      { title: 'Profile', component: Profile}
+      { title: 'Profile', component: Profile},
+      { title: 'Welcome', component: Welcome}
     ];
 
     this.isProfileCreated();
@@ -35,7 +37,7 @@ export class MyApp {
     this.profileService.getFirstProfile().then(profile => {
       if (profile) {
         console.log('a profile is loaded');
-        this.rootPage = Page1;
+        this.rootPage = Welcome;
       } else {
         console.log(profile);
         this.rootPage = Profile;
