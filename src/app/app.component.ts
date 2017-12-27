@@ -8,7 +8,6 @@ import { Page2 } from '../pages/page2/page2';
 import { Documents } from '../pages/documents/documents';
 import { Welcome } from '../pages/welcome/welcome';
 import { Profile } from '../pages/profile/profile.component';
-import { ProfileService } from "../core/data/services/profile/profile.service";
 import { ProfileService } from '../core/data/services/profile/profile.service';
 
 
@@ -40,7 +39,7 @@ export class MyApp {
     isProfileCreated() {
         this.profileService.getFirstProfile().then(profile => {
             if (profile) {
-                this.rootPage = Page1;
+                this.rootPage = Welcome;
             } else {
                 this.rootPage = Profile;
             }

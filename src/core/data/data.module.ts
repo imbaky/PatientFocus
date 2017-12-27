@@ -7,7 +7,6 @@ import { FileService } from './services/file/file.service';
 import { ItemService } from './services/item/item.service';
 import { ProfileService } from './services/profile/profile.service';
 import { DexieService } from './services/dexie/dexie.service';
-import { ProfileService } from "./services/profile/profile.service";
 
 @NgModule({
     imports: [

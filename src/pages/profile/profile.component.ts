@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfileService } from '../../core/data/services/profile/profile.service';
+import { Welcome } from "../welcome/welcome";
 
 
 @Component({
@@ -15,7 +16,9 @@ export class Profile {
 
     private createProfile: FormGroup;
 
-    constructor(private formBuilder: FormBuilder, private profileService: ProfileService) {
+    constructor(private formBuilder: FormBuilder,
+                private profileService: ProfileService,
+                private navCtrl: NavController) {
         this.createProfile = this.formBuilder.group({
             name: ['', Validators.required],
             password: ['', Validators.required]
@@ -23,7 +26,11 @@ export class Profile {
     }
 
     makeNewProfile() {
-        this.profileService.save(this.createProfile.value);
+            this.profileService.save(this.createProfile.value).then(profile => {
+            if (profile) {
+                this.navCtrl.setRoot(Welcome);
+            }
+        })
     }
 
     getProfile() {
@@ -32,7 +39,6 @@ export class Profile {
 
     clear() {
         this.profileService.clearDb();
-        console.log('cleared');
     }
 
 }

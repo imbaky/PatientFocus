@@ -21,25 +21,22 @@ export class ProfileService {
     }
 
     async getProfileById(id: number): Promise<UserProfile> {
-        const userProfile = this.table.get(id);
-        userProfile.then(profile => {
-            console.log(profile);
-        });
-        return userProfile;
+        return this.table.get(id);
+
     }
 
     save(profile: UserProfile) {
-        console.log(profile);
         const entry = {
+            id: 1,
+            directory: null,
             name: profile.name,
             password: profile.password,
         };
-        this.table.add(entry);
+       return this.table.add(entry)
     }
 
     async getFirstProfile(): Promise<UserProfile> {
         return this.table.toArray(profile => {
-                console.log(profile);
                 return profile[0];
         });
     }
