@@ -4,6 +4,8 @@ import { DexieService } from '../dexie/dexie.service';
 import Dexie from 'dexie';
 
 export interface UserProfile {
+    id?: number;
+    directory: number;
     name: string;
     password: string;
 }
@@ -13,32 +15,28 @@ export class ProfileService {
 
     table: Dexie.Table<UserProfile, number>;
 
-    constructor(
-        private dexie: DexieService
-    ) {
+    constructor(private dexie: DexieService) {
+
         this.table = this.dexie.table('profile');
     }
 
     async getProfileById(id: number): Promise<UserProfile> {
-        const userProfile = this.table.get(id);
-        userProfile.then(profile => {
-            console.log(profile);
-        });
-        return userProfile;
+        return this.table.get(id);
+
     }
 
     save(profile: UserProfile) {
-        console.log(profile);
         const entry = {
+            id: 1,
+            directory: null,
             name: profile.name,
             password: profile.password,
         };
-        this.table.add(entry);
+       return this.table.add(entry)
     }
 
     async getFirstProfile(): Promise<UserProfile> {
         return this.table.toArray(profile => {
-                console.log(profile);
                 return profile[0];
         });
     }
@@ -47,3 +45,4 @@ export class ProfileService {
         this.table.clear();
     }
 }
+

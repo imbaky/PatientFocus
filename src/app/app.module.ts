@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 
 import { Intro } from '../pages/intro/intro';
 import { Page2 } from '../pages/page2/page2';
+import { Documents } from '../pages/documents/documents';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -12,13 +13,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 // modules
 import { DataModule } from '../core/data/data.module';
 import { Profile } from '../pages/profile/profile.component';
-import {Welcome} from '../pages/welcome/welcome';
+import { Welcome } from '../pages/welcome/welcome';
 
 @NgModule({
     declarations: [
         MyApp,
         Intro,
         Page2,
+        Documents,
         Profile,
         Welcome
     ],
@@ -32,6 +34,7 @@ import {Welcome} from '../pages/welcome/welcome';
         MyApp,
         Intro,
         Page2,
+        Documents,
         Profile,
         Welcome
     ],

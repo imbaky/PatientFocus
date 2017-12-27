@@ -5,13 +5,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Intro } from '../pages/intro/intro';
 import { Page2 } from '../pages/page2/page2';
+import { Documents } from '../pages/documents/documents';
 import { Welcome } from '../pages/welcome/welcome';
 import { Profile } from '../pages/profile/profile.component';
 import { ProfileService } from '../core/data/services/profile/profile.service';
 
 
 @Component({
-  templateUrl: 'app.html'
+    templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
