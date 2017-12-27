@@ -11,9 +11,6 @@ import { Welcome } from "../welcome/welcome";
     templateUrl: 'profile.html'
 })
 export class Profile {
-    name: string;
-    password: string;
-
     private createProfile: FormGroup;
 
     constructor(private formBuilder: FormBuilder,
@@ -39,7 +36,6 @@ export class Profile {
 
     clear() {
         this.profileService.clearDb();
-        console.log('cleared');
     }
 
 }

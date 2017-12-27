@@ -40,7 +40,7 @@ export class MyApp {
         console.log('a profile is loaded');
         this.rootPage = Welcome;
       } else {
-        this.rootPage = Profile;
+        this.rootPage = Intro;
       }
     });
   }

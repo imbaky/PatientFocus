@@ -25,14 +25,13 @@ export class ProfileService {
 
     }
 
-    save(profile: UserProfile) {
+    save(profile: any) {
         const entry = {
-            id: 1,
             directory: null,
             name: profile.name,
             password: profile.password,
         };
-       return this.table.add(entry)
+       return this.table.put(entry)
     }
 
     async getFirstProfile(): Promise<UserProfile> {
