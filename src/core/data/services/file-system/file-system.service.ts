@@ -33,6 +33,10 @@ export class FileSystemService {
       const entries = await this.file.listDir(this.file.dataDirectory, 'Documents');
   }
 
+  addDirectoryToDevice(directory: Directory) {
+    this.file.createDir(this.file.dataDirectory + 'Documents/', directory.id.toString() , false);
+  }
+
   /**
    * Gets the file with an id.
    * @param id
