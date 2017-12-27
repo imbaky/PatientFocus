@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { File, Entry } from '@ionic-native/file';
+import { Entry } from '@ionic-native/file';
 import Dexie from 'dexie';
 
 import { DexieService } from '../dexie/dexie.service';
@@ -18,8 +18,7 @@ export class DirectoryService {
 
   constructor(
     private dexie: DexieService,
-    private items: ItemService,
-    private file: File
+    private items: ItemService
   ) {
     this.table = this.dexie.table('directory');
   }
@@ -57,10 +56,6 @@ export class DirectoryService {
   async addFileToDirectory(fileEntry: Entry, creationDate: string, type: DocumentType, directory: Directory) {
     const item = await this.items.createItemWithFileEntry(fileEntry, creationDate, type, directory.id);
     directory.items.push(item);
-  }
-
-  addDirectoryToDevice(directory: Directory) {
-    this.file.createDir(this.file.dataDirectory + 'Documents/', directory.id.toString() , false);
   }
 
 }
