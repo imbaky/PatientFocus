@@ -63,7 +63,7 @@ export class ImportDocumentPage {
   }
 
   async importFile() {
-    await this.fileSystemService.addFile(
+    await this.fileSystemService.addNewFileToDirectory(
       this.importDocumentForm.controls['fullPath'].value,
       this.importDocumentForm.controls['date'].value,
       this.importDocumentForm.controls['type'].value,
