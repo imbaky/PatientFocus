@@ -33,13 +33,3 @@ export class DataModule {
         };
     }
   }
-  static forRoot(): ModuleWithProviders {
-    return {
-      providers: [
-        DexieService,
-          ProfileService
-      ],
-      ngModule: DataModule
-    };
-  }
-}
