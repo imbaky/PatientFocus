@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActionSheetController, ModalController, NavController, NavParams } from 'ionic-angular';
 
-import { Directory, DirectoryService } from '../../../core/data/services/directory/directory.service';
-import { ItemType } from '../../../core/data/enum/item-type.enum';
-import { Item } from '../../../core/data/services/item/item.service';
+import { Directory, DirectoryService } from '../../core/data/services/directory/directory.service';
+import { ItemType } from '../../core/data/enum/item-type.enum';
+import { Item } from '../../core/data/services/item/item.service';
 
-import { ImportDocumentPage } from '../../pages/import-document/import-document';
+import { ImportDocumentPage } from './import-document/import-document';
 
 @Component({
   selector: 'page-portfolio',

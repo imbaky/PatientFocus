@@ -5,8 +5,8 @@ import { IonicModule } from 'ionic-angular';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import { File } from '@ionic-native/file';
-import { PortfolioPage } from './pages/portfolio/portfolio';
-import { ImportDocumentPage } from './pages/import-document/import-document';
+import { PortfolioPage } from '../pages/portfolio/portfolio';
+import { ImportDocumentPage } from '../pages/portfolio/import-document/import-document';
 
 @NgModule({
   imports: [
