@@ -1,10 +1,11 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>Create a new profile</ion-title>
+        <ion-title>Create profile</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <img src="assets/Logo.png" alt="" />
     <form [formGroup]="createProfile" (ngSubmit)="makeNewProfile()">
         <ion-item>
             <ion-label>Name</ion-label>
@@ -14,7 +15,9 @@
             <ion-label>Password</ion-label>
             <ion-input type="password" formControlName="password"></ion-input>
         </ion-item>
-        <button ion-button type="submit" [disabled]="!createProfile.valid">Create Profile</button>
+        <div text-center>
+            <button ion-button type="submit" [disabled]="!createProfile.valid">Create Profile</button>
+        </div>
     </form>
     <button ion-button type="button" (click)="getProfile()">Get a Profile</button>
     <button ion-button type="button" (click)="clear()">Clear db</button>
