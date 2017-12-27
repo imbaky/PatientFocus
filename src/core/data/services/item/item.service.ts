@@ -77,7 +77,7 @@ export class ItemService {
       value: file
     };
     const pk = await this.table.add(item);
-    this.table.update( item.id, { directory_id: directory_id});
+    this.table.update( pk, { directory_id: directory_id});
     item.id = pk;
     return item;
   }
