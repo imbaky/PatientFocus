@@ -32,7 +32,10 @@ export class PortfolioPage {
   handleDir(event, item) {
     this.navCtrl.push(PortfolioPage, { item: item });
   }
-
+  handleFileImport(directory: Directory) {
+    const importNewDocumentModal = this.modalCtrl.create(ImportDocumentPage, { directory });
+    importNewDocumentModal.present();
+  }
   importNewDocument(directory: Directory) {
     const actionSheet = this.actionSheetCtrl.create({
       title: 'Document Source',
@@ -46,17 +49,11 @@ export class PortfolioPage {
         }, {
           text: 'Import File',
           icon: 'md-document',
-          handler: () => {
-            const importNewDocumentModal = this.modalCtrl.create(ImportDocumentPage, { directory: directory });
-            importNewDocumentModal.present();
-          }
+          handler: this.handleFileImport.bind(this, directory)
         }, {
           text: 'Cancel',
           role: 'cancel',
-          icon: 'md-close',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
+          icon: 'md-close'
         }
       ]
     });
