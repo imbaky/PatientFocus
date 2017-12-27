@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { AppProviders } from './app.providers';
 
 import { Page1 } from '../pages/page1/page1';
 
@@ -28,10 +29,6 @@ import { PortfolioModule } from '../portfolio/portfolio.module';
     MyApp,
     Page1
   ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
-  ]
+  providers: AppProviders.getProviders()
 })
 export class AppModule { }
