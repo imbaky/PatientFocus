@@ -70,7 +70,7 @@ export class ItemService {
     const filename = fileEntry.nativeURL.substring(fileEntry.nativeURL.lastIndexOf('/') + 1);
     const item: Item =  {
       name: filename,
-      effective : creationDate,
+      chosen_date : creationDate,
       description: 'Temporary description', // TODO add a proper description
       type: ItemType.FILE,
       type_id: file.id,
