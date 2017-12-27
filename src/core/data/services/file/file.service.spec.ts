@@ -109,13 +109,41 @@ describe("File Service", () => {
 
   it("GIVEN three files THEN it should retrieve no files", async () => {
     const ids = [];
-    let test = await file.getFilesByIds(ids);
-    expect(test.length).toBe(0);
+    let result = await file.getFilesByIds(ids);
+    expect(result.length).toBe(0);
   });
 
   it("GIVEN three files THEN it should retrieve specifics files by ID", async () => {
     const ids = [1, 2, 3];
-    let test = await file.getFilesByIds(ids);
-    expect(test.length).toBe(3);
+    let files = await file.getFilesByIds(ids);
+    expect(files.length).toBe(3);
   });
+
+  it("GIVEN a file with a supported file type THEN it should create a new file", async () => {
+    const path = "directory/subdirectory/subsubdirectory/anthonyrobert_consultation.pdf";
+    const size = 200188;
+    const document_type = DocumentType.CONSULTATION;
+    let newFile = await file.createFile(path, size, document_type);
+    expect(newFile.path).toBe(path);
+    expect(newFile.size).toBe(size);
+    expect(newFile.document_type).toBe(DocumentType.CONSULTATION);
+    expect(newFile.format).toBe(FileFormatType.PDF);
+    const ids = [newFile.id];
+    let files = await file.getFilesByIds([newFile.id]);
+    expect(newFile.id).toBe(files[0].id);
+  });
+
+  it("GIVEN a file with a unsupported file type THEN it should still create a new file", async () => {
+    const path = "directory/subdirectory/subsubdirectory/anthonyrobert_consultation.docx";
+    const size = 881002;
+    const document_type = DocumentType.CONSULTATION;
+    let newFile = await file.createFile(path, size, document_type);
+    expect(newFile.path).toBe(path);
+    expect(newFile.size).toBe(size);
+    expect(newFile.document_type).toBe(DocumentType.CONSULTATION);
+    expect(newFile.format).toBe(FileFormatType.Other);
+    const ids = [newFile.id];
+    let files = await file.getFilesByIds([newFile.id]);
+    expect(newFile.id).toBe(files[0].id);
+  })
 });
