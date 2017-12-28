@@ -29,13 +29,4 @@ export class Profile {
             }
         })
     }
-
-    getProfile() {
-        this.profileService.getFirstProfile();
-    }
-
-    clear() {
-        this.profileService.clearDb();
-    }
-
 }
