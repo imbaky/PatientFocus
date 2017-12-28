@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { File } from '@ionic-native/file';
 import { DexieService } from '../dexie/dexie.service';
 import { ItemType } from '../../enum/item-type.enum';
 import { DirectoryService } from './directory.service';
@@ -92,7 +93,8 @@ describe('Directory Service', () => {
         },
         DirectoryService,
         ItemService,
-        FileService
+        FileService,
+        File
       ]
     });
 

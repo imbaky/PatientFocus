@@ -13,5 +13,6 @@ export enum FileFormatType {
     JPG = 'JPG',
     PNG = 'PNG',
     PDF = 'PDF',
-    TXT = 'TXT'
+    TXT = 'TXT',
+    Other = 'Other'
 }

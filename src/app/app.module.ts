@@ -2,9 +2,9 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { AppProviders } from './app.providers';
 
 import { Intro } from '../pages/intro/intro';
-import { Page2 } from '../pages/page2/page2';
 import { Documents } from '../pages/documents/documents';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -14,18 +14,20 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { DataModule } from '../core/data/data.module';
 import { Profile } from '../pages/profile/profile.component';
 import { Welcome } from '../pages/welcome/welcome';
+import { PortfolioModule } from '../portfolio/portfolio.module';
+
 
 @NgModule({
     declarations: [
         MyApp,
         Intro,
-        Page2,
         Documents,
         Profile,
         Welcome
     ],
     imports: [
         BrowserModule,
+        PortfolioModule,
         DataModule.forRoot(),
         IonicModule.forRoot(MyApp, {}, {links: []})
     ],
@@ -33,16 +35,11 @@ import { Welcome } from '../pages/welcome/welcome';
     entryComponents: [
         MyApp,
         Intro,
-        Page2,
         Documents,
         Profile,
         Welcome
     ],
-    providers: [
-        StatusBar,
-        SplashScreen,
-        {provide: ErrorHandler, useClass: IonicErrorHandler}
-    ]
+    providers: AppProviders.getProviders()
 })
 export class AppModule {
 }

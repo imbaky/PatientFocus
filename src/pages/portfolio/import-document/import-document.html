@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Close</button>
+    </ion-buttons>
+    <ion-title>Import Document</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="importDocumentForm" (ngSubmit)="importFile()">
+    <ion-item>
+      <ion-label>Document Name</ion-label>
+      <ion-input type="text" formControlName="name"> </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="MMMM DD, YYYY" formControlName="date"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Document type</ion-label>
+      <ion-select formControlName="type">
+        <ion-option *ngFor="let type of documentTypes" [value]="type.value">{{type.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Selected file</ion-label>
+      <ion-input type="text" readonly="true" formControlName="fullPath">{{selectedFileName}}</ion-input>
+    </ion-item>
+
+    <ion-item>
+      <button ion-button outline="true" (click)="selectFile()">Select a File</button>
+      <button ion-button color="primary" type="submit" [disabled]="!importDocumentForm.valid">Import</button>
+    </ion-item>
+  </form>
+</ion-content>
