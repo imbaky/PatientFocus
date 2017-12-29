@@ -22,11 +22,10 @@ export class Profile {
         });
     }
 
-    makeNewProfile() {
-            this.profileService.save(this.createProfile.value).then(profile => {
-            if (profile) {
-                this.navCtrl.setRoot(Welcome);
-            }
-        })
+    async makeNewProfile() {
+        let profile = await this.profileService.save(this.createProfile.value);
+        if (profile) {
+            this.navCtrl.setRoot(Welcome);
+        }
     }
 }
