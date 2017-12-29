@@ -12,7 +12,7 @@ class DATABASE extends Dexie {
     }
 }
 
-fdescribe('Profile Service', () => {
+describe('Profile Service', () => {
     let dexie: DexieService;
     let profileService: ProfileService;
 

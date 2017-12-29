@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Intro } from '../pages/intro/intro';
 import { Welcome } from '../pages/welcome/welcome';
-import { Profile } from '../pages/profile/profile.component';
+import { Profile } from '../pages/profile/profile';
 import { ProfileService } from '../core/data/services/profile/profile.service';
 import { PortfolioPage } from '../pages/portfolio/portfolio';
 

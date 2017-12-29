@@ -7,12 +7,15 @@ import { ProfileService } from '../../core/data/services/profile/profile.service
   templateUrl: 'welcome.html'
 })
 export class Welcome {
-  name: string
+  name: string;
 
   constructor(public navCtrl: NavController, private profileService: ProfileService) {
-      // name = navParams.get('name');
       this.profileService.getFirstProfile().then(profile => {
           this.name = profile.name;
       });
+    }
+
+    clear() {
+      this.profileService.clearDb();
     }
 }
