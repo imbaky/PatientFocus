@@ -4,7 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { AppProviders } from './app.providers';
 
-import { Intro } from '../pages/intro/intro';
+import { IntroPage } from '../pages/intro/intro';
 import { Documents } from '../pages/documents/documents';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -12,18 +12,18 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // modules
 import { DataModule } from '../core/data/data.module';
-import { Profile } from '../pages/profile/profile';
-import { Welcome } from '../pages/welcome/welcome';
+import { ProfilePage } from '../pages/profile/profile';
+import { WelcomePage } from '../pages/welcome/welcome';
 import { PortfolioModule } from '../portfolio/portfolio.module';
 
 
 @NgModule({
     declarations: [
         MyApp,
-        Intro,
+        IntroPage,
         Documents,
-        Profile,
-        Welcome
+        ProfilePage,
+        WelcomePage
     ],
     imports: [
         BrowserModule,
@@ -34,10 +34,10 @@ import { PortfolioModule } from '../portfolio/portfolio.module';
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
-        Intro,
+        IntroPage,
         Documents,
-        Profile,
-        Welcome
+        ProfilePage,
+        WelcomePage
     ],
     providers: AppProviders.getProviders()
 })

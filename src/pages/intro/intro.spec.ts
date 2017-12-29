@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Intro } from './intro';
+import { IntroPage } from './intro';
 import { IonicModule, Platform, NavController} from 'ionic-angular/index';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { PlatformMock, StatusBarMock, SplashScreenMock } from '../../../test-config/mocks-ionic';
 
-describe('Intro', () => {
-  let comp: Intro;
-  let fixture: ComponentFixture<Intro>;
+describe('IntroPage', () => {
+  let comp: IntroPage;
+  let fixture: ComponentFixture<IntroPage>;
 
   beforeEach(async(() => {
     let bed = TestBed.configureTestingModule({
-      declarations: [Intro],
+      declarations: [IntroPage],
       imports: [
-        IonicModule.forRoot(Intro)
+        IonicModule.forRoot(IntroPage)
       ],
       providers: [
         NavController,
@@ -23,7 +23,7 @@ describe('Intro', () => {
       ]
     });
 
-    fixture = TestBed.createComponent(Intro);
+    fixture = TestBed.createComponent(IntroPage);
     comp = fixture.componentInstance;
   }));
 

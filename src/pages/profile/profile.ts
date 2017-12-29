@@ -3,14 +3,14 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfileService } from '../../core/data/services/profile/profile.service';
-import { Welcome } from "../welcome/welcome";
+import { WelcomePage } from "../welcome/welcome";
 
 
 @Component({
     selector: 'page-profile',
     templateUrl: 'profile.html'
 })
-export class Profile {
+export class ProfilePage {
     private createProfile: FormGroup;
 
     constructor(private formBuilder: FormBuilder,
@@ -25,7 +25,7 @@ export class Profile {
     async makeNewProfile() {
         let profile = await this.profileService.save(this.createProfile.value);
         if (profile) {
-            this.navCtrl.setRoot(Welcome);
+            this.navCtrl.setRoot(WelcomePage);
         }
     }
 }

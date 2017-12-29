@@ -37,7 +37,7 @@ describe('Profile Service', () => {
         expect(profile).toBeUndefined();
     });
 
-    it('GIVEN an existing Profile THEN it should retrieve it', async () => {
+    it('GIVEN an existing ProfilePage THEN it should retrieve it', async () => {
         profileService.save({
             name: 'John',
             password: 'Password'

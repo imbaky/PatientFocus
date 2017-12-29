@@ -6,7 +6,7 @@ import { ProfileService } from '../../core/data/services/profile/profile.service
   selector: 'page-welcome',
   templateUrl: 'welcome.html'
 })
-export class Welcome {
+export class WelcomePage {
   name: string;
 
   constructor(public navCtrl: NavController, private profileService: ProfileService) {

@@ -3,8 +3,8 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { Intro } from '../pages/intro/intro';
-import { Welcome } from '../pages/welcome/welcome';
+import { IntroPage } from '../pages/intro/intro';
+import { WelcomePage } from '../pages/welcome/welcome';
 import { ProfileService } from '../core/data/services/profile/profile.service';
 import { PortfolioPage } from '../pages/portfolio/portfolio';
 
@@ -14,7 +14,7 @@ import { PortfolioPage } from '../pages/portfolio/portfolio';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Intro;
+  rootPage: any = IntroPage;
 
   pages: Array<{ title: string, component: any }>;
 
@@ -22,7 +22,7 @@ export class MyApp {
   private profileService: ProfileService) {
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Welcome', component: Welcome},
+      { title: 'WelcomePage', component: WelcomePage},
       { title: 'Medical Portfolio', component: PortfolioPage }
     ];
 
@@ -32,9 +32,9 @@ export class MyApp {
   isProfileCreated() {
     this.profileService.getFirstProfile().then(profile => {
       if (profile) {
-        this.rootPage = Welcome;
+        this.rootPage = WelcomePage;
       } else {
-        this.rootPage = Intro;
+        this.rootPage = IntroPage;
       }
     });
   }
