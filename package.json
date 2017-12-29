@@ -16,7 +16,8 @@
     "e2e-test": "protractor ./test-config/protractor.conf.js",
     "e2e-update": "webdriver-manager update --standalone false --gecko false",
     "lint": "ionic-app-scripts lint --bailOnLintError true",
-    "lint-fix": "tslint -p . --fix"
+    "lint-fix": "tslint -p . --fix",
+    "postinstall": "ionic cordova platform add android --no-interactive --confirm "
   },
   "dependencies": {
     "@angular/common": "5.0.3",
@@ -36,18 +37,21 @@
     "@ionic-native/splash-screen": "4.4.2",
     "@ionic-native/status-bar": "4.4.2",
     "@ionic/storage": "2.1.3",
-    "cordova-android": "^6.4.0",
-    "cordova-plugin-device": "1.1.4",
+    "cordova": "^8.0.0",
+    "cordova-android": "6.4.0",
+    "cordova-plugin-device": "^1.1.4",
+    "cordova-plugin-file": "^5.0.0",
     "cordova-plugin-file-transfer": "^1.7.0",
     "cordova-plugin-filechooser": "^1.0.1",
     "cordova-plugin-filepath": "^1.1.0",
-    "cordova-plugin-ionic-webview": "^1.1.11",
-    "cordova-plugin-splashscreen": "~4.0.1",
-    "cordova-plugin-whitelist": "1.3.1",
+    "cordova-plugin-ionic-webview": "^1.1.16",
+    "cordova-plugin-splashscreen": "^4.0.3",
+    "cordova-plugin-whitelist": "^1.3.1",
     "cordova-safe": "^2.0.1",
     "dexie": "^2.0.1",
+    "ionic": "^3.19.0",
     "ionic-angular": "3.9.2",
-    "ionic-plugin-keyboard": "~2.2.1",
+    "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
     "moment": "^2.19.3",
     "rxjs": "5.5.2",
@@ -92,6 +96,9 @@
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {}
-    }
+    },
+    "platforms": [
+      "android"
+    ]
   }
 }
