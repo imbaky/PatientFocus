@@ -43,23 +43,22 @@ export class PortfolioPage {
   handleDir(event, item) {
     this.navCtrl.push(PortfolioPage, { item: item });
   }
-  handleFileImport(directory: Directory,method: string) {
+  handleFileImport(directory: Directory, method: string) {
     const importNewDocumentModal = this.modalCtrl.create(ImportDocumentPage, { directory, method});
     importNewDocumentModal.present();
   }
   importNewDocument(directory: Directory) {
-    let method
     const actionSheet = this.actionSheetCtrl.create({
       title: 'Document Source',
       buttons: [
         {
           text: 'Take Picture',
           icon: 'md-camera',
-          handler: this.handleFileImport.bind(this, directory,"take-picture")
+          handler: this.handleFileImport.bind(this, directory, 'take-picture')
         }, {
           text: 'Import File',
           icon: 'md-document',
-          handler: this.handleFileImport.bind(this, directory, "import-file")
+          handler: this.handleFileImport.bind(this, directory, 'import-file')
         }, {
           text: 'Cancel',
           role: 'cancel',
