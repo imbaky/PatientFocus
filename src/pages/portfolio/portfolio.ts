@@ -9,7 +9,6 @@ import { ImportDocumentPage } from './import-document/import-document';
 import { File } from '../../core/data/services/file/file.service';
 import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enum';
 
-
 @Component({
   selector: 'page-portfolio',
   templateUrl: 'portfolio.html'
@@ -44,24 +43,23 @@ export class PortfolioPage {
   handleDir(event, item) {
     this.navCtrl.push(PortfolioPage, { item: item });
   }
-  handleFileImport(directory: Directory) {
-    const importNewDocumentModal = this.modalCtrl.create(ImportDocumentPage, { directory });
+  handleFileImport(directory: Directory,method: string) {
+    const importNewDocumentModal = this.modalCtrl.create(ImportDocumentPage, { directory, method});
     importNewDocumentModal.present();
   }
   importNewDocument(directory: Directory) {
+    let method
     const actionSheet = this.actionSheetCtrl.create({
       title: 'Document Source',
       buttons: [
         {
           text: 'Take Picture',
           icon: 'md-camera',
-          handler: () => {
-            // TODO - User Story #1
-          }
+          handler: this.handleFileImport.bind(this, directory,"take-picture")
         }, {
           text: 'Import File',
           icon: 'md-document',
-          handler: this.handleFileImport.bind(this, directory)
+          handler: this.handleFileImport.bind(this, directory, "import-file")
         }, {
           text: 'Cancel',
           role: 'cancel',
