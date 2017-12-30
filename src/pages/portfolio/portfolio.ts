@@ -6,15 +6,27 @@ import { ItemType } from '../../core/data/enum/item-type.enum';
 import { Item } from '../../core/data/services/item/item.service';
 
 import { ImportDocumentPage } from './import-document/import-document';
+import { File } from '../../core/data/services/file/file.service';
+import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enum';
+
 
 @Component({
   selector: 'page-portfolio',
   templateUrl: 'portfolio.html'
 })
 export class PortfolioPage {
+
   directory$: Promise<Directory>;
   currentItem: Item;
+
   ItemType = ItemType;
+  DocumentType = DocumentType;
+  FileFormatType = FileFormatType;
+
+  searchTerm = "";
+  fileTerm: FileFormatType;
+  docTerm: DocumentType;
+
   constructor(
     public modalCtrl: ModalController,
     public navCtrl: NavController,
@@ -59,5 +71,18 @@ export class PortfolioPage {
     });
     actionSheet.present();
   }
+
+  filterName(item: Item, compare: string) {
+    return item.name.toLowerCase().includes(compare.toLowerCase());
+  }
+
+  filterDocumentType(item: Item, type: DocumentType) {
+    return (item.value as File).document_type === type;
+  }
+
+  filterFormatType(item: Item, type: FileFormatType) {
+    return (item.value as File).format === type;
+  }
+
 }
 

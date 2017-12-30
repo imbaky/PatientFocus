@@ -27,7 +27,7 @@ export class DexieService extends Dexie {
           type: ItemType.FILE,
           type_id: 1,
           directory_id: 1,
-          created_on: date.toISOString()
+          chosen_date: date.toISOString()
         },
         {
           name: 'Filename2.txt',
@@ -35,7 +35,7 @@ export class DexieService extends Dexie {
           type: ItemType.FILE,
           type_id: 2,
           directory_id: 1,
-          created_on: date.toISOString()
+          chosen_date: date.toISOString()
         },
         {
           name: 'Filename2.txt',
@@ -43,7 +43,7 @@ export class DexieService extends Dexie {
           type: ItemType.FILE,
           type_id: 3,
           directory_id: 1,
-          created_on: date.toISOString()
+          chosen_date: date.toISOString()
         },
       ]);
       this.table('file').bulkAdd([
