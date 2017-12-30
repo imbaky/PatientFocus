@@ -17,7 +17,8 @@
     "e2e-update": "webdriver-manager update --standalone false --gecko false",
     "lint": "ionic-app-scripts lint --bailOnLintError true",
     "lint-fix": "tslint -p . --fix",
-    "postinstall": "ionic cordova platform add android --no-interactive --confirm "
+    "postinstall": "ionic cordova platform add android --no-interactive --confirm ",
+    "fix-gradle":"sed -i 's/1.0.0@aar/2.0.1@aar/g' platforms/android/cordova-safe/starter-conceal.gradle"
   },
   "dependencies": {
     "@angular/common": "5.0.3",
