@@ -7,6 +7,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { FileSystemService } from '../../../core/data/services/file-system/file-system.service';
 import { Directory } from '../../../core/data/services/directory/directory.service';
 import { DocumentType } from '../../../core/data/enum/file-type.enum';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 declare var window;
 
@@ -22,14 +23,15 @@ export class ImportDocumentPage {
   documentTypes: Array<DocumentTypeOption> = [];
   directory: Directory;
   importDocumentForm: FormGroup;
-
+  importMethod:string;
   constructor(public viewCtrl: ViewController,
               private toastCtrl: ToastController,
               private formBuilder: FormBuilder,
               private fileChooser: FileChooser,
               private filePath: FilePath,
               private fileSystemService: FileSystemService,
-              private params: NavParams) {
+              private params: NavParams,
+              private camera: Camera) {
     this.documentTypes = [
       { name: 'Blood Test', value: DocumentType.BLOOD_TEST },
       { name: 'Prescription', value: DocumentType.PRESCRIPTION },
@@ -47,19 +49,42 @@ export class ImportDocumentPage {
       fullPath: [ '', Validators.required ]
     });
     this.directory = this.params.get('directory');
+    this.importMethod=this.params.get("method");
+    this.selectFile();
   }
+
+  readonly options: CameraOptions = {
+    quality: 100,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE
+  };
 
   dismiss() {
     this.viewCtrl.dismiss();
   }
 
   async selectFile() {
-    const uri = await this.fileChooser.open();
-    window.resolveLocalFileSystemURL(uri, (fileEntry) => {
-        fileEntry.getMetadata(async (metadata) => {
-            this.importDocumentForm.controls['fullPath'].setValue(await this.filePath.resolveNativePath(uri));
-        });
-    });
+   if (this.importMethod === 'import-file') {
+
+      const uri = await this.fileChooser.open();
+      window.resolveLocalFileSystemURL(uri, (fileEntry) => {
+          fileEntry.getMetadata(async (metadata) => {
+              this.importDocumentForm.controls['fullPath'].setValue(await this.filePath.resolveNativePath(uri));
+          });
+      });
+
+    } else if (this.importMethod === 'take-picture') {
+      this.camera.getPicture(this.options).then((imageData) => {
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64:
+        const base64Image = 'data:image/jpeg;base64,' + imageData;
+       }, (err) => {
+        // Handle error
+       });
+
+    }
+
   }
 
   async importFile() {
