@@ -8,6 +8,7 @@ import { File } from '@ionic-native/file';
 import { PortfolioPage } from '../pages/portfolio/portfolio';
 import { ImportDocumentPage } from '../pages/portfolio/import-document/import-document';
 import { FilterFileName } from '../pipes/filterfilespace';
+import { FileFilter } from '../pipes/file-filter/file-filter.pipe';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { FilterFileName } from '../pipes/filterfilespace';
   declarations: [
     PortfolioPage,
     ImportDocumentPage,
-    FilterFileName
+    FilterFileName,
+    FileFilter
   ],
   exports: [
     PortfolioPage,
