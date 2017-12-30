@@ -23,7 +23,7 @@ export class ImportDocumentPage {
   documentTypes: Array<DocumentTypeOption> = [];
   directory: Directory;
   importDocumentForm: FormGroup;
-  importMethod:string;
+  importMethod: string;
   constructor(public viewCtrl: ViewController,
               private toastCtrl: ToastController,
               private formBuilder: FormBuilder,
@@ -31,7 +31,8 @@ export class ImportDocumentPage {
               private filePath: FilePath,
               private fileSystemService: FileSystemService,
               private params: NavParams,
-              private camera: Camera) {
+              private camera: Camera,
+            private file: File) {
     this.documentTypes = [
       { name: 'Blood Test', value: DocumentType.BLOOD_TEST },
       { name: 'Prescription', value: DocumentType.PRESCRIPTION },
@@ -49,7 +50,7 @@ export class ImportDocumentPage {
       fullPath: [ '', Validators.required ]
     });
     this.directory = this.params.get('directory');
-    this.importMethod=this.params.get("method");
+    this.importMethod = this.params.get('method');
     this.selectFile();
   }
 
@@ -75,13 +76,20 @@ export class ImportDocumentPage {
       });
 
     } else if (this.importMethod === 'take-picture') {
+      const fileName = 'image.jpg';
+      const appDir = this.file.dataDirectory;
       this.camera.getPicture(this.options).then((imageData) => {
         // imageData is either a base64 encoded string or a file URI
         // If it's base64:
         const base64Image = 'data:image/jpeg;base64,' + imageData;
+        if (!this.file.checkDir(appDir, 'temp')) {
+          this.file.createDir(appDir, 'temp', false);
+         }
+         this.file.writeFile(appDir + 'temp/', fileName, base64Image, {'replace': true});
        }, (err) => {
         // Handle error
        });
+       this.importDocumentForm.controls['fullPath'].setValue(await this.filePath.resolveNativePath(appDir + 'temp/' + fileName));
 
     }
 
