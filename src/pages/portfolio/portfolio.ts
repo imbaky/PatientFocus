@@ -23,7 +23,7 @@ export class PortfolioPage {
   DocumentType = DocumentType;
   FileFormatType = FileFormatType;
 
-  searchTerm = "";
+  searchTerm = '';
   fileTerm: FileFormatType;
   docTerm: DocumentType;
 

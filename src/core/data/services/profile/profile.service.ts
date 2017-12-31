@@ -31,7 +31,7 @@ export class ProfileService {
             name: profile.name,
             password: profile.password,
         };
-       return this.table.put(entry)
+       return this.table.put(entry);
     }
 
     async getFirstProfile(): Promise<UserProfile> {

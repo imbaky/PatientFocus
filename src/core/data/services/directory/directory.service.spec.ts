@@ -11,7 +11,7 @@ import { SCHEMA } from '../dexie/database';
 
 class DATABASE extends Dexie {
   constructor() {
-    super('store');
+    super('directory_test');
 
     this.version(1).stores(SCHEMA);
 
@@ -77,27 +77,30 @@ class DATABASE extends Dexie {
     });
   }
 }
+const testBedSetup = {
+  providers: [
+    {
+      provide: DexieService,
+      useValue: DATABASE
+    },
+    DirectoryService,
+    ItemService,
+    FileService,
+    File
+  ]
+};
 
 describe('Directory Service', () => {
   let dexie: DexieService;
   let directory: DirectoryService;
   let item: ItemService;
   let file: FileService;
+  let mockDatabase: DATABASE;
 
-  beforeEach(() => {
-    let bed = TestBed.configureTestingModule({
-      providers: [
-        {
-          provide: DexieService,
-          useClass: DATABASE
-        },
-        DirectoryService,
-        ItemService,
-        FileService,
-        File
-      ]
-    });
-
+  beforeEach(async() => {
+    mockDatabase = new DATABASE();
+    let bed = TestBed.configureTestingModule(testBedSetup);
+    TestBed.overrideProvider(DexieService, { useValue: mockDatabase });
     dexie = bed.get(DexieService);
     directory = bed.get(DirectoryService);
     item = bed.get(ItemService);
@@ -106,14 +109,12 @@ describe('Directory Service', () => {
 
   it('GIVEN three items THEN it should retrieve the items AND match types', async () => {
     let folder  = await directory.getDirectoryById(1);
-
     expect(folder.items.length).toBe(3);
     expect(folder.items[0].type).toBe(ItemType.FILE);
     expect(folder.items[1].type).toBe(ItemType.FILE);
     expect(folder.items[2].type).toBe(ItemType.DIRECTORY);
 
     folder  = await directory.getDirectoryById(2);
-
     expect(folder.items.length).toBe(1);
     expect(folder.items[0].type).toBe(ItemType.FILE);
   });
