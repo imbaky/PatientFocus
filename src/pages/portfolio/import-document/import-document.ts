@@ -82,14 +82,12 @@ export class ImportDocumentPage {
         // imageData is either a base64 encoded string or a file URI
         // If it's base64:
         const base64Image = 'data:image/jpeg;base64,' + imageData;
-        if (!this.file.checkDir(appDir, 'temp')) {
-          this.file.createDir(appDir, 'temp', false);
-         }
-         this.file.writeFile(appDir + 'temp/', fileName, base64Image, {'replace': true});
+         this.file.createDir(appDir, "temp", false);
+         this.file.writeFile(appDir + "temp/", fileName, base64Image, {'replace': true});
        }, (err) => {
         // Handle error
        });
-       this.importDocumentForm.controls['fullPath'].setValue(await this.filePath.resolveNativePath(appDir + 'temp/' + fileName));
+       this.importDocumentForm.controls['fullPath'].setValue(await this.filePath.resolveNativePath(appDir + "temp/" + fileName));
 
     }
 
