@@ -5,7 +5,6 @@ import { MyApp } from './app.component';
 import { AppProviders } from './app.providers';
 
 import { IntroPage } from '../pages/intro/intro';
-import { Documents } from '../pages/documents/documents';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,7 +20,6 @@ import { PortfolioModule } from '../portfolio/portfolio.module';
     declarations: [
         MyApp,
         IntroPage,
-        Documents,
         ProfilePage,
         WelcomePage
     ],
@@ -35,7 +33,6 @@ import { PortfolioModule } from '../portfolio/portfolio.module';
     entryComponents: [
         MyApp,
         IntroPage,
-        Documents,
         ProfilePage,
         WelcomePage
     ],
