@@ -15,8 +15,4 @@ export class IntroPage {
   createProfileClicked() {
     this.navCtrl.setRoot(ProfilePage);
   }
-
-  importFileClicked() {
-    console.log('There is not import file page right now');
-  }
 }
