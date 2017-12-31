@@ -56,7 +56,7 @@ export class ImportDocumentPage {
 
   readonly options: CameraOptions = {
     quality: 100,
-    destinationType: this.camera.DestinationType.DATA_URL,
+    destinationType: this.camera.DestinationType.FILE_URI,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE
   };
@@ -76,19 +76,18 @@ export class ImportDocumentPage {
       });
 
     } else if (this.importMethod === 'take-picture') {
-      const fileName = 'image.jpg';
-      const appDir = this.file.dataDirectory;
-      this.camera.getPicture(this.options).then((imageData) => {
-        // imageData is either a base64 encoded string or a file URI
-        // If it's base64:
-        const base64Image = 'data:image/jpeg;base64,' + imageData;
-         this.file.createDir(appDir, "temp", false);
-         this.file.writeFile(appDir + "temp/", fileName, base64Image, {'replace': true});
+      //takes picture 
+      this.camera.getPicture(this.options).then((fileUri) => {
+      this.importDocumentForm.controls['fullPath'].setValue(fileUri);
        }, (err) => {
-        // Handle error
+         //show error as a toast
+        const errToast = this.toastCtrl.create({
+          message: `Error: ${err} while taking photo`,
+          duration: 3000,
+          position: 'bottom'
+        }).present();
        });
-       this.importDocumentForm.controls['fullPath'].setValue(await this.filePath.resolveNativePath(appDir + "temp/" + fileName));
-
+       
     }
 
   }
