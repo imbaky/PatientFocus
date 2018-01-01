@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Create profile</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <img src="assets/Logo.png" alt="" />
+    <form [formGroup]="createProfile" (ngSubmit)="makeNewProfile()">
+        <ion-item>
+            <ion-label>Name</ion-label>
+            <ion-input type="text" formControlName="name"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Password</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+        <div text-center>
+            <button ion-button type="submit" [disabled]="!createProfile.valid">Create Profile</button>
+        </div>
+    </form>
+</ion-content>
