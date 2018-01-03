@@ -24,16 +24,14 @@
           <ion-searchbar [(ngModel)]="searchTerm" placeholder="Name"></ion-searchbar>
         </ion-item>
         <ion-item>
-          <ion-label stacked>Document Type</ion-label>
           <ion-select [(ngModel)]="docTerm" interface="popover">
-            <ion-option value="" selected="true">Any</ion-option>
+            <ion-option value="" selected="true">Select Document</ion-option>
             <ion-option *ngFor="let document of DocumentType.values()" [value]="document">{{ document }}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label stacked>Format</ion-label>
           <ion-select [(ngModel)]="fileTerm" interface="popover">
-            <ion-option value="" selected="true">Any</ion-option>
+            <ion-option value="" selected="true">Select Format</ion-option>
             <ion-option *ngFor="let format of FileFormatType.values()" [value]="">{{ format }}</ion-option>
           </ion-select>
         </ion-item>
