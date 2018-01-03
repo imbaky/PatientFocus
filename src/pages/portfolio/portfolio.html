@@ -16,29 +16,34 @@
 
 <ion-content padding>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col col-12 col-md-6 col-lg-4 cold-xl-3>
-        <ion-searchbar [(ngModel)]="searchTerm" placeholder="Filter by name"></ion-searchbar>
-      </ion-col>
-      <ion-col>
+  <ion-menu type="overlay" side="right" id="filterMenu" [content]="filterMenu">
+    <ion-content>
+      <h4>Filter by:</h4>
+      <ion-list>
+        <ion-item>
+          <ion-searchbar [(ngModel)]="searchTerm" placeholder="Name"></ion-searchbar>
+        </ion-item>
         <ion-item>
           <ion-select [(ngModel)]="docTerm" interface="popover">
             <ion-option value="" selected="true">Select Document</ion-option>
             <ion-option *ngFor="let document of DocumentType.values()" [value]="document">{{ document }}</ion-option>
           </ion-select>
         </ion-item>
-      </ion-col>
-      <ion-col col-12 col-md-6 col-lg-4 cold-xl-3>
         <ion-item>
           <ion-select [(ngModel)]="fileTerm" interface="popover">
             <ion-option value="" selected="true">Select Format</ion-option>
             <ion-option *ngFor="let format of FileFormatType.values()" [value]="">{{ format }}</ion-option>
           </ion-select>
         </ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-toolbar no-border-top #filterMenu>
+    <ion-buttons right>
+      <button ion-button menuToggle="filterMenu">Filter</button>
+    </ion-buttons>
+  </ion-toolbar>
 
   <ion-list>
     <ng-container *ngFor="let item of (directory$ | async)?.items| fileFilter:filterName:searchTerm | fileFilter:filterDocumentType:docTerm | fileFilter:filterFormatType:fileTerm">
