@@ -3,29 +3,40 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { Page1 } from '../pages/page1/page1';
+import { IntroPage } from '../pages/intro/intro';
+import { WelcomePage } from '../pages/welcome/welcome';
+import { ProfileService } from '../core/data/services/profile/profile.service';
 import { PortfolioPage } from '../pages/portfolio/portfolio';
 
 @Component({
-  templateUrl: 'app.html'
+    templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Page1;
+  rootPage: any = IntroPage;
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(
-    public platform: Platform,
-    public statusBar: StatusBar,
-    public splashScreen: SplashScreen
-  ) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
+  private profileService: ProfileService) {
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Page One', component: Page1 },
+      { title: 'WelcomePage', component: WelcomePage},
       { title: 'Medical Portfolio', component: PortfolioPage }
     ];
+
+    this.isProfileCreated();
+  }
+
+  isProfileCreated() {
+    this.profileService.getFirstProfile().then(profile => {
+      if (profile) {
+        this.rootPage = WelcomePage;
+      } else {
+        this.rootPage = IntroPage;
+      }
+    });
   }
 
   ionViewDidLoad() {

@@ -10,27 +10,28 @@ import { DexieService } from './services/dexie/dexie.service';
 import { FileSystemService } from './services/file-system/file-system.service';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ]
+    imports: [
+        CommonModule
+    ]
 })
 export class DataModule {
-  constructor (@Optional() @SkipSelf() parent: DataModule) {
-    if (parent) {
-      throw new Error(DataModule.name + ' was already loaded!');
+    constructor(@Optional() @SkipSelf() parent: DataModule) {
+        if (parent) {
+            throw new Error(DataModule.name + ' was already loaded!');
+        }
+    }
+
+    static forRoot(): ModuleWithProviders {
+        return {
+            providers: [
+                DexieService,
+                DirectoryService,
+                ItemService,
+                ProfileService,
+                FileService,
+                FileSystemService
+            ],
+            ngModule: DataModule
+        };
     }
   }
-  static forRoot(): ModuleWithProviders {
-    return {
-      providers: [
-        DexieService,
-        DirectoryService,
-        ItemService,
-        ProfileService,
-        FileService,
-        FileSystemService
-      ],
-      ngModule: DataModule
-    };
-  }
-}
