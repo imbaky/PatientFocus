@@ -8,11 +8,14 @@ import { Item } from '../../core/data/services/item/item.service';
 import { ImportDocumentPage } from './import-document/import-document';
 import { File } from '../../core/data/services/file/file.service';
 import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enum';
+import { UploadType } from '../../core/data/enum/upload-type.enum'
 
 @Component({
   selector: 'page-portfolio',
   templateUrl: 'portfolio.html'
 })
+
+
 export class PortfolioPage {
 
   directory$: Promise<Directory>;
@@ -26,6 +29,7 @@ export class PortfolioPage {
   fileTerm: FileFormatType;
   docTerm: DocumentType;
 
+  
   constructor(
     public modalCtrl: ModalController,
     public navCtrl: NavController,
@@ -39,6 +43,7 @@ export class PortfolioPage {
     this.directory$ = this.directoryService.getDirectoryById(id);
 
   }
+
 
   handleDir(event, item) {
     this.navCtrl.push(PortfolioPage, { item: item });
@@ -54,11 +59,11 @@ export class PortfolioPage {
         {
           text: 'Take Picture',
           icon: 'md-camera',
-          handler: this.handleFileImport.bind(this, directory, 'take-picture')
+          handler: this.handleFileImport.bind(this, directory, UploadType.TakePicture)
         }, {
           text: 'Import File',
           icon: 'md-document',
-          handler: this.handleFileImport.bind(this, directory, 'import-file')
+          handler: this.handleFileImport.bind(this, directory, UploadType.ImportFile)
         }, {
           text: 'Cancel',
           role: 'cancel',

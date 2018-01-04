@@ -8,6 +8,7 @@ import { FileSystemService } from '../../../core/data/services/file-system/file-
 import { Directory } from '../../../core/data/services/directory/directory.service';
 import { DocumentType } from '../../../core/data/enum/file-type.enum';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { UploadType } from '../../../core/data/enum/upload-type.enum';
 
 declare var window;
 
@@ -54,7 +55,7 @@ export class ImportDocumentPage {
     this.selectFile();
   }
 
-  readonly options: CameraOptions = {
+  readonly OPTIONS: CameraOptions = {
     quality: 100,
     destinationType: this.camera.DestinationType.FILE_URI,
     encodingType: this.camera.EncodingType.JPEG,
@@ -66,7 +67,7 @@ export class ImportDocumentPage {
   }
 
   async selectFile() {
-   if (this.importMethod === 'import-file') {
+   if (this.importMethod === UploadType.ImportFile) {
 
       const uri = await this.fileChooser.open();
       window.resolveLocalFileSystemURL(uri, (fileEntry) => {
@@ -75,9 +76,9 @@ export class ImportDocumentPage {
           });
       });
 
-    } else if (this.importMethod === 'take-picture') {
+    } else if (this.importMethod === UploadType.TakePicture) {
       //takes picture 
-      this.camera.getPicture(this.options).then((fileUri) => {
+      await this.camera.getPicture(this.OPTIONS).then((fileUri) => {
       this.importDocumentForm.controls['fullPath'].setValue(fileUri);
        }, (err) => {
          //show error as a toast
