@@ -77,18 +77,17 @@ export class ImportDocumentPage {
       });
 
     } else if (this.importMethod === UploadType.TakePicture) {
-      //takes picture 
-      await this.camera.getPicture(this.OPTIONS).then((fileUri) => {
-      this.importDocumentForm.controls['fullPath'].setValue(fileUri);
-       }, (err) => {
-         //show error as a toast
-        const errToast = this.toastCtrl.create({
-          message: `Error: ${err} while taking photo`,
-          duration: 3000,
-          position: 'bottom'
-        }).present();
-       });
-       
+      // takes picture
+      try {
+      this.importDocumentForm.controls['fullPath'].setValue(await this.camera.getPicture(this.OPTIONS));
+      } catch (err) {
+                 // shows error as a toast
+                 const errToast = this.toastCtrl.create({
+                  message: `Error: ${err} while taking photo`,
+                  duration: 3000,
+                  position: 'bottom'
+                }).present();
+      }
     }
 
   }

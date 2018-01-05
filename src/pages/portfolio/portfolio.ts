@@ -8,7 +8,7 @@ import { Item } from '../../core/data/services/item/item.service';
 import { ImportDocumentPage } from './import-document/import-document';
 import { File } from '../../core/data/services/file/file.service';
 import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enum';
-import { UploadType } from '../../core/data/enum/upload-type.enum'
+import { UploadType } from '../../core/data/enum/upload-type.enum';
 
 @Component({
   selector: 'page-portfolio',
@@ -29,7 +29,7 @@ export class PortfolioPage {
   fileTerm: FileFormatType;
   docTerm: DocumentType;
 
-  
+
   constructor(
     public modalCtrl: ModalController,
     public navCtrl: NavController,
