@@ -22,7 +22,7 @@ export class MyApp {
   private profileService: ProfileService) {
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'WelcomePage', component: WelcomePage},
+      { title: 'Welcome Page', component: WelcomePage},
       { title: 'Medical Portfolio', component: PortfolioPage }
     ];
 

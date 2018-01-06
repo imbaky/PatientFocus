@@ -89,4 +89,6 @@
     <plugin name="com-sarriaroman-photoviewer" spec="^1.1.11" />
     <engine name="android" spec="~6.4.0" />
     <plugin name="cordova-plugin-camera" spec="^3.0.0" />
+    <plugin name="cordova-plugin-document-viewer" spec="^0.9.7" />
+    <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
 </widget>
