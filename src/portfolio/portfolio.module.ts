@@ -9,6 +9,7 @@ import { PortfolioPage } from '../pages/portfolio/portfolio';
 import { ImportDocumentPage } from '../pages/portfolio/import-document/import-document';
 import { FilterFileName } from '../pipes/filterfilespace';
 import { FileFilter } from '../pipes/file-filter/file-filter.pipe';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 @NgModule({
@@ -30,6 +31,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
   providers: [
     FileChooser,
     FilePath,
+    PhotoViewer,
     File,
     Camera
   ]
