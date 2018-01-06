@@ -58,11 +58,11 @@
       </ion-item>
       <ion-item  *ngIf="item.type === ItemType.FILE">
         <ion-icon name="document" item-start></ion-icon>
-        <ion-label class="item-label">
+        <ion-label class="item-label" (tap)="viewDoc($event, item)" tappable>
           <div class="item-label--name">{{ item?.name | addSpace}}</div>
           <div class="item-label--type">{{ item?.value.document_type}}</div>
         </ion-label>
-        <ion-checkbox color="dark" item-end></ion-checkbox>
+        <input type="checkbox" item-end>
       </ion-item>
     </ng-container>
   </ion-list>
