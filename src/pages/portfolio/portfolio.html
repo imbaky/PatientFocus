@@ -16,7 +16,7 @@
 
 <ion-content padding>
 
-  <ion-menu type="overlay" side="right" id="filterMenu" [content]="filterMenu">
+  <ion-menu type="overlay" side="right" id="filterMenu" [content]="filterMenu" (ionOpen)='filterToggle()' (ionClose)='filterToggle()'>
     <ion-content>
       <h4>Filter by:</h4>
       <ion-list>
@@ -73,7 +73,7 @@
 
     <ng-container *ngIf="directory$ | async as directory">
         <ion-fab right bottom>
-            <button ion-fab color="light" (click)="importNewDocument(directory)">
+            <button ion-fab color="light" id="addButton" (click)="importNewDocument(directory)">
                 <ion-icon name="add"></ion-icon>
             </button>
         </ion-fab>
