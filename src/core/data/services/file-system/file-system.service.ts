@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { File } from '@ionic-native/file';
 
 import { Directory, DirectoryService } from '../directory/directory.service';
-import {DocumentType, FileFormatType} from '../../enum/file-type.enum';
+import { DocumentType } from '../../enum/file-type.enum';
 import { Item } from '../item/item.service';
 
 
@@ -28,7 +28,8 @@ export class FileSystemService {
       const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
       const extension = filename.substring(filename.lastIndexOf('.'));
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
-      const entry = await this.file.copyFile(url, filename, this.file.dataDirectory + 'Documents/', newDocumentName.concat(extension));
+      // TODO file needs to be added to the correct directory
+      const entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, newDocumentName.concat(extension));
       await this.directoryService.addFileToDirectory(entry, creationDate, type, directory);
       const entries = await this.file.listDir(this.file.dataDirectory, 'Documents');
   }
