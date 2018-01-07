@@ -9,6 +9,7 @@ import { ImportDocumentPage } from './import-document/import-document';
 import { File } from '../../core/data/services/file/file.service';
 import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enum';
 import { UploadType } from '../../core/data/enum/upload-type.enum';
+import * as moment from 'moment';
 
 
 @Component({
@@ -38,17 +39,18 @@ export class PortfolioPage {
     private photoViewer: PhotoViewer,
     private fileOpener: FileOpener
   ) {
-    this.dateFromTerm = this.getDate();
-    this.dateToTerm = this.getDate();
+    // TODO: decide on start date
+    this.dateFromTerm = this.getDate({year: 2017, month: 0, day: 1});
+    this.dateToTerm = this.getDate({});
     this.currentItem = this.navParams.get('item');
     // TODO: get current profile directory id, currently set to 1.
     const id = !this.currentItem ? 1 : this.currentItem.type_id;
     this.directory$ = this.directoryService.getDirectoryById(id);
   }
 
-  getDate() {
-    let d = new Date();
-    return d.toISOString();
+  getDate(chosen_date) {
+    const d = moment(chosen_date);
+    return d.format('YYYY-MM-DD');
   }
 
   handleDir(event, item) {
@@ -118,5 +120,10 @@ export class PortfolioPage {
     } else if (file.format === FileFormatType.PNG || file.format === FileFormatType.JPG) {
       this.photoViewer.show(file.path);
     }
+  }
+  
+  filterDate(item: Item, fromTo: any) {
+    // is between and includes same day
+    return (moment(item.chosen_date).isBetween(fromTo[0], fromTo[1], null, '[]'));
   }
 }

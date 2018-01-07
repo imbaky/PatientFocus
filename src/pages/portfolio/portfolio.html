@@ -39,11 +39,11 @@
         </ion-item>
         <ion-item>
             <ion-label stacked>Date from</ion-label>
-            <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="dateFromTerm"></ion-datetime>
+            <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="dateFromTerm"></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label stacked>Date to</ion-label>
-          <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="dateToTerm"></ion-datetime>
+          <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="dateToTerm"></ion-datetime>
         </ion-item>
       </ion-list>
     </ion-content>
@@ -56,7 +56,7 @@
   </ion-toolbar>
 
   <ion-list>
-    <ng-container *ngFor="let item of (directory$ | async)?.items| fileFilter:filterName:searchTerm | fileFilter:filterDocumentType:docTerm | fileFilter:filterFormatType:fileTerm">
+    <ng-container *ngFor="let item of (directory$ | async)?.items| fileFilter:filterName:searchTerm | fileFilter:filterDocumentType:docTerm | fileFilter:filterFormatType:fileTerm | fileFilter:filterDate:[dateFromTerm, dateToTerm]">
       <ion-item  *ngIf="item.type === ItemType.DIRECTORY" (click)="handleDir($event, item)">
         <ion-icon name="folder" item-start></ion-icon>
         <ion-label class="item-label">
