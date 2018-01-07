@@ -37,6 +37,14 @@
             <ion-option *ngFor="let format of FileFormatType.values()" [value]="">{{ format }}</ion-option>
           </ion-select>
         </ion-item>
+        <ion-item>
+            <ion-label stacked>Date from</ion-label>
+            <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="dateFromTerm"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Date to</ion-label>
+          <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="dateToTerm"></ion-datetime>
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
@@ -60,6 +68,7 @@
         <ion-icon name="document" item-start></ion-icon>
         <ion-label class="item-label" (tap)="viewDoc($event, item)" tappable>
           <div class="item-label--name">{{ item?.value?.user_defined_name | addSpace}}</div>
+          <div class="item-label--name">{{ item?.chosen_date }}</div>
           <div class="item-label--type">{{ item?.value.document_type}}</div>
         </ion-label>
         <input type="checkbox" item-end>

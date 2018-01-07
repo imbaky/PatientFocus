@@ -23,6 +23,12 @@ export class PortfolioPage {
   DocumentType = DocumentType;
   FileFormatType = FileFormatType;
 
+  searchTerm = '';
+  fileTerm: FileFormatType;
+  docTerm: DocumentType;
+  dateFromTerm: string;
+  dateToTerm: string;
+
   constructor(
     public modalCtrl: ModalController,
     public navCtrl: NavController,
@@ -32,10 +38,17 @@ export class PortfolioPage {
     private photoViewer: PhotoViewer,
     private fileOpener: FileOpener
   ) {
+    this.dateFromTerm = this.getDate();
+    this.dateToTerm = this.getDate();
     this.currentItem = this.navParams.get('item');
     // TODO: get current profile directory id, currently set to 1.
     const id = !this.currentItem ? 1 : this.currentItem.type_id;
     this.directory$ = this.directoryService.getDirectoryById(id);
+  }
+
+  getDate() {
+    let d = new Date();
+    return d.toISOString();
   }
 
   handleDir(event, item) {
