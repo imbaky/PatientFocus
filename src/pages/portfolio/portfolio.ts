@@ -10,6 +10,7 @@ import { File } from '../../core/data/services/file/file.service';
 import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enum';
 import { UploadType } from '../../core/data/enum/upload-type.enum';
 
+
 @Component({
   selector: 'page-portfolio',
   templateUrl: 'portfolio.html'
@@ -84,9 +85,10 @@ export class PortfolioPage {
     const file = <File>item.value;
     if (file.format === FileFormatType.PDF) {
       try {
-        const document = await this.fileOpener.open(file.path, 'application/pdf');
-      }
-      catch (error) {
+        // TODO investigate why some applications can read paths with %20 while others cannot
+        const path = file.path.replace('%20', ' ');
+        const document = await this.fileOpener.open(path, 'application/pdf');
+      } catch (error) {
         console.log('Error openening file', error);
       }
     } else if (file.format === FileFormatType.PNG || file.format === FileFormatType.JPG) {
