@@ -29,9 +29,9 @@ export class FileSystemService {
       const extension = filename.substring(filename.lastIndexOf('.'));
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
       // TODO file needs to be added to the correct directory
-      const entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, newDocumentName.concat(extension));
-      await this.directoryService.addFileToDirectory(entry, creationDate, type, directory);
-      const entries = await this.file.listDir(this.file.dataDirectory, 'Documents');
+      const entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, filename);
+      await this.directoryService.addFileToDirectory(entry, creationDate, type, directory, newDocumentName);
+      const entries = await this.file.listDir('file:///storage/emulated/0/Android/data/io.ionic.starter/', 'files');
   }
 
   addDirectoryToDevice(directory: Directory) {
