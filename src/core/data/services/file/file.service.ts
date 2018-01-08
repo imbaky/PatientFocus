@@ -10,6 +10,7 @@ export interface File {
   document_type: DocumentType;
   size: number;
   format: FileFormatType;
+  user_defined_name: string;
 }
 
 @Injectable()
@@ -29,7 +30,15 @@ export class FileService {
     return Promise.all(files);
   }
 
-  async createFile(path: string, size: number, type: DocumentType): Promise<File> {
+  /**
+   *
+   * @param {string} path the path of the file. The path does not include the filename
+   * @param {number} size The memory file size
+   * @param {DocumentType} type The file extension
+   * @param {string} documentName The user defined document name
+   * @returns {Promise<File>} Returns a promise with the newly created File
+   */
+  async createFile(path: string, size: number, type: DocumentType, documentName: string): Promise<File> {
     const filename = path.substring(path.lastIndexOf('/') + 1);
     const extension = filename.substring(filename.lastIndexOf('.') + 1).toUpperCase();
     let fileFormat: FileFormatType = FileFormatType[extension];
@@ -40,7 +49,8 @@ export class FileService {
       path : path,
       size : size,
       document_type : type,
-      format : fileFormat
+      format : fileFormat,
+      user_defined_name: documentName
     };
     const pk = await this.table.add(file);
     file.id = pk;

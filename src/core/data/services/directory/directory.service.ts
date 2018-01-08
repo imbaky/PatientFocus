@@ -5,6 +5,7 @@ import Dexie from 'dexie';
 import { DexieService } from '../dexie/dexie.service';
 import { Item, ItemService } from '../item/item.service';
 import { DocumentType } from '../../enum/file-type.enum';
+import { FileService } from '../file/file.service'
 
 export interface Directory {
   id?: number;
@@ -18,7 +19,8 @@ export class DirectoryService {
 
   constructor(
     private dexie: DexieService,
-    private items: ItemService
+    private items: ItemService,
+    private fileService: FileService
   ) {
     this.table = this.dexie.table('directory');
   }
@@ -53,9 +55,14 @@ export class DirectoryService {
    * @param {DocumentType} type type of medical document
    * @param {Directory} directory the directory in which the file will be added to
    */
-  async addFileToDirectory(fileEntry: Entry, creationDate: string, type: DocumentType, directory: Directory) {
-    const item = await this.items.createItemWithFileEntry(fileEntry, creationDate, type, directory.id);
-    directory.items.push(item);
+  async addFileToDirectory(fileEntry: Entry, creationDate: string, type: DocumentType, directory: Directory,
+                           newDocumentName: string) {
+    fileEntry.getMetadata(async (metadata) => {
+      const size = metadata.size;
+      const newFile = await this.fileService.createFile(fileEntry.nativeURL, size, type, newDocumentName);
+      const item = await this.items.createItemAsFile(newFile, creationDate, type, directory.id);
+      directory.items.push(item);
+    });
   }
 
 }
