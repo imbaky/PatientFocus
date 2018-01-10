@@ -74,6 +74,17 @@ export class PortfolioPage {
     actionSheet.present();
   }
 
+  // filter menu event
+  filterToggle() {
+    // we want to hide the add document button
+    const addButton = document.getElementById('addButton');
+    if (addButton.style.visibility === 'hidden') {
+      addButton.style.visibility = '';
+      return;
+    }
+    addButton.style.visibility = 'hidden';
+  }
+
   filterName(item: Item, compare: string) {
     return item.name.toLowerCase().includes(compare.toLowerCase());
   }

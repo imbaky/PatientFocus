@@ -8,6 +8,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  min-width: 33%;
 }
 
 .item-label--type {
@@ -15,4 +16,7 @@
   padding-left: 1rem;
   text-transform: uppercase;
 }
-  
+
+.popover-content {
+  width: 80% !important;
+}
