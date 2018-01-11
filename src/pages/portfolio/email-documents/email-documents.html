@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Close</button>
+    </ion-buttons>
+    <ion-title>Import Document</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="emailDocumentsForm" (ngSubmit)="emailFiles()">
+    <ion-item>
+      <ion-label>To:</ion-label>
+      <ion-input type="text" formControlName="recipient" autofocus> </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Selected file</ion-label>
+      <ion-input type="text" readonly="true" formControlName="fullPath">{{selectedFileName}}</ion-input>
+    </ion-item>
+
+  </form>
+</ion-content>
