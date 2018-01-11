@@ -29,21 +29,15 @@ export class EmailDocumentsPage {
   }
 
   async sendFiles() {
-      console.log('Send was pressed');
     const email = {
        to: this.emailDocumentsForm.controls['to'].value,
         cc: '',
         bcc: '',
-        attachments: [] ,
+        attachments: this.params.get('attachments'),
         subject : this.emailDocumentsForm.controls['subject'].value,
         body: '',
         isHtml: true
     };
     this.emailComposer.open(email);
-    // this.email.addAlias('gmail','com.google.android.gm');
-    // this.email.open({
-    //     app: 'gmail',
-    //     mail
-    // });
   }
 }

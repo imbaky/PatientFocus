@@ -62,7 +62,8 @@
             <p>{{ item?.value.format}}</p>
             <h3>{{ item?.value.document_type}}</h3>
             <h2>{{ item?.value?.user_defined_name}}</h2>
-          </ion-item>
+            <ion-checkbox [(ngModel)]="checkedItems[i]" color="dark" item-end></ion-checkbox>
+        </ion-item>
     </ng-container>
   </ion-list>
 

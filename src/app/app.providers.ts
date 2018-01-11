@@ -35,14 +35,14 @@ class EmailComposerMock extends EmailComposer {
         return new Promise((resolve, reject) => {
             resolve();
         });
-    };
+    }
     /**
      * Adds a new mail app alias.
      *
      * @param alias {string} The alias name
      * @param packageName {string} The package name
      */
-    addAlias(alias: string, packageName: string): void {};
+    addAlias(alias: string, packageName: string): void {}
     /**
      * Displays the email composer pre-filled with data.
      *
