@@ -29,6 +29,7 @@ export class PortfolioPage {
   docTerm: DocumentType;
   dateFromTerm: string;
   dateToTerm: string;
+  dateMaxDate: string;
 
   constructor(
     public modalCtrl: ModalController,
@@ -39,9 +40,12 @@ export class PortfolioPage {
     private photoViewer: PhotoViewer,
     private fileOpener: FileOpener
   ) {
-    // TODO: decide on start date
-    this.dateFromTerm = this.getDate({year: 2017, month: 0, day: 1});
+    // set date to today by default
+    // otherwise format is {year: 2017, month: 0, day: 1}
+    // the webpage for moment.js has more information
+    this.dateFromTerm = this.getDate({});
     this.dateToTerm = this.getDate({});
+    this.dateMaxDate = this.getDate({});
     this.currentItem = this.navParams.get('item');
     // TODO: get current profile directory id, currently set to 1.
     const id = !this.currentItem ? 1 : this.currentItem.type_id;
@@ -50,6 +54,7 @@ export class PortfolioPage {
 
   getDate(chosen_date) {
     const d = moment(chosen_date);
+    // keeping with ISO 8601 format as far as year month day is concerned
     return d.format('YYYY-MM-DD');
   }
 

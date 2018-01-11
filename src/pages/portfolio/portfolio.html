@@ -43,7 +43,7 @@
         </ion-item>
         <ion-item>
           <ion-label stacked>Date to</ion-label>
-          <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="dateToTerm"></ion-datetime>
+          <ion-datetime displayFormat="YYYY-MM-DD" [max]="dateMaxDate"  [(ngModel)]="dateToTerm"></ion-datetime>
         </ion-item>
       </ion-list>
     </ion-content>
