@@ -49,13 +49,10 @@ export class PortfolioPage {
     this.dateToTerm = this.getDate({});
     this.dateMaxDate = this.getDate({});
     this.currentItem = this.navParams.get('item');
-    this.profileService.getFirstProfileId().then(pid => {
-      // TODO: get current profile directory id, currently set to 1.
-      const id = (!this.currentItem) ? pid : this.currentItem.type_id;
+    this.profileService.getFirstProfileId().then(profileId => {
+      const id = (!this.currentItem) ? profileId : this.currentItem.type_id;
       this.directory$ = this.directoryService.getDirectoryById(id);
-    })
-
-
+    });
   }
 
   getDate(chosen_date) {

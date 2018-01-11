@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { DexieService } from '../dexie/dexie.service';
 
 import Dexie from 'dexie';
-import { DirectoryService } from "../directory/directory.service";
-import { DocumentType, FileFormatType } from "../../enum/file-type.enum";
-import { ItemType } from "../../enum/item-type.enum";
+import { DirectoryService } from '../directory/directory.service';
 
 export interface UserProfile {
     id?: number;
@@ -28,50 +26,31 @@ export class ProfileService {
 
     }
 
+    /**
+     * Saves a new profile and attaches a new directory with the same id
+     * @param profile object form
+     * @returns {Promise<number>}
+     */
     async save(profile: any) {
-        const entry = {
+        let entry = {
             directory: null,
             name: profile.name,
             password: profile.password,
         };
         let profileId = await this.table.put(entry);
-        const directoryid = await this.directoryService.createNewDirectory(profileId);
-        const profile2 = await this.table.get(profileId);
-        profile2.directory = directoryid;
-        profileId = await this.table.put(profile2);
+        const directoryId = await this.directoryService.createNewDirectory(profileId);
+        entry = await this.table.get(profileId);
+        entry.directory = directoryId;
+        profileId = await this.table.put(entry);
 
-        const date = new Date();
-
-        this.dexie.table('item').bulkAdd([
-            {
-                name: 'Filename1.txt',
-                description: 'lab test1',
-                type: ItemType.FILE,
-                type_id: 1,
-                directory_id: directoryid,
-                chosen_date: date.toISOString()
-            },
-            {
-                name: 'Filename2.txt',
-                description: 'lab test2',
-                type: ItemType.FILE,
-                type_id: 2,
-                directory_id: directoryid,
-                chosen_date: date.toISOString()
-            },
-            {
-                name: 'Filename2.txt',
-                description: 'blood test',
-                type: ItemType.FILE,
-                type_id: 3,
-                directory_id: directoryid,
-                chosen_date: date.toISOString()
-            },
-        ]);
         return profileId;
     }
 
-    async getFirstProfile(): Promise<UserProfile> {
+    /**
+     * Retrieve first profile in the database
+     * @returns {Promise<R>}
+     */
+    getFirstProfile(): Promise<UserProfile> {
         return this.table.toArray(profile => {
             return profile[0];
         });

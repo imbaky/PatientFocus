@@ -12,6 +12,9 @@ import {
 } from '../../test-config/mocks-ionic';
 import { ProfileService } from "../core/data/services/profile/profile.service";
 import { DexieService } from "../core/data/services/dexie/dexie.service";
+import { FileService } from "../core/data/services/file/file.service";
+import { ItemService } from "../core/data/services/item/item.service";
+import { DirectoryService } from "../core/data/services/directory/directory.service";
 
 describe('MyApp Component', () => {
     let fixture;
@@ -28,7 +31,10 @@ describe('MyApp Component', () => {
                 {provide: SplashScreen, useClass: SplashScreenMock},
                 {provide: Platform, useClass: PlatformMock},
                 ProfileService,
-                DexieService
+                DexieService,
+                DirectoryService,
+                ItemService,
+                FileService
             ]
         })
     }));
@@ -41,7 +47,6 @@ describe('MyApp Component', () => {
     it('should be created', () => {
         expect(component instanceof MyApp).toBe(true);
     });
-
 
     it('should have two pages', () => {
         expect(component.pages.length).toBe(2);
