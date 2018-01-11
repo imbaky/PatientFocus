@@ -11,7 +11,7 @@ import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enu
 import { UploadType } from '../../core/data/enum/upload-type.enum';
 import * as moment from 'moment';
 
-import { ProfileService } from "../../core/data/services/profile/profile.service";
+import { ProfileService } from '../../core/data/services/profile/profile.service';
 
 @Component({
   selector: 'page-portfolio',
@@ -140,5 +140,5 @@ export class PortfolioPage {
       this.photoViewer.show(file.path);
     }
   }
-  
+
 }

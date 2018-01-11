@@ -57,15 +57,16 @@
 
   <ion-list>
     <ng-container *ngFor="let item of (directory$ | async)?.items| fileFilter:filterName:searchTerm | fileFilter:filterDocumentType:docTerm | fileFilter:filterFormatType:fileTerm">
-      <ion-item  *ngIf="item.type === ItemType.FILE">
-        <ion-icon name="document" item-start></ion-icon>
-        <ion-label class="item-label" (tap)="viewDoc($event, item)" tappable>
-          <div class="item-label--name">{{ item?.value?.user_defined_name | addSpace}}</div>
-          <div class="item-label--name">{{ item?.chosen_date }}</div>
-          <div class="item-label--type">{{ item?.value.document_type}}</div>
-        </ion-label>
-        <input type="checkbox" item-end>
-      </ion-item>
+        <ion-item  *ngIf="item.type === ItemType.FILE">
+            <ion-avatar item-start class="item item-avatar">
+              <ion-icon name="document" item-start></ion-icon>
+            </ion-avatar>
+            <p>{{ item?.chosen_date}}</p>
+            <p>{{ item?.value.format}}</p>
+            <h3>{{ item?.value.document_type}}</h3>
+            <h2>{{ item?.user_defined_name | addSpace}}</h2>
+            <input type="checkbox" item-end>
+          </ion-item>
     </ng-container>
   </ion-list>
 
