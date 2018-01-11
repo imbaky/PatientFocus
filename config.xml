@@ -90,5 +90,6 @@
     <plugin name="cordova-plugin-camera" spec="^3.0.0" />
     <plugin name="cordova-plugin-document-viewer" spec="^0.9.7" />
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
+    <plugin name="cordova-plugin-email-composer" spec="^0.8.12" />
     <engine name="android" spec="^6.4.0" />
 </widget>
