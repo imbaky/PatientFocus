@@ -112,6 +112,11 @@ export class PortfolioPage {
     return (item.value as File).format === type;
   }
 
+  filterDate(item: Item, fromTo: any) {
+    // is between and includes same day
+    return (moment(item.chosen_date).isBetween(fromTo[0], fromTo[1], null, '[]'));
+  }
+
   async viewDoc(event: any, item: Item) {
     const file = <File>item.value;
     if (file.format === FileFormatType.PDF) {
@@ -127,8 +132,4 @@ export class PortfolioPage {
     }
   }
   
-  filterDate(item: Item, fromTo: any) {
-    // is between and includes same day
-    return (moment(item.chosen_date).isBetween(fromTo[0], fromTo[1], null, '[]'));
-  }
 }
