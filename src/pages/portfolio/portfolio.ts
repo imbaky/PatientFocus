@@ -12,6 +12,8 @@ import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enu
 import { UploadType } from '../../core/data/enum/upload-type.enum';
 import * as moment from 'moment';
 import { ProfileService } from '../../core/data/services/profile/profile.service';
+import { EmailDocumentsPage } from './email-documents/email-documents';
+
 
 @Component({
   selector: 'page-portfolio',
@@ -118,4 +120,8 @@ export class PortfolioPage {
     }
   }
 
+  emailDocuments() {
+      const importNewEmailModal = this.modalCtrl.create(EmailDocumentsPage, {});
+      importNewEmailModal.present();
+  }
 }
