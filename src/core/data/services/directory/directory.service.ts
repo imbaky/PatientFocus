@@ -26,6 +26,15 @@ export class DirectoryService {
   }
 
   /**
+   * Creates a new directory with a given id
+   * @param id - profile id
+   * @returns {Promise<number>}
+   */
+  async createNewDirectory(id: number) {
+    return await this.dexie.table('directory').add({id: id});
+  }
+
+  /**
    * Returns content items of a directory
    * @param id
    * @returns {Promise<Directory>}

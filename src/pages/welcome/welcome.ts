@@ -18,4 +18,10 @@ export class WelcomePage {
     clear() {
       this.profileService.clearDb();
     }
+
+    show() {
+      this.profileService.getFirstProfile().then(profile => {
+          console.log(profile);
+      })
+    }
 }
