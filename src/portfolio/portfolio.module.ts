@@ -12,17 +12,20 @@ import { FileFilterByDate, FileFilterByName, FileFilterByDocType, FileFilterByFo
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { FileOpener } from '@ionic-native/file-opener';
 import { Camera } from '@ionic-native/camera';
+import { EmailDocumentsPage } from '../pages/portfolio/email-documents/email-documents';
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule.forRoot(PortfolioPage),
     IonicModule.forRoot(ImportDocumentPage),
+    IonicModule.forRoot(EmailDocumentsPage),
   ],
   declarations: [
     PortfolioPage,
     ImportDocumentPage,
     FilterFileName,
+    EmailDocumentsPage,
     FileFilterByDate,
     FileFilterByName,
     FileFilterByDocType,
@@ -30,6 +33,7 @@ import { Camera } from '@ionic-native/camera';
   ],
   exports: [
     PortfolioPage,
+    EmailDocumentsPage,
     ImportDocumentPage
   ],
   providers: [

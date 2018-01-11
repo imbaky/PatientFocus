@@ -11,11 +11,14 @@
   <form [formGroup]="emailDocumentsForm" (ngSubmit)="sendFiles()">
     <ion-item>
       <ion-label>To:</ion-label>
-      <ion-input type="text" formControlName="recipient" autofocus> </ion-input>
+      <ion-input type="text" formControlName="to" autofocus> </ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Subject:</ion-label>
       <ion-input type="text" formControlName="subject" autofocus> </ion-input>
+    </ion-item>
+    <ion-item text-center>
+      <button ion-button color="primary" type="submit">Send</button>
     </ion-item>
   </form>
 </ion-content>
