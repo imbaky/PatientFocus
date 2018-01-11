@@ -56,14 +56,7 @@
   </ion-toolbar>
 
   <ion-list>
-    <ng-container *ngFor="let item of (directory$ | async)?.items| fileFilter:filterName:searchTerm | fileFilter:filterDocumentType:docTerm | fileFilter:filterFormatType:fileTerm | fileFilter:filterDate:[dateFromTerm, dateToTerm]">
-      <ion-item  *ngIf="item.type === ItemType.DIRECTORY" (click)="handleDir($event, item)">
-        <ion-icon name="folder" item-start></ion-icon>
-        <ion-label class="item-label">
-          <div class="item-label--name">{{ item.name }}</div>
-        </ion-label>
-        <ion-icon name="arrow-forward" item-end></ion-icon>
-      </ion-item>
+    <ng-container *ngFor="let item of (directory$ | async)?.items| fileFilter:filterName:searchTerm | fileFilter:filterDocumentType:docTerm | fileFilter:filterFormatType:fileTerm">
       <ion-item  *ngIf="item.type === ItemType.FILE">
         <ion-icon name="document" item-start></ion-icon>
         <ion-label class="item-label" (tap)="viewDoc($event, item)" tappable>
