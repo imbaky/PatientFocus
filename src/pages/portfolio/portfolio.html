@@ -80,13 +80,12 @@
     Start adding files to begin!
   </div>
 
-    <ng-container *ngIf="directory$ | async as directory">
-        <ion-fab right bottom>
-            <button ion-fab color="light" id="addButton" (click)="importNewDocument(directory)">
-                <ion-icon name="add"></ion-icon>
-            </button>
-        </ion-fab>
-    </ng-container>
-
-
 </ion-content>
+
+<ng-container *ngIf="directory$ | async as directory">
+    <ion-fab right bottom>
+        <button ion-fab color="light" id="addButton" (click)="importNewDocument(directory)">
+            <ion-icon name="add"></ion-icon>
+        </button>
+    </ion-fab>
+</ng-container>
