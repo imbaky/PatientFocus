@@ -33,6 +33,8 @@ export class PortfolioPage {
   dateFromTerm: string;
   dateToTerm: string;
   dateMaxDate: string;
+  checkedItems: boolean[];
+  allItems: Item[];
 
   constructor(
     public modalCtrl: ModalController,
@@ -51,10 +53,15 @@ export class PortfolioPage {
     this.dateToTerm = this.getDate({});
     this.dateMaxDate = this.getDate({});
     this.currentItem = this.navParams.get('item');
-    this.profileService.getFirstProfileId().then(profileId => {
-      const id = (!this.currentItem) ? profileId : this.currentItem.type_id;
-      this.directory$ = this.directoryService.getDirectoryById(id);
-    });
+    // TODO: get current profile directory id, currently set to 1.
+    const id = !this.currentItem ? 1 : this.currentItem.type_id;
+    this.directory$ = this.directoryService.getDirectoryById(id);
+    (
+      async () => {
+        const documents = await this.directory$;
+        this.allItems = documents.items;
+        this.checkedItems = new Array(this.allItems.length);
+      })();
   }
 
   getDate(chosen_date) {
@@ -121,7 +128,13 @@ export class PortfolioPage {
   }
 
   emailDocuments() {
-      const importNewEmailModal = this.modalCtrl.create(EmailDocumentsPage, {});
+      const attachments = [];
+      this.checkedItems.forEach((item, i) => {
+        if (this.checkedItems[i]) {
+          attachments.push((this.allItems[i].value as File).path);
+        }
+      });
+      const importNewEmailModal = this.modalCtrl.create(EmailDocumentsPage, { attachments });
       importNewEmailModal.present();
   }
 }
