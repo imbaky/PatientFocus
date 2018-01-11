@@ -73,9 +73,12 @@
 </ion-content>
 
 <ng-container *ngIf="directory$ | async as directory">
-    <ion-fab right bottom>
-        <button ion-fab color="light" id="addButton" (click)="importNewDocument(directory)">
-            <ion-icon name="add"></ion-icon>
-        </button>
-    </ion-fab>
+        <ion-fab right bottom>
+            <button ion-fab color="light" id="addButton" (click)="importNewDocument(directory)">
+                <ion-icon name="add"></ion-icon>
+            </button>
+          <button ion-fab color="light" (click)="emailDocuments(directory)">
+            <ion-icon name="mail"></ion-icon>
+          </button>
+        </ion-fab>
 </ng-container>
