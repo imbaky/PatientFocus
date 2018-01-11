@@ -29,24 +29,22 @@ export class EmailDocumentsPage {
   constructor(public viewCtrl: ViewController,
               private toastCtrl: ToastController,
               private formBuilder: FormBuilder,
-              private fileChooser: FileChooser,
-              private filePath: FilePath,
-              private fileSystemService: FileSystemService,
               private params: NavParams,
-            private emailComposer: EmailComposer,
-            private file: File) {
+            private emailComposer: EmailComposer) {
     this.emailDocumentsForm = this.formBuilder.group({
-      name: [ 'Medical Document', Validators.required ],
-      date: [ new Date().toISOString(), Validators.required ],
-      type: [ DocumentType.LAB_TEST, Validators.required ],
-      fullPath: [ '', Validators.required ]
+      to: [ 'recipient', Validators.required ],
+      subject: [ 'subject', Validators.required ],
     });
-    this.directory = this.params.get('directory');
-    this.selectFile();
   }
 
   dismiss() {
     this.viewCtrl.dismiss();
+  }
+
+  async sendFiles() {
+    let email = {
+       to: ''
+    }
   }
 
   async selectFile() {
@@ -62,7 +60,6 @@ export class EmailDocumentsPage {
     } else if (this.importMethod === UploadType.TakePicture) {
       // takes picture
       try {
-      this.emailDocumentsForm.controls['fullPath'].setValue(await this.camera.getPicture(this.OPTIONS));
       } catch (err) {
                  // shows error as a toast
                  const errToast = this.toastCtrl.create({
@@ -73,22 +70,5 @@ export class EmailDocumentsPage {
       }
     }
 
-  }
-
-  async importFile() {
-    await this.fileSystemService.addNewFileToDirectory(
-      this.importDocumentForm.controls['fullPath'].value,
-      this.importDocumentForm.controls['date'].value,
-      this.importDocumentForm.controls['type'].value,
-      this.importDocumentForm.controls['name'].value,
-      this.directory
-    );
-    const importToast = this.toastCtrl.create({
-      message: `${this.importDocumentForm.controls['name'].value} was successfully imported`,
-      duration: 3000,
-      position: 'bottom'
-    });
-    await importToast.present();
-    this.viewCtrl.dismiss();
   }
 }
