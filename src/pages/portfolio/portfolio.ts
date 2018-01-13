@@ -11,7 +11,6 @@ import { File } from '../../core/data/services/file/file.service';
 import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enum';
 import { UploadType } from '../../core/data/enum/upload-type.enum';
 import * as moment from 'moment';
-
 import { ProfileService } from '../../core/data/services/profile/profile.service';
 
 @Component({
@@ -105,7 +104,7 @@ export class PortfolioPage {
   }
 
   filterName(item: Item, compare: string) {
-    return item.name.toLowerCase().includes(compare.toLowerCase());
+    return (item.value as File).user_defined_name.toLowerCase().includes(compare.toLowerCase());
   }
 
   filterDocumentType(item: Item, type: DocumentType) {
