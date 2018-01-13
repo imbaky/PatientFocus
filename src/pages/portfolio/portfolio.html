@@ -21,9 +21,6 @@
       <h4>Filter by:</h4>
       <ion-list>
         <ion-item>
-          <ion-searchbar [(ngModel)]="searchTerm" placeholder="Name"></ion-searchbar>
-        </ion-item>
-        <ion-item>
           <ion-label stacked>Document Type</ion-label>
           <ion-select [(ngModel)]="docTerm" interface="popover">
             <ion-option value="" selected="true">Any</ion-option>
@@ -50,9 +47,8 @@
   </ion-menu>
 
   <ion-toolbar no-border-top #filterMenu>
-    <ion-buttons right>
-      <button ion-button menuToggle="filterMenu">Filter</button>
-    </ion-buttons>
+          <ion-searchbar [(ngModel)]="searchTerm" placeholder="Name" left></ion-searchbar>
+        <ion-icon name="ios-funnel" menuToggle="filterMenu" large right></ion-icon>
   </ion-toolbar>
 
   <ion-list>
