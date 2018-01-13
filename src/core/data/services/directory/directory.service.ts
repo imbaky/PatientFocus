@@ -5,7 +5,7 @@ import Dexie from 'dexie';
 import { DexieService } from '../dexie/dexie.service';
 import { Item, ItemService } from '../item/item.service';
 import { DocumentType } from '../../enum/file-type.enum';
-import { FileService } from '../file/file.service'
+import { FileService } from '../file/file.service';
 
 export interface Directory {
   id?: number;

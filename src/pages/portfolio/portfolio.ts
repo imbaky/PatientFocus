@@ -9,6 +9,7 @@ import { ImportDocumentPage } from './import-document/import-document';
 import { File } from '../../core/data/services/file/file.service';
 import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enum';
 import { UploadType } from '../../core/data/enum/upload-type.enum';
+import * as moment from 'moment';
 
 
 @Component({
@@ -23,6 +24,13 @@ export class PortfolioPage {
   DocumentType = DocumentType;
   FileFormatType = FileFormatType;
 
+  searchTerm = '';
+  fileTerm: FileFormatType;
+  docTerm: DocumentType;
+  dateFromTerm: string;
+  dateToTerm: string;
+  dateMaxDate: string;
+
   constructor(
     public modalCtrl: ModalController,
     public navCtrl: NavController,
@@ -32,10 +40,22 @@ export class PortfolioPage {
     private photoViewer: PhotoViewer,
     private fileOpener: FileOpener
   ) {
+    // set date to today by default
+    // otherwise format is {year: 2017, month: 0, day: 1}
+    // the webpage for moment.js has more information
+    this.dateFromTerm = this.getDate({});
+    this.dateToTerm = this.getDate({});
+    this.dateMaxDate = this.getDate({});
     this.currentItem = this.navParams.get('item');
     // TODO: get current profile directory id, currently set to 1.
     const id = !this.currentItem ? 1 : this.currentItem.type_id;
     this.directory$ = this.directoryService.getDirectoryById(id);
+  }
+
+  getDate(chosen_date) {
+    const d = moment(chosen_date);
+    // keeping with ISO 8601 format as far as year month day is concerned
+    return d.format('YYYY-MM-DD');
   }
 
   handleDir(event, item) {
@@ -92,6 +112,11 @@ export class PortfolioPage {
     return (item.value as File).format === type;
   }
 
+  filterDate(item: Item, fromTo: any) {
+    // is between and includes same day
+    return (moment(item.chosen_date).isBetween(fromTo[0], fromTo[1], null, '[]'));
+  }
+
   async viewDoc(event: any, item: Item) {
     const file = <File>item.value;
     if (file.format === FileFormatType.PDF) {
@@ -106,4 +131,5 @@ export class PortfolioPage {
       this.photoViewer.show(file.path);
     }
   }
+  
 }

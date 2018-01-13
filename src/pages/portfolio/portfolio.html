@@ -37,6 +37,14 @@
             <ion-option *ngFor="let format of FileFormatType.values()" [value]="">{{ format }}</ion-option>
           </ion-select>
         </ion-item>
+        <ion-item>
+            <ion-label stacked>Date from</ion-label>
+            <ion-datetime displayFormat="YYYY-MM-DD" [max]="dateMaxDate" [(ngModel)]="dateFromTerm"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Date to</ion-label>
+          <ion-datetime displayFormat="YYYY-MM-DD" [max]="dateMaxDate"  [(ngModel)]="dateToTerm"></ion-datetime>
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
@@ -48,7 +56,7 @@
   </ion-toolbar>
 
   <ion-list>
-    <ng-container *ngFor="let item of (directory$ | async)?.items| fileFilter:filterName:searchTerm | fileFilter:filterDocumentType:docTerm | fileFilter:filterFormatType:fileTerm">
+    <ng-container *ngFor="let item of (directory$ | async)?.items| fileFilter:filterName:searchTerm | fileFilter:filterDocumentType:docTerm | fileFilter:filterFormatType:fileTerm | fileFilter:filterDate:[dateFromTerm, dateToTerm]">
       <ion-item  *ngIf="item.type === ItemType.DIRECTORY" (click)="handleDir($event, item)">
         <ion-icon name="folder" item-start></ion-icon>
         <ion-label class="item-label">
@@ -60,6 +68,7 @@
         <ion-icon name="document" item-start></ion-icon>
         <ion-label class="item-label" (tap)="viewDoc($event, item)" tappable>
           <div class="item-label--name">{{ item?.value?.user_defined_name | addSpace}}</div>
+          <div class="item-label--name">{{ item?.chosen_date }}</div>
           <div class="item-label--type">{{ item?.value.document_type}}</div>
         </ion-label>
         <input type="checkbox" item-end>
