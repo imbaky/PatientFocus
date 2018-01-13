@@ -11,6 +11,7 @@ import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enu
 import { UploadType } from '../../core/data/enum/upload-type.enum';
 import * as moment from 'moment';
 
+import { ProfileService } from "../../core/data/services/profile/profile.service";
 
 @Component({
   selector: 'page-portfolio',
@@ -38,7 +39,8 @@ export class PortfolioPage {
     public navParams: NavParams,
     private directoryService: DirectoryService,
     private photoViewer: PhotoViewer,
-    private fileOpener: FileOpener
+    private fileOpener: FileOpener,
+    private profileService: ProfileService
   ) {
     // set date to today by default
     // otherwise format is {year: 2017, month: 0, day: 1}
@@ -47,9 +49,10 @@ export class PortfolioPage {
     this.dateToTerm = this.getDate({});
     this.dateMaxDate = this.getDate({});
     this.currentItem = this.navParams.get('item');
-    // TODO: get current profile directory id, currently set to 1.
-    const id = !this.currentItem ? 1 : this.currentItem.type_id;
-    this.directory$ = this.directoryService.getDirectoryById(id);
+    this.profileService.getFirstProfileId().then(profileId => {
+      const id = (!this.currentItem) ? profileId : this.currentItem.type_id;
+      this.directory$ = this.directoryService.getDirectoryById(id);
+    });
   }
 
   getDate(chosen_date) {
