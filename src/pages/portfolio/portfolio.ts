@@ -117,7 +117,7 @@ export class PortfolioPage {
 
   filterDate(item: Item, fromTo: any) {
     // is between and includes same day
-    return (moment(item.chosen_date).isBetween(fromTo[0], fromTo[1], null, '[]'));
+    return (moment(item.chosen_date, 'YYYY-MM-DD').isBetween(fromTo[0], fromTo[1], null, '[]'));
   }
 
   async viewDoc(event: any, item: Item) {
