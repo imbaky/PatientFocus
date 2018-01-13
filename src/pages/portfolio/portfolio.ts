@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { FileOpener } from '@ionic-native/file-opener';
 import { ActionSheetController, ModalController, NavController, NavParams} from 'ionic-angular';
@@ -53,12 +54,6 @@ export class PortfolioPage {
       const id = (!this.currentItem) ? profileId : this.currentItem.type_id;
       this.directory$ = this.directoryService.getDirectoryById(id);
     });
-  }
-
-  getDate(chosen_date) {
-    const d = moment(chosen_date);
-    // keeping with ISO 8601 format as far as year month day is concerned
-    return d.format('YYYY-MM-DD');
   }
 
   getDate(chosen_date) {
