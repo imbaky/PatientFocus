@@ -61,6 +61,12 @@ export class PortfolioPage {
     return d.format('YYYY-MM-DD');
   }
 
+  getDate(chosen_date) {
+    const d = moment(chosen_date);
+    // keeping with ISO 8601 format as far as year month day is concerned
+    return d.format('YYYY-MM-DD');
+  }
+
   handleDir(event, item) {
     this.navCtrl.push(PortfolioPage, { item: item });
   }
