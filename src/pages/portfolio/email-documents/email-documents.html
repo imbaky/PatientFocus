@@ -1,24 +1,16 @@
 <ion-header>
-  <ion-navbar>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">Close</button>
-    </ion-buttons>
-    <ion-title>Email Documents</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">Close</button>
+        </ion-buttons>
+        <ion-title>Email Documents</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="emailDocumentsForm" (ngSubmit)="sendFiles()">
-    <ion-item>
-      <ion-label>To:</ion-label>
-      <ion-input type="text" formControlName="to" autofocus> </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Subject:</ion-label>
-      <ion-input type="text" formControlName="subject" autofocus> </ion-input>
-    </ion-item>
-    <ion-item text-center>
-      <button ion-button color="primary" type="submit">Send</button>
-    </ion-item>
-  </form>
+    <form [formGroup]="emailDocumentsForm" (ngSubmit)="sendFiles()">
+        <ion-item text-center>
+            <button ion-button color="primary" type="submit">Send</button>
+        </ion-item>
+    </form>
 </ion-content>

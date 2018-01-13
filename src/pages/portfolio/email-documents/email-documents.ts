@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { NavParams, ViewController, ToastController } from 'ionic-angular';
 import { Directory } from '../../../core/data/services/directory/directory.service';
 import { EmailComposer } from '@ionic-native/email-composer';
@@ -19,8 +19,6 @@ export class EmailDocumentsPage {
               private params: NavParams,
             private emailComposer: EmailComposer) {
     this.emailDocumentsForm = this.formBuilder.group({
-      to: [ 'recipient', Validators.required ],
-      subject: [ 'subject', Validators.required ],
     });
   }
 
@@ -30,11 +28,11 @@ export class EmailDocumentsPage {
 
   async sendFiles() {
     const email = {
-       to: this.emailDocumentsForm.controls['to'].value,
+       to: '',
         cc: '',
         bcc: '',
         attachments: this.params.get('attachments'),
-        subject : this.emailDocumentsForm.controls['subject'].value,
+        subject : '',
         body: '',
         isHtml: true
     };
