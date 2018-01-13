@@ -29,8 +29,32 @@ export class FileSystemService {
       const extension = filename.substring(filename.lastIndexOf('.'));
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
       // TODO file needs to be added to the correct directory
-      const entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, filename);
+      const newFileName: string = await this.createFileName(filename, directory);
+      const entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, newFileName);
       await this.directoryService.addFileToDirectory(entry, creationDate, type, directory, newDocumentName);
+  }
+
+  async createFileName(originalFileName: string, directory: Directory): Promise<string> {
+    let newFileName: string = originalFileName;
+    const extension = newFileName.substring(newFileName.lastIndexOf('.'));
+    const index = newFileName.lastIndexOf(extension);
+    const name_without_extension: string = newFileName.slice(0, index);
+    newFileName = name_without_extension;
+    for (let _i = 1; _i <= directory.items.length; _i++) {
+      try {
+        const found = await this.file.checkFile(this.file.externalDataDirectory, newFileName.concat(extension));
+        if (found) {
+          newFileName = name_without_extension;
+          newFileName = newFileName.concat('_' + _i.toString());
+        } else {
+          break;
+        }
+      } catch (e) {
+        break; // file not found
+      }
+    }
+    newFileName = newFileName.concat(extension);
+    return newFileName;
   }
 
   addDirectoryToDevice(directory: Directory) {
