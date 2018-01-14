@@ -45,7 +45,7 @@ export class PortfolioPage {
     // set date to today by default
     // otherwise format is {year: 2017, month: 0, day: 1}
     // the webpage for moment.js has more information
-    this.dateFromTerm = this.getDate({});
+    this.dateFromTerm = this.getDate({year: 2005, month: 0, day: 1}); // set start date to be long ago to include all files by default
     this.dateToTerm = this.getDate({});
     this.dateMaxDate = this.getDate({});
     this.currentItem = this.navParams.get('item');
@@ -101,23 +101,6 @@ export class PortfolioPage {
       return;
     }
     addButton.style.visibility = 'hidden';
-  }
-
-  filterName(item: Item, compare: string) {
-    return (item.value as File).user_defined_name.toLowerCase().includes(compare.toLowerCase());
-  }
-
-  filterDocumentType(item: Item, type: DocumentType) {
-    return (item.value as File).document_type === type;
-  }
-
-  filterFormatType(item: Item, type: FileFormatType) {
-    return (item.value as File).format === type;
-  }
-
-  filterDate(item: Item, fromTo: any) {
-    // is between and includes same day
-    return (moment(item.chosen_date, 'YYYY-MM-DD').isBetween(fromTo[0], fromTo[1], null, '[]'));
   }
 
   async viewDoc(event: any, item: Item) {
