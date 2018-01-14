@@ -52,7 +52,8 @@
   </ion-toolbar>
 
   <ion-list>
-    <ng-container *ngFor="let item of (directory$ | async)?.items| fileFilter:filterName:searchTerm | fileFilter:filterDocumentType:docTerm | fileFilter:filterFormatType:fileTerm | fileFilter:filterDate:[dateFromTerm, dateToTerm]">
+    <ng-container *ngFor="let item of (directory$ | async)?.items| fileFilterByName:searchTerm |
+      fileFilterByDocType:docTerm | fileFilterByFormatType:fileTerm | fileFilterByDate:dateFromTerm:dateToTerm">
         <ion-item  *ngIf="item.type === ItemType.FILE" (tap)="viewDoc($event, item)" tappable>
             <ion-avatar item-start class="item item-avatar">
               <ion-icon name="document" item-start></ion-icon>
