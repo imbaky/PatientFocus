@@ -53,16 +53,16 @@
 
   <ion-list>
     <ng-container *ngFor="let item of (directory$ | async)?.items| fileFilterByName:searchTerm |
-      fileFilterByDocType:docTerm | fileFilterByFormatType:fileTerm | fileFilterByDate:dateFromTerm:dateToTerm">
-        <ion-item  *ngIf="item.type === ItemType.FILE" (tap)="viewDoc($event, item)" tappable>
-            <ion-avatar item-start class="item item-avatar">
+      fileFilterByDocType:docTerm | fileFilterByFormatType:fileTerm | fileFilterByDate:dateFromTerm:dateToTerm; let i=index">
+        <ion-item  *ngIf="item.type === ItemType.FILE">
+            <ion-avatar item-start class="item item-avatar" (tap)="viewDoc($event, item)" tappable>
               <ion-icon name="document" item-start></ion-icon>
             </ion-avatar>
-            <p>{{ item?.chosen_date | date:'MMMM d, y'}}</p>
-            <p>{{ item?.value.format}}</p>
-            <h3>{{ item?.value.document_type}}</h3>
-            <h2>{{ item?.value?.user_defined_name}}</h2>
-            <ion-checkbox [(ngModel)]="checkedItems[i]" color="dark" item-end></ion-checkbox>
+            <p (tap)="viewDoc($event, item)" tappable>{{ item?.chosen_date | date:'MMMM d, y'}}</p>
+            <p (tap)="viewDoc($event, item)" tappable>{{ item?.value.format}}</p>
+            <h3 (tap)="viewDoc($event, item)" tappable>{{ item?.value.document_type}}</h3>
+            <h2 (tap)="viewDoc($event, item)" tappable>{{ item?.value?.user_defined_name}}</h2>
+            <input type="checkbox" [(ngModel)]="checkedItems[i]" item-end>
         </ion-item>
     </ng-container>
   </ion-list>
