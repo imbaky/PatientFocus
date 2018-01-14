@@ -71,6 +71,9 @@ export class DirectoryService {
       const newFile = await this.fileService.createFile(fileEntry.nativeURL, size, type, newDocumentName);
       const item = await this.items.createItemAsFile(newFile, creationDate, type, directory.id);
       directory.items.push(item);
+      const newItems = [];
+      directory.items.forEach( (newItem) => newItems.push(newItem));
+      directory.items = newItems;
     });
   }
 
