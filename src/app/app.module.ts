@@ -13,7 +13,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { DataModule } from '../core/data/data.module';
 import { ProfilePage } from '../pages/profile/profile';
 import { WelcomePage } from '../pages/welcome/welcome';
-import { PortfolioModule } from '../portfolio/portfolio.module';
+import { PortfolioModule } from '../pages/portfolio/portfolio.module';
 
 
 @NgModule({
