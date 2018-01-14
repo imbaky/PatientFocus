@@ -1,4 +1,4 @@
-git re.item-label {
+.item-label {
   display: flex;
 }
 
@@ -26,8 +26,8 @@ ion-select {
 }
 
 ion-item p{
-float: right;
-clear: right;
+  float: right;
+  clear: right;
 }
 
 ion-icon .item .item-avatar  {

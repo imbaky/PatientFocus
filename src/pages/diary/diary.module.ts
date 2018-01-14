@@ -4,20 +4,23 @@ import { IonicModule } from 'ionic-angular';
 
 import { DiaryPage } from '../diary/diary';
 import { AddEntryPage } from '../diary/add-entry/add-entry';
-
+import { DetailedView } from '../../components/detailed-view/detailed-view';
 @NgModule({
   imports: [
     CommonModule,
     IonicModule.forRoot(DiaryPage),
-    IonicModule.forRoot(AddEntryPage)
+    IonicModule.forRoot(AddEntryPage),
+    IonicModule.forRoot(DetailedView)
   ],
   declarations: [
     DiaryPage,
-    AddEntryPage
+    AddEntryPage,
+    DetailedView
   ],
   exports: [
     DiaryPage,
-    AddEntryPage
+    AddEntryPage,
+    DetailedView
   ]
 })
 export class DiaryModule { }

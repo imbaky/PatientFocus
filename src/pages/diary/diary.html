@@ -14,15 +14,24 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
-  
+<ion-content>
+    <ion-list>
+        <ng-container *ngFor="let entry of (diary$ | async)?.entries">
+            <ion-item (tap)="viewDetails($event, entry)" tappable>
+                <ion-avatar item-start>
+                </ion-avatar>
+                <h4>{{ entry?.title }} </h4>
+                <p> {{ entry?.description }}</p>
+            </ion-item>
+            <!-- TODO Add Image Attachment  -->
+        </ng-container>
+    </ion-list>
 </ion-content>
 
 <ng-container *ngIf="diary$ | async as diary">
   <ion-fab right bottom>
     <button ion-fab color="light" id="addButton" (click)="addEntry(diary)">
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name="create"></ion-icon>
     </button>
   </ion-fab>
 </ng-container>
