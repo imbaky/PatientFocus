@@ -14,6 +14,7 @@ import { DataModule } from '../core/data/data.module';
 import { ProfilePage } from '../pages/profile/profile';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { PortfolioModule } from '../pages/portfolio/portfolio.module';
+import { DiaryModule } from '../pages/diary/diary.module';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { PortfolioModule } from '../pages/portfolio/portfolio.module';
     imports: [
         BrowserModule,
         PortfolioModule,
+        DiaryModule,
         DataModule.forRoot(),
         IonicModule.forRoot(MyApp, {}, {links: []})
     ],
