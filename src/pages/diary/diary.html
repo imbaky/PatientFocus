@@ -4,16 +4,19 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
+      <ng-container *ngIf="currentEntry; else rootName">
+        {{ currentEntry.title }}
+      </ng-container>
       <ng-template #rootName>
-        Medical Portfolio
+        Medical Diary
       </ng-template>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ng-container>
+<ng-container *ngIf="diary$ | async as diary">
   <ion-fab right bottom>
-    <button ion-fab color="light" id="addButton">
+    <button ion-fab color="light" id="addButton" (click)="addEntry(diary)">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>

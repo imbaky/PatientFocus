@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-navbar>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">Close</button>
+      </ion-buttons>
+      <ion-title>Add Diary Entry</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <form [formGroup]="addEntryForm" (ngSubmit)="addEntry()">
+      <ion-item>
+        <ion-label>Title</ion-label>
+        <ion-input type="text" formControlName="title" autofocus> </ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-textarea formControlName="description" placeholder="What's happening?"></ion-textarea>
+      </ion-item>
+    </form>
+  </ion-content>
