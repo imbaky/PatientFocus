@@ -15,6 +15,8 @@ import { DexieService } from "../core/data/services/dexie/dexie.service";
 import { FileService } from "../core/data/services/file/file.service";
 import { ItemService } from "../core/data/services/item/item.service";
 import { DirectoryService } from "../core/data/services/directory/directory.service";
+import { DiaryService } from "../core/data/services/diary/diary.service";
+import { DiaryEntryService } from "../core/data/services/diary-entry/diary-entry.service";
 
 describe('MyApp Component', () => {
     let fixture;
@@ -34,7 +36,9 @@ describe('MyApp Component', () => {
                 DexieService,
                 DirectoryService,
                 ItemService,
-                FileService
+                FileService,
+                DiaryService,
+                DiaryEntryService
             ]
         })
     }));
@@ -49,7 +53,7 @@ describe('MyApp Component', () => {
     });
 
     it('should have two pages', () => {
-        expect(component.pages.length).toBe(2);
+        expect(component.pages.length).toBe(3);
     });
 
 });

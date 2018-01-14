@@ -13,8 +13,8 @@ export class AddEntryPage {
     public viewCtrl: ViewController
   ) {
     this.addEntryForm = this.formBuilder.group({
-      title: ["", Validators.required],
-      description: ["", Validators.required]
+      title: ['', Validators.required],
+      description: ['', Validators.required]
     });
   }
 

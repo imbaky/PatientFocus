@@ -4,6 +4,8 @@ import Dexie from "dexie";
 import { SCHEMA } from "../dexie/database";
 import { ProfileService } from "./profile.service";
 import { DirectoryService } from "../directory/directory.service";
+import { DiaryService } from "../diary/diary.service";
+import { DiaryEntryService } from "../diary-entry/diary-entry.service";
 import { ItemService } from "../item/item.service";
 import { FileService } from "../file/file.service";
 
@@ -23,6 +25,8 @@ const testBedSetup = {
         },
         ProfileService,
         DirectoryService,
+        DiaryService,
+        DiaryEntryService,
         ItemService,
         FileService
     ]
