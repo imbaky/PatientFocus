@@ -8,10 +8,10 @@ import { File } from '@ionic-native/file';
 import { PortfolioPage } from '../pages/portfolio/portfolio';
 import { ImportDocumentPage } from '../pages/portfolio/import-document/import-document';
 import { FilterFileName } from '../pipes/filterfilespace';
-import { FileFilter } from '../pipes/file-filter/file-filter.pipe';
+import { FileFilterByDate, FileFilterByName, FileFilterByDocType, FileFilterByFormatType } from '../pipes/file-filter/file-filter.pipe';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { FileOpener } from '@ionic-native/file-opener';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   imports: [
@@ -23,7 +23,10 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
     PortfolioPage,
     ImportDocumentPage,
     FilterFileName,
-    FileFilter
+    FileFilterByDate,
+    FileFilterByName,
+    FileFilterByDocType,
+    FileFilterByFormatType
   ],
   exports: [
     PortfolioPage,

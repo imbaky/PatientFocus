@@ -9,6 +9,7 @@ import { Directory } from '../../../core/data/services/directory/directory.servi
 import { DocumentType } from '../../../core/data/enum/file-type.enum';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { UploadType } from '../../../core/data/enum/upload-type.enum';
+import * as moment from 'moment';
 
 declare var window;
 
@@ -46,7 +47,7 @@ export class ImportDocumentPage {
     ];
     this.importDocumentForm = this.formBuilder.group({
       name: [ 'Medical Document', Validators.required ],
-      date: [ new Date().toISOString(), Validators.required ],
+      date: [ moment(new Date().toISOString()).format('YYYY-MM-DD'), Validators.required ],
       type: [ DocumentType.LAB_TEST, Validators.required ],
       fullPath: [ '', Validators.required ]
     });
