@@ -47,7 +47,7 @@ export class ImportDocumentPage {
     ];
     this.importDocumentForm = this.formBuilder.group({
       name: [ 'Medical Document', Validators.required ],
-      date: [ moment(new Date().toISOString()).format('YYYY-MM-DD'), Validators.required ],
+      date: [ moment().format('YYYY-MM-DD'), Validators.required ],
       type: [ DocumentType.LAB_TEST, Validators.required ],
       fullPath: [ '', Validators.required ]
     });
