@@ -1,71 +1,125 @@
 import { ItemType } from '../../core/data/enum/item-type.enum';
 import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enum';
-
-import { FileFilter } from './file-filter.pipe';
+import { FileFilterByDate, FileFilterByName, FileFilterByDocType, FileFilterByFormatType } from './file-filter.pipe';
 import { Item } from '../../core/data/services/item/item.service';
 import { File } from '../../core/data/services/file/file.service';
 
 describe('FilterItemPipe', () => {
-    const pipe = new FileFilter();
+    const pipeFilterByDate = new FileFilterByDate();
+    const pipeFilterByName = new FileFilterByName();
+    const pipeFilterByDocType = new FileFilterByDocType();
+    const pipeFilterByFormat = new FileFilterByFormatType();
 
-    const items = [
-        {
-            name: "Directory",
-            type: ItemType.DIRECTORY
-        },
-        {
-            name: "1",
-            type: ItemType.FILE,
-            value: {
-                document_type: DocumentType.PRESCRIPTION,
-                format: FileFormatType.TXT
-            }
-        },
-        {
-            name: "2",
-            type: ItemType.FILE,
-            value: {
-                document_type: DocumentType.CONSULTATION,
-                format: FileFormatType.TXT
-            }
-        },
-        {
-            name: "3",
-            type: ItemType.FILE,
-            value: {
-                document_type: DocumentType.IMAGE,
-                format: FileFormatType.JPG
-            }
-        },
-        {
-            name: "4",
-            type: ItemType.FILE,
-            value: {
-                document_type: DocumentType.IMAGE,
-                format: FileFormatType.PNG
-            }
-        }
-    ] as Item[];
+  const items :Item[] = [
+    {
+      name: "filename1.txt",
+      description: "description",
+      type: ItemType.FILE,
+      chosen_date: "2018-01-12",
+      value: {
+        document_type: DocumentType.LAB_TEST,
+        size: 1234,
+        format: FileFormatType.JPG,
+        user_defined_name: "defined_name1"
+      }
+    },
+    {
+      name: "filename2.txt",
+      description: "description",
+      type: ItemType.FILE,
+      chosen_date: "2018-01-13",
+      value: {
+        document_type: DocumentType.LAB_TEST,
+        size: 1234,
+        format: FileFormatType.PDF,
+        user_defined_name: "defined_name2"
+      }
+    },
+    {
+      name: "filename3.txt",
+      description: "description",
+      type: ItemType.FILE,
+      chosen_date: "2018-01-14",
+      value: {
+        document_type: DocumentType.CONSULTATION,
+        size: 1234,
+        format: FileFormatType.JPG,
+        user_defined_name: "defined_name3"
+      }
+    },
+    {
+      name: "directory",
+      description: "description",
+      type: ItemType.DIRECTORY,
+      chosen_date: "2018-01-14"
+    }
+  ] as Item[];
 
-    const documentTypeFilter = function (item: Item, type: DocumentType) {
-        return (item.value as File).document_type === type;
-    };
-
-    const documentFileName = function (item: Item, compare: string) {
-        return item.name.toLowerCase().includes(compare.toLowerCase());
-    };
-
-    it('should filter files with diagnosis document type image', () => {
-        const files = pipe.transform(items, documentTypeFilter, DocumentType.IMAGE);
-
-        expect(files.length).toBe(2);
-    });
-
-    it('should filter files with diagnosis document type image and file name 3', () => {
-        let files = pipe.transform(items, documentTypeFilter, DocumentType.IMAGE);
-        files = pipe.transform(files, documentFileName, "3");
-
+    it('should only return 1 file within the date range "2018-01-11"-"2018-01-12"', () => {
+        const files = pipeFilterByDate.transform(items, "2018-01-11", "2018-01-12");
         expect(files.length).toBe(1);
+        expect(files[0].name).toBe("filename1.txt");
     });
+
+  it('should return all files within the date range 2011-2018', () => {
+    const files = pipeFilterByDate.transform(items, "2010-01-12", "2018-01-14");
+    expect(files.length).toBe(3);
+    expect(files[0].name).toBe("filename1.txt");
+    expect(files[1].name).toBe("filename2.txt");
+    expect(files[2].name).toBe("filename3.txt");
+  });
+
+  it('should return 1 file with user defined name defined_name1', () => {
+    const files = pipeFilterByName.transform(items, "defined_name1");
+    expect(files.length).toBe(1);
+    expect((<File>(files[0].value)).user_defined_name).toBe("defined_name1");
+  });
+
+  it('should return 3 files with user defined name of defined_name', () => {
+    const files = pipeFilterByName.transform(items, "defined_name");
+    expect(files.length).toBe(3);
+    expect((<File>(files[0].value)).user_defined_name).toBe("defined_name1");
+    expect((<File>(files[1].value)).user_defined_name).toBe("defined_name2");
+    expect((<File>(files[2].value)).user_defined_name).toBe("defined_name3");
+  });
+
+  it('should return 2 files with document type lab test', () => {
+    const files = pipeFilterByDocType.transform(items, DocumentType.LAB_TEST);
+    expect(files.length).toBe(2);
+    expect((<File>(files[0].value)).user_defined_name).toBe("defined_name1");
+    expect((<File>(files[1].value)).user_defined_name).toBe("defined_name2");
+  });
+
+  it('should return 4 files with document undefined (ANY)', () => {
+    const files = pipeFilterByDocType.transform(items, undefined);
+    expect(files.length).toBe(4);
+    expect((<File>(files[0].value)).user_defined_name).toBe("defined_name1");
+    expect((<File>(files[1].value)).user_defined_name).toBe("defined_name2");
+    expect((<File>(files[2].value)).user_defined_name).toBe("defined_name3");
+    expect(files[3].name).toBe("directory");
+  });
+
+  it('should return 0 files with document DIAGNOSIS', () => {
+    const files = pipeFilterByDocType.transform(items, DocumentType.DIAGNOSIS);
+    expect(files.length).toBe(0);
+  });
+
+  it('should return 2 files with format JPEG', () => {
+    const files = pipeFilterByFormat.transform(items, FileFormatType.JPG);
+    expect(files.length).toBe(2);
+    expect((<File>(files[0].value)).user_defined_name).toBe("defined_name1");
+    expect((<File>(files[1].value)).user_defined_name).toBe("defined_name3");
+  });
+
+  it('should return 4 files with format undefined (ANY)', () => {
+    const files = pipeFilterByFormat.transform(items, undefined);
+    expect(files.length).toBe(4);
+    expect((<File>(files[0].value)).user_defined_name).toBe("defined_name1");
+    expect((<File>(files[1].value)).user_defined_name).toBe("defined_name2");
+    expect((<File>(files[2].value)).user_defined_name).toBe("defined_name3");
+    expect(files[3].name).toBe("directory");
+
+  });
+
 
 });
