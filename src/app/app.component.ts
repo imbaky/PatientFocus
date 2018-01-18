@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { ProfilePage } from '../pages/profile/profile';
 import { WelcomePage } from '../pages/welcome/welcome';
+import { RemindersPage } from '../pages/reminders/reminders';
 import { DiaryPage } from '../pages/diary/diary';
 import { ProfileService } from '../core/data/services/profile/profile.service';
 import { PortfolioPage } from '../pages/portfolio/portfolio';
@@ -28,7 +29,8 @@ export class MyApp {
     this.pages = [
       { title: 'Dashboard', component: WelcomePage },
       { title: 'Medical Portfolio', component: PortfolioPage },
-      { title: 'Personal Diary', component: DiaryPage }
+      { title: 'Personal Diary', component: DiaryPage },
+      { title: 'Reminders', component: RemindersPage }
     ];
 
     this.isProfileCreated();
