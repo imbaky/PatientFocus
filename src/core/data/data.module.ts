@@ -8,6 +8,7 @@ import { ItemService } from './services/item/item.service';
 import { ProfileService } from './services/profile/profile.service';
 import { DexieService } from './services/dexie/dexie.service';
 import { FileSystemService } from './services/file-system/file-system.service';
+import { RemindersService } from './services/reminders/reminders.service';
 
 @NgModule({
     imports: [
@@ -29,7 +30,8 @@ export class DataModule {
                 ItemService,
                 ProfileService,
                 FileService,
-                FileSystemService
+                FileSystemService,
+                RemindersService
             ],
             ngModule: DataModule
         };

@@ -14,6 +14,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { PortfolioModule } from '../pages/portfolio/portfolio.module';
 import { DiaryModule } from '../pages/diary/diary.module';
+import { RemindersModule } from '../reminders/reminders.module';
 
 
 
@@ -26,6 +27,7 @@ import { DiaryModule } from '../pages/diary/diary.module';
     imports: [
         BrowserModule,
         PortfolioModule,
+        RemindersModule,
         DiaryModule,
         DataModule.forRoot(),
         IonicModule.forRoot(MyApp, {}, {links: []})
