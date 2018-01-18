@@ -5,11 +5,13 @@ import Dexie from 'dexie';
 import { DexieService } from '../dexie/dexie.service';
 import { Item, ItemService } from '../item/item.service';
 import { DocumentType } from '../../enum/file-type.enum';
-import { FileService } from '../file/file.service';
+import { FileService, File } from '../file/file.service';
+import {PageType} from "../../enum/page-type.enum";
 
 export interface Directory {
   id?: number;
   items: Item[];
+  directories: Directory[] // directories on the first level. inner level directories would be defined in subsequent directories
 }
 
 @Injectable()
@@ -64,17 +66,18 @@ export class DirectoryService {
    * @param {DocumentType} type type of medical document
    * @param {Directory} directory the directory in which the file will be added to
    */
-  async addFileToDirectory(fileEntry: Entry, creationDate: string, type: DocumentType, directory: Directory,
-                           newDocumentName: string) {
-    fileEntry.getMetadata(async (metadata) => {
-      const size = metadata.size;
-      const newFile = await this.fileService.createFile(fileEntry.nativeURL, size, type, newDocumentName);
-      const item = await this.items.createItemAsFile(newFile, creationDate, type, directory.id);
-      directory.items.push(item);
-      const newItems = [];
-      directory.items.forEach( (newItem) => newItems.push(newItem));
-      directory.items = newItems;
+  async addFileToDirectory(fileEntry: Entry, creationDate: string, directory: Directory,
+                           newDocumentName: string, pageType: PageType) : Promise<Item>{
+    const newFile = await this.fileService.createFile(fileEntry.nativeURL, newDocumentName);
+    await fileEntry.getMetadata(async (metadata) => {
+      newFile.size = metadata.size;
     });
+    const item = await this.items.createItemAsFile(newFile, creationDate, directory.id, pageType);
+    directory.items.push(item);
+    const newItems = [];
+    directory.items.forEach( (newItem) => newItems.push(newItem));
+    directory.items = newItems;
+    return item;
   }
 
 }

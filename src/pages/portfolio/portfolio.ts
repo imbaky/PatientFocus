@@ -13,6 +13,7 @@ import { UploadType } from '../../core/data/enum/upload-type.enum';
 import * as moment from 'moment';
 import { ProfileService } from '../../core/data/services/profile/profile.service';
 import { EmailDocumentsPage } from './email-documents/email-documents';
+import { PageType } from "../../core/data/enum/page-type.enum";
 
 
 @Component({
@@ -26,6 +27,7 @@ export class PortfolioPage {
   ItemType = ItemType;
   DocumentType = DocumentType;
   FileFormatType = FileFormatType;
+  PageType = PageType;
 
   searchTerm = '';
   fileTerm: FileFormatType;
@@ -54,7 +56,7 @@ export class PortfolioPage {
     this.dateMaxDate = this.getDate({});
     this.currentItem = this.navParams.get('item');
     // TODO: get current profile directory id, currently set to 1.
-    const id = !this.currentItem ? 1 : this.currentItem.type_id;
+    const id = !this.currentItem ? 1 : this.currentItem.file_id;
     this.directory$ = this.directoryService.getDirectoryById(id);
     (
       async () => {
@@ -113,7 +115,7 @@ export class PortfolioPage {
   }
 
   async viewDoc(event: any, item: Item) {
-    const file = <File>item.value;
+    const file = <File>item.file;
     if (file.format === FileFormatType.PDF) {
       try {
         // TODO investigate why some applications can read paths with %20 while others cannot
@@ -131,7 +133,7 @@ export class PortfolioPage {
       const attachments = [];
       this.checkedItems.forEach((item, i) => {
         if (this.checkedItems[i]) {
-          attachments.push((this.allItems[i].value as File).path);
+          attachments.push((this.allItems[i].file as File).path);
         }
       });
       const importNewEmailModal = this.modalCtrl.create(EmailDocumentsPage, { attachments });

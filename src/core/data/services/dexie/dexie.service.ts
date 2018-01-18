@@ -11,7 +11,7 @@ export class DexieService extends Dexie {
     super('store');
     this.version(1).stores(SCHEMA);
     const date = new Date();
-    this.on('populate', () => {
+    /*this.on('populate', () => {
       // TODO - Remove test data when no longer needed
       this.table('entry').bulkAdd([
         {
@@ -33,6 +33,6 @@ export class DexieService extends Dexie {
           created: date.toISOString()
         }
       ]);
-    });
+    });*/
   }
 }

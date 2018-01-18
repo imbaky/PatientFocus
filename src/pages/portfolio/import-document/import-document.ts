@@ -2,14 +2,18 @@ import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { NavParams, ViewController, ToastController } from 'ionic-angular';
 import { FileChooser } from '@ionic-native/file-chooser';
-import { File } from '@ionic-native/file';
+import { File as NativeFile} from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { FileSystemService } from '../../../core/data/services/file-system/file-system.service';
+import { File } from '../../../core/data/services/file/file.service';
+import { ItemService } from '../../../core/data/services/item/item.service';
 import { Directory } from '../../../core/data/services/directory/directory.service';
 import { DocumentType } from '../../../core/data/enum/file-type.enum';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { UploadType } from '../../../core/data/enum/upload-type.enum';
 import * as moment from 'moment';
+import {ItemType} from "../../../core/data/enum/item-type.enum";
+import {PageType} from "../../../core/data/enum/page-type.enum";
 
 declare var window;
 
@@ -34,7 +38,8 @@ export class ImportDocumentPage {
               private fileSystemService: FileSystemService,
               private params: NavParams,
               private camera: Camera,
-            private file: File) {
+              private nativeFile: NativeFile,
+              private itemService: ItemService) {
     this.documentTypes = [
       { name: 'Blood Test', value: DocumentType.BLOOD_TEST },
       { name: 'Prescription', value: DocumentType.PRESCRIPTION },
@@ -94,12 +99,16 @@ export class ImportDocumentPage {
   }
 
   async importFile() {
-    await this.fileSystemService.addNewFileToDirectory(
+    let pageSpecificValues = {
+      document_type : this.importDocumentForm.controls['type'].value,
+      page: PageType.Portfolio
+    }
+    let item = await this.fileSystemService.addNewFileToDirectory(
       this.importDocumentForm.controls['fullPath'].value,
       this.importDocumentForm.controls['date'].value,
-      this.importDocumentForm.controls['type'].value,
       this.importDocumentForm.controls['name'].value,
-      this.directory
+      this.directory,
+      pageSpecificValues
     );
     const importToast = this.toastCtrl.create({
       message: `${this.importDocumentForm.controls['name'].value} was successfully imported`,

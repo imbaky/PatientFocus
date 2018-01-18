@@ -4,17 +4,20 @@ import Dexie from 'dexie';
 import { DexieService } from '../dexie/dexie.service';
 import { FileService, File } from '../file/file.service';
 import { ItemType } from '../../enum/item-type.enum';
-import { Directory } from '../directory/directory.service';
 import { DocumentType } from '../../enum/file-type.enum';
+import { PageType } from "../../enum/page-type.enum";
 
 export interface Item {
   id?: number;
-  name: string;
-  description: string;
-  type: ItemType;
-  type_id: number;
-  chosen_date: string;
-  value: Directory | File;
+  title?: string;
+  description?: string;
+  //type?: ItemType;
+  file_id?: number;
+  page?: PageType; //specifies which page item belongs to
+  chosen_date?: string;
+  document_type?: DocumentType;
+  user_defined_file_name?: string;
+  file?: File; // TODO change field to file and remove directory
 }
 
 @Injectable()
@@ -24,7 +27,7 @@ export class ItemService {
 
   constructor(
     private dexie: DexieService,
-    private file: FileService,
+    private file: FileService
   ) {
     this.table = this.dexie.table('item');
   }
@@ -34,16 +37,16 @@ export class ItemService {
     let files = [];
 
     items.forEach((item) => {
-      if (item.type === ItemType.FILE) {
-        files.push(item.type_id);
+      if (item.file) {
+        files.push(item.file_id);
       }
     });
 
     files = await this.file.getFilesByIds(files);
 
     items.forEach((item) => {
-      if (item.type === ItemType.FILE) {
-        item.value = files.find((file) => item.type_id === file.id);
+      if (item.file) {
+        item.file = files.find((file) => item.file_id === file.id);
       }
     });
 
@@ -57,21 +60,30 @@ export class ItemService {
    * @param {DocumentType} type type of medical document
    * @returns {Item}
    */
-  async createItemAsFile(newFile: File, creationDate: string,
-                         type: DocumentType, directory_id: number): Promise<Item> {
+  async createItemAsFile(newFile: File, creationDate: string, directory_id: number, documentName: string, specificValues: any): Promise<Item> {
     const filename = newFile.path.substring(newFile.path.lastIndexOf('/') + 1);
-    const item: Item =  {
-      name: filename,
+    let item: Item =  {
       chosen_date : creationDate,
       description: 'Temporary description', // TODO add a proper description
-      type: ItemType.FILE,
-      type_id: newFile.id,
-      value: newFile
+      file_id: newFile.id,
+      file: newFile,
+      user_defined_file_name: documentName
     };
+    item = Object.assign(item, specificValues); // combine values
     const pk = await this.table.add(item);
     this.table.update( pk, { directory_id: directory_id});
     item.id = pk;
     return item;
   }
 
+  async addItemToDB(item: Item) : Promise<Item> {
+    const pk = await this.table.add(item);
+    this.table.update( pk, { id: pk});
+    item.id = pk;
+    return item;
+  }
+
+  async updateItem(item: Item, updates: any) { //replace old item
+    this.table.update(item.id, updates);
+  }
 }

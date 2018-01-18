@@ -1,4 +1,4 @@
-export enum DocumentType {
+export enum DocumentType { // TODO rename to portfolio type
     BLOOD_TEST = 'Blood Test',
     PRESCRIPTION = 'Prescription',
     LAB_TEST = 'Lab Test',

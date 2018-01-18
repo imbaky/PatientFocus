@@ -16,8 +16,8 @@
 
 <ion-content>
     <ion-list>
-        <ng-container *ngFor="let entry of (diary$ | async)?.entries">
-            <ion-item (tap)="viewDetails($event, entry)" tappable>
+        <ng-container *ngFor="let entry of directory?.items">
+            <ion-item (tap)="viewDetails($event, entry)" *ngIf="item.page === PageType.Diary" tappable>
                 <ion-avatar item-start>
                 </ion-avatar>
                 <h4>{{ entry?.title }} </h4>
@@ -28,7 +28,7 @@
     </ion-list>
 </ion-content>
 
-<ng-container *ngIf="diary$ | async as diary">
+<ng-container *ngIf="directory">
   <ion-fab right bottom>
     <button ion-fab color="light" id="addButton" (click)="addEntry(diary)">
       <ion-icon name="create"></ion-icon>

@@ -7,6 +7,8 @@ import { ProfileService } from '../../core/data/services/profile/profile.service
 import { AddEntryPage } from './add-entry/add-entry';
 import { DetailedView } from '../../components/detailed-view/detailed-view';
 import { DiaryEntry } from '../../core/data/services/diary-entry/diary-entry.service';
+import {Directory, DirectoryService} from "../../core/data/services/directory/directory.service";
+import { PageType } from "../../core/data/enum/page-type.enum";
 
 @Component({
   selector: 'page-diary',
@@ -15,20 +17,23 @@ import { DiaryEntry } from '../../core/data/services/diary-entry/diary-entry.ser
 
 export class DiaryPage {
   diary$: Promise<Diary>;
+  directory: Directory;
+  PageType = PageType;
 
   constructor(
     public modalCtrl: ModalController,
     private diaryService: DiaryService,
     private profileService: ProfileService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private directoryService: DirectoryService
   ) {
-    this.profileService.getFirstProfileId().then(profileId => {
-      this.diary$ = this.diaryService.getDiaryById(profileId);
+    this.profileService.getFirstProfileId().then(async (profileId) => { //TODO need to get actual profile id
+      this.directory = await this.directoryService.getDirectoryById(profileId);
     });
   }
 
-  addEntry(directory: Diary) {
-    const addEntryModal = this.modalCtrl.create(AddEntryPage);
+  addEntry(directory: Directory) {
+    const addEntryModal = this.modalCtrl.create(AddEntryPage, { directory });
     addEntryModal.present();
   }
 

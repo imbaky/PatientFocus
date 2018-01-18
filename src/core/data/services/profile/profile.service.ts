@@ -62,6 +62,7 @@ export class ProfileService {
     });
   }
 
+
   async getFirstProfileId() {
     const array = await this.table.toArray();
     return array[0].id;

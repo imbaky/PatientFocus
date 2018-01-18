@@ -16,9 +16,6 @@ export class FileFilterByDate implements PipeTransform {
       return items;
     }
     return items.filter((item) => {
-      if (item.type === ItemType.DIRECTORY) {
-        return false;
-      }
       // need to specify granularity because chosen_date has a precision of miliseconds, so the granularity needs to be
       // reduced to days
       const isBetween = (moment(item.chosen_date).isBetween(dateFromTerm, dateToTerm, 'day', '[]'));
@@ -36,10 +33,7 @@ export class FileFilterByName implements PipeTransform {
       return items;
     }
     return items.filter((item) => {
-      if (item.type === ItemType.DIRECTORY) {
-        return false;
-      }
-       return (item.value as File).user_defined_name.toLowerCase().includes(filterName.toLowerCase());
+       return item.user_defined_file_name.toLowerCase().includes(filterName.toLowerCase());
     });
   }
 }
@@ -53,10 +47,7 @@ export class FileFilterByDocType implements PipeTransform {
       return items;
     }
     return items.filter((item) => {
-      if (item.type === ItemType.DIRECTORY) {
-        return false;
-      }
-      return (item.value as File).document_type === filterDoctype;
+      return item.document_type === filterDoctype;
     });
   }
 }
@@ -70,10 +61,7 @@ export class FileFilterByFormatType implements PipeTransform {
       return items;
     }
     return items.filter((item) => {
-      if (item.type === ItemType.DIRECTORY) {
-        return false;
-      }
-      return (item.value as File).format === format;
+      return (item.file as File).format === format;
     });
   }
 }

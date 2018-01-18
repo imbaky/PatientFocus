@@ -14,9 +14,8 @@ describe('FilterItemPipe', () => {
     {
       name: "filename1.txt",
       description: "description",
-      type: ItemType.FILE,
       chosen_date: "2018-01-12",
-      value: {
+      file: {
         document_type: DocumentType.LAB_TEST,
         size: 1234,
         format: FileFormatType.JPG,
@@ -26,9 +25,8 @@ describe('FilterItemPipe', () => {
     {
       name: "filename2.txt",
       description: "description",
-      type: ItemType.FILE,
       chosen_date: "2018-01-13",
-      value: {
+      file: {
         document_type: DocumentType.LAB_TEST,
         size: 1234,
         format: FileFormatType.PDF,
@@ -38,9 +36,8 @@ describe('FilterItemPipe', () => {
     {
       name: "filename3.txt",
       description: "description",
-      type: ItemType.FILE,
       chosen_date: "2018-01-14",
-      value: {
+      file: {
         document_type: DocumentType.CONSULTATION,
         size: 1234,
         format: FileFormatType.JPG,
@@ -50,7 +47,6 @@ describe('FilterItemPipe', () => {
     {
       name: "directory",
       description: "description",
-      type: ItemType.DIRECTORY,
       chosen_date: "2018-01-14"
     }
   ] as Item[];
@@ -72,30 +68,30 @@ describe('FilterItemPipe', () => {
   it('should return 1 file with user defined name defined_name1', () => {
     const files = pipeFilterByName.transform(items, "defined_name1");
     expect(files.length).toBe(1);
-    expect((<File>(files[0].value)).user_defined_name).toBe("defined_name1");
+    expect((<File>(files[0].file)).user_defined_name).toBe("defined_name1");
   });
 
   it('should return 3 files with user defined name of defined_name', () => {
     const files = pipeFilterByName.transform(items, "defined_name");
     expect(files.length).toBe(3);
-    expect((<File>(files[0].value)).user_defined_name).toBe("defined_name1");
-    expect((<File>(files[1].value)).user_defined_name).toBe("defined_name2");
-    expect((<File>(files[2].value)).user_defined_name).toBe("defined_name3");
+    expect((<File>(files[0].file)).user_defined_name).toBe("defined_name1");
+    expect((<File>(files[1].file)).user_defined_name).toBe("defined_name2");
+    expect((<File>(files[2].file)).user_defined_name).toBe("defined_name3");
   });
 
   it('should return 2 files with document type lab test', () => {
     const files = pipeFilterByDocType.transform(items, DocumentType.LAB_TEST);
     expect(files.length).toBe(2);
-    expect((<File>(files[0].value)).user_defined_name).toBe("defined_name1");
-    expect((<File>(files[1].value)).user_defined_name).toBe("defined_name2");
+    expect((<File>(files[0].file)).user_defined_name).toBe("defined_name1");
+    expect((<File>(files[1].file)).user_defined_name).toBe("defined_name2");
   });
 
   it('should return 4 files with document undefined (ANY)', () => {
     const files = pipeFilterByDocType.transform(items, undefined);
     expect(files.length).toBe(4);
-    expect((<File>(files[0].value)).user_defined_name).toBe("defined_name1");
-    expect((<File>(files[1].value)).user_defined_name).toBe("defined_name2");
-    expect((<File>(files[2].value)).user_defined_name).toBe("defined_name3");
+    expect((<File>(files[0].file)).user_defined_name).toBe("defined_name1");
+    expect((<File>(files[1].file)).user_defined_name).toBe("defined_name2");
+    expect((<File>(files[2].file)).user_defined_name).toBe("defined_name3");
     expect(files[3].name).toBe("directory");
   });
 
@@ -107,16 +103,16 @@ describe('FilterItemPipe', () => {
   it('should return 2 files with format JPEG', () => {
     const files = pipeFilterByFormat.transform(items, FileFormatType.JPG);
     expect(files.length).toBe(2);
-    expect((<File>(files[0].value)).user_defined_name).toBe("defined_name1");
-    expect((<File>(files[1].value)).user_defined_name).toBe("defined_name3");
+    expect((<File>(files[0].file)).user_defined_name).toBe("defined_name1");
+    expect((<File>(files[1].file)).user_defined_name).toBe("defined_name3");
   });
 
   it('should return 4 files with format undefined (ANY)', () => {
     const files = pipeFilterByFormat.transform(items, undefined);
     expect(files.length).toBe(4);
-    expect((<File>(files[0].value)).user_defined_name).toBe("defined_name1");
-    expect((<File>(files[1].value)).user_defined_name).toBe("defined_name2");
-    expect((<File>(files[2].value)).user_defined_name).toBe("defined_name3");
+    expect((<File>(files[0].file)).user_defined_name).toBe("defined_name1");
+    expect((<File>(files[1].file)).user_defined_name).toBe("defined_name2");
+    expect((<File>(files[2].file)).user_defined_name).toBe("defined_name3");
     expect(files[3].name).toBe("directory");
 
   });

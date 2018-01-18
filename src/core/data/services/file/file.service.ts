@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { DexieService } from '../dexie/dexie.service';
 import { DocumentType, FileFormatType } from '../../enum/file-type.enum';
+import { File as NativeFile} from '@ionic-native/file'
 
 import Dexie from 'dexie';
+import {Directory} from "../directory/directory.service";
 
 export interface File {
   id?: number;
   path: string;
-  document_type: DocumentType;
-  size: number;
+  size?: number;
   format: FileFormatType;
-  user_defined_name: string;
+  file_name: string;
 }
 
 @Injectable()
@@ -19,14 +20,14 @@ export class FileService {
   table: Dexie.Table<File, number>;
 
   constructor(
-    private dexie: DexieService
+    private dexie: DexieService,
+    private file: NativeFile
   ) {
     this.table = this.dexie.table('file');
   }
 
   async getFilesByIds(ids: number[]): Promise<File[]> {
     const files = ids.map((id) => this.table.get(id));
-
     return Promise.all(files);
   }
 
@@ -34,11 +35,10 @@ export class FileService {
    *
    * @param {string} path the path of the file. The path does not include the filename
    * @param {number} size The memory file size
-   * @param {DocumentType} type The file extension
    * @param {string} documentName The user defined document name
    * @returns {Promise<File>} Returns a promise with the newly created File
    */
-  async createFile(path: string, size: number, type: DocumentType, documentName: string): Promise<File> {
+  async createFile(path: string): Promise<File> {
     const filename = path.substring(path.lastIndexOf('/') + 1);
     const extension = filename.substring(filename.lastIndexOf('.') + 1).toUpperCase();
     let fileFormat: FileFormatType = FileFormatType[extension];
@@ -47,14 +47,40 @@ export class FileService {
     }
     const file: File = {
       path : path,
-      size : size,
-      document_type : type,
       format : fileFormat,
-      user_defined_name: documentName
+      file_name: filename
     };
     const pk = await this.table.add(file);
     file.id = pk;
     return file;
   }
+
+  async updateFile(file: File) { //replaces old file with new contents
+    await this.table.put(file, file.id);
+  }
+
+
+  /*async createFile(fullPath: string, directory: Directory) : Promise<File>{
+    const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
+    const extension = filename.substring(filename.lastIndexOf('.'));
+    const fileFormat_extension = filename.substring(filename.lastIndexOf('.') + 1).toUpperCase();
+    let fileFormat: FileFormatType = FileFormatType[fileFormat_extension];
+    const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
+    // TODO file needs to be added to the correct directory
+    const newFileName: string = await this.createFileName(filename, directory);
+    const entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, newFileName);
+    await entry.getMetadata(async (metadata) => {
+      const size = metadata.size;
+      const file: File = {
+        path : entry.nativeURL,
+        size : size,
+        format : fileFormat,
+        user_defined_name: documentName
+      };
+
+    });
+  }*/
+
+
 
 }
