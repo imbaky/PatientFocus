@@ -1,6 +1,6 @@
 import { async, TestBed } from '@angular/core/testing';
 import { IonicModule, Platform } from 'ionic-angular';
-
+import { File as FileNative } from '@ionic-native/file';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -13,6 +13,7 @@ import {
 import { ProfileService } from "../core/data/services/profile/profile.service";
 import { DexieService } from "../core/data/services/dexie/dexie.service";
 import { FileService } from "../core/data/services/file/file.service";
+import { FileSystemService } from "../core/data/services/file-system/file-system.service";
 import { ItemService } from "../core/data/services/item/item.service";
 import { DirectoryService } from "../core/data/services/directory/directory.service";
 import { DiaryService } from "../core/data/services/diary/diary.service";
@@ -37,8 +38,10 @@ describe('MyApp Component', () => {
                 DirectoryService,
                 ItemService,
                 FileService,
+                FileSystemService,
                 DiaryService,
-                DiaryEntryService
+                DiaryEntryService,
+                FileNative
             ]
         })
     }));

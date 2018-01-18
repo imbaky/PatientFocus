@@ -4,6 +4,13 @@ module.exports = function(config) {
   var _config = {
     basePath: '../',
 
+    client: {
+      captureConsole: true,
+      mocha: {
+        bail: true
+      }
+    },
+
     frameworks: ['jasmine'],
 
     mime: { 'text/x-typescript': ['ts']},

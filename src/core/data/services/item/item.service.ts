@@ -11,9 +11,8 @@ export interface Item {
   id?: number;
   title?: string;
   description?: string;
-  //type?: ItemType;
   file_id?: number;
-  page?: PageType; //specifies which page item belongs to
+  page: PageType; // specifies which page item belongs to
   chosen_date?: string;
   document_type?: DocumentType;
   user_defined_file_name?: string;

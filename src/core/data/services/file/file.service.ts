@@ -34,7 +34,6 @@ export class FileService {
   /**
    *
    * @param {string} path the path of the file. The path does not include the filename
-   * @param {number} size The memory file size
    * @param {string} documentName The user defined document name
    * @returns {Promise<File>} Returns a promise with the newly created File
    */

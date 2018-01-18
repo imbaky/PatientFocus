@@ -5,6 +5,7 @@ import Dexie from 'dexie';
 import { DirectoryService } from '../directory/directory.service';
 import { DiaryService } from '../diary/diary.service';
 
+
 export interface UserProfile {
   id?: number;
   directory: number;

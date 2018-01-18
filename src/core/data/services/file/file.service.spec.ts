@@ -26,7 +26,7 @@ class DATABASE extends Dexie {
         {
           name: "Filename1.txt",
           description: "lab test1",
-          type: ItemType.FILE,
+          type: ItemType.Item,
           type_id: 1,
           directory_id: 1,
           created: date
@@ -34,7 +34,7 @@ class DATABASE extends Dexie {
         {
           name: "Filename2.txt",
           description: "lab test2",
-          type: ItemType.FILE,
+          type: ItemType.Item,
           type_id: 2,
           directory_id: 1,
           created: date
@@ -42,14 +42,14 @@ class DATABASE extends Dexie {
         {
           name: "Sub Folder1",
           description: "",
-          type: ItemType.DIRECTORY,
+          type: ItemType.Directory,
           type_id: 2,
           directory_id: 1
         },
         {
           name: "Filename2.txt",
           description: "blood test",
-          type: ItemType.FILE,
+          type: ItemType.Item,
           type_id: 3,
           directory_id: 2,
           created: date
@@ -121,13 +121,10 @@ describe("File Service", () => {
 
   it("GIVEN a file with a supported file type THEN it should create a new file", async () => {
     const path = "directory/subdirectory/subsubdirectory/anthonyrobert_consultation.pdf";
-    const size = 200188;
     const document_type = DocumentType.CONSULTATION;
     const document_name = "Medical document";
-    let newFile = await file.createFile(path, size, document_type, document_name);
+    let newFile = await file.createFile(path, document_name);
     expect(newFile.path).toBe(path);
-    expect(newFile.size).toBe(size);
-    expect(newFile.document_type).toBe(DocumentType.CONSULTATION);
     expect(newFile.format).toBe(FileFormatType.PDF);
     const ids = [newFile.id];
     let files = await file.getFilesByIds([newFile.id]);
@@ -136,13 +133,10 @@ describe("File Service", () => {
 
   it("GIVEN a file with a unsupported file type THEN it should still create a new file", async () => {
     const path = "directory/subdirectory/subsubdirectory/anthonyrobert_consultation.docx";
-    const size = 881002;
     const document_type = DocumentType.CONSULTATION;
     const document_name = "Medical document";
-    let newFile = await file.createFile(path, size, document_type, document_name);
+    let newFile = await file.createFile(path, document_name);
     expect(newFile.path).toBe(path);
-    expect(newFile.size).toBe(size);
-    expect(newFile.document_type).toBe(DocumentType.CONSULTATION);
     expect(newFile.format).toBe(FileFormatType.Other);
     const ids = [newFile.id];
     let files = await file.getFilesByIds([newFile.id]);

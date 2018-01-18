@@ -28,7 +28,7 @@ class DATABASE extends Dexie {
         {
           name: 'Filename1.txt',
           description: 'lab test1',
-          type: ItemType.FILE,
+          type: ItemType.Item,
           type_id: 1,
           directory_id: 1,
           created: date
@@ -36,7 +36,7 @@ class DATABASE extends Dexie {
         {
           name: 'Filename2.txt',
           description: 'lab test2',
-          type: ItemType.FILE,
+          type: ItemType.Item,
           type_id: 2,
           directory_id: 1,
           created: date
@@ -44,14 +44,14 @@ class DATABASE extends Dexie {
         {
           name: 'Sub Folder1',
           description: '',
-          type: ItemType.DIRECTORY,
+          type: ItemType.Directory,
           type_id: 2,
           directory_id: 1
         },
         {
           name: 'Filename2.txt',
           description: 'blood test',
-          type: ItemType.FILE,
+          type: ItemType.Item,
           type_id: 3,
           directory_id: 2,
           created: date

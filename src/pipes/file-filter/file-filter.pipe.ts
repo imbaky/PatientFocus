@@ -3,8 +3,8 @@ import { ItemType } from '../../core/data/enum/item-type.enum';
 import * as moment from 'moment';
 
 import { Item } from '../../core/data/services/item/item.service';
-import {File} from '../../core/data/services/file/file.service';
-import {DocumentType, FileFormatType} from '../../core/data/enum/file-type.enum';
+import { File } from '../../core/data/services/file/file.service';
+import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enum';
 
 
 @Pipe({

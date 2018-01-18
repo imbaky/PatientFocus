@@ -1,4 +1,5 @@
 import { TestBed } from "@angular/core/testing";
+import { File as NativeFile} from '@ionic-native/file'
 import { DexieService } from "../dexie/dexie.service";
 import Dexie from "dexie";
 import { SCHEMA } from "../dexie/database";
@@ -8,6 +9,7 @@ import { DiaryService } from "../diary/diary.service";
 import { DiaryEntryService } from "../diary-entry/diary-entry.service";
 import { ItemService } from "../item/item.service";
 import { FileService } from "../file/file.service";
+
 
 class DATABASE extends Dexie {
     constructor() {
@@ -28,7 +30,8 @@ const testBedSetup = {
         DiaryService,
         DiaryEntryService,
         ItemService,
-        FileService
+        FileService,
+        NativeFile
     ]
 };
 
