@@ -9,6 +9,7 @@ import { RemindersPage } from '../pages/reminders/reminders';
 import { DiaryPage } from '../pages/diary/diary';
 import { ProfileService } from '../core/data/services/profile/profile.service';
 import { PortfolioPage } from '../pages/portfolio/portfolio';
+import { ProfileInfoPage } from "../pages/profile-info/profile-info";
 
 @Component({
   templateUrl: 'app.html'
@@ -30,7 +31,8 @@ export class MyApp {
       { title: 'Dashboard', component: WelcomePage },
       { title: 'Medical Portfolio', component: PortfolioPage },
       { title: 'Personal Diary', component: DiaryPage },
-      { title: 'Reminders', component: RemindersPage }
+      { title: 'Reminders', component: RemindersPage },
+      { title: 'Profile info', component: ProfileInfoPage}
     ];
 
     this.isProfileCreated();

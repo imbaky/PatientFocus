@@ -4,7 +4,6 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { AppProviders } from './app.providers';
 
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -15,16 +14,16 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { PortfolioModule } from '../pages/portfolio/portfolio.module';
 import { DiaryModule } from '../pages/diary/diary.module';
 import { RemindersModule } from '../reminders/reminders.module';
+import { ProfileInfoPage } from "../pages/profile-info/profile-info";
 
-// components
-import { ReminderComponent } from '../pages/reminders/reminder/reminder';
 
 
 @NgModule({
     declarations: [
         MyApp,
         ProfilePage,
-        WelcomePage
+        WelcomePage,
+        ProfileInfoPage
     ],
     imports: [
         BrowserModule,
@@ -38,7 +37,8 @@ import { ReminderComponent } from '../pages/reminders/reminder/reminder';
     entryComponents: [
         MyApp,
         ProfilePage,
-        WelcomePage
+        WelcomePage,
+        ProfileInfoPage,
     ],
     providers: AppProviders.getProviders()
 })
