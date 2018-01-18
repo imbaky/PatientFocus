@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Profile Info</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-grid>
+        <h2>Personal Info</h2>
+        <ion-row>
+            <ion-col>
+                <p>Name: {{profile?.name}}</p>
+                <p>Gender: {{profile?.gender}}</p>
+            </ion-col>
+            <ion-col>
+                <p>Date of Birth: {{profile?.dob}}</p>
+            </ion-col>
+            <ion-col>
+                <ion-icon ios="ios-create-outline"></ion-icon>
+            </ion-col>
+        </ion-row>
+        <h2>Medical Info</h2>
+        <ion-row>
+        </ion-row>
+        <h2>Emergency Contact</h2>
+        <ion-row>
+        </ion-row>
+    </ion-grid>
+</ion-content>
