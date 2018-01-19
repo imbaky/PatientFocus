@@ -10,6 +10,7 @@ import { FileSystemService } from "./file-system.service";
 
 import Dexie from 'dexie';
 import { SCHEMA } from '../dexie/database';
+import {PageType} from "../../enum/page-type.enum";
 
 class DATABASE extends Dexie {
   constructor() {
@@ -28,54 +29,47 @@ class DATABASE extends Dexie {
       ]);
       this.table('item').bulkAdd([
         {
-          name: 'Filename1.txt',
+          file_name: 'Filename1.txt',
           description: 'lab test1',
-          type: ItemType.FILE,
+          page: PageType.Portfolio,
           type_id: 1,
           directory_id: 1,
-          created: date
+          created: date,
+          document_type: DocumentType.BLOOD_TEST,
         },
         {
-          name: 'Filename2.txt',
+          file_name: 'Filename2.txt',
           description: 'lab test2',
-          type: ItemType.FILE,
+          page: PageType.Portfolio,
           type_id: 2,
           directory_id: 1,
-          created: date
+          created: date,
+          document_type: DocumentType.BLOOD_TEST,
         },
         {
-          name: 'Sub Folder1',
-          description: '',
-          type: ItemType.DIRECTORY,
-          type_id: 2,
-          directory_id: 1
-        },
-        {
-          name: 'Filename3.txt',
+          file_name: 'Filename3.txt',
           description: 'blood test',
-          type: ItemType.FILE,
+          page: PageType.Portfolio,
           type_id: 3,
           directory_id: 1,
-          created: date
+          created: date,
+          document_type: DocumentType.BLOOD_TEST,
         },
       ]);
       this.table('file').bulkAdd([
         {
           path: '::directory/subdirectory/subsubdirectory',
           size: 4576543,
-          document_type: DocumentType.BLOOD_TEST,
-          format: FileFormatType.JPG
+          format: FileFormatType.JPG,
         },
         {
           path: '::directory/subdirectory/subsubdirectory',
           size: 245364,
-          document_type: DocumentType.BLOOD_TEST,
           format: FileFormatType.JPG
         },
         {
           path: '::directory/subdirectory/subsubdirectory',
           size: 34564,
-          document_type: DocumentType.BLOOD_TEST,
           format: FileFormatType.JPG
         }
       ]);

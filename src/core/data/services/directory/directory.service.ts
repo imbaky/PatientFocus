@@ -44,7 +44,6 @@ export class DirectoryService {
   async getDirectoryById(id: number): Promise<Directory> {
     const directory = await this.table.get(id);
     directory.items = await this.items.getItemsByDirectoryId(directory.id);
-
     return directory;
   }
 

@@ -5,17 +5,52 @@ import { ItemType } from '../../enum/item-type.enum';
 import { DirectoryService } from './directory.service';
 import { ItemService } from '../item/item.service';
 import { FileService } from '../file/file.service';
-
 import Dexie from 'dexie';
 import { SCHEMA } from '../dexie/database';
+import {PageType} from "../../enum/page-type.enum";
+import {DocumentType, FileFormatType} from "../../enum/file-type.enum";
 
 class DATABASE extends Dexie {
   constructor() {
     super('directory_test');
 
     this.version(1).stores(SCHEMA);
-
     const date = new Date();
+    const items = [
+      {
+        title: 'Health Problems',
+        directory_id: 1,
+        description: 'lab test1',
+        file_id: 1,
+        page: PageType.Portfolio,
+        chosen_date: "2018-01-01",
+        document_type: DocumentType.DIAGNOSIS,
+        user_defined_file_name: "User defined name",
+        created: date
+      },
+      {
+        title: 'Health Problems',
+        directory_id: 1,
+        description: 'lab test1',
+        file_id: 2,
+        page: PageType.Portfolio,
+        chosen_date: "2018-01-01",
+        document_type: DocumentType.DIAGNOSIS,
+        user_defined_file_name: "User defined name",
+        created: date
+      },
+      {
+        title: 'Health Problems',
+        description: 'lab test1',
+        directory_id: 1,
+        file_id: 3,
+        page: PageType.Portfolio,
+        chosen_date: "2018-01-01",
+        document_type: DocumentType.DIAGNOSIS,
+        user_defined_file_name: "User defined name",
+        created: date
+      }
+    ];
     this.on('populate', () => {
       this.table('profile').add({
         directory: 1
@@ -24,54 +59,31 @@ class DATABASE extends Dexie {
         { id: 1 },
         { id: 2 },
       ]);
-      this.table('item').bulkAdd([
-        {
-          name: 'Filename1.txt',
-          description: 'lab test1',
-          type: ItemType.Item,
-          type_id: 1,
-          directory_id: 1,
-          created: date
-        },
-        {
-          name: 'Filename2.txt',
-          description: 'lab test2',
-          type: ItemType.Item,
-          type_id: 2,
-          directory_id: 1,
-          created: date
-        },
-        {
-          name: 'Sub Folder1',
-          description: '',
-          type: ItemType.Directory,
-          type_id: 2,
-          directory_id: 1
-        },
-        {
-          name: 'Filename2.txt',
-          description: 'blood test',
-          type: ItemType.Item,
-          type_id: 3,
-          directory_id: 2,
-          created: date
-        },
-      ]);
+      this.table('item').bulkAdd( items );
       this.table('file').bulkAdd([
         {
-          path: '::directory/subdirectory/subsubdirectory',
+          id: 1,
+          path: '::directory/subdirectory/subsubdirectory/',
+          file_name: 'filename1.jpg',
           size: 4576543,
-          type: 'jpeg'
+          format: FileFormatType.JPG,
+          type: 'jpg'
         },
         {
-          path: '::directory/subdirectory/subsubdirectory',
-          size: 245364,
-          type: 'jpeg'
+          id: 2,
+          path: '::directory/subdirectory/subsubdirectory/',
+          file_name: 'filename2.jpg',
+          size: 4576543,
+          format: FileFormatType.JPG,
+          type: 'jpg'
         },
         {
-          path: '::directory/subdirectory/subsubdirectory',
-          size: 34564,
-          type: 'jpeg'
+          id: 3,
+          path: '::directory/subdirectory/subsubdirectory/',
+          file_name: 'filename3.pdf',
+          size: 4576543,
+          format: FileFormatType.PDF,
+          type: 'jpg'
         }
       ]);
     });
@@ -107,16 +119,15 @@ describe('Directory Service', () => {
     file = bed.get(FileService);
   });
 
-  it('GIVEN three items THEN it should retrieve the items AND match types', async () => {
+  it('GIVEN three items THEN it should retrieve the items AND match document types', async () => {
     let folder  = await directory.getDirectoryById(1);
     expect(folder.items.length).toBe(3);
-    expect(folder.items[0].type).toBe(ItemType.FILE);
-    expect(folder.items[1].type).toBe(ItemType.FILE);
-    expect(folder.items[2].type).toBe(ItemType.DIRECTORY);
+    expect(folder.items[0].document_type).toBe(DocumentType.DIAGNOSIS);
+    expect(folder.items[1].document_type).toBe(DocumentType.DIAGNOSIS);
+    expect(folder.items[2].document_type).toBe(DocumentType.DIAGNOSIS);
 
     folder  = await directory.getDirectoryById(2);
-    expect(folder.items.length).toBe(1);
-    expect(folder.items[0].type).toBe(ItemType.FILE);
+    expect(folder.items.length).toBe(0);
   });
 
 

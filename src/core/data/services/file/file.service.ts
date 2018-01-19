@@ -4,7 +4,6 @@ import { DocumentType, FileFormatType } from '../../enum/file-type.enum';
 import { File as NativeFile} from '@ionic-native/file'
 
 import Dexie from 'dexie';
-import {Directory} from "../directory/directory.service";
 
 export interface File {
   id?: number;
@@ -57,29 +56,5 @@ export class FileService {
   async updateFile(file: File) { //replaces old file with new contents
     await this.table.put(file, file.id);
   }
-
-
-  /*async createFile(fullPath: string, directory: Directory) : Promise<File>{
-    const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
-    const extension = filename.substring(filename.lastIndexOf('.'));
-    const fileFormat_extension = filename.substring(filename.lastIndexOf('.') + 1).toUpperCase();
-    let fileFormat: FileFormatType = FileFormatType[fileFormat_extension];
-    const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
-    // TODO file needs to be added to the correct directory
-    const newFileName: string = await this.createFileName(filename, directory);
-    const entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, newFileName);
-    await entry.getMetadata(async (metadata) => {
-      const size = metadata.size;
-      const file: File = {
-        path : entry.nativeURL,
-        size : size,
-        format : fileFormat,
-        user_defined_name: documentName
-      };
-
-    });
-  }*/
-
-
 
 }

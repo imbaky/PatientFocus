@@ -123,7 +123,7 @@ describe("File Service", () => {
     const path = "directory/subdirectory/subsubdirectory/anthonyrobert_consultation.pdf";
     const document_type = DocumentType.CONSULTATION;
     const document_name = "Medical document";
-    let newFile = await file.createFile(path, document_name);
+    let newFile = await file.createFile(path);
     expect(newFile.path).toBe(path);
     expect(newFile.format).toBe(FileFormatType.PDF);
     const ids = [newFile.id];
@@ -135,7 +135,7 @@ describe("File Service", () => {
     const path = "directory/subdirectory/subsubdirectory/anthonyrobert_consultation.docx";
     const document_type = DocumentType.CONSULTATION;
     const document_name = "Medical document";
-    let newFile = await file.createFile(path, document_name);
+    let newFile = await file.createFile(path);
     expect(newFile.path).toBe(path);
     expect(newFile.format).toBe(FileFormatType.Other);
     const ids = [newFile.id];

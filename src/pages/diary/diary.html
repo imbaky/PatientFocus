@@ -17,7 +17,7 @@
 <ion-content>
     <ion-list>
         <ng-container *ngFor="let entry of directory?.items">
-            <ion-item (tap)="viewDetails($event, entry)" *ngIf="item.page === PageType.Diary" tappable>
+            <ion-item (tap)="viewDetails($event, entry)" *ngIf="entry.page === PageType.Diary" tappable>
                 <ion-avatar item-start>
                 </ion-avatar>
                 <h4>{{ entry?.title }} </h4>

@@ -33,22 +33,6 @@ export class ItemService {
 
   async getItemsByDirectoryId(directory: number): Promise<Item[]> {
     const items = await this.table.where('directory_id').equals(directory).toArray();
-    let files = [];
-
-    items.forEach((item) => {
-      if (item.file) {
-        files.push(item.file_id);
-      }
-    });
-
-    files = await this.file.getFilesByIds(files);
-
-    items.forEach((item) => {
-      if (item.file) {
-        item.file = files.find((file) => item.file_id === file.id);
-      }
-    });
-
     return items;
   }
 

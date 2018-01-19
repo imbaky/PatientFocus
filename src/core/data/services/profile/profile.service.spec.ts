@@ -55,7 +55,7 @@ describe("Profile Service", () => {
     });
 
     it("GIVEN an existing Profile THEN it should retrieve it", async() => {
-        profileService.save({
+        await profileService.save({
             name: "John",
             password: "Password"
         });
