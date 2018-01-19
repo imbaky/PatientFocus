@@ -8,6 +8,7 @@ import { ItemService } from './services/item/item.service';
 import { ProfileService } from './services/profile/profile.service';
 import { DexieService } from './services/dexie/dexie.service';
 import { FileSystemService } from './services/file-system/file-system.service';
+import { EmergencyContactService } from "./services/emergency-contact/emergency-contact.service";
 import { RemindersService } from './services/reminders/reminders.service';
 
 @NgModule({
@@ -31,7 +32,8 @@ export class DataModule {
                 ProfileService,
                 FileService,
                 FileSystemService,
-                RemindersService
+                RemindersService,
+                EmergencyContactService
             ],
             ngModule: DataModule
         };
