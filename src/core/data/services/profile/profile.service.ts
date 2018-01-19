@@ -11,6 +11,7 @@ export interface UserProfile {
   directory: number;
   name: string;
   password: string;
+  emergency_contact_id?: number;
 }
 
 @Injectable()
@@ -25,9 +26,9 @@ export class ProfileService {
     this.table = this.dexie.table('profile');
   }
 
-  async getProfileById(id: number): Promise<UserProfile> {
-    return this.table.get(id);
-  }
+    async getProfileById(id: number): Promise<UserProfile> {
+        return await this.table.get(id);
+    }
 
   /**
    * Saves a new profile and attaches a new directory and diary with the same id
@@ -66,7 +67,7 @@ export class ProfileService {
   }
 
   clearDb() {
-    this.table.clear();
+    this.dexie.table('profile').clear();
   }
 
   /**
@@ -77,3 +78,4 @@ export class ProfileService {
     return this.itemService.getDiaryItemsByProfileID(profileId);
   }
 }
+
