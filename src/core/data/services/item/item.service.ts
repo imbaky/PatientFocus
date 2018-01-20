@@ -5,7 +5,7 @@ import { DexieService } from '../dexie/dexie.service';
 import { FileService, File } from '../file/file.service';
 import { ItemType } from '../../enum/item-type.enum';
 import { DocumentType } from '../../enum/file-type.enum';
-import { PageType } from "../../enum/page-type.enum";
+import { PageType } from '../../enum/page-type.enum';
 
 export interface Item {
   id?: number;
@@ -50,7 +50,8 @@ export class ItemService {
       description: 'Temporary description', // TODO add a proper description
       file_id: newFile.id,
       file: newFile,
-      user_defined_file_name: documentName
+      user_defined_file_name: documentName,
+      page: specificValues.page
     };
     item = Object.assign(item, specificValues); // combine values
     const pk = await this.table.add(item);
@@ -59,7 +60,7 @@ export class ItemService {
     return item;
   }
 
-  async addItemToDB(item: Item) : Promise<Item> {
+  async addItemToDB(item: Item): Promise<Item> {
     const pk = await this.table.add(item);
     this.table.update( pk, { id: pk});
     item.id = pk;

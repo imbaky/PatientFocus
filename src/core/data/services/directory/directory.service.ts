@@ -6,12 +6,12 @@ import { DexieService } from '../dexie/dexie.service';
 import { Item, ItemService } from '../item/item.service';
 import { DocumentType } from '../../enum/file-type.enum';
 import { FileService, File } from '../file/file.service';
-import {PageType} from "../../enum/page-type.enum";
+import { PageType } from '../../enum/page-type.enum';
 
 export interface Directory {
   id?: number;
   items: Item[];
-  directories: Directory[] // directories on the first level. inner level directories would be defined in subsequent directories
+  directories: Directory[]; // directories on the first level. inner level directories would be defined in subsequent directories
 }
 
 @Injectable()
@@ -66,12 +66,12 @@ export class DirectoryService {
    * @param {Directory} directory the directory in which the file will be added to
    */
   async addFileToDirectory(fileEntry: Entry, creationDate: string, directory: Directory,
-                           newDocumentName: string, pageType: PageType) : Promise<Item>{
-    const newFile = await this.fileService.createFile(fileEntry.nativeURL, newDocumentName);
+                           newDocumentName: string, specificValues: any): Promise<Item> {
+    const newFile = await this.fileService.createFile(fileEntry.nativeURL);
     await fileEntry.getMetadata(async (metadata) => {
       newFile.size = metadata.size;
     });
-    const item = await this.items.createItemAsFile(newFile, creationDate, directory.id, pageType);
+    const item = await this.items.createItemAsFile(newFile, creationDate, directory.id, newDocumentName, specificValues);
     directory.items.push(item);
     const newItems = [];
     directory.items.forEach( (newItem) => newItems.push(newItem));

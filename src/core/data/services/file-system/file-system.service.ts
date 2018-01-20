@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { File as NativeFile} from '@ionic-native/file';
-import { File } from '../file/file.service'
+import { File } from '../file/file.service';
 import { Directory, DirectoryService } from '../directory/directory.service';
 import { DocumentType } from '../../enum/file-type.enum';
 import { Item } from '../item/item.service';
-import {PageType} from "../../enum/page-type.enum";
+import {PageType} from '../../enum/page-type.enum';
 
 
 declare var window;
@@ -25,7 +25,7 @@ export class FileSystemService {
    * @param newDocumentName new name associated to the document
    * @param directory user profile directory
    */
-  async addNewFileToDirectory(fullPath: string, creationDate: string, newDocumentName: string, directory: Directory, specificValues: any) : Promise<Item> {
+  async addNewFileToDirectory(fullPath: string, creationDate: string, newDocumentName: string, directory: Directory, specificValues: any): Promise<Item> {
       const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
       const extension = filename.substring(filename.lastIndexOf('.'));
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));

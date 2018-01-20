@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -30,8 +30,8 @@
 
 <ng-container *ngIf="directory">
   <ion-fab right bottom>
-    <button ion-fab color="light" id="addButton" (click)="addEntry(diary)">
-      <ion-icon name="create"></ion-icon>
+    <button ion-fab color="primary" id="addButton" (click)="addEntry(diary)">
+      <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
 </ng-container>

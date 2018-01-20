@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DexieService } from '../dexie/dexie.service';
 import { DocumentType, FileFormatType } from '../../enum/file-type.enum';
-import { File as NativeFile} from '@ionic-native/file'
+import { File as NativeFile} from '@ionic-native/file';
 
 import Dexie from 'dexie';
 

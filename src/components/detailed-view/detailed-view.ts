@@ -7,10 +7,10 @@ import { NavParams } from 'ionic-angular';
 })
 
 export class DetailedView {
-  title: string = 'Title';
-  description: string = 'Description';
-  date: string = 'Date';
-  
+  title = 'Title';
+  description = 'Description';
+  date = 'Date';
+
   constructor(private navParams: NavParams) {
     this.title = navParams.get('title');
     this.description = navParams.get('description');
