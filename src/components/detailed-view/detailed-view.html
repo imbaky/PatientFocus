@@ -6,9 +6,12 @@
     <p> {{ date }}</p>
   </ion-item>
 
-  <ion-card-content>
-    <p>{{ description }}</p>
-  </ion-card-content>
+    <ion-card-content>
+        <p>{{ description }}</p>
+        <ion-item *ngIf="imgSrc">
+            <img class="attachment" [src]="imgSrc">
+        </ion-item>
+    </ion-card-content>
 
 </ion-card>
 </ion-content>

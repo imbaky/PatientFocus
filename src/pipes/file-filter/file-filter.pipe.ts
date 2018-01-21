@@ -33,7 +33,7 @@ export class FileFilterByName implements PipeTransform {
       return items;
     }
     return items.filter((item) => {
-       return item.user_defined_file_name.toLowerCase().includes(filterName.toLowerCase());
+       return item.title.toLowerCase().includes(filterName.toLowerCase());
     });
   }
 }

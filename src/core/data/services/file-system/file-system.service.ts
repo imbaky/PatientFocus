@@ -25,7 +25,8 @@ export class FileSystemService {
    * @param newDocumentName new name associated to the document
    * @param directory user profile directory
    */
-  async addNewFileToDirectory(fullPath: string, creationDate: string, newDocumentName: string, directory: Directory, specificValues: any): Promise<Item> {
+  async addNewFileToDirectory(fullPath: string, creationDate: string, newDocumentName: string,
+                              directory: Directory, specificValues: any): Promise<Item> {
       const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
       const extension = filename.substring(filename.lastIndexOf('.'));
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));

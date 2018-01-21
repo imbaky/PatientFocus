@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from 'ionic-angular';
 
-import { Diary, DiaryService } from '../../core/data/services/diary/diary.service';
-import { ProfileService } from '../../core/data/services/profile/profile.service';
+import { ProfileService, UserProfile } from '../../core/data/services/profile/profile.service';
 import { ItemService, Item } from '../../core/data/services/item/item.service';
 import { AddEntryPage } from './add-entry/add-entry';
 import { DetailedView } from '../../components/detailed-view/detailed-view';
-import { DiaryEntry } from '../../core/data/services/diary-entry/diary-entry.service';
 import { Directory, DirectoryService } from '../../core/data/services/directory/directory.service';
 import { PageType } from '../../core/data/enum/page-type.enum';
 
@@ -16,32 +14,40 @@ import { PageType } from '../../core/data/enum/page-type.enum';
 })
 
 export class DiaryPage {
-  diary$: Promise<Diary>;
+  items$: Promise<Item[]>;
   directory: Directory;
   PageType = PageType;
 
   constructor(
     public modalCtrl: ModalController,
-    private diaryService: DiaryService,
     private profileService: ProfileService,
     private navCtrl: NavController,
     private directoryService: DirectoryService
   ) {
-    this.profileService.getFirstProfileId().then(async (profileId) => { //TODO need to get actual profile id
-      console.log(profileId);
+    this.profileService.getFirstProfileId().then(async (profileId) => { // TODO need to get actual profile id
+      this.items$ = this.profileService.getProfileDiaryItems(profileId);
       this.directory = await this.directoryService.getDirectoryById(profileId);
-      console.log("directory", this.directory);
     });
   }
 
-  addEntry(directory: Directory) {
-    const addEntryModal = this.modalCtrl.create(AddEntryPage, { directory });
-    addEntryModal.present();
+  async addEntry(itemsToSend: Item[]) {
+    const items = await itemsToSend;
+    const addEntry = this.modalCtrl.create(AddEntryPage, { directory: this.directory, items});
+    addEntry.present();
   }
 
   viewDetails(event: any, entry: Item) {
-    console.log("entry",entry);
-    this.navCtrl.push(DetailedView, { title: entry.title, description: entry.description, date: entry.chosen_date });
+    if (entry.file) {
+      this.navCtrl.push(DetailedView, {
+        title: entry.title, description: entry.description,
+        date: entry.chosen_date, imgSrc: entry.file.path
+      });
+    } else {
+      this.navCtrl.push(DetailedView, {
+        title: entry.title, description: entry.description,
+        date: entry.chosen_date
+      });
+    }
   }
 
 }

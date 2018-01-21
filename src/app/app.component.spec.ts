@@ -16,8 +16,6 @@ import { FileService } from "../core/data/services/file/file.service";
 import { FileSystemService } from "../core/data/services/file-system/file-system.service";
 import { ItemService } from "../core/data/services/item/item.service";
 import { DirectoryService } from "../core/data/services/directory/directory.service";
-import { DiaryService } from "../core/data/services/diary/diary.service";
-import { DiaryEntryService } from "../core/data/services/diary-entry/diary-entry.service";
 
 describe('MyApp Component', () => {
     let fixture;
@@ -39,8 +37,6 @@ describe('MyApp Component', () => {
                 ItemService,
                 FileService,
                 FileSystemService,
-                DiaryService,
-                DiaryEntryService,
                 FileNative
             ]
         })

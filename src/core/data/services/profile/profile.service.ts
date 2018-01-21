@@ -3,13 +3,12 @@ import { DexieService } from '../dexie/dexie.service';
 
 import Dexie from 'dexie';
 import { DirectoryService } from '../directory/directory.service';
-import { DiaryService } from '../diary/diary.service';
+import {Item, ItemService} from '../item/item.service';
 
 
 export interface UserProfile {
   id?: number;
   directory: number;
-  diary: number;
   name: string;
   password: string;
 }
@@ -21,7 +20,7 @@ export class ProfileService {
   constructor(
     private dexie: DexieService,
     private directoryService: DirectoryService,
-    private diaryService: DiaryService
+    private itemService: ItemService
   ) {
     this.table = this.dexie.table('profile');
   }
@@ -38,7 +37,6 @@ export class ProfileService {
   async save(profile: any) {
     let newProfile = {
       directory: null,
-      diary: null,
       name: profile.name,
       password: profile.password
     };
@@ -46,10 +44,8 @@ export class ProfileService {
     const directoryId = await this.directoryService.createNewDirectory(
       profileId
     );
-    const diaryId = await this.diaryService.createNewDiary(profileId);
     newProfile = await this.table.get(profileId);
     newProfile.directory = directoryId;
-    newProfile.diary = diaryId;
     return await this.table.put(newProfile);
   }
 
@@ -71,5 +67,13 @@ export class ProfileService {
 
   clearDb() {
     this.table.clear();
+  }
+
+  /**
+   * Get all items which are part of the diary page
+   * @param {number} profileId
+   */
+  getProfileDiaryItems(profileId: number): Promise<Item[]> {
+    return this.itemService.getDiaryItemsByProfileID(profileId);
   }
 }

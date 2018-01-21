@@ -10,10 +10,12 @@ export class DetailedView {
   title = 'Title';
   description = 'Description';
   date = 'Date';
+  imgSrc;
 
   constructor(private navParams: NavParams) {
     this.title = navParams.get('title');
     this.description = navParams.get('description');
     this.date = navParams.get('date');
+    this.imgSrc = navParams.get('imgSrc');
   }
 }

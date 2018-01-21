@@ -53,7 +53,7 @@ export class FileService {
     return file;
   }
 
-  async updateFile(file: File) { //replaces old file with new contents
+  async updateFile(file: File) { // replaces old file with new contents
     await this.table.put(file, file.id);
   }
 

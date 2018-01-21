@@ -61,7 +61,7 @@
             <p (tap)="viewDoc($event, item)" tappable>{{ item?.chosen_date | date:'MMMM d, y'}}</p>
             <p (tap)="viewDoc($event, item)" tappable>{{ item?.file.format}}</p>
             <h3 (tap)="viewDoc($event, item)" tappable>{{ item?.document_type}}</h3>
-            <h2 (tap)="viewDoc($event, item)" tappable>{{ item?.user_defined_file_name}}</h2>
+            <h2 (tap)="viewDoc($event, item)" tappable>{{ item?.title}}</h2>
             <input type="checkbox" [(ngModel)]="checkedItems[i]" item-end>
         </ion-item>
     </ng-container>

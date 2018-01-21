@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 
 // services
 import { DirectoryService } from './services/directory/directory.service';
-import { DiaryService } from './services/diary/diary.service';
-import { DiaryEntryService } from './services/diary-entry/diary-entry.service';
 import { FileService } from './services/file/file.service';
 import { ItemService } from './services/item/item.service';
 import { ProfileService } from './services/profile/profile.service';
@@ -28,8 +26,6 @@ export class DataModule {
             providers: [
                 DexieService,
                 DirectoryService,
-                DiaryService,
-                DiaryEntryService,
                 ItemService,
                 ProfileService,
                 FileService,

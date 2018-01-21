@@ -15,8 +15,8 @@ export interface Item {
   page: PageType; // specifies which page item belongs to
   chosen_date?: string;
   document_type?: DocumentType;
-  user_defined_file_name?: string;
   file?: File; // TODO change field to file and remove directory
+  profile_id: number;
 }
 
 @Injectable()
@@ -43,15 +43,16 @@ export class ItemService {
    * @param {DocumentType} type type of medical document
    * @returns {Item}
    */
-  async createItemAsFile(newFile: File, creationDate: string, directory_id: number, documentName: string, specificValues: any): Promise<Item> {
+  async createItemAsFile(newFile: File, creationDate: string, directory_id: number,
+                         documentName: string, specificValues: any): Promise<Item> {
     const filename = newFile.path.substring(newFile.path.lastIndexOf('/') + 1);
     let item: Item =  {
-      chosen_date : creationDate,
-      description: 'Temporary description', // TODO add a proper description
+      chosen_date : creationDate, // TODO add a proper description
       file_id: newFile.id,
       file: newFile,
-      user_defined_file_name: documentName,
-      page: specificValues.page
+      title: documentName,
+      page: specificValues.page,
+      profile_id: directory_id
     };
     item = Object.assign(item, specificValues); // combine values
     const pk = await this.table.add(item);
@@ -67,7 +68,32 @@ export class ItemService {
     return item;
   }
 
-  async updateItem(item: Item, updates: any) { //replace old item
+  async updateItem(item: Item, updates: any) { // replace old item
     this.table.update(item.id, updates);
+  }
+
+  /**
+   * Return diary items associated to a profile
+   * @param {number} profileId
+   */
+
+  async getDiaryItemsByProfileID(profileId: number): Promise<Item[]> {
+    const items = await this.table.where('profile_id').equals(profileId).and( item => {
+      if (item.page === PageType.Diary) {
+        return true;
+      }
+      return false;
+    }).toArray();
+    return items;
+  }
+
+  updateItemList(items: Item[], item: Item): Item[] {
+    const newItems = [];
+    items.push(item);
+    items.forEach( newItem => {
+      newItems.push(newItem);
+    });
+    items = newItems; // updates ui that an item has been added
+    return items;
   }
 }
