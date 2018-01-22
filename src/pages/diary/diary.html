@@ -23,17 +23,21 @@
                 <p> {{ entry?.chosen_date }}</p>
               </ion-item>
 
-              <ion-item  *ngIf="entry.file">
-                <img class="attachment" [src]="entry.file.path">
-              </ion-item>
-
               <ion-card-content>
                 <p> {{ entry?.description }} </p>
               </ion-card-content>
+
+              <ion-item  text-center *ngIf="entry.file">
+                <img class="attachment" [src]="entry.file.path"/>
+              </ion-item>
               
             </ion-card>
         </ng-container>
     </ion-list>
+
+    <div *ngIf="!((items$ | async)?.length)" padding-top="50" text-center>
+      Start adding your first diary entry!
+    </div>
 </ion-content>
 
 <ng-container *ngIf="directory || items$">

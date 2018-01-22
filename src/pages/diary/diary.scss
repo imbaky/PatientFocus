@@ -3,4 +3,9 @@ page-diary {
     float: left;
     clear: left;
   }
+  img.attachment {
+    width: 20vh;
+    object-fit: contain;
+    margin: 0 auto;
+  }
 }

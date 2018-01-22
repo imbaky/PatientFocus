@@ -20,8 +20,13 @@
     </ion-item>
   </form>
 
-  <ion-item text-center>
-    <img class="attachment" width="300" height="200" [src]="imgSrc" *ngIf="!!imgSrc">
+  <ion-item class="img-wrap" text-center>
+    <div>
+      <img class="attachment" [src]="imgSrc" *ngIf="!!imgSrc">
+      <button class="clear" ion-button color="dark" clear icon-only *ngIf="!!imgSrc" (click)="clearImg()">
+          <ion-icon name='close' is-active="false"></ion-icon>
+      </button>
+    </div>
   </ion-item>
 
   <p>

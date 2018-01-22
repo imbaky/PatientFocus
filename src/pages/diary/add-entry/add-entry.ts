@@ -14,6 +14,7 @@ import { PageType } from '../../../core/data/enum/page-type.enum';
 import { UserProfile } from '../../../core/data/services/profile/profile.service';
 
 @Component({
+  selector: 'add-entry',
   templateUrl: 'add-entry.html'
 })
 export class AddEntryPage {
@@ -48,6 +49,10 @@ export class AddEntryPage {
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE
   };
+
+  clearImg() {
+    this.imgSrc = '';
+  }
 
   dismiss() {
     this.viewCtrl.dismiss();
