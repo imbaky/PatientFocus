@@ -4,7 +4,7 @@ import Dexie from 'dexie';
 import { DexieService } from '../dexie/dexie.service';
 import { FileService, File } from '../file/file.service';
 import { ItemType } from '../../enum/item-type.enum';
-import { DocumentType } from '../../enum/file-type.enum';
+import { PortfolioType } from '../../enum/file-type.enum';
 import { PageType } from '../../enum/page-type.enum';
 
 export interface Item {
@@ -14,7 +14,7 @@ export interface Item {
   file_id?: number;
   page: PageType; // specifies which page item belongs to
   chosen_date?: string;
-  document_type?: DocumentType;
+  document_type?: PortfolioType;
   file?: File; // TODO change field to file and remove directory
   profile_id: number;
 }
@@ -40,7 +40,7 @@ export class ItemService {
    * Creates an item of type file
    * @param {File} file the file to be added to the item
    * @param {string} creationDate date in which the document should be placed
-   * @param {DocumentType} type type of medical document
+   * @param {PortfolioType} type type of medical document
    * @returns {Item}
    */
   async createItemAsFile(newFile: File, creationDate: string, directory_id: number,
@@ -61,22 +61,31 @@ export class ItemService {
     return item;
   }
 
+  /**
+   * Add a new item
+   * @param item item to save
+   * @returns {Item}
+   */
   async addItemToDB(item: Item): Promise<Item> {
     const pk = await this.table.add(item);
-    this.table.update( pk, { id: pk});
+    this.table.update( pk, { id: pk });
     item.id = pk;
     return item;
   }
 
-  async updateItem(item: Item, updates: any) { // replace old item
-    this.table.update(item.id, updates);
+  /**
+   * Update an existing item based on its key
+   * @param item item to update
+   * @param updates changes for a given item
+   */
+  async updateItem(item: Item, updates: any) {
+    await this.table.update(item.id, updates);
   }
 
   /**
    * Return diary items associated to a profile
    * @param {number} profileId
    */
-
   async getDiaryItemsByProfileID(profileId: number): Promise<Item[]> {
     const items = await this.table.where('profile_id').equals(profileId).and( item => {
       if (item.page === PageType.Diary) {
@@ -87,6 +96,11 @@ export class ItemService {
     return items;
   }
 
+  /**
+   * Append an item to the list of existing items
+   * @param items existing list of items
+   * @param item item to append
+   */
   updateItemList(items: Item[], item: Item): Item[] {
     const newItems = [];
     items.push(item);

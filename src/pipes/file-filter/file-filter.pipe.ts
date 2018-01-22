@@ -4,7 +4,7 @@ import * as moment from 'moment';
 
 import { Item } from '../../core/data/services/item/item.service';
 import { File } from '../../core/data/services/file/file.service';
-import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enum';
+import { PortfolioType, FileFormatType } from '../../core/data/enum/file-type.enum';
 
 
 @Pipe({
@@ -42,7 +42,7 @@ export class FileFilterByName implements PipeTransform {
   name: 'fileFilterByDocType'
 })
 export class FileFilterByDocType implements PipeTransform {
-  transform(items: Item[], filterDoctype: DocumentType) {
+  transform(items: Item[], filterDoctype: PortfolioType) {
     if (!filterDoctype || !items) {
       return items;
     }

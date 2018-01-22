@@ -1,5 +1,5 @@
 import { ItemType } from '../../core/data/enum/item-type.enum';
-import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enum';
+import { PortfolioType, FileFormatType } from '../../core/data/enum/file-type.enum';
 import { FileFilterByDate, FileFilterByName, FileFilterByDocType, FileFilterByFormatType } from './file-filter.pipe';
 import { Item } from '../../core/data/services/item/item.service';
 import { File } from '../../core/data/services/file/file.service';
@@ -16,7 +16,7 @@ describe('FilterItemPipe', () => {
       description: "description",
       chosen_date: "2018-01-12",
       title: "defined_name1",
-      document_type: DocumentType.LAB_TEST,
+      document_type: PortfolioType.LAB_TEST,
       file: {
         size: 1234,
         format: FileFormatType.JPG,
@@ -27,7 +27,7 @@ describe('FilterItemPipe', () => {
       description: "description",
       chosen_date: "2018-01-13",
       title: "defined_name2",
-      document_type: DocumentType.LAB_TEST,
+      document_type: PortfolioType.LAB_TEST,
       file: {
         size: 1234,
         format: FileFormatType.PDF,
@@ -38,7 +38,7 @@ describe('FilterItemPipe', () => {
       description: "description",
       chosen_date: "2018-01-14",
       title: "defined_name3",
-      document_type: DocumentType.CONSULTATION,
+      document_type: PortfolioType.CONSULTATION,
       file: {
         size: 1234,
         format: FileFormatType.JPG,
@@ -77,7 +77,7 @@ describe('FilterItemPipe', () => {
   });
 
   it('should return 2 files with document type lab test', () => {
-    const files = pipeFilterByDocType.transform(items, DocumentType.LAB_TEST);
+    const files = pipeFilterByDocType.transform(items, PortfolioType.LAB_TEST);
     expect(files.length).toBe(2);
     expect(files[0].title).toBe("defined_name1");
     expect(files[1].title).toBe("defined_name2");
@@ -92,7 +92,7 @@ describe('FilterItemPipe', () => {
   });
 
   it('should return 0 files with document DIAGNOSIS', () => {
-    const files = pipeFilterByDocType.transform(items, DocumentType.DIAGNOSIS);
+    const files = pipeFilterByDocType.transform(items, PortfolioType.DIAGNOSIS);
     expect(files.length).toBe(0);
   });
 

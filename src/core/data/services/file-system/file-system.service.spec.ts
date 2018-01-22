@@ -5,7 +5,7 @@ import { ItemType } from '../../enum/item-type.enum';
 import { DirectoryService } from '../directory/directory.service';
 import { ItemService } from '../item/item.service';
 import { FileService } from '../file/file.service';
-import { DocumentType, FileFormatType } from '../../enum/file-type.enum';
+import { PortfolioType, FileFormatType } from '../../enum/file-type.enum';
 import { FileSystemService } from "./file-system.service";
 
 import Dexie from 'dexie';
@@ -35,7 +35,7 @@ class DATABASE extends Dexie {
           type_id: 1,
           directory_id: 1,
           created: date,
-          document_type: DocumentType.BLOOD_TEST,
+          document_type: PortfolioType.BLOOD_TEST,
         },
         {
           file_name: 'Filename2.txt',
@@ -44,7 +44,7 @@ class DATABASE extends Dexie {
           type_id: 2,
           directory_id: 1,
           created: date,
-          document_type: DocumentType.BLOOD_TEST,
+          document_type: PortfolioType.BLOOD_TEST,
         },
         {
           file_name: 'Filename3.txt',
@@ -53,7 +53,7 @@ class DATABASE extends Dexie {
           type_id: 3,
           directory_id: 1,
           created: date,
-          document_type: DocumentType.BLOOD_TEST,
+          document_type: PortfolioType.BLOOD_TEST,
         },
       ]);
       this.table('file').bulkAdd([

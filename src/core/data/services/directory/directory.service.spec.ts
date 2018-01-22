@@ -7,8 +7,8 @@ import { ItemService } from '../item/item.service';
 import { FileService } from '../file/file.service';
 import Dexie from 'dexie';
 import { SCHEMA } from '../dexie/database';
-import {PageType} from "../../enum/page-type.enum";
-import {DocumentType, FileFormatType} from "../../enum/file-type.enum";
+import { PageType } from "../../enum/page-type.enum";
+import { PortfolioType, FileFormatType } from "../../enum/file-type.enum";
 
 class DATABASE extends Dexie {
   constructor() {
@@ -24,7 +24,7 @@ class DATABASE extends Dexie {
         file_id: 1,
         page: PageType.Portfolio,
         chosen_date: "2018-01-01",
-        document_type: DocumentType.DIAGNOSIS,
+        document_type: PortfolioType.DIAGNOSIS,
         user_defined_file_name: "User defined name",
         created: date
       },
@@ -35,7 +35,7 @@ class DATABASE extends Dexie {
         file_id: 2,
         page: PageType.Portfolio,
         chosen_date: "2018-01-01",
-        document_type: DocumentType.DIAGNOSIS,
+        document_type: PortfolioType.DIAGNOSIS,
         user_defined_file_name: "User defined name",
         created: date
       },
@@ -46,7 +46,7 @@ class DATABASE extends Dexie {
         file_id: 3,
         page: PageType.Portfolio,
         chosen_date: "2018-01-01",
-        document_type: DocumentType.DIAGNOSIS,
+        document_type: PortfolioType.DIAGNOSIS,
         user_defined_file_name: "User defined name",
         created: date
       }
@@ -122,9 +122,9 @@ describe('Directory Service', () => {
   it('GIVEN three items THEN it should retrieve the items AND match document types', async () => {
     let folder  = await directory.getDirectoryById(1);
     expect(folder.items.length).toBe(3);
-    expect(folder.items[0].document_type).toBe(DocumentType.DIAGNOSIS);
-    expect(folder.items[1].document_type).toBe(DocumentType.DIAGNOSIS);
-    expect(folder.items[2].document_type).toBe(DocumentType.DIAGNOSIS);
+    expect(folder.items[0].document_type).toBe(PortfolioType.DIAGNOSIS);
+    expect(folder.items[1].document_type).toBe(PortfolioType.DIAGNOSIS);
+    expect(folder.items[2].document_type).toBe(PortfolioType.DIAGNOSIS);
 
     folder  = await directory.getDirectoryById(2);
     expect(folder.items.length).toBe(0);

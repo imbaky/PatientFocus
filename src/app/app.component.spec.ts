@@ -51,7 +51,7 @@ describe('MyApp Component', () => {
         expect(component instanceof MyApp).toBe(true);
     });
 
-    it('should have two pages', () => {
+    it('should have three pages', () => {
         expect(component.pages.length).toBe(3);
     });
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { File as NativeFile} from '@ionic-native/file';
 import { File } from '../file/file.service';
 import { Directory, DirectoryService } from '../directory/directory.service';
-import { DocumentType } from '../../enum/file-type.enum';
+import { PortfolioType } from '../../enum/file-type.enum';
 import { Item } from '../item/item.service';
 import {PageType} from '../../enum/page-type.enum';
 

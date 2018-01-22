@@ -8,7 +8,7 @@ import { ItemType } from '../../core/data/enum/item-type.enum';
 import { Item } from '../../core/data/services/item/item.service';
 import { ImportDocumentPage } from './import-document/import-document';
 import { File } from '../../core/data/services/file/file.service';
-import { DocumentType, FileFormatType } from '../../core/data/enum/file-type.enum';
+import { PortfolioType, FileFormatType } from '../../core/data/enum/file-type.enum';
 import { UploadType } from '../../core/data/enum/upload-type.enum';
 import * as moment from 'moment';
 import { ProfileService } from '../../core/data/services/profile/profile.service';
@@ -25,13 +25,13 @@ export class PortfolioPage {
   currentItem: Item;
 
   ItemType = ItemType;
-  DocumentType = DocumentType;
+  PortfolioType = PortfolioType;
   FileFormatType = FileFormatType;
   PageType = PageType;
 
   searchTerm = '';
   fileTerm: FileFormatType;
-  docTerm: DocumentType;
+  docTerm: PortfolioType;
   dateFromTerm: string;
   dateToTerm: string;
   dateMaxDate: string;

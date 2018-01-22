@@ -6,7 +6,7 @@ import { DirectoryService } from "../directory/directory.service";
 import { ItemService } from "../item/item.service";
 import { FileService, File as FileType } from "../file/file.service";
 
-import { DocumentType, FileFormatType } from "../../enum/file-type.enum";
+import { PortfolioType, FileFormatType } from "../../enum/file-type.enum";
 import { ItemType } from "../../enum/item-type.enum";
 import { SCHEMA } from "../dexie/database";
 
@@ -59,21 +59,21 @@ class DATABASE extends Dexie {
         {
           path: "::directory/subdirectory/subsubdirectory1",
           size: 885421,
-          document_type: DocumentType.BLOOD_TEST,
+          document_type: PortfolioType.BLOOD_TEST,
           format: FileFormatType.JPG
         },
         {
           path: "::directory/subdirectory/subsubdirectory2",
           size: 4122017,
           type: "jpeg",
-          document_type: DocumentType.CONSULTATION,
+          document_type: PortfolioType.CONSULTATION,
           format: FileFormatType.PNG
         },
         {
           path: "::directory/subdirectory/subsubdirectory3",
           size: 9514173,
           type: "jpeg",
-          document_type: DocumentType.PRESCRIPTION,
+          document_type: PortfolioType.PRESCRIPTION,
           format: FileFormatType.PDF
         }
       ]);
@@ -121,7 +121,7 @@ describe("File Service", () => {
 
   it("GIVEN a file with a supported file type THEN it should create a new file", async () => {
     const path = "directory/subdirectory/subsubdirectory/anthonyrobert_consultation.pdf";
-    const document_type = DocumentType.CONSULTATION;
+    const document_type = PortfolioType.CONSULTATION;
     const document_name = "Medical document";
     let newFile = await file.createFile(path);
     expect(newFile.path).toBe(path);
@@ -133,7 +133,7 @@ describe("File Service", () => {
 
   it("GIVEN a file with a unsupported file type THEN it should still create a new file", async () => {
     const path = "directory/subdirectory/subsubdirectory/anthonyrobert_consultation.docx";
-    const document_type = DocumentType.CONSULTATION;
+    const document_type = PortfolioType.CONSULTATION;
     const document_name = "Medical document";
     let newFile = await file.createFile(path);
     expect(newFile.path).toBe(path);

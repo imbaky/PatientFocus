@@ -1,4 +1,4 @@
-export enum DocumentType { // TODO rename to portfolio type
+export enum PortfolioType { // TODO rename to portfolio type
     BLOOD_TEST = 'Blood Test',
     PRESCRIPTION = 'Prescription',
     LAB_TEST = 'Lab Test',
@@ -26,9 +26,9 @@ function getEnumValues(e: EnumObject): string[] {
 }
 
 // Extending the enums
-export namespace DocumentType {
+export namespace PortfolioType {
     export function values(): string[] {
-        const documentValues = getEnumValues(DocumentType);
+        const documentValues = getEnumValues(PortfolioType);
         return documentValues.slice(0, documentValues.length - 1);
     }
 }

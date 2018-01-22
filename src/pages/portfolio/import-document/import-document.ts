@@ -8,7 +8,7 @@ import { FileSystemService } from '../../../core/data/services/file-system/file-
 import { File } from '../../../core/data/services/file/file.service';
 import { ItemService } from '../../../core/data/services/item/item.service';
 import { Directory } from '../../../core/data/services/directory/directory.service';
-import { DocumentType } from '../../../core/data/enum/file-type.enum';
+import { PortfolioType } from '../../../core/data/enum/file-type.enum';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { UploadType } from '../../../core/data/enum/upload-type.enum';
 import * as moment from 'moment';
@@ -17,16 +17,16 @@ import { PageType } from '../../../core/data/enum/page-type.enum';
 
 declare var window;
 
-export interface DocumentTypeOption {
+export interface PortfolioTypeOption {
   name: string;
-  value: DocumentType;
+  value: PortfolioType;
 }
 
 @Component({
   templateUrl: 'import-document.html'
 })
 export class ImportDocumentPage {
-  documentTypes: Array<DocumentTypeOption> = [];
+  PortfolioTypes: Array<PortfolioTypeOption> = [];
   directory: Directory;
   importDocumentForm: FormGroup;
   importMethod: string;
@@ -42,20 +42,20 @@ export class ImportDocumentPage {
     private nativeFile: NativeFile,
     private itemService: ItemService
   ) {
-    this.documentTypes = [
-      { name: 'Blood Test', value: DocumentType.BLOOD_TEST },
-      { name: 'Prescription', value: DocumentType.PRESCRIPTION },
-      { name: 'Lab Test', value: DocumentType.LAB_TEST },
-      { name: 'Consultation', value: DocumentType.CONSULTATION },
-      { name: 'Image Report', value: DocumentType.IMAGE },
-      { name: 'Discharge Summary', value: DocumentType.DISCHARGE },
-      { name: 'Diagnosis Report', value: DocumentType.DIAGNOSIS },
-      { name: 'Other', value: DocumentType.OTHER }
+    this.PortfolioTypes = [
+      { name: 'Blood Test', value: PortfolioType.BLOOD_TEST },
+      { name: 'Prescription', value: PortfolioType.PRESCRIPTION },
+      { name: 'Lab Test', value: PortfolioType.LAB_TEST },
+      { name: 'Consultation', value: PortfolioType.CONSULTATION },
+      { name: 'Image Report', value: PortfolioType.IMAGE },
+      { name: 'Discharge Summary', value: PortfolioType.DISCHARGE },
+      { name: 'Diagnosis Report', value: PortfolioType.DIAGNOSIS },
+      { name: 'Other', value: PortfolioType.OTHER }
     ];
     this.importDocumentForm = this.formBuilder.group({
       name: ['Medical Document', Validators.required],
       date: [moment().format('YYYY-MM-DD'), Validators.required],
-      type: [DocumentType.LAB_TEST, Validators.required],
+      type: [PortfolioType.LAB_TEST, Validators.required],
       fullPath: ['', Validators.required]
     });
     this.directory = this.params.get('directory');

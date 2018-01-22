@@ -4,7 +4,7 @@ import Dexie from 'dexie';
 
 import { DexieService } from '../dexie/dexie.service';
 import { Item, ItemService } from '../item/item.service';
-import { DocumentType } from '../../enum/file-type.enum';
+import { PortfolioType } from '../../enum/file-type.enum';
 import { FileService, File } from '../file/file.service';
 import { PageType } from '../../enum/page-type.enum';
 
@@ -62,7 +62,7 @@ export class DirectoryService {
    * Adds a file to a directory
    * @param {Entry} fileEntry file to be added to the directory
    * @param {string} creationDate Date in which the document should be placed
-   * @param {DocumentType} type type of medical document
+   * @param {PortfolioType} type type of medical document
    * @param {Directory} directory the directory in which the file will be added to
    */
   async addFileToDirectory(fileEntry: Entry, creationDate: string, directory: Directory,
