@@ -8,8 +8,7 @@ export interface Reminder {
     fk_profile_id: number;
     title: string;
     text: string;
-    at: string;
-    every: string;
+    every: number;
     frequencies: any;
     data?: any; // data in JSON format, may not use
     expires: string;
