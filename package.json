@@ -39,6 +39,7 @@
     "@ionic-native/file-opener": "^4.5.2",
     "@ionic-native/file-path": "^4.5.0",
     "@ionic-native/file-transfer": "^4.5.0",
+    "@ionic-native/local-notifications": "^4.5.2",
     "@ionic-native/photo-viewer": "^4.5.2",
     "@ionic-native/splash-screen": "4.4.2",
     "@ionic-native/status-bar": "4.4.2",
@@ -111,7 +112,8 @@
       "com-sarriaroman-photoviewer": {},
       "cordova-plugin-document-viewer": {},
       "cordova-plugin-file-opener2": {},
-      "cordova-plugin-email-composer": {}
+      "cordova-plugin-email-composer": {},
+      "cordova-plugin-local-notification": {}
     },
     "platforms": [
       "android"
