@@ -15,6 +15,7 @@ import { PortfolioModule } from '../pages/portfolio/portfolio.module';
 import { DiaryModule } from '../pages/diary/diary.module';
 import { RemindersModule } from '../reminders/reminders.module';
 import { ProfileInfoPage } from "../pages/profile-info/profile-info";
+import { EditInfoModal } from "../modal/edit-info-modal";
 
 
 
@@ -23,7 +24,8 @@ import { ProfileInfoPage } from "../pages/profile-info/profile-info";
         MyApp,
         ProfilePage,
         WelcomePage,
-        ProfileInfoPage
+        ProfileInfoPage,
+        EditInfoModal,
     ],
     imports: [
         BrowserModule,
@@ -39,6 +41,7 @@ import { ProfileInfoPage } from "../pages/profile-info/profile-info";
         ProfilePage,
         WelcomePage,
         ProfileInfoPage,
+        EditInfoModal,
     ],
     providers: AppProviders.getProviders()
 })
