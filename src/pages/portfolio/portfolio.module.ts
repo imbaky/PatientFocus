@@ -13,20 +13,17 @@ import { ImportDocumentPage } from '../portfolio/import-document/import-document
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { FileOpener } from '@ionic-native/file-opener';
 import { Camera } from '@ionic-native/camera';
-import { EmailDocumentsPage } from '../../pages/portfolio/email-documents/email-documents';
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule.forRoot(PortfolioPage),
     IonicModule.forRoot(ImportDocumentPage),
-    IonicModule.forRoot(EmailDocumentsPage),
   ],
   declarations: [
     PortfolioPage,
     ImportDocumentPage,
     FilterFileName,
-    EmailDocumentsPage,
     FileFilterByDate,
     FileFilterByName,
     FileFilterByDocType,
@@ -34,7 +31,6 @@ import { EmailDocumentsPage } from '../../pages/portfolio/email-documents/email-
   ],
   exports: [
     PortfolioPage,
-    EmailDocumentsPage,
     ImportDocumentPage
   ],
   providers: [

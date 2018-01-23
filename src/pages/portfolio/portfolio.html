@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -46,9 +46,18 @@
     </ion-content>
   </ion-menu>
 
-  <ion-toolbar no-border-top #filterMenu>
-          <ion-searchbar [(ngModel)]="searchTerm" placeholder="Name" left></ion-searchbar>
-        <ion-icon name="ios-funnel" menuToggle="filterMenu" large right></ion-icon>
+  <ion-toolbar no-border-top #filterMenu color="primary">
+      <ion-buttons right>
+          <button ion-button icon-only menuToggle="filterMenu" color="white">
+              <ion-icon name="md-funnel"></ion-icon>
+          </button>
+        </ion-buttons>
+        <ion-searchbar [(ngModel)]="searchTerm" placeholder="Name" left></ion-searchbar>
+        <ion-buttons right>
+          <button ion-button icon-only color="white" [disabled]="hasSelected()" (tap)="emailDocuments()">
+              <ion-icon name="md-share" medium right></ion-icon>
+          </button>
+        </ion-buttons>
   </ion-toolbar>
 
   <ion-list>
@@ -75,11 +84,8 @@
 
 <ng-container *ngIf="directory$ | async as directory">
         <ion-fab right bottom>
-            <button ion-fab color="light" id="addButton" (click)="importNewDocument(directory)">
+            <button ion-fab color="primary" id="addButton" (click)="importNewDocument(directory)">
                 <ion-icon name="add"></ion-icon>
             </button>
-          <button ion-fab color="light" (click)="emailDocuments(directory)">
-            <ion-icon name="mail"></ion-icon>
-          </button>
         </ion-fab>
 </ng-container>

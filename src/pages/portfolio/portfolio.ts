@@ -2,7 +2,11 @@ import { Component } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { FileOpener } from '@ionic-native/file-opener';
+import { EmailComposer } from '@ionic-native/email-composer';
 import { ActionSheetController, ModalController, NavController, NavParams} from 'ionic-angular';
+import * as moment from 'moment';
+import * as _ from 'lodash';
+
 import { Directory, DirectoryService } from '../../core/data/services/directory/directory.service';
 import { ItemType } from '../../core/data/enum/item-type.enum';
 import { Item } from '../../core/data/services/item/item.service';
@@ -10,9 +14,7 @@ import { ImportDocumentPage } from './import-document/import-document';
 import { File } from '../../core/data/services/file/file.service';
 import { PortfolioType, FileFormatType } from '../../core/data/enum/file-type.enum';
 import { UploadType } from '../../core/data/enum/upload-type.enum';
-import * as moment from 'moment';
 import { ProfileService } from '../../core/data/services/profile/profile.service';
-import { EmailDocumentsPage } from './email-documents/email-documents';
 import { PageType } from '../../core/data/enum/page-type.enum';
 
 
@@ -46,7 +48,8 @@ export class PortfolioPage {
     private directoryService: DirectoryService,
     private photoViewer: PhotoViewer,
     private fileOpener: FileOpener,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private emailComposer: EmailComposer
   ) {
     // set date to today by default
     // otherwise format is {year: 2017, month: 0, day: 1}
@@ -77,6 +80,9 @@ export class PortfolioPage {
   }
   handleFileImport(directory: Directory, method: string) {
     const importNewDocumentModal = this.modalCtrl.create(ImportDocumentPage, {directory, method});
+    importNewDocumentModal.onDidDismiss(async () => {
+      this.allItems = (await this.directory$).items;
+    });
     importNewDocumentModal.present();
   }
   importNewDocument(directory: Directory) {
@@ -101,6 +107,10 @@ export class PortfolioPage {
       ]
     });
     actionSheet.present();
+  }
+
+  hasSelected() {
+    return !_.some(this.checkedItems, value => value);
   }
 
   // filter menu event
@@ -136,7 +146,15 @@ export class PortfolioPage {
           attachments.push((this.allItems[i].file as File).path);
         }
       });
-      const importNewEmailModal = this.modalCtrl.create(EmailDocumentsPage, { attachments });
-      importNewEmailModal.present();
+      const email = {
+        to: '',
+         cc: '',
+         bcc: '',
+         attachments: attachments,
+         subject : '',
+         body: '',
+         isHtml: true
+     };
+     this.emailComposer.open(email);
   }
 }
