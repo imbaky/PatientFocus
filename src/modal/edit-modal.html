@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            Edit
+        </ion-title>
+    </ion-toolbar>
+    <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+            <span ion-text>Cancel</span>
+            <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+        </button>
+    </ion-buttons>
+</ion-header>
+
+<ion-content padding>
+    <ion-row *ngIf="infoForm == 'emergency_contact'">
+        <form [formGroup]="emergencyContact" (ngSubmit)="submitEmergencyContact()">
+            <ion-item>
+                <ion-label>Name</ion-label>
+                <ion-input type="text" formControlName="name"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Relationship</ion-label>
+                <ion-input type="text" formControlName="relationship"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Phone Number</ion-label>
+                <ion-input type="text" formControlName="phoneNumber"></ion-input>
+            </ion-item>
+            <button ion-button type="submit" [disabled]="!emergencyContact.valid">Submit</button>
+        </form>
+    </ion-row>
+</ion-content>

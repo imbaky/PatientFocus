@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NavController, ModalController } from 'ionic-angular';
 import { ProfileService, UserProfile } from "../../core/data/services/profile/profile.service";
 import {
     EmergencyContactService,
     EmergencyContact
 } from "../../core/data/services/emergency-contact/emergency-contact.service";
+import { EditInfoModal } from "../../modal/edit-info-modal";
 
 
 @Component({
@@ -18,18 +18,32 @@ export class ProfileInfoPage {
     profile: UserProfile;
     emergencyContact: EmergencyContact;
 
-    constructor(profileService: ProfileService, emergencyContactService: EmergencyContactService) {
-        // test code
-        profileService.getFirstProfile().then(profile => {
+
+    constructor(private profileService: ProfileService,
+                private emergencyContactService: EmergencyContactService,
+                private modalCtrl: ModalController) {
+
+        this.profileService.getFirstProfile().then(profile => {
             this.profile = profile;
-            emergencyContactService.setEmergencyContact(profile.id, "bob", "friend", 911).then(() => {
-                emergencyContactService.getEmergencyContact(profile.emergency_contact_id).then(c => {
-                    this.emergencyContact = c;
-                    console.log(this.emergencyContact);
-                });
-            })
+            emergencyContactService.getEmergencyContact(profile.emergency_contact_id).then(contact => {
+                this.emergencyContact = contact;
+            });
         });
-        // -- 
+    }
+
+    async editEmergencyContact() {
+        let modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'emergency_contact'});
+        await modal.present();
+        modal.onDidDismiss(() => { // todo not sure how to async await this
+            this.profileService.getFirstProfile().then(profile => {
+                this.emergencyContactService.getEmergencyContact(profile.emergency_contact_id).then(c => {
+                    this.emergencyContact = c;
+                })
+            });
+        });
+    }
+
+    submit() {
     }
 
 }
