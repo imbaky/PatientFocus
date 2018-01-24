@@ -26,9 +26,9 @@ export class MyApp {
     private profileService: ProfileService
   ) {
     this.pages = [
-      { title: 'Welcome Page', component: WelcomePage },
-      { title: 'Medical Portfolio', component: PortfolioPage },
-      { title: 'Medical Diary', component: DiaryPage }
+      { title: 'Dashboard', component: WelcomePage },
+      { title: 'Portfolio', component: PortfolioPage },
+      { title: 'Diary', component: DiaryPage }
     ];
 
     this.isProfileCreated();
