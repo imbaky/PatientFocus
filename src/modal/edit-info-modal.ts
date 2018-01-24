@@ -13,6 +13,7 @@ import { ProfileService } from "../core/data/services/profile/profile.service";
 export class EditInfoModal {
 
     private emergencyContact: FormGroup;
+    private profile: FormGroup;
     private infoForm: string;
     private profileId: number;
 
@@ -28,8 +29,24 @@ export class EditInfoModal {
         this.emergencyContact = this.formBuilder.group({
             name: ['', Validators.required],
             relationship: ['', Validators.required],
-            phoneNumber: ['', Validators.required]
+            phoneNumber: ['',   Validators.compose(
+                [
+                    Validators.minLength(10),
+                    Validators.maxLength(11),
+                    Validators.pattern("[0-9]*"),
+                    Validators.required,
+                ])]
         });
+
+        this.profile = this.formBuilder.group({
+            name: ['', Validators.required],
+            gender: ['', Validators.required],
+            dob: ['', Validators.required],
+        });
+    }
+
+    submitProfileInfo() {
+        console.log(this.profile.value);
     }
 
       submitEmergencyContact() {

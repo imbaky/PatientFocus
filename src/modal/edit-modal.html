@@ -12,8 +12,34 @@
     </ion-buttons>
 </ion-header>
 
-<ion-content padding>
-    <ion-row *ngIf="infoForm == 'emergency_contact'">
+<ion-content padding *ngIf="infoForm == 'profile'">
+    <ion-row>
+        <form [formGroup]="profile" (ngSubmit)="submitProfileInfo()">
+            <ion-item>
+                <ion-label>Name</ion-label>
+                <ion-input type="text" formControlName="name"></ion-input>
+            </ion-item>
+            <ion-list radio-group formControlName="gender">
+                <ion-item>
+                    <ion-label>Male</ion-label>
+                    <ion-radio value="male"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Female</ion-label>
+                    <ion-radio value="female"></ion-radio>
+                </ion-item>
+            </ion-list>
+            <ion-item>
+                <ion-label>Date of Birth</ion-label>
+                <ion-input type="text" formControlName="dob"></ion-input>
+            </ion-item>
+            <button ion-button type="submit" [disabled]="!profile.valid">Submit</button>
+        </form>
+    </ion-row>
+</ion-content>
+
+<ion-content padding *ngIf="infoForm == 'emergency_contact'">
+    <ion-row>
         <form [formGroup]="emergencyContact" (ngSubmit)="submitEmergencyContact()">
             <ion-item>
                 <ion-label>Name</ion-label>

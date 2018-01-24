@@ -19,14 +19,14 @@
                 <p>Date of Birth: {{profile?.dob}}</p>
             </ion-col>
             <ion-col>
-                <ion-icon ios="ios-create-outline" (click)="edite()"></ion-icon>
+                <ion-icon name="create" (click)="editProfile()"></ion-icon>
             </ion-col>
         </ion-row>
         <h2>Medical Info</h2>
         <ion-row>
         </ion-row>
         <h2>Emergency Contact</h2>
-        <ion-row *ngIf="!editingEmergencyContact">
+        <ion-row>
             <ion-col>
                 <p>Name: {{emergencyContact?.name}}</p>
                 <p>Phone Number: {{emergencyContact?.phoneNumber}}</p>
