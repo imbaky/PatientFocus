@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
-import { ILocalNotification } from '@ionic-native/local-notifications';
 
 import { Reminder } from '../../../core/data/services/reminders/reminders.interface';
 import { RemindersService } from '../../../core/data/services/reminders/reminders.service';
-import { NotificationsService } from '../../../core/data/services/notifications/notifications.service';
+
 import * as moment from 'moment';
 
 @Component({
@@ -17,13 +16,11 @@ export class ReminderComponent {
     reminder: Reminder;
     reminderForm: FormGroup;
     minExpiryDate: string;
-    notifications: Array<ILocalNotification>;
 
     constructor(
         public viewCtrl: ViewController,
         private formBuilder: FormBuilder,
-        private reminderService: RemindersService,
-        private notificationsService: NotificationsService
+        private reminderService: RemindersService
     ) {
         this.minExpiryDate = moment({}).format('YYYY-MM-DD');
         this.reminderForm = this.formBuilder.group({
@@ -33,7 +30,6 @@ export class ReminderComponent {
             frequencies: this.formBuilder.array([this.createTime()], Validators.required),
             expires: [moment().format('YYYY-MM-DD HH:mm:ss'), Validators.required]
         });
-        this.notifications = [];
     }
 
     async handleReminderForm() {
@@ -45,25 +41,8 @@ export class ReminderComponent {
         this.reminder.reminder_id = moment().unix();
 
         // save
-        const newReminder = await this.reminderService.createReminder(this.reminder);
-
-        let note = {};
-        // map to notification
-        for (let i = 0; i < newReminder.frequencies.length; i++) {
-            note = {
-                id: newReminder.frequencies[i].frequency_id,
-                text: newReminder.text,
-                title: newReminder.title,
-                // trigger: { at: moment(newReminder.frequencies[i].frequency).toDate() },
-                trigger: { every: {minute: 3}, count: 2}
-                // every: 'day'
-            };
-            this.notifications.push(note);
-            note = {};
-        }
-
-        // send to notification service
-        this.notificationsService.addNotifications(this.notifications);
+        let reminder = await this.reminderService.createReminder(this.reminder);
+        await this.reminderService.mapToNotification(this.reminder);
 
         this.dismiss();
     }
