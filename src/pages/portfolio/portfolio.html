@@ -46,14 +46,14 @@
     </ion-content>
   </ion-menu>
 
-  <ion-toolbar no-border-top #filterMenu color="primary">
-      <ion-buttons right>
+  <ion-toolbar no-border-top #filterMenu color="light">
+      <ion-buttons start>
           <button ion-button icon-only menuToggle="filterMenu" color="white">
               <ion-icon name="md-funnel"></ion-icon>
           </button>
         </ion-buttons>
-        <ion-searchbar [(ngModel)]="searchTerm" placeholder="Name" left></ion-searchbar>
-        <ion-buttons right>
+        <ion-searchbar [(ngModel)]="searchTerm" placeholder="Document Name" left></ion-searchbar>
+        <ion-buttons start>
           <button ion-button icon-only color="white" [disabled]="hasSelected()" (tap)="emailDocuments()">
               <ion-icon name="md-share" medium right></ion-icon>
           </button>
