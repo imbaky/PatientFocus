@@ -16,7 +16,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = ProfilePage;
-
+  name: string;
   pages: Array<{ title: string; component: any }>;
 
   constructor(
@@ -38,6 +38,7 @@ export class MyApp {
     this.profileService.getFirstProfile().then(profile => {
       if (profile) {
         this.rootPage = WelcomePage;
+        this.name = profile.name;
       } else {
         this.rootPage = ProfilePage;
       }
