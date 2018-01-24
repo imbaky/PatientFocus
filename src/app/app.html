@@ -1,13 +1,17 @@
 <ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <ion-content>
+
+  <ion-content class="side-menu" color="primary">
+    <div class="side-menu-spacer"></div>
+    <div class="profile-image">
+      <img src="assets/rb0.png"/> <!-- TODO add reference to profile picture -->
+    </div>
+    <h3 class="side-menu-heading">
+      Welcome {{name}}
+    </h3>
+    <div class="side-menu-spacer"></div>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" class="side-menu-item">
         {{p.title}}
       </button>
     </ion-list>
