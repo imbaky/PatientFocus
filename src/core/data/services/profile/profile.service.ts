@@ -12,6 +12,8 @@ export interface UserProfile {
   name: string;
   password: string;
   emergency_contact_id?: number;
+  gender?: string;
+  dob?: string; // todo date
 }
 
 @Injectable()

@@ -43,6 +43,14 @@ export class ProfileInfoPage {
         });
     }
 
+    async editProfile() {
+        let modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'profile'});
+        await modal.present();
+        modal.onDidDismiss(() => {
+
+        })
+    }
+
     submit() {
     }
 
