@@ -3,7 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { IntroPage } from '../pages/intro/intro';
+import { ProfilePage } from '../pages/profile/profile';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { DiaryPage } from '../pages/diary/diary';
 import { ProfileService } from '../core/data/services/profile/profile.service';
@@ -15,7 +15,7 @@ import { PortfolioPage } from '../pages/portfolio/portfolio';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = IntroPage;
+  rootPage: any = ProfilePage;
 
   pages: Array<{ title: string; component: any }>;
 
@@ -39,7 +39,7 @@ export class MyApp {
       if (profile) {
         this.rootPage = WelcomePage;
       } else {
-        this.rootPage = IntroPage;
+        this.rootPage = ProfilePage;
       }
     });
   }
