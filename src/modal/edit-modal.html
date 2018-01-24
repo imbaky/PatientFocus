@@ -14,7 +14,7 @@
 
 <ion-content padding *ngIf="infoForm == 'profile'">
     <ion-row>
-        <form [formGroup]="profile" (ngSubmit)="submitProfileInfo()">
+        <form [formGroup]="profileForm" (ngSubmit)="submitProfileInfo()">
             <ion-item>
                 <ion-label>Name</ion-label>
                 <ion-input type="text" formControlName="name"></ion-input>
@@ -33,14 +33,34 @@
                 <ion-label>Date of Birth</ion-label>
                 <ion-input type="text" formControlName="dob"></ion-input>
             </ion-item>
-            <button ion-button type="submit" [disabled]="!profile.valid">Submit</button>
+            <button ion-button type="submit" [disabled]="!profileForm.valid">Submit</button>
+        </form>
+    </ion-row>
+</ion-content>
+
+<ion-content padding  *ngIf="infoForm == 'medical_info'">
+    <ion-row>
+        <form [formGroup]="medicalInfoForm" (ngSubmit)="submitMedicalInfo()">
+            <ion-item>
+                <ion-label>Blood Type</ion-label>
+                <ion-input type="text" formControlName="bloodType"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Conditions</ion-label>
+                <ion-input type="text" formControlName="known_conditions"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Allergies</ion-label>
+                <ion-input type="text" formControlName="allergies"></ion-input>
+            </ion-item>
+            <button ion-button type="submit" [disabled]="!medicalInfoForm.valid">Submit</button>
         </form>
     </ion-row>
 </ion-content>
 
 <ion-content padding *ngIf="infoForm == 'emergency_contact'">
     <ion-row>
-        <form [formGroup]="emergencyContact" (ngSubmit)="submitEmergencyContact()">
+        <form [formGroup]="emergencyContactForm" (ngSubmit)="submitEmergencyContact()">
             <ion-item>
                 <ion-label>Name</ion-label>
                 <ion-input type="text" formControlName="name"></ion-input>
@@ -53,7 +73,7 @@
                 <ion-label>Phone Number</ion-label>
                 <ion-input type="text" formControlName="phoneNumber"></ion-input>
             </ion-item>
-            <button ion-button type="submit" [disabled]="!emergencyContact.valid">Submit</button>
+            <button ion-button type="submit" [disabled]="!emergencyContactForm.valid">Submit</button>
         </form>
     </ion-row>
 </ion-content>

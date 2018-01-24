@@ -7,4 +7,3 @@ export const SCHEMA = {
   'reminders': '++id, reminder_id, fk_profile_id, title, text, frequencies, expires',
   'emergency_contact': '++id, name, relationship, phone_number'
 };
-

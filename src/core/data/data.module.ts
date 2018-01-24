@@ -10,6 +10,7 @@ import { DexieService } from './services/dexie/dexie.service';
 import { FileSystemService } from './services/file-system/file-system.service';
 import { EmergencyContactService } from "./services/emergency-contact/emergency-contact.service";
 import { RemindersService } from './services/reminders/reminders.service';
+import { MedicalInfoService } from "./services/medical-info/medical-info.service";
 
 @NgModule({
     imports: [
@@ -32,8 +33,9 @@ export class DataModule {
                 ProfileService,
                 FileService,
                 FileSystemService,
-                RemindersService,
-                EmergencyContactService
+                EmergencyContactService,
+                MedicalInfoService,
+                RemindersService
             ],
             ngModule: DataModule
         };
