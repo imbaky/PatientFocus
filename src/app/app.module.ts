@@ -4,7 +4,6 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { AppProviders } from './app.providers';
 
-import { IntroPage } from '../pages/intro/intro';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,7 +19,6 @@ import { DiaryModule } from '../pages/diary/diary.module';
 @NgModule({
     declarations: [
         MyApp,
-        IntroPage,
         ProfilePage,
         WelcomePage
     ],
@@ -34,7 +32,6 @@ import { DiaryModule } from '../pages/diary/diary.module';
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
-        IntroPage,
         ProfilePage,
         WelcomePage
     ],
