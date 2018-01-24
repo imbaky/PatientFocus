@@ -5,7 +5,7 @@ import Dexie from 'dexie';
 import {BloodType} from '../../enum/blood-type.enum';
 import {ProfileService} from '../profile/profile.service';
 
-export interface MedicalInfo{
+export interface MedicalInfo {
     id?: number;
     blood_type: BloodType;
     known_conditions: string[];
@@ -27,7 +27,7 @@ export class MedicalInfoService {
     }
 
     async save(medical_info: MedicalInfo) {
-        this.table.put(medical_info);
+        this.table.put(medical_info, await this.profile.getFirstProfileId());
     }
 
     clearDb() {
