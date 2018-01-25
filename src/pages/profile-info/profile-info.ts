@@ -58,9 +58,7 @@ export class ProfileInfoPage {
     async editProfile() {
         let modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'profile'});
         await modal.present();
-        modal.onDidDismiss(() => {
-
-        })
+        modal.onDidDismiss(() => this.profileService.getFirstProfile().then(profile => this.profile = profile));
     }
 
     submit() {

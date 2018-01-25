@@ -23,7 +23,8 @@ export class EditInfoModal {
                 private viewCtrl: ViewController,
                 private formBuilder: FormBuilder,
                 private emergencyContactService: EmergencyContactService,
-                private profileService: ProfileService, private medicalInfoService: MedicalInfoService) {
+                private profileService: ProfileService,
+                private medicalInfoService: MedicalInfoService) {
 
         this.profileId = this.params.get('profileId');
         this.infoForm = this.params.get('infoForm');
@@ -43,7 +44,7 @@ export class EditInfoModal {
         this.profileForm = this.formBuilder.group({
             name: ['', Validators.required],
             gender: ['', Validators.required],
-            dob: ['', Validators.required],
+            dob: [''],
         });
 
         this.medicalInfoForm = this.formBuilder.group({
@@ -53,17 +54,17 @@ export class EditInfoModal {
         });
     }
 
-    submitProfileInfo() {
+    async submitProfileInfo() {
+        const formValue = this.profileForm.value;
         console.log(this.profileForm.value);
+        await this.profileService.editProfile(formValue.name, formValue.gender, formValue.dob);
+        await this.dismiss();
     }
 
-    submitEmergencyContact() {
+    async submitEmergencyContact() {
         const contact = this.emergencyContactForm.value;
-        this.emergencyContactService.setEmergencyContact(this.profileId, contact.name,
-            contact.relationship, contact.phoneNumber).then(() => {
-            this.dismiss();
-        });
-
+        await this.emergencyContactService.setEmergencyContact(this.profileId, contact.name, contact.relationship, contact.phoneNumber);
+        await this.dismiss();
     }
 
     submitMedicalInfo() {
@@ -75,8 +76,8 @@ export class EditInfoModal {
         this.medicalInfoService.save(entry as MedicalInfo);
     }
 
-    dismiss() {
-        this.viewCtrl.dismiss();
+    async dismiss() {
+        await this.viewCtrl.dismiss();
     }
 
 }

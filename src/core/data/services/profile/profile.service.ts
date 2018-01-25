@@ -13,7 +13,7 @@ export interface UserProfile {
   password: string;
   emergency_contact_id?: number;
   gender?: string;
-  dob?: string; // todo date
+  dob?: string;
 }
 
 @Injectable()
@@ -52,15 +52,14 @@ export class ProfileService {
     return await this.table.put(newProfile);
   }
 
-  /**
-   * Retrieve first profile in the database
-   * @returns {Promise<R>}
-   */
-  getFirstProfile(): Promise<UserProfile> {
-    return this.table.toArray(profile => {
-      return profile[0];
-    });
-  }
+    /**
+     * Retrieve first profile in the database
+     * @returns {Promise<R>}
+     */
+    async getFirstProfile(): Promise<UserProfile> {
+        const arr = await this.table.toArray();
+        return arr[0];
+    }
 
 
   async getFirstProfileId() {
@@ -68,9 +67,24 @@ export class ProfileService {
     return array[0].id;
   }
 
-  clearDb() {
-    this.dexie.table('profile').clear();
-  }
+    /**
+     * Edits an existing profile
+     * @param name of user profile
+     * @param gender of user profile
+     * @param dob date of birth
+     * @returns {Promise<void>}
+     */
+    async editProfile(name: string, gender: string, dob: string) {
+        const profile = await this.getFirstProfile();
+        profile.name = name;
+        profile.gender = gender;
+        profile.dob = dob;
+        await this.table.put(profile);
+    }
+
+    clearDb() {
+        this.dexie.table('profile').clear();
+    }
 
   /**
    * Get all items which are part of the diary page
