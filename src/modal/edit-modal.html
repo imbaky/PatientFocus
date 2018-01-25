@@ -43,17 +43,19 @@
         <form [formGroup]="medicalInfoForm" (ngSubmit)="submitMedicalInfo()">
             <ion-item>
                 <ion-label>Blood Type</ion-label>
-                <ion-input type="text" formControlName="bloodType"></ion-input>
+                    <ion-select formControlName="blood_type">
+                        <ion-option *ngFor="let blood_type of bloodTypes" [value]="blood_type.value">{{blood_type.name}}</ion-option>
+                    </ion-select>
             </ion-item>
             <ion-item>
                 <ion-label>Conditions</ion-label>
-                <ion-input type="text" formControlName="known_conditions"></ion-input>
+                <ion-input type="textarea" placeholder="none" formControlName="known_conditions"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label>Allergies</ion-label>
-                <ion-input type="text" formControlName="allergies"></ion-input>
+                <ion-input type="textarea" placeholder="none" formControlName="allergies"></ion-input>
             </ion-item>
-            <button ion-button type="submit" [disabled]="!medicalInfoForm.valid">Submit</button>
+            <button ion-button type="submit">Submit</button>
         </form>
     </ion-row>
 </ion-content>

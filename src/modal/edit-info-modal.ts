@@ -3,13 +3,15 @@ import { ModalController, NavParams, ViewController } from "ionic-angular";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { EmergencyContactService } from "../core/data/services/emergency-contact/emergency-contact.service";
 import { ProfileService } from "../core/data/services/profile/profile.service";
-import { MedicalInfoService, MedicalInfo } from "../core/data/services/medical-info/medical-info.service";
+import {MedicalInfoService, MedicalInfo, BloodTypeOption} from '../core/data/services/medical-info/medical-info.service';
+import {BloodType} from '../core/data/enum/blood-type.enum';
 
 
 @Component({
     selector: 'edit-modal',
     templateUrl: 'edit-modal.html'
 })
+
 
 export class EditInfoModal {
 
@@ -18,6 +20,7 @@ export class EditInfoModal {
     private profileForm: FormGroup;
     private infoForm: string;
     private profileId: number;
+    bloodTypes: Array<BloodTypeOption> = [];
 
     constructor(private params: NavParams,
                 private viewCtrl: ViewController,
@@ -26,6 +29,16 @@ export class EditInfoModal {
                 private profileService: ProfileService,
                 private medicalInfoService: MedicalInfoService) {
 
+        this.bloodTypes = [
+            { name: 'A-', value: BloodType.A_NEG },
+            { name: 'A+', value: BloodType.A_POS },
+            { name: 'B-', value: BloodType.B_NEG},
+            { name: 'B+', value: BloodType.B_POS},
+            { name: 'O-', value: BloodType.O_NEG},
+            { name: 'O+', value: BloodType.O_POS},
+            { name: 'AB-', value: BloodType.AB_NEG},
+            { name: 'AB+', value: BloodType.AB_POS},
+        ];
         this.profileId = this.params.get('profileId');
         this.infoForm = this.params.get('infoForm');
 
@@ -48,7 +61,7 @@ export class EditInfoModal {
         });
 
         this.medicalInfoForm = this.formBuilder.group({
-            bloodType: ['', Validators.required],
+            blood_type: ['', Validators.required],
             known_conditions: ['', Validators.required],
             allergies: ['', Validators.required]
         });
@@ -67,13 +80,16 @@ export class EditInfoModal {
         await this.dismiss();
     }
 
-    submitMedicalInfo() {
+    async submitMedicalInfo() {
         const entry = {
-            blood_type: this.medicalInfoForm.value.bloodtype,
+            blood_type: this.medicalInfoForm.value.blood_type,
             known_conditions: this.medicalInfoForm.value.known_conditions,
             allergies: this.medicalInfoForm.value.allergies
         };
-        this.medicalInfoService.save(entry as MedicalInfo);
+        console.log(entry);
+        console.log(entry as MedicalInfo);
+        await this.medicalInfoService.save(entry as MedicalInfo);
+        await this.dismiss();
     }
 
     async dismiss() {

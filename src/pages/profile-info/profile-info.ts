@@ -7,7 +7,7 @@ import {
     EmergencyContact
 } from "../../core/data/services/emergency-contact/emergency-contact.service";
 import { EditInfoModal } from "../../modal/edit-info-modal";
-import { MedicalInfo } from "../../core/data/services/medical-info/medical-info.service";
+import {MedicalInfo, MedicalInfoService} from '../../core/data/services/medical-info/medical-info.service';
 
 
 @Component({
@@ -22,6 +22,7 @@ export class ProfileInfoPage {
 
 
     constructor(private profileService: ProfileService,
+                private medicalInfoService: MedicalInfoService,
                 private emergencyContactService: EmergencyContactService,
                 private modalCtrl: ModalController) {
 
@@ -30,7 +31,9 @@ export class ProfileInfoPage {
             emergencyContactService.getEmergencyContact(profile.emergency_contact_id).then(contact => {
                 this.emergencyContact = contact;
             });
-
+            // this.medicalInfoService.getMedicalInfo().then( medicalInfo => {
+            //     console.log(this.medicalInfo);
+            // });
             // todo set medical info
         });
     }

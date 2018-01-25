@@ -8,8 +8,13 @@ import {ProfileService} from '../profile/profile.service';
 export interface MedicalInfo {
     id?: number;
     blood_type: BloodType;
-    known_conditions: string[];
-    allergies: string[];
+    known_conditions: string;
+    allergies: string;
+}
+
+export interface BloodTypeOption {
+    name: string;
+    value: BloodType;
 }
 
 @Injectable()
@@ -18,7 +23,6 @@ export class MedicalInfoService {
     table: Dexie.Table<MedicalInfo, number>;
 
     constructor(private dexie: DexieService, private profile: ProfileService) {
-
         this.table = this.dexie.table('medical-info');
     }
 
@@ -27,7 +31,11 @@ export class MedicalInfoService {
     }
 
     async save(medical_info: MedicalInfo) {
-        this.table.put(medical_info, await this.profile.getFirstProfileId());
+      console.log(this.table);
+      const prof = await this.profile.getFirstProfileId();
+      console.log(prof);
+      await this.table.put(medical_info);
+      console.log(this.table);
     }
 
     clearDb() {
