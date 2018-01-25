@@ -86,8 +86,6 @@ export class EditInfoModal {
             known_conditions: this.medicalInfoForm.value.known_conditions,
             allergies: this.medicalInfoForm.value.allergies
         };
-        console.log(entry);
-        console.log(entry as MedicalInfo);
         await this.medicalInfoService.save(entry as MedicalInfo);
         await this.dismiss();
     }

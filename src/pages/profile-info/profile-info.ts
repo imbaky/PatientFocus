@@ -31,10 +31,9 @@ export class ProfileInfoPage {
             emergencyContactService.getEmergencyContact(profile.emergency_contact_id).then(contact => {
                 this.emergencyContact = contact;
             });
-            // this.medicalInfoService.getMedicalInfo().then( medicalInfo => {
-            //     console.log(this.medicalInfo);
-            // });
-            // todo set medical info
+            this.medicalInfoService.getMedicalInfo().then( medicalInfo => {
+                this.medicalInfo = medicalInfo;
+             });
         });
     }
 
@@ -53,9 +52,9 @@ export class ProfileInfoPage {
     async editMedicalInfo() {
         let modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'medical_info'});
         await modal.present();
-        modal.onDidDismiss(() => {
-
-        })
+        modal.onDidDismiss(() => this.medicalInfoService.getMedicalInfo().then( medicalInfo => {
+            this.medicalInfo = medicalInfo;
+        }));
     }
 
     async editProfile() {

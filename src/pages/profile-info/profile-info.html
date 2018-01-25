@@ -25,11 +25,11 @@
         <h2>Medical Info</h2>
         <ion-row>
             <ion-col>
-                <p>Blood Type: </p>
-                <p>Known Conditions: </p>
+                <p>Blood Type: {{medicalInfo?.blood_type}} </p>
+                <p>Known Conditions: {{medicalInfo?.known_conditions}} </p>
             </ion-col>
             <ion-col>
-                <p>Allergies: </p>
+                <p>Allergies: {{medicalInfo?.allergies}} </p>
             </ion-col>
             <ion-col>
                 <ion-icon name="create" (click)="editMedicalInfo()"></ion-icon>

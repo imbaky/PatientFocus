@@ -6,10 +6,11 @@ import {BloodType} from '../../enum/blood-type.enum';
 import {ProfileService} from '../profile/profile.service';
 
 export interface MedicalInfo {
-    id?: number;
+    id: number;
     blood_type: BloodType;
     known_conditions: string;
     allergies: string;
+    profile_id: number;
 }
 
 export interface BloodTypeOption {
@@ -31,11 +32,9 @@ export class MedicalInfoService {
     }
 
     async save(medical_info: MedicalInfo) {
-      console.log(this.table);
       const prof = await this.profile.getFirstProfileId();
-      console.log(prof);
+      medical_info.id = prof;
       await this.table.put(medical_info);
-      console.log(this.table);
     }
 
     clearDb() {
