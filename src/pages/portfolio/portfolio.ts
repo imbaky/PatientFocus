@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { FileOpener } from '@ionic-native/file-opener';
@@ -49,7 +49,8 @@ export class PortfolioPage {
     private photoViewer: PhotoViewer,
     private fileOpener: FileOpener,
     private profileService: ProfileService,
-    private emailComposer: EmailComposer
+    private emailComposer: EmailComposer,
+    private changeDetector: ChangeDetectorRef
   ) {
     // set date to today by default
     // otherwise format is {year: 2017, month: 0, day: 1}
@@ -78,6 +79,7 @@ export class PortfolioPage {
   handleDir(event, item) {
     this.navCtrl.push(PortfolioPage, { item: item });
   }
+
   handleFileImport(directory: Directory, method: string) {
     const importNewDocumentModal = this.modalCtrl.create(ImportDocumentPage, {directory, method});
     importNewDocumentModal.onDidDismiss(async () => {
@@ -85,6 +87,7 @@ export class PortfolioPage {
     });
     importNewDocumentModal.present();
   }
+
   importNewDocument(directory: Directory) {
     const actionSheet = this.actionSheetCtrl.create({
       title: 'Document Source',
@@ -113,7 +116,6 @@ export class PortfolioPage {
     return !_.some(this.checkedItems, value => value);
   }
 
-  // filter menu event
   filterToggle() {
     // we want to hide the add document button
     const addButton = document.getElementById('addButton');
@@ -156,5 +158,10 @@ export class PortfolioPage {
          isHtml: true
      };
      this.emailComposer.open(email);
+  }
+
+  updateSelected(event, i) {
+    this.checkedItems[i] = event.selected;
+    this.changeDetector.detectChanges();
   }
 }

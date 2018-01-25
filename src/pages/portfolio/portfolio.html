@@ -18,7 +18,11 @@
 
   <ion-menu type="overlay" side="right" id="filterMenu" [content]="filterMenu" (ionOpen)='filterToggle()' (ionClose)='filterToggle()'>
     <ion-content>
-      <h4>Filter by:</h4>
+      <div class="toolbar-content toolbar-content-md">
+        <ion-title class="title title-md">
+          <div class="toolbar-title toolbar-title-md">Filter by:</div>
+        </ion-title>
+      </div>
       <ion-list>
         <ion-item>
           <ion-label stacked>Document Type</ion-label>
@@ -64,11 +68,9 @@
     <ng-container *ngFor="let item of (directory$ | async)?.items| fileFilterByName:searchTerm |
       fileFilterByDocType:docTerm | fileFilterByFormatType:fileTerm | fileFilterByDate:dateFromTerm:dateToTerm; let i=index">
         <ion-item  *ngIf="item.page === PageType.Portfolio">
-            <text-avatar [text]="item?.file.format" item-start class="item item-avatar" (tap)="viewDoc($event, item)" tappable></text-avatar>
-            <p (tap)="viewDoc($event, item)" tappable>{{ item?.chosen_date | date:'MMMM d, y'}}</p>
-            <h3 (tap)="viewDoc($event, item)" tappable>{{ item?.document_type}}</h3>
+            <text-avatar [selected]="checkedItems[i]" (update)="updateSelected($event, i)" [text]="item?.file.format" item-start class="item item-avatar"></text-avatar>
+            <h3 (tap)="viewDoc($event, item)" tappable>{{ item?.document_type}}<span (tap)="viewDoc($event, item)" tappable float-right>{{ item?.chosen_date | date:'MMMM d, y'}}</span></h3>
             <h2 (tap)="viewDoc($event, item)" tappable>{{ item?.title}}</h2>
-            <input type="checkbox" [(ngModel)]="checkedItems[i]" item-end>
         </ion-item>
     </ng-container>
   </ion-list>
