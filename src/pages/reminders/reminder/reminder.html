@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color="primary">
         <ion-buttons start>
             <button ion-button (click)="dismiss()">Close</button>
         </ion-buttons>
@@ -19,10 +19,10 @@
         </ion-item>
         <ion-item>
             <ion-label>Frequency per day</ion-label>
-            <ion-input type="number" min="1" formControlName="every" (ionBlur)="handleFrequency()"></ion-input>
+            <ion-input type="number" min=1 max=10 formControlName="every" (ionBlur)="handleFrequency()"></ion-input>
         </ion-item>
         <div formArrayName="frequencies">
-            <ion-item *ngFor="let fq of reminderForm.controls.frequencies.controls; let i = index;" [formGroupName]="i">
+            <ion-item *ngFor="let frequency of reminderForm.controls.frequencies.controls; let i = index;" [formGroupName]="i">
                 <ion-label>Take at time {{ i + 1}}</ion-label>
                 <ion-datetime displayFormat="hh:mm A" formControlName="frequency"></ion-datetime>
             </ion-item>

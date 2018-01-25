@@ -4,6 +4,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { RemindersService } from '../core/data/services/reminders/reminders.service';
 
 class FileChooserMock extends FileChooser {
   open(): Promise<string> {
@@ -86,7 +87,8 @@ export class AppProviders {
         { provide: EmailComposer, useClass: EmailComposerMock },
         { provide: StatusBar, useClass: StatusBarMock },
         { provide: SplashScreen, useClass: SplashScreenMock },
-        { provide: ErrorHandler, useClass: IonicErrorHandler }
+        { provide: ErrorHandler, useClass: IonicErrorHandler },
+        { provide: RemindersService, useClass: RemindersService}
       ];
     } else {
       // Use device providers
