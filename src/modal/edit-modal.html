@@ -3,13 +3,12 @@
         <ion-title>
             Edit
         </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-toolbar>
-    <ion-buttons start>
-        <button ion-button (click)="dismiss()">
-            <span ion-text>Cancel</span>
-            <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-        </button>
-    </ion-buttons>
 </ion-header>
 
 <ion-content padding *ngIf="infoForm == 'profile'">
