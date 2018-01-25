@@ -16,6 +16,8 @@ import { PortfolioModule } from '../pages/portfolio/portfolio.module';
 import { DiaryModule } from '../pages/diary/diary.module';
 import { RemindersModule } from '../reminders/reminders.module';
 
+// components
+import { ReminderComponent } from '../pages/reminders/reminder/reminder';
 
 
 @NgModule({

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DexieService } from '../dexie/dexie.service';
 import { PortfolioType, FileFormatType } from '../../enum/file-type.enum';
-import { File as NativeFile} from '@ionic-native/file';
 
 import Dexie from 'dexie';
 
@@ -20,7 +19,6 @@ export class FileService {
 
   constructor(
     private dexie: DexieService,
-    private file: NativeFile
   ) {
     this.table = this.dexie.table('file');
   }
@@ -51,10 +49,6 @@ export class FileService {
     const pk = await this.table.add(file);
     file.id = pk;
     return file;
-  }
-
-  async updateFile(file: File) { // replaces old file with new contents
-    await this.table.put(file, file.id);
   }
 
 }

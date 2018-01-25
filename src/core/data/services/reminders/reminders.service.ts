@@ -27,7 +27,6 @@ export class RemindersService {
     async createReminder(reminder: Reminder) {
         // TODO: get current profile not just first one
         reminder.fk_profile_id = await this.profileService.getFirstProfileId();
-        // change dates from UTC
 
         const pk = await this.table.add(reminder);
         reminder.id = pk;
@@ -35,8 +34,13 @@ export class RemindersService {
         return reminder;
     }
 
-    async getReminders(): Promise<Reminder[]> {
-        const reminders = await this.table.toArray();
+    /*
+     * Get reminders by profile id
+     */
+    async getReminders(profile_id: number): Promise<Reminder[]> {
+        const reminders = await this.table.filter(function (reminder) {
+            return reminder.fk_profile_id === profile_id;
+        }).toArray();
         return reminders;
     }
 
@@ -44,15 +48,18 @@ export class RemindersService {
         await this.table.delete(id);
     }
 
+    /*
+     * Map a reminder object to notifications
+     */
     mapToNotification(newReminder: Reminder) {
-
-        let note = {};
+      let note = {};
         // map to notification
         for (let i = 0; i < newReminder.frequencies.length; i++) {
-          let expire = moment(newReminder.expires);
-          let numberOfDaysToRepeat = expire.diff(moment().format(), "days") + 2; // number of days between today and expire
-          let hour = parseInt(moment(newReminder.frequencies[i].frequency).format("HH").toString());
-          let min = parseInt(moment(newReminder.frequencies[i].frequency).format("mm").toString());
+          const expire = moment(newReminder.expires);
+          const numberOfDaysToRepeat = expire.diff(moment().format(), 'days') + 2; // number of days between today and expire
+          const reminderTime = moment(newReminder.frequencies[i].frequency);
+          const hour = reminderTime.hour().toString();
+          const min = reminderTime.minute().toString();
           note = {
                 id: newReminder.frequencies[i].frequency_id,
                 text: newReminder.text,
@@ -65,5 +72,6 @@ export class RemindersService {
 
         // send to notification service
         this.notificationsService.addNotifications(this.notifications);
+        return this.notifications;
     }
 }

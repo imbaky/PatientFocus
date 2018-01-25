@@ -4,7 +4,6 @@ import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 
 import { Reminder } from '../../../core/data/services/reminders/reminders.interface';
 import { RemindersService } from '../../../core/data/services/reminders/reminders.service';
-
 import * as moment from 'moment';
 
 @Component({
@@ -36,12 +35,11 @@ export class ReminderComponent {
 
         // fill most of values
         this.reminder = this.reminderForm.getRawValue();
-        console.log(this.reminder);
         // add unique reminder number, set to unix time NOTE: maybe not need anymore
         this.reminder.reminder_id = moment().unix();
 
         // save
-        let reminder = await this.reminderService.createReminder(this.reminder);
+        const reminder = await this.reminderService.createReminder(this.reminder);
         await this.reminderService.mapToNotification(this.reminder);
 
         this.dismiss();
@@ -67,7 +65,6 @@ export class ReminderComponent {
         }
         // reset frequencies to new array size
         this.reminderForm.setControl('frequencies', new FormArray(frequencies));
-
     }
 
     dismiss() {

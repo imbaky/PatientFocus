@@ -103,7 +103,6 @@ describe('RemindersService TestBed', () => {
     let service: RemindersService;
     let dexieService: DexieService;
     let profileService: ProfileService;
-    let directoryService: DirectoryService;
     let notificationsService: NotificationsService;
     let mockDatabase = new DATABASE();
     let today = moment('2018-01-24').toDate();
@@ -116,8 +115,8 @@ describe('RemindersService TestBed', () => {
         dexieService = bed.get(DexieService);
         profileService = bed.get(ProfileService);
         service = bed.get(RemindersService);
+        notificationsService = bed.get(NotificationsService);
     });
-
 
   it('#getReminders should return all reminders', async() => {
     const reminders = await service.getReminders();
@@ -142,8 +141,8 @@ describe('RemindersService TestBed', () => {
           frequency_id: 1234
         }],
         expires: "2018-01-25T14:24:33-05:00"
-      }
-      reminder = await service.createReminder(reminder);
+      };
+      await service.createReminder(reminder);
       const reminders = await service.getReminders();
       expect(reminders.length).toBe(4);
       expect(reminders[0].reminder_id).toEqual(10);
@@ -162,21 +161,60 @@ describe('RemindersService TestBed', () => {
         title: "Added reminder",
         text: "Text for added reminder",
         frequencies: [{
-          frequency: "2018-01-01T14:24:33-05:00",
+          frequency: "2018-01-24T14:24:33-05:00",
           frequency_id: 166
         },
           {
-            frequency: "2018-01-24T14:00:00-05:00",
+            frequency: "2018-01-24T12:12:33-05:00",
             frequency_id: 8768
           }],
-        expires: "2018-01-05T14:24:33-05:00"
-      }
-    var spy = spyOn(reminder1, "expires");
-    await service.mapToNotification(reminder1);
-    expect(spy).toHaveBeenCalledTimes(2);
+        expires: "2018-01-24T14:24:33-05:00"
+      };
+    let notifications = await service.mapToNotification(reminder1);
+    expect(notifications.length).toEqual(2);
   });
 
-  //it("1 reminder with frequency 2 on 2018-01-24T14:24:33-05:00 and ")
+  xit( 'GIVEN a reminder with frequency 2, 2 notifications should be created', async () => { //
+     let frequencyDate1 = moment("2018-01-24T14:24:33-05:00").toISOString();
+     let frequencyDate2 = moment("2018-01-24T12:12:33-05:00").toISOString();
+     let expire = moment("2018-01-24T14:24:33-05:00").toISOString();
+
+    let reminder1 : Reminder=
+      {
+        reminder_id: 14,
+        fk_profile_id: 1,
+        title: "Added reminder",
+        text: "Text for added reminder",
+        frequencies: [{
+          frequency: frequencyDate1,
+          frequency_id: 166
+        },
+          {
+            frequency: frequencyDate2,
+            frequency_id: 8768
+          }],
+        expires: expire
+      };
+    let notification1: any = {
+      id: 166,
+      text: "Text for added reminder",
+      title: "Added reminder",
+      trigger: { every: {hour: 14, minute: 24}, count: 1 }
+    }
+    let notification2: any = {
+      id: 8768,
+      text: "Text for added reminder",
+      title: "Added reminder",
+      trigger: { every: {hour: 12, minute: 12}, count: 1 }
+    }
+    let notifications : Array<ILocalNotification> = [];
+    notifications.push(notification1);
+    notifications.push(notification2);
+    var spy = spyOn(notificationsService, "addNotifications");
+    await service.mapToNotification(reminder1);
+    expect(spy).toHaveBeenCalledWith(notifications);
+
+  });
 
 });
 
