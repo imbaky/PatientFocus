@@ -13,7 +13,7 @@ import { ImportDocumentPage } from '../portfolio/import-document/import-document
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { FileOpener } from '@ionic-native/file-opener';
 import { Camera } from '@ionic-native/camera';
-import {TextAvatarDirective} from '../../directives/text-avatar/text-avatar'; 
+import { TextAvatarDirective } from '../../directives/text-avatar/text-avatar';
 
 @NgModule({
   imports: [
