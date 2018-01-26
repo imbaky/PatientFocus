@@ -1,48 +1,51 @@
-.item-label {
-  display: flex;
-}
+page-portfolio {
+  .item-label {
+    display: flex;
+  }
 
-.item-label--name {
-  flex-grow: 1;
-  font-size: inherit;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  min-width: 33%;
-}
+  .item-label--name {
+    flex-grow: 1;
+    font-size: inherit;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    min-width: 33%;
+  }
 
-.item-label--type {
-  padding-right: 1rem;
-  padding-left: 1rem;
-  text-transform: uppercase;
-}
+  .item-label--type {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    text-transform: uppercase;
+  }
 
-ion-select {
-  max-width: 100%;
-}
+  ion-select {
+    max-width: 100%;
+  }
 
-.popover-content {
-  width: 80% !important;
-}
+  .popover-content {
+    width: 80% !important;
+  }
 
-ion-item p{
-  float: right;
-  clear: right;
-}
+  ion-item p {
+    float: right;
+    clear: right;
+  }
 
-ion-icon .item .item-avatar  {
-  top: 15px;
-  left: 15px;
-  font-size: 36px;
-}
-ion-icon{
-  font-size: 25px;
-}
+  ion-icon .item .item-avatar {
+    top: 15px;
+    left: 15px;
+    font-size: 36px;
+  }
+  ion-icon {
+    font-size: 25px;
+  }
 
-ion-searchbar{
-  padding: 10px;
-}
+  ion-searchbar {
+    padding: 10px;
+  }
 
-.toolbar-title{
-  padding: 0px 5px 5px 0px
+  .toolbar-title {
+    padding: 10px 0px 5px 0px;
+    margin-left: 7px;
+  }
 }
