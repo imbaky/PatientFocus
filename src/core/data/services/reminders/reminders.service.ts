@@ -44,8 +44,12 @@ export class RemindersService {
         return reminders;
     }
 
-    async deleteReminder(id: number) {
-        await this.table.delete(id);
+    async deleteReminder(reminder: Reminder) {
+        // delete notification
+        for (let i = 0; i < reminder.frequencies.length; i++) {
+          const r = this.notificationsService.deleteNotification(reminder.frequencies[i].frequency_id);
+        }
+        await this.table.delete(reminder.id);
     }
 
     /*

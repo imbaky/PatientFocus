@@ -3,7 +3,7 @@
         <ion-buttons start>
             <button ion-button (click)="dismiss()">Close</button>
         </ion-buttons>
-        <ion-title>Add Reminder</ion-title>
+        <ion-title>{{ title }} Reminder</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -31,6 +31,6 @@
             <ion-label>Expires (MMM-DD-YYYY)</ion-label>
             <ion-datetime displayFormat="MMM DD, YYYY" max="2100-01-01" [min]="minExpiryDate" formControlName="expires"></ion-datetime>
         </ion-item>
-        <button ion-button type="submit" [disabled]="!reminderForm.valid" block>Add Reminder</button>
+        <button ion-button type="submit" [disabled]="!reminderForm.valid" block>{{ submit }} Reminder</button>
     </form>
 </ion-content>

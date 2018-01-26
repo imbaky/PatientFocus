@@ -174,7 +174,7 @@ describe('RemindersService TestBed', () => {
         let reminders = await service.getReminders(1);
         expect(reminders.length).toEqual(4);
 
-        await service.deleteReminder(newReminder.id);
+        await service.deleteReminder(newReminder);
         reminders = await service.getReminders(1);
         expect(reminders.length).toEqual(3);
     });
