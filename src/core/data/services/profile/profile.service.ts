@@ -56,16 +56,17 @@ export class ProfileService {
      * Retrieve first profile in the database
      * @returns {Promise<R>}
      */
-    async getFirstProfile(): Promise<UserProfile> {
-        const arr = await this.table.toArray();
-        return arr[0];
+    getFirstProfile(): Promise<UserProfile> {
+        return this.table.toArray(profile => {
+            return profile[0];
+        });
     }
 
 
-  async getFirstProfileId() {
-    const array = await this.table.toArray();
-    return array[0].id;
-  }
+    async getFirstProfileId() {
+        const array = await this.table.toArray();
+        return array[0].id;
+    }
 
     /**
      * Edits an existing profile

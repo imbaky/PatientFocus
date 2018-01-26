@@ -69,7 +69,6 @@ export class EditInfoModal {
 
     async submitProfileInfo() {
         const formValue = this.profileForm.value;
-        console.log(this.profileForm.value);
         await this.profileService.editProfile(formValue.name, formValue.gender, formValue.dob);
         await this.dismiss();
     }
