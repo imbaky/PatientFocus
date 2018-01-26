@@ -127,17 +127,19 @@ export class PortfolioPage {
   }
 
   async viewDoc(event: any, item: Item) {
-    const file = <File>item.file;
-    if (file.format === FileFormatType.PDF) {
-      try {
-        // TODO investigate why some applications can read paths with %20 while others cannot
-        const path = file.path.replace('%20', ' ');
-        const document = await this.fileOpener.open(path, 'application/pdf');
-      } catch (error) {
-        console.log('Error openening file', error);
+    if (this.hasSelected()) {
+      const file = <File>item.file;
+      if (file.format === FileFormatType.PDF) {
+        try {
+          // TODO investigate why some applications can read paths with %20 while others cannot
+          const path = file.path.replace('%20', ' ');
+          const document = await this.fileOpener.open(path, 'application/pdf');
+        } catch (error) {
+          console.log('Error openening file', error);
+        }
+      } else if (file.format === FileFormatType.PNG || file.format === FileFormatType.JPG) {
+        this.photoViewer.show(file.path);
       }
-    } else if (file.format === FileFormatType.PNG || file.format === FileFormatType.JPG) {
-      this.photoViewer.show(file.path);
     }
   }
 
