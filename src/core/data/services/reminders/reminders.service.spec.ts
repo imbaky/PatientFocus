@@ -77,6 +77,24 @@ class DATABASE extends Dexie {
                         }
                     ],
                     expires: '2018-01-25T00:00:00-05:00'
+                },
+                {
+                    id: 10,
+                    reminder_id: 112,
+                    fk_profile_id: 10,
+                    title: 'Reminder10',
+                    text: 'Another profile',
+                    frequencies: [
+                        {
+                            frequency: "2018-01-24T16:00:00-05:00",
+                            frequency_id: 1000
+                        },
+                        {
+                            frequency: "2018-01-24T17:00:00-05:00",
+                            frequency_id: 2000
+                        }
+                    ],
+                    expires: '2018-01-25T00:00:00-05:00'
                 }
             ]);
         });
@@ -118,40 +136,72 @@ describe('RemindersService TestBed', () => {
         notificationsService = bed.get(NotificationsService);
     });
 
-  it('#getReminders should return all reminders', async() => {
-    const reminders = await service.getReminders();
-    expect(reminders.length).toEqual(3);
-    expect(reminders[0].reminder_id).toEqual(10);
-    expect(reminders[1].reminder_id).toEqual(11);
-    expect(reminders[2].reminder_id).toEqual(12);
-  });
+    afterAll( async() => {
+        mockDatabase.delete();
+        mockDatabase = new DATABASE();
+        TestBed.overrideProvider(DexieService, {useValue: mockDatabase});
+    });
 
+    it('GIVEN profile 1 THEN 3 of 4 reminders should be returned.', async() => {
+        const reminders = await service.getReminders(1);
+        expect(reminders.length).toEqual(3);
+        expect(reminders[0].reminder_id).toEqual(10);
+        expect(reminders[1].reminder_id).toEqual(11);
+        expect(reminders[2].reminder_id).toEqual(12);
+    });
 
+    it('GIVEN profile 10 THEN 1 of 4 reminders should be returned.', async() => {
+        const reminders = await service.getReminders(10);
+        expect(reminders.length).toEqual(1);
+        expect(reminders[0].reminder_id).toEqual(112);
+    });
 
-  it( "1 reminder with frequency 1 on 2018-01-24T14:24:33-05:00 should be added to the database", async () => {
-    let reminder : Reminder=
-      {
-        reminder_id: 13,
-        fk_profile_id: 1,
-        title: "Added reminder",
-        text: "Text for added reminder",
-        frequencies: [
-          {
-          frequency: "2018-01-24T14:24:33-05:00",
-          frequency_id: 1234
-        }],
-        expires: "2018-01-25T14:24:33-05:00"
-      };
-      await service.createReminder(reminder);
-      const reminders = await service.getReminders();
-      expect(reminders.length).toBe(4);
-      expect(reminders[0].reminder_id).toEqual(10);
-      expect(reminders[1].reminder_id).toEqual(11);
-      expect(reminders[2].reminder_id).toEqual(12);
-      expect(reminders[3].reminder_id).toEqual(13);
-      expect(reminders[3].frequencies[0].frequency).toBe("2018-01-24T14:24:33-05:00");
-  });
+    it('Create and then delete a reminder.', async () => {
+        let reminder : Reminder=
+        {
+            reminder_id: 23,
+            fk_profile_id: 1,
+            title: "Added reminder",
+            text: "Test create and delete",
+            frequencies: [
+                {
+                frequency: "2018-01-24T14:25:00-05:00",
+                frequency_id: 12345
+            }],
+            expires: "2018-01-25T14:25:33-05:00"
+        }
+        let newReminder = await service.createReminder(reminder);
+        let reminders = await service.getReminders(1);
+        expect(reminders.length).toEqual(4);
 
+        await service.deleteReminder(newReminder.id);
+        reminders = await service.getReminders(1);
+        expect(reminders.length).toEqual(3);
+    });
+
+    it('1 reminder with frequency 1 on 2018-01-24T14:24:33-05:00 should be added to the database', async () => {
+        let reminder : Reminder=
+        {
+            reminder_id: 13,
+            fk_profile_id: 1,
+            title: "Added reminder",
+            text: "Text for added reminder",
+            frequencies: [
+                {
+                frequency: "2018-01-24T14:24:33-05:00",
+                frequency_id: 1234
+            }],
+            expires: "2018-01-25T14:24:33-05:00"
+        }
+        reminder = await service.createReminder(reminder);
+        const reminders = await service.getReminders(1);
+        expect(reminders.length).toBe(4);
+        expect(reminders[0].reminder_id).toEqual(10);
+        expect(reminders[1].reminder_id).toEqual(11);
+        expect(reminders[2].reminder_id).toEqual(12);
+        expect(reminders[3].reminder_id).toEqual(13);
+        expect(reminders[3].frequencies[0].frequency).toBe("2018-01-24T14:24:33-05:00");
+    });
 
   it( "GIVEN a reminder with frequency 2, 2 notifications should be created", async () => {
     let reminder1 : Reminder=
@@ -213,8 +263,6 @@ describe('RemindersService TestBed', () => {
     var spy = spyOn(notificationsService, "addNotifications");
     await service.mapToNotification(reminder1);
     expect(spy).toHaveBeenCalledWith(notifications);
-
   });
 
 });
-
