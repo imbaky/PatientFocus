@@ -45,13 +45,7 @@ export class EditInfoModal {
         this.emergencyContactForm = this.formBuilder.group({
             name: ['', Validators.required],
             relationship: ['', Validators.required],
-            phoneNumber: ['', Validators.compose(
-                [
-                    Validators.minLength(10),
-                    Validators.maxLength(11),
-                    Validators.pattern("[0-9]*"),
-                    Validators.required,
-                ])]
+            phoneNumber: ['']
         });
 
         this.profileForm = this.formBuilder.group({
