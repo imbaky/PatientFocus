@@ -73,9 +73,9 @@ describe("Profile Service", () => {
             name: "John",
             password: "Password"
         });
-        const profile = await profileService.getFirstProfile();
+        let profile = await profileService.getFirstProfile();
         await profileService.editProfile('Tim', 'Male', 'January 1 1995');
-        const profile = await profileService.getFirstProfile();
+        profile = await profileService.getFirstProfile();
         expect(profile.gender).toEqual('Male');
         expect(profile.name).toEqual('Tim');
         expect(profile.dob).toEqual('January 1 1995');

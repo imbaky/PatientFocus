@@ -11,13 +11,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { DataModule } from '../core/data/data.module';
 import { ProfilePage } from '../pages/profile/profile';
 import { WelcomePage } from '../pages/welcome/welcome';
+import { ProfileInfoPage } from "../pages/profile-info/profile-info";
+import { EditInfoModal } from "../modal/edit-info-modal";
 import { PortfolioModule } from '../pages/portfolio/portfolio.module';
 import { DiaryModule } from '../pages/diary/diary.module';
 import { RemindersModule } from '../reminders/reminders.module';
-import { ProfileInfoPage } from "../pages/profile-info/profile-info";
-import { EditInfoModal } from "../modal/edit-info-modal";
-
-
 
 @NgModule({
     declarations: [
