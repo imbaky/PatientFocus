@@ -52,15 +52,15 @@ export class RemindersService {
      * Map a reminder object to notifications
      */
     mapToNotification(newReminder: Reminder) {
-      let note = {};
+        let note = {};
         // map to notification
         for (let i = 0; i < newReminder.frequencies.length; i++) {
-          const expire = moment(newReminder.expires);
-          const numberOfDaysToRepeat = expire.diff(moment().format(), 'days') + 2; // number of days between today and expire
-          const reminderTime = moment(newReminder.frequencies[i].frequency);
-          const hour = reminderTime.hour().toString();
-          const min = reminderTime.minute().toString();
-          note = {
+            const expire = moment(newReminder.expires);
+            const numberOfDaysToRepeat = expire.diff(moment().format(), 'days') + 1; // number of days between today and expire
+            const reminderTime = moment(newReminder.frequencies[i].frequency);
+            const hour = reminderTime.hour();
+            const min = reminderTime.minute();
+            note = {
                 id: newReminder.frequencies[i].frequency_id,
                 text: newReminder.text,
                 title: newReminder.title,
