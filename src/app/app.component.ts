@@ -27,8 +27,8 @@ export class MyApp {
   ) {
     this.pages = [
       { title: 'Dashboard', component: WelcomePage },
-      { title: 'Portfolio', component: PortfolioPage },
-      { title: 'Diary', component: DiaryPage }
+      { title: 'Medical Portfolio', component: PortfolioPage },
+      { title: 'Personal Diary', component: DiaryPage }
     ];
 
     this.isProfileCreated();
