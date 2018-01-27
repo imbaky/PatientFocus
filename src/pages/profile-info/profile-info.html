@@ -1,52 +1,79 @@
 <ion-header>
-    <ion-navbar>
-        <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>Profile Info</ion-title>
-    </ion-navbar>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Profile Info</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-grid>
-        <h2>Personal Info</h2>
-        <ion-row>
-            <ion-col>
-                <p>Name: {{profile?.name}}</p>
-                <p>Gender: {{profile?.gender}}</p>
-            </ion-col>
-            <ion-col>
-                <p>Date of Birth: {{profile?.dob}}</p>
-            </ion-col>
-            <ion-col>
-                <ion-icon name="create" (click)="editProfile()"></ion-icon>
-            </ion-col>
-        </ion-row>
-        <h2>Medical Info</h2>
-        <ion-row>
-            <ion-col>
-                <p>Blood Type: {{medicalInfo?.blood_type}} </p>
-                <p>Known Conditions: {{medicalInfo?.known_conditions}} </p>
-            </ion-col>
-            <ion-col>
-                <p>Allergies: {{medicalInfo?.allergies}} </p>
-            </ion-col>
-            <ion-col>
-                <ion-icon name="create" (click)="editMedicalInfo()"></ion-icon>
-            </ion-col>
-        </ion-row>
-        <h2>Emergency Contact</h2>
-        <ion-row>
-            <ion-col>
-                <p>Name: {{emergencyContact?.name}}</p>
-                <p>Phone Number: {{emergencyContact?.phoneNumber}}</p>
-            </ion-col>
-            <ion-col>
-                <p>Relationship: {{emergencyContact?.relationship}}</p>
-            </ion-col>
-            <ion-col>
-                <ion-icon name="create" (click)="editEmergencyContact()"></ion-icon>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+  <ion-grid>
+    <div class="profile-info-section">
+      <ion-row>
+        <ion-col col-10>
+          <h5 ion-text color="primary">Personal Information</h5>
+        </ion-col>
+        <ion-col col-2 class="btn--edit">
+          <ion-icon name="create" (click)="editProfile()"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p>
+            <span ion-text color="primary">Name:</span> {{profile?.name}}</p>
+          <p>
+            <span ion-text color="primary">Gender:</span> {{profile?.gender}}</p>
+        </ion-col>
+        <ion-col>
+          <p>
+            <span ion-text color="primary">Date of Birth:</span> {{profile?.dob}}</p>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div class="profile-info-section">
+      <ion-row>
+        <ion-col col-10>
+          <h5 ion-text color="primary">Medical Information</h5>
+        </ion-col>
+        <ion-col col-2 class="btn--edit">
+          <ion-icon name="create" (click)="editMedicalInfo()"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p>
+            <span ion-text color="primary">Blood Type: </span> {{medicalInfo?.blood_type}} </p>
+          <p>
+            <span ion-text color="primary">Known Conditions: </span> {{medicalInfo?.known_conditions}} </p>
+        </ion-col>
+        <ion-col>
+          <p>
+            <span ion-text color="primary">Allergies:</span> {{medicalInfo?.allergies}} </p>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div class="profile-info-section">
+      <ion-row>
+        <ion-col col-10>
+          <h5 ion-text color="primary">Emergency Contacts</h5>
+        </ion-col>
+        <ion-col col-2 class="btn--edit">
+          <ion-icon name="create" (click)="editEmergencyContact()"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p>
+            <span ion-text color="primary">Name:</span> {{emergencyContact?.name}}</p>
+          <p>
+            <span ion-text color="primary">Phone Number:</span> {{emergencyContact?.phoneNumber}}</p>
+        </ion-col>
+        <ion-col>
+          <p>
+            <span ion-text color="primary">Relationship:</span> {{emergencyContact?.relationship}}</p>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
 </ion-content>

@@ -4,6 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { AppProviders } from './app.providers';
 
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -11,8 +12,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { DataModule } from '../core/data/data.module';
 import { ProfilePage } from '../pages/profile/profile';
 import { WelcomePage } from '../pages/welcome/welcome';
-import { ProfileInfoPage } from "../pages/profile-info/profile-info";
-import { EditInfoModal } from "../modal/edit-info-modal";
+import { ProfileInfoPage } from '../pages/profile-info/profile-info';
+import { EditInfoModal } from '../pages/profile-info/edit-info/edit-info';
 import { PortfolioModule } from '../pages/portfolio/portfolio.module';
 import { DiaryModule } from '../pages/diary/diary.module';
 import { RemindersModule } from '../reminders/reminders.module';
