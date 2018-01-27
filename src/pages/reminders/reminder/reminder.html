@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">Close</button>
+        </ion-buttons>
+        <ion-title>{{ title }} Reminder</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="reminderForm" (ngSubmit)="handleReminderForm()">
+        <ion-item>
+            <ion-label>Title</ion-label>
+            <ion-input type="text" placeholder="ie. Ibruprofen 200mg" formControlName="title" ></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Description</ion-label>
+            <ion-input type="text" placeholder="ie. for back pain" formControlName="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Frequency per day</ion-label>
+            <ion-input type="number" min=1 max=10 formControlName="every" (ionBlur)="handleFrequency()"></ion-input>
+        </ion-item>
+        <div formArrayName="frequencies">
+            <ion-item *ngFor="let frequency of reminderForm.controls.frequencies.controls; let i = index;" [formGroupName]="i">
+                <ion-label>Take at time {{ i + 1}}</ion-label>
+                <ion-datetime displayFormat="hh:mm A" formControlName="frequency"></ion-datetime>
+            </ion-item>
+        </div>
+        <ion-item>
+            <ion-label>Expires (MMM-DD-YYYY)</ion-label>
+            <ion-datetime displayFormat="MMM DD, YYYY" max="2100-01-01" [min]="minExpiryDate" formControlName="expires"></ion-datetime>
+        </ion-item>
+        <button ion-button type="submit" [disabled]="!reminderForm.valid" block>{{ submit }} Reminder</button>
+    </form>
+</ion-content>

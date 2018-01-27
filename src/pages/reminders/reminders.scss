@@ -1,0 +1,36 @@
+page-reminders {
+  .reminder-card h3 {
+    float: left;
+    padding-top: 5px;
+  }
+  .reminder-card ion-col {
+    float: left;
+  }
+
+  .reminder-card ion-icon {
+    float: right;
+  }
+
+  p.reminder-frequency {
+    float: left;
+    clear: left;
+  }
+
+  ion-avatar > ion-icon {
+    font-size: 2em;
+  }
+
+  .item-md ion-avatar {
+    min-width: unset;
+    min-height: unset;
+  }
+
+  ion-note {
+    font-weight: 450;
+  }
+
+  .col {
+    padding: 0px;
+  }
+}
+

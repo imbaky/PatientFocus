@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DexieService } from '../dexie/dexie.service';
 import { PortfolioType, FileFormatType } from '../../enum/file-type.enum';
-import { File as NativeFile} from '@ionic-native/file';
 
 import Dexie from 'dexie';
 
@@ -19,9 +18,7 @@ export class FileService {
   table: Dexie.Table<File, number>;
 
   constructor(
-    private dexie: DexieService,
-    private file: NativeFile
-  ) {
+    private dexie: DexieService) {
     this.table = this.dexie.table('file');
   }
 
@@ -33,7 +30,6 @@ export class FileService {
   /**
    *
    * @param {string} path the path of the file. The path does not include the filename
-   * @param {string} documentName The user defined document name
    * @returns {Promise<File>} Returns a promise with the newly created File
    */
   async createFile(path: string): Promise<File> {

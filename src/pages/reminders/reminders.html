@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <ng-container *ngIf="currentItem; else rootName">
+        {{ currentItem.name }}
+      </ng-container>
+      <ng-template #rootName>
+        Reminders
+      </ng-template>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ng-container *ngFor="let reminder of reminders;">
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-start>
+            <ion-icon name="notifications"></ion-icon>
+          </ion-avatar>
+          <h2 ion-text color="primary">{{ reminder.title }}</h2>
+          <h4>{{ reminder.every }} times per day</h4>
+          <p text-wrap>{{ reminder.text }}</p>
+          <ng-container *ngFor="let frequency of (reminder.frequencies);">
+              {{ frequency.frequency | date: 'hh:mm a' }} &nbsp;
+          </ng-container>
+        </ion-item>
+
+        <ion-row>
+          <ion-col col-3>
+            <button ion-button icon-left clear small (click)="editReminder(reminder)">
+              <ion-icon name="create"></ion-icon>
+              <div>Edit</div>
+            </button>
+          </ion-col>
+          <ion-col col-3>
+            <button ion-button icon-left clear small (click)="deleteReminder(reminder)">
+              <ion-icon name="trash"></ion-icon>
+              <div>Remove</div>
+            </button>
+          </ion-col>
+          <ion-col col-6 center text-center >
+            <button class="note" disabled ion-button clear small color="light">
+            <ion-note>
+              Expires {{ reminder.expires | date: 'MMM dd, yyyy' }}
+            </ion-note>
+            </button>
+          </ion-col>
+        </ion-row>
+
+      </ion-card>
+    </ng-container>
+  </ion-list>
+  <div *ngIf="!reminders" padding-top="50" text-center>
+    Start adding your first reminder!
+  </div>
+</ion-content>
+
+<ng-container>
+  <ion-fab right bottom>
+    <button color="primary" ion-fab color="primary" (click)="addReminder()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ng-container>

@@ -138,7 +138,7 @@ describe('File System Service', () => {
     expect(newFileName).toBe("Filename1_1.txt");
     expect(spy).toHaveBeenCalledTimes(2);
     spy.calls.reset();
-    const newImportedFile = "Filename1.txt"
+    const newImportedFile = "Filename1.txt";
     spy.and.returnValues(Promise.resolve(true), Promise.resolve(true), Promise.resolve(false));
     newFileName = await fileSystemService.createFileName(originalFileName, folder);
     expect(spy).toHaveBeenCalledTimes(3);
