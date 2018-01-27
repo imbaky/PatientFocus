@@ -38,7 +38,7 @@ export class ProfileInfoPage {
     }
 
     async editEmergencyContact() {
-        const modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'emergency_contact'});
+        const modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'emergency_contact', infoObject: this.emergencyContact});
         await modal.present();
         modal.onDidDismiss(() => { // todo not sure how to async await this
             this.profileService.getFirstProfile().then(profile => {
@@ -50,7 +50,7 @@ export class ProfileInfoPage {
     }
 
     async editMedicalInfo() {
-        const modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'medical_info'});
+        const modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'medical_info', infoObject: this.medicalInfo});
         await modal.present();
         modal.onDidDismiss(() => this.medicalInfoService.getMedicalInfo().then( medicalInfo => {
             this.medicalInfo = medicalInfo;
@@ -58,7 +58,7 @@ export class ProfileInfoPage {
     }
 
     async editProfile() {
-        const modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'profile'});
+        const modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'profile', infoObject: this.profile});
         await modal.present();
         modal.onDidDismiss(() => this.profileService.getFirstProfile().then(profile => this.profile = profile));
     }

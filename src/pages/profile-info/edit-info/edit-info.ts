@@ -20,6 +20,8 @@ export class EditInfoModal {
     private profileForm: FormGroup;
     private infoForm: string;
     private profileId: number;
+    private infoObject: any;
+
     bloodTypes: Array<BloodTypeOption> = [];
 
     constructor(private params: NavParams,
@@ -41,6 +43,7 @@ export class EditInfoModal {
         ];
         this.profileId = this.params.get('profileId');
         this.infoForm = this.params.get('infoForm');
+        this.infoObject = this.params.get('infoObject');
 
         this.emergencyContactForm = this.formBuilder.group({
             name: ['', Validators.required],

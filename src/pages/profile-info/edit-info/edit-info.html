@@ -16,9 +16,9 @@
         <form [formGroup]="profileForm" (ngSubmit)="submitProfileInfo()">
             <ion-item>
                 <ion-label>Name</ion-label>
-                <ion-input type="text" formControlName="name"></ion-input>
+                <ion-input type="text" formControlName="name" [(ngModel)]="infoObject.name"></ion-input>
             </ion-item>
-            <ion-list radio-group formControlName="gender">
+            <ion-list radio-group formControlName="gender" [(ngModel)]="infoObject.gender">
                 <ion-item>
                     <ion-label>Male</ion-label>
                     <ion-radio value="male"></ion-radio>
@@ -30,7 +30,7 @@
             </ion-list>
             <ion-item>
                 <ion-label>Date of Birth</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY" formControlName="dob"></ion-datetime>
+                <ion-datetime displayFormat="MM/DD/YYYY" formControlName="dob" [(ngModel)]="infoObject.dob"></ion-datetime>
             </ion-item>
             <button ion-button type="submit" [disabled]="!profileForm.valid">Submit</button>
         </form>
@@ -42,17 +42,17 @@
         <form [formGroup]="medicalInfoForm" (ngSubmit)="submitMedicalInfo()">
             <ion-item>
                 <ion-label>Blood Type</ion-label>
-                    <ion-select formControlName="blood_type">
+                    <ion-select formControlName="blood_type" [(ngModel)]="infoObject.blood_type">
                         <ion-option *ngFor="let blood_type of bloodTypes" [value]="blood_type.value">{{blood_type.name}}</ion-option>
                     </ion-select>
             </ion-item>
             <ion-item>
                 <ion-label>Conditions</ion-label>
-                <ion-input type="textarea" placeholder="none" formControlName="known_conditions"></ion-input>
+                <ion-input type="textarea" placeholder="none" formControlName="known_conditions" [(ngModel)]="infoObject.known_conditions"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label>Allergies</ion-label>
-                <ion-input type="textarea" placeholder="none" formControlName="allergies"></ion-input>
+                <ion-input type="textarea" placeholder="none" formControlName="allergies" [(ngModel)]="infoObject.allergies"></ion-input>
             </ion-item>
             <button ion-button type="submit">Submit</button>
         </form>
@@ -64,15 +64,15 @@
         <form [formGroup]="emergencyContactForm" (ngSubmit)="submitEmergencyContact()">
             <ion-item>
                 <ion-label>Name</ion-label>
-                <ion-input type="text" formControlName="name"></ion-input>
+                <ion-input type="text" formControlName="name" [(ngModel)]="infoObject.name"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label>Relationship</ion-label>
-                <ion-input type="text" formControlName="relationship"></ion-input>
+                <ion-input type="text" formControlName="relationship" [(ngModel)]="infoObject.relationship"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label>Phone Number</ion-label>
-                <ion-input type="text" formControlName="phoneNumber" mask="(999) 999-9999"></ion-input>
+                <ion-input type="text" formControlName="phoneNumber" mask="(999) 999-9999" [(ngModel)]="infoObject.phoneNumber"></ion-input>
             </ion-item>
             <button ion-button type="submit" [disabled]="!emergencyContactForm.valid">Submit</button>
         </form>
