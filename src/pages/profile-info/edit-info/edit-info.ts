@@ -46,21 +46,21 @@ export class EditInfoModal {
         this.infoObject = this.params.get('infoObject');
 
         this.emergencyContactForm = this.formBuilder.group({
-            name: ['', Validators.required],
-            relationship: ['', Validators.required],
-            phoneNumber: ['']
+            name: [this.infoObject ? this.infoObject.name : '', Validators.required],
+            relationship: [this.infoObject ? this.infoObject.relationship : '', Validators.required],
+            phoneNumber: [this.infoObject ? this.infoObject.phoneNumber : '']
         });
 
         this.profileForm = this.formBuilder.group({
-            name: ['', Validators.required],
-            gender: ['', Validators.required],
-            dob: [''],
+            name: [this.infoObject ? this.infoObject.name : '', Validators.required],
+            gender: [this.infoObject ? this.infoObject.gender : '', Validators.required],
+            dob: [this.infoObject ? this.infoObject.dob : ''],
         });
 
         this.medicalInfoForm = this.formBuilder.group({
-            blood_type: ['', Validators.required],
-            known_conditions: ['', Validators.required],
-            allergies: ['', Validators.required]
+            blood_type: [this.infoObject ? this.infoObject.blood_type : '', Validators.required],
+            known_conditions: [this.infoObject ? this.infoObject.known_conditions : '', Validators.required],
+            allergies: [this.infoObject ? this.infoObject.allergies : '', Validators.required]
         });
     }
 
