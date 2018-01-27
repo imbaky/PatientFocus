@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { ModalController, NavParams, ViewController } from "ionic-angular";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { EmergencyContactService } from "../core/data/services/emergency-contact/emergency-contact.service";
-import { ProfileService } from "../core/data/services/profile/profile.service";
-import {MedicalInfoService, MedicalInfo, BloodTypeOption} from '../core/data/services/medical-info/medical-info.service';
-import {BloodType} from '../core/data/enum/blood-type.enum';
+import { ModalController, NavParams, ViewController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { EmergencyContactService } from '../../../core/data/services/emergency-contact/emergency-contact.service';
+import { ProfileService } from '../../../core/data/services/profile/profile.service';
+import { MedicalInfoService, MedicalInfo, BloodTypeOption } from '../../../core/data/services/medical-info/medical-info.service';
+import { BloodType } from '../../../core/data/enum/blood-type.enum';
 
 
 @Component({
     selector: 'edit-modal',
-    templateUrl: 'edit-modal.html'
+    templateUrl: 'edit-info.html'
 })
 
 
@@ -30,14 +30,14 @@ export class EditInfoModal {
                 private medicalInfoService: MedicalInfoService) {
 
         this.bloodTypes = [
-            { name: 'A-', value: BloodType.A_NEG },
-            { name: 'A+', value: BloodType.A_POS },
-            { name: 'B-', value: BloodType.B_NEG},
-            { name: 'B+', value: BloodType.B_POS},
-            { name: 'O-', value: BloodType.O_NEG},
-            { name: 'O+', value: BloodType.O_POS},
-            { name: 'AB-', value: BloodType.AB_NEG},
-            { name: 'AB+', value: BloodType.AB_POS},
+            { name: BloodType.A_NEG, value: BloodType.A_NEG },
+            { name: BloodType.A_POS, value: BloodType.A_POS },
+            { name: BloodType.B_NEG, value: BloodType.B_NEG},
+            { name: BloodType.B_POS, value: BloodType.B_POS},
+            { name: BloodType.O_NEG, value: BloodType.O_NEG},
+            { name: BloodType.O_POS, value: BloodType.O_POS},
+            { name: BloodType.AB_NEG, value: BloodType.AB_NEG},
+            { name: BloodType.AB_POS, value: BloodType.AB_POS},
         ];
         this.profileId = this.params.get('profileId');
         this.infoForm = this.params.get('infoForm');

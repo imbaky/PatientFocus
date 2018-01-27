@@ -5,6 +5,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RemindersService } from '../core/data/services/reminders/reminders.service';
+import { Ionic2MaskDirective } from 'ionic2-mask-directive';
 
 class FileChooserMock extends FileChooser {
   open(): Promise<string> {
@@ -97,6 +98,7 @@ export class AppProviders {
         EmailComposer,
         StatusBar,
         SplashScreen,
+        Ionic2MaskDirective,
         { provide: ErrorHandler, useClass: IonicErrorHandler }
       ];
     }

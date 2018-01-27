@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
 import { NavController, ModalController } from 'ionic-angular';
-import { ProfileService, UserProfile } from "../../core/data/services/profile/profile.service";
+import { ProfileService, UserProfile } from '../../core/data/services/profile/profile.service';
 import {
     EmergencyContactService,
     EmergencyContact
-} from "../../core/data/services/emergency-contact/emergency-contact.service";
-import { EditInfoModal } from "../../modal/edit-info-modal";
+} from '../../core/data/services/emergency-contact/emergency-contact.service';
+import { EditInfoModal } from '../../pages/profile-info/edit-info/edit-info';
 import {MedicalInfo, MedicalInfoService} from '../../core/data/services/medical-info/medical-info.service';
 
 
@@ -38,19 +38,19 @@ export class ProfileInfoPage {
     }
 
     async editEmergencyContact() {
-        let modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'emergency_contact'});
+        const modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'emergency_contact'});
         await modal.present();
         modal.onDidDismiss(() => { // todo not sure how to async await this
             this.profileService.getFirstProfile().then(profile => {
                 this.emergencyContactService.getEmergencyContact(profile.emergency_contact_id).then(c => {
                     this.emergencyContact = c;
-                })
+                });
             });
         });
     }
 
     async editMedicalInfo() {
-        let modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'medical_info'});
+        const modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'medical_info'});
         await modal.present();
         modal.onDidDismiss(() => this.medicalInfoService.getMedicalInfo().then( medicalInfo => {
             this.medicalInfo = medicalInfo;
@@ -58,7 +58,7 @@ export class ProfileInfoPage {
     }
 
     async editProfile() {
-        let modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'profile'});
+        const modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'profile'});
         await modal.present();
         modal.onDidDismiss(() => this.profileService.getFirstProfile().then(profile => this.profile = profile));
     }
