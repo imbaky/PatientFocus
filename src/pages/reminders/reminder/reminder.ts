@@ -6,7 +6,7 @@ import { Reminder } from '../../../core/data/services/reminders/reminders.interf
 import { RemindersService } from '../../../core/data/services/reminders/reminders.service';
 import { NavParams } from 'ionic-angular';
 import * as moment from 'moment';
-import { ReminderMethodType } from "../../../core/data/enum/reminder-method-type";
+import { ReminderMethodType } from '../../../core/data/enum/reminder-method-type';
 
 @Component({
     selector: 'reminder-component',
@@ -28,6 +28,7 @@ export class ReminderComponent {
         private reminderService: RemindersService,
         private navParams: NavParams
     ) {
+
         this.minExpiryDate = moment({}).format('YYYY-MM-DD');
         this.reminderForm = this.formBuilder.group({
             title: ['', Validators.required],
@@ -39,8 +40,16 @@ export class ReminderComponent {
         this.reminderMethod = this.navParams.get('reminderMethod');
         this.title = this.reminderMethod.toString();
         this.submit = this.reminderMethod.toString();
-        if(this.reminderMethod == ReminderMethodType.EDIT_REMINDER){
+        if (this.reminderMethod === ReminderMethodType.EDIT_REMINDER) {
           this.oldReminder = this.navParams.get('oldReminder');
+          // re-populate form
+          this.reminderForm.patchValue({
+              title: this.oldReminder.title,
+              text: this.oldReminder.text,
+              every: this.oldReminder.frequencies.length,
+              expires: this.oldReminder.expires
+          });
+          this.setFrequencies(this.oldReminder);
         }
     }
 
@@ -51,7 +60,7 @@ export class ReminderComponent {
         // add unique reminder number, set to unix time NOTE: maybe not need anymore
         this.reminder.reminder_id = moment().unix();
 
-        if(this.reminderMethod == ReminderMethodType.EDIT_REMINDER){ // delete original notification
+        if (this.reminderMethod === ReminderMethodType.EDIT_REMINDER) { // delete original notification
           await this.reminderService.deleteReminder(this.oldReminder);
         }
 
@@ -62,18 +71,21 @@ export class ReminderComponent {
         this.dismiss();
     }
 
-    createTime(): FormGroup {
+    /*
+     * Created the nested form for frequencies.
+     * Takes optional arguments depending if we are creating or editing
+     * a reminder.
+     */
+    createTime(fTime?: string, fId?: number): FormGroup {
         // generate unique id
         const randomNum = Math.floor(Math.random() * moment().unix()) + 1;
         return this.formBuilder.group({
-            frequency: [moment().format(), Validators.required],
-            frequency_id: [randomNum] // unique identifier
+            frequency: [fTime || moment().format(), Validators.required],
+            frequency_id: [fId || randomNum] // unique identifier
         });
     }
 
     handleFrequency(): void {
-        // console.log(this.reminderForm.controls['every'].value);
-
         // get value of 'every' field
         const everyCount = this.reminderForm.controls['every'].value;
         const frequencies = [];
@@ -81,6 +93,21 @@ export class ReminderComponent {
             frequencies.push(this.createTime());
         }
         // reset frequencies to new array size
+        this.reminderForm.setControl('frequencies', new FormArray(frequencies));
+    }
+
+    /*
+     * In Edit mode we need to fill in the frequencies
+     * nested form.
+     */
+    setFrequencies(reminder: Reminder) {
+        const frequencies = [];
+        for (let i = 0; i < reminder.frequencies.length; i++) {
+            frequencies.push(this.createTime(
+                reminder.frequencies[i].frequency,
+                reminder.frequencies[i].frequency_id
+            ));
+        }
         this.reminderForm.setControl('frequencies', new FormArray(frequencies));
     }
 
