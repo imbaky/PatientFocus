@@ -18,8 +18,7 @@ export class FileService {
   table: Dexie.Table<File, number>;
 
   constructor(
-    private dexie: DexieService,
-  ) {
+    private dexie: DexieService) {
     this.table = this.dexie.table('file');
   }
 
@@ -31,7 +30,6 @@ export class FileService {
   /**
    *
    * @param {string} path the path of the file. The path does not include the filename
-   * @param {string} documentName The user defined document name
    * @returns {Promise<File>} Returns a promise with the newly created File
    */
   async createFile(path: string): Promise<File> {
@@ -49,6 +47,10 @@ export class FileService {
     const pk = await this.table.add(file);
     file.id = pk;
     return file;
+  }
+
+  async updateFile(file: File) { // replaces old file with new contents
+    await this.table.put(file, file.id);
   }
 
 }
