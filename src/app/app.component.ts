@@ -28,11 +28,11 @@ export class MyApp {
     private profileService: ProfileService
   ) {
     this.pages = [
+      { title: 'Profile info', component: ProfileInfoPage },
       { title: 'Dashboard', component: WelcomePage },
       { title: 'Medical Portfolio', component: PortfolioPage },
       { title: 'Personal Diary', component: DiaryPage },
       { title: 'Reminders', component: RemindersPage },
-      { title: 'Profile info', component: ProfileInfoPage}
     ];
 
     this.isProfileCreated();
