@@ -31,6 +31,11 @@ export class ItemService {
     this.table = this.dexie.table('item');
   }
 
+  /**
+   * Retrieves items of a specific directory
+   * @param directory directory identifier
+   * @returns {Item} items found in the directory
+   */
   async getItemsByDirectoryId(directory: number): Promise<Item[]> {
     const items = await this.table.where('directory_id').equals(directory).toArray();
     return items;

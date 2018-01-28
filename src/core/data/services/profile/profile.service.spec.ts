@@ -19,10 +19,10 @@ class DATABASE extends Dexie {
     const items = [
       {
         title: "Health Problems",
-        directory_id: 2,
+        directory_id: 1,
         description: "lab test1",
         file_id: 1,
-        profile_id: 2,
+        profile_id: 1,
         page: PageType.Portfolio,
         chosen_date: "2018-01-01",
         document_type: PortfolioType.DIAGNOSIS,
@@ -31,10 +31,10 @@ class DATABASE extends Dexie {
       },
       {
         title: "Health Problems",
-        directory_id: 2,
+        directory_id: 1,
         description: "lab test1",
         file_id: 2,
-        profile_id: 2,
+        profile_id: 1,
         page: PageType.Diary,
         chosen_date: "2018-01-01",
         user_defined_file_name: "User defined name",
@@ -43,9 +43,9 @@ class DATABASE extends Dexie {
       {
         title: "Health Problems",
         description: "lab test1",
-        directory_id: 2,
+        directory_id: 1,
         file_id: 3,
-        profile_id: 2,
+        profile_id: 1,
         page: PageType.Diary,
         chosen_date: "2018-01-01",
         user_defined_file_name: "User defined name",
