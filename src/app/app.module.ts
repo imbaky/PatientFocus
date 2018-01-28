@@ -24,7 +24,7 @@ import { RemindersModule } from '../reminders/reminders.module';
         ProfilePage,
         WelcomePage,
         ProfileInfoPage,
-        EditInfoModal,
+        EditInfoModal
     ],
     imports: [
         BrowserModule,
