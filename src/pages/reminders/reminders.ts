@@ -6,7 +6,7 @@ import { ReminderComponent } from './reminder/reminder';
 import { RemindersService } from '../../core/data/services/reminders/reminders.service';
 import { NotificationsService } from '../../core/data/services/notifications/notifications.service';
 import { ProfileService } from '../../core/data/services/profile/profile.service';
-import {ReminderMethodType} from "../../core/data/enum/reminder-method-type";
+import { ReminderMethodType } from '../../core/data/enum/reminder-method-type';
 
 @Component({
     selector: 'page-reminders',
@@ -37,7 +37,7 @@ export class RemindersPage {
     }
 
     addReminder() {
-      let reminderMethod = ReminderMethodType.CREATE_REMINDER;
+      const reminderMethod = ReminderMethodType.CREATE_REMINDER;
       const reminderModal = this.modalCtrl.create(ReminderComponent, { reminderMethod });
         reminderModal.onDidDismiss(() => {
             this.getReminders();
@@ -46,8 +46,8 @@ export class RemindersPage {
     }
 
     editReminder(reminder: Reminder) {
-      let reminderMethod = ReminderMethodType.EDIT_REMINDER;
-      let oldReminder = reminder;
+      const reminderMethod = ReminderMethodType.EDIT_REMINDER;
+      const oldReminder = reminder;
       const reminderModal = this.modalCtrl.create(ReminderComponent, { reminderMethod, oldReminder });
       reminderModal.onDidDismiss(() => {
         this.getReminders();
