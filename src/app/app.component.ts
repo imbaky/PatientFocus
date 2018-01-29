@@ -29,7 +29,7 @@ export class MyApp {
   ) {
     this.pages = [
       { title: 'Profile info', component: ProfileInfoPage },
-      { title: 'Dashboard', component: WelcomePage },
+      // { title: 'Dashboard', component: WelcomePage },
       { title: 'Medical Portfolio', component: PortfolioPage },
       { title: 'Personal Diary', component: DiaryPage },
       { title: 'Reminders', component: RemindersPage },
@@ -41,7 +41,7 @@ export class MyApp {
   isProfileCreated() {
     this.profileService.getFirstProfile().then(profile => {
       if (profile) {
-        this.rootPage = WelcomePage;
+        this.rootPage = ProfileInfoPage;
         this.name = profile.name;
       } else {
         this.rootPage = ProfilePage;

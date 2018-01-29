@@ -4,6 +4,7 @@ import { NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfileService } from '../../core/data/services/profile/profile.service';
 import { WelcomePage } from '../welcome/welcome';
+import { ProfileInfoPage } from '../profile-info/profile-info';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class ProfilePage {
     async makeNewProfile() {
         const profile = await this.profileService.save(this.createProfile.value);
         if (profile) {
-            this.navCtrl.setRoot(WelcomePage);
+            this.navCtrl.setRoot(ProfileInfoPage);
         }
     }
 }
