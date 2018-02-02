@@ -6,8 +6,8 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { RemindersPage } from '@pages/reminders/reminders';
 import { ReminderComponent } from '@pages/reminders/reminder/reminder';
-import { RemindersService } from '../core/data/services/reminders/reminders.service';
-import { NotificationsService } from '../core/data/services/notifications/notifications.service';
+import { RemindersService } from '@services/reminders/reminders.service';
+import { NotificationsService } from '@services/notifications/notifications.service';
 
 @NgModule({
     declarations: [

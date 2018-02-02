@@ -7,7 +7,7 @@ import { ProfilePage } from '@pages/profile/profile';
 import { WelcomePage } from '@pages/welcome/welcome';
 import { RemindersPage } from '@pages/reminders/reminders';
 import { DiaryPage } from '@pages/diary/diary';
-import { ProfileService } from '../core/data/services/profile/profile.service';
+import { ProfileService } from '@services/profile/profile.service';
 import { PortfolioPage } from '@pages/portfolio/portfolio';
 import { ProfileInfoPage } from '@pages/profile-info/profile-info';
 

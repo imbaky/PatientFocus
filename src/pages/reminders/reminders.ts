@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 
-import { Reminder } from '../../core/data/services/reminders/reminders.interface';
+import { Reminder } from '@services/reminders/reminders.interface';
 import { ReminderComponent } from './reminder/reminder';
-import { RemindersService } from '../../core/data/services/reminders/reminders.service';
-import { NotificationsService } from '../../core/data/services/notifications/notifications.service';
-import { ProfileService } from '../../core/data/services/profile/profile.service';
+import { RemindersService } from '@services/reminders/reminders.service';
+import { NotificationsService } from '@services/notifications/notifications.service';
+import { ProfileService } from '@services/profile/profile.service';
 import { ReminderMethodType } from '../../core/data/enum/reminder-method-type';
 
 @Component({

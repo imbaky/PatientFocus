@@ -6,12 +6,12 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ViewController, NavParams, ToastController } from 'ionic-angular';
 import * as moment from 'moment';
 
-import { ItemService, Item } from '../../../core/data/services/item/item.service';
-import { File, FileService } from '../../../core/data/services/file/file.service';
-import { FileSystemService } from '../../../core/data/services/file-system/file-system.service';
-import { Directory} from '../../../core/data/services/directory/directory.service';
+import { ItemService, Item } from '@services/item/item.service';
+import { File, FileService } from '@services/file/file.service';
+import { FileSystemService } from '@services/file-system/file-system.service';
+import { Directory} from '@services/directory/directory.service';
 import { PageType } from '../../../core/data/enum/page-type.enum';
-import { UserProfile } from '../../../core/data/services/profile/profile.service';
+import { UserProfile } from '@services/profile/profile.service';
 
 @Component({
   selector: 'add-entry',

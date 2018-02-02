@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ModalController, NavParams, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { EmergencyContactService } from '../../../core/data/services/emergency-contact/emergency-contact.service';
-import { ProfileService } from '../../../core/data/services/profile/profile.service';
-import { MedicalInfoService, MedicalInfo, BloodTypeOption } from '../../../core/data/services/medical-info/medical-info.service';
+import { EmergencyContactService } from '@services/emergency-contact/emergency-contact.service';
+import { ProfileService } from '@services/profile/profile.service';
+import { MedicalInfoService, MedicalInfo, BloodTypeOption } from '@services/medical-info/medical-info.service';
 import { BloodType } from '../../../core/data/enum/blood-type.enum';
 
 

@@ -4,7 +4,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { RemindersService } from '../core/data/services/reminders/reminders.service';
+import { RemindersService } from '@services/reminders/reminders.service';
 
 class FileChooserMock extends FileChooser {
   open(): Promise<string> {

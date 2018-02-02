@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 
-import { Reminder } from '../../../core/data/services/reminders/reminders.interface';
-import { RemindersService } from '../../../core/data/services/reminders/reminders.service';
+import { Reminder } from '@services/reminders/reminders.interface';
+import { RemindersService } from '@services/reminders/reminders.service';
 import { NavParams } from 'ionic-angular';
 import * as moment from 'moment';
 import { ReminderMethodType } from '../../../core/data/enum/reminder-method-type';

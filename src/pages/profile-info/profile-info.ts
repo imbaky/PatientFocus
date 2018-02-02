@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 
 import { NavController, ModalController } from 'ionic-angular';
-import { ProfileService, UserProfile } from '../../core/data/services/profile/profile.service';
+import { ProfileService, UserProfile } from '@services/profile/profile.service';
 import {
     EmergencyContactService,
     EmergencyContact
-} from '../../core/data/services/emergency-contact/emergency-contact.service';
+} from '@services/emergency-contact/emergency-contact.service';
 import { EditInfoModal } from '@pages/profile-info/edit-info/edit-info';
-import {MedicalInfo, MedicalInfoService} from '../../core/data/services/medical-info/medical-info.service';
+import {MedicalInfo, MedicalInfoService} from '@services/medical-info/medical-info.service';
 
 
 @Component({
