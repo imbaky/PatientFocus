@@ -3,13 +3,13 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { ProfilePage } from '../pages/profile/profile';
-import { WelcomePage } from '../pages/welcome/welcome';
-import { RemindersPage } from '../pages/reminders/reminders';
-import { DiaryPage } from '../pages/diary/diary';
+import { ProfilePage } from '@pages/profile/profile';
+import { WelcomePage } from '@pages/welcome/welcome';
+import { RemindersPage } from '@pages/reminders/reminders';
+import { DiaryPage } from '@pages/diary/diary';
 import { ProfileService } from '../core/data/services/profile/profile.service';
-import { PortfolioPage } from '../pages/portfolio/portfolio';
-import { ProfileInfoPage } from '../pages/profile-info/profile-info';
+import { PortfolioPage } from '@pages/portfolio/portfolio';
+import { ProfileInfoPage } from '@pages/profile-info/profile-info';
 
 @Component({
   templateUrl: 'app.html'
