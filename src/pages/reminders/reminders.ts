@@ -6,7 +6,7 @@ import { ReminderComponent } from './reminder/reminder';
 import { RemindersService } from '@services/reminders/reminders.service';
 import { NotificationsService } from '@services/notifications/notifications.service';
 import { ProfileService } from '@services/profile/profile.service';
-import { ReminderMethodType } from '../../core/data/enum/reminder-method-type';
+import { ReminderMethodType } from '@enum/reminder-method-type';
 
 @Component({
     selector: 'page-reminders',

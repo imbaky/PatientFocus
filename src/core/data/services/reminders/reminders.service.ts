@@ -6,7 +6,7 @@ import Dexie from 'dexie';
 import * as moment from 'moment';
 
 import { NotificationsService } from '../notifications/notifications.service';
-import { ProfileService } from '../profile/profile.service';
+import { ProfileService } from '@services/profile/profile.service';
 import { Reminder } from './reminders.interface';
 
 @Injectable()

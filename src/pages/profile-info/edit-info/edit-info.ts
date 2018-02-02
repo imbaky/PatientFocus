@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EmergencyContactService } from '@services/emergency-contact/emergency-contact.service';
 import { ProfileService } from '@services/profile/profile.service';
 import { MedicalInfoService, MedicalInfo, BloodTypeOption } from '@services/medical-info/medical-info.service';
-import { BloodType } from '../../../core/data/enum/blood-type.enum';
+import { BloodType } from '@enum/blood-type.enum';
 
 
 @Component({
