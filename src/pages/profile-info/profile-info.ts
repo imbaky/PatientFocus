@@ -6,7 +6,7 @@ import {
     EmergencyContactService,
     EmergencyContact
 } from '../../core/data/services/emergency-contact/emergency-contact.service';
-import { EditInfoModal } from '../../pages/profile-info/edit-info/edit-info';
+import { EditInfoModal } from '@pages/profile-info/edit-info/edit-info';
 import {MedicalInfo, MedicalInfoService} from '../../core/data/services/medical-info/medical-info.service';
 
 

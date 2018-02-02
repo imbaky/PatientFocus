@@ -123,7 +123,6 @@ describe("Profile Service", () => {
       password: "Password"
     });
     const profile = await profileService.getFirstProfile();
-    console.log("ID",profile.id);
     const diaryEntries = await profileService.getProfileDiaryItems(profile.id);
     expect(profile.name).toBe("John");
     expect(diaryEntries.length).toBe(2);
