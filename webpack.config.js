@@ -1,5 +1,3 @@
-const chalk = require("chalk");
-const fs = require('fs');
 const path = require('path');
 const useDefaultConfig = require('@ionic/app-scripts/config/webpack.config.js');
 
@@ -10,6 +8,10 @@ if (env === 'prod' || env === 'dev') {
   useDefaultConfig[env].resolve.alias = {
     "@pages": path.resolve('./src/pages/'),
     "@services": path.resolve('./src/core/data/services/'),
+    "@enum": path.resolve('./src/core/data/enum/'),
+    "@pipes": path.resolve('./src/pipes'),
+    "@components": path.resolve('./src/components/'),
+    "@directives": path.resolve('./src/directives/'),
   };
 
 } else {
@@ -19,19 +21,12 @@ if (env === 'prod' || env === 'dev') {
   useDefaultConfig[env].resolve.alias = {
     "@pages": path.resolve('./src/pages/'),
     "@services": path.resolve('./src/core/data/services/'),
+    "@enum": path.resolve('./src/core/data/enum/'),
+    "@pipes": path.resolve('./src/pipes'),
+    "@components": path.resolve('./src/components/'),
+    "@directives": path.resolve('./src/directives/'),
   };
 
-}
-
-function environmentPath() {
-
-  let filePath = './src/environments/environment' + (env === 'prod' ? '' : '.' + env) + '.ts';
-
-  if (!fs.existsSync(filePath)) {
-    console.log(chalk.red('\n' + filePath + ' does not exist!'));
-  } else {
-    return filePath;
-  }
 }
 
 module.exports = function () {

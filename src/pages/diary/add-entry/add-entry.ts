@@ -10,7 +10,7 @@ import { ItemService, Item } from '@services/item/item.service';
 import { File, FileService } from '@services/file/file.service';
 import { FileSystemService } from '@services/file-system/file-system.service';
 import { Directory} from '@services/directory/directory.service';
-import { PageType } from '../../../core/data/enum/page-type.enum';
+import { PageType } from '@enum/page-type.enum';
 import { UserProfile } from '@services/profile/profile.service';
 
 @Component({

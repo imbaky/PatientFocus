@@ -17,4 +17,4 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 
-script: npm install && npm run test-ci
+script: npm install && ionic cordova build android --no-interactive --confirm && npm run test-ci

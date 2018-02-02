@@ -4,7 +4,7 @@ import { NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfileService } from '@services/profile/profile.service';
 import { WelcomePage } from '../welcome/welcome';
-import { ProfileInfoPage } from '../profile-info/profile-info';
+import { ProfileInfoPage } from '@pages/profile-info/profile-info';
 
 
 @Component({

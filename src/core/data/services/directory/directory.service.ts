@@ -3,10 +3,10 @@ import { Entry } from '@ionic-native/file';
 import Dexie from 'dexie';
 
 import { DexieService } from '../dexie/dexie.service';
-import { Item, ItemService } from '../item/item.service';
-import { PortfolioType } from '../../enum/file-type.enum';
-import { FileService, File } from '../file/file.service';
-import { PageType } from '../../enum/page-type.enum';
+import { Item, ItemService } from '@services/item/item.service';
+import { PortfolioType } from '@enum/file-type.enum';
+import { FileService, File } from '@services/file/file.service';
+import { PageType } from '@enum/page-type.enum';
 
 export interface Directory {
   id?: number;

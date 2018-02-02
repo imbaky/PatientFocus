@@ -8,12 +8,12 @@ import { FileSystemService } from '@services/file-system/file-system.service';
 import { File } from '@services/file/file.service';
 import { ItemService } from '@services/item/item.service';
 import { Directory } from '@services/directory/directory.service';
-import { PortfolioType } from '../../../core/data/enum/file-type.enum';
+import { PortfolioType } from '@enum/file-type.enum';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { UploadType } from '../../../core/data/enum/upload-type.enum';
+import { UploadType } from '@enum/upload-type.enum';
 import * as moment from 'moment';
-import { ItemType } from '../../../core/data/enum/item-type.enum';
-import { PageType } from '../../../core/data/enum/page-type.enum';
+import { ItemType } from '@enum/item-type.enum';
+import { PageType } from '@enum/page-type.enum';
 
 declare var window;
 

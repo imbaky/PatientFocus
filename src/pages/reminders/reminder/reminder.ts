@@ -6,7 +6,7 @@ import { Reminder } from '@services/reminders/reminders.interface';
 import { RemindersService } from '@services/reminders/reminders.service';
 import { NavParams } from 'ionic-angular';
 import * as moment from 'moment';
-import { ReminderMethodType } from '../../../core/data/enum/reminder-method-type';
+import { ReminderMethodType } from '@enum/reminder-method-type';
 
 @Component({
     selector: 'reminder-component',
