@@ -2,8 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { ItemType } from '../../core/data/enum/item-type.enum';
 import * as moment from 'moment';
 
-import { Item } from '../../core/data/services/item/item.service';
-import { File } from '../../core/data/services/file/file.service';
+import { Item } from '@services/item/item.service';
+import { File } from '@services/file/file.service';
 import { PortfolioType, FileFormatType } from '../../core/data/enum/file-type.enum';
 
 

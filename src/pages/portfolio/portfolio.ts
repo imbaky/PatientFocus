@@ -7,14 +7,14 @@ import { ActionSheetController, ModalController, NavController, NavParams} from 
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
-import { Directory, DirectoryService } from '../../core/data/services/directory/directory.service';
+import { Directory, DirectoryService } from '@services/directory/directory.service';
 import { ItemType } from '../../core/data/enum/item-type.enum';
-import { Item } from '../../core/data/services/item/item.service';
+import { Item } from '@services/item/item.service';
 import { ImportDocumentPage } from './import-document/import-document';
-import { File } from '../../core/data/services/file/file.service';
+import { File } from '@services/file/file.service';
 import { PortfolioType, FileFormatType } from '../../core/data/enum/file-type.enum';
 import { UploadType } from '../../core/data/enum/upload-type.enum';
-import { ProfileService } from '../../core/data/services/profile/profile.service';
+import { ProfileService } from '@services/profile/profile.service';
 import { PageType } from '../../core/data/enum/page-type.enum';
 
 
