@@ -13,75 +13,75 @@ import { PortfolioType, FileFormatType } from '../../enum/file-type.enum';
 
 class DATABASE extends Dexie {
   constructor() {
-    super("item_service_test");
+    super('item_service_test');
 
     this.version(1).stores(SCHEMA);
     const date = new Date();
     const items = [
       {
-        title: "Health Problems1",
+        title: 'Health Problems1',
         directory_id: 1,
-        description: "lab test1",
+        description: 'lab test1',
         file_id: 1,
         page: PageType.Portfolio,
-        chosen_date: "2018-01-01",
+        chosen_date: '2018-01-01',
         document_type: PortfolioType.DIAGNOSIS,
-        user_defined_file_name: "User defined name",
+        user_defined_file_name: 'User defined name',
         created: date
       },
       {
-        title: "Health Problems2",
+        title: 'Health Problems2',
         directory_id: 1,
-        description: "lab test1",
+        description: 'lab test1',
         file_id: 2,
         page: PageType.Portfolio,
-        chosen_date: "2018-01-01",
+        chosen_date: '2018-01-01',
         document_type: PortfolioType.DIAGNOSIS,
-        user_defined_file_name: "User defined name",
+        user_defined_file_name: 'User defined name',
         created: date
       },
       {
-        title: "Health Problems3",
-        description: "lab test1",
+        title: 'Health Problems3',
+        description: 'lab test1',
         directory_id: 1,
         file_id: 3,
         page: PageType.Portfolio,
-        chosen_date: "2018-01-01",
+        chosen_date: '2018-01-01',
         document_type: PortfolioType.DIAGNOSIS,
-        user_defined_file_name: "User defined name",
+        user_defined_file_name: 'User defined name',
         created: date
       }
     ];
-    this.on("populate", () => {
-      this.table("profile").add({
+    this.on('populate', () => {
+      this.table('profile').add({
         directory: 1
       });
-      this.table("directory").bulkAdd([{ id: 1 }, { id: 2 }]);
-      this.table("item").bulkAdd(items);
-      this.table("file").bulkAdd([
+      this.table('directory').bulkAdd([{ id: 1 }, { id: 2 }]);
+      this.table('item').bulkAdd(items);
+      this.table('file').bulkAdd([
         {
           id: 1,
-          path: "::directory/subdirectory/subsubdirectory/",
-          file_name: "filename1.jpg",
+          path: '::directory/subdirectory/subsubdirectory/',
+          file_name: 'filename1.jpg',
           size: 4576543,
           format: FileFormatType.JPG,
-          type: "jpg"
+          type: 'jpg'
         },
         {
           id: 2,
-          path: "::directory/subdirectory/subsubdirectory/",
-          file_name: "filename2.jpg",
+          path: '::directory/subdirectory/subsubdirectory/',
+          file_name: 'filename2.jpg',
           size: 4576543,
           format: FileFormatType.JPG,
-          type: "jpg"
+          type: 'jpg'
         },
         {
           id: 3,
-          path: "::directory/subdirectory/subsubdirectory/",
-          file_name: "filename3.pdf",
+          path: '::directory/subdirectory/subsubdirectory/',
+          file_name: 'filename3.pdf',
           size: 4576543,
           format: FileFormatType.PDF,
-          type: "jpg"
+          type: 'jpg'
         }
       ]);
     });
@@ -101,7 +101,7 @@ const testBedSetup = {
   ]
 };
 
-describe("Item Service", () => {
+describe('Item Service', () => {
   let dexie: DexieService;
   let item: ItemService;
   let file: FileService;
@@ -109,41 +109,41 @@ describe("Item Service", () => {
 
   beforeEach(async () => {
     mockDatabase = new DATABASE();
-    let bed = TestBed.configureTestingModule(testBedSetup);
+    const bed = TestBed.configureTestingModule(testBedSetup);
     TestBed.overrideProvider(DexieService, { useValue: mockDatabase });
     dexie = bed.get(DexieService);
     item = bed.get(ItemService);
     file = bed.get(FileService);
   });
 
-  it("GIVEN three items in a directory THEN it should retrieve all the items", async () => {
-    let items = await item.getItemsByDirectoryId(1);
+  it('GIVEN three items in a directory THEN it should retrieve all the items', async () => {
+    const items = await item.getItemsByDirectoryId(1);
     expect(items.length).toBe(3);
     expect(items[0].document_type).toBe(PortfolioType.DIAGNOSIS);
     expect(items[1].document_type).toBe(PortfolioType.DIAGNOSIS);
     expect(items[2].document_type).toBe(PortfolioType.DIAGNOSIS);
   });
 
-  it("GIVEN an invalid directory ID THEN it should retrieve no items", async () => {
-    let items = await item.getItemsByDirectoryId(88);
+  it('GIVEN an invalid directory ID THEN it should retrieve no items', async () => {
+    const items = await item.getItemsByDirectoryId(88);
     expect(items.length).toBe(0);
   });
 
-  it("GIVEN a diary entry with an attached file THEN it should create an item", async () => {
-    const countBefore = await mockDatabase.table("item").count();
+  it('GIVEN a diary entry with an attached file THEN it should create an item', async () => {
+    const countBefore = await mockDatabase.table('item').count();
     const diaryFile: NativeFile = {
       id: 4,
-      path: "::directory/subdirectory/subsubdirectory/",
+      path: '::directory/subdirectory/subsubdirectory/',
       format: FileFormatType.JPG,
-      file_name: "dry_skin.jpg",
+      file_name: 'dry_skin.jpg',
       size: 808
     };
-    const creation_date = moment().format("YYYY-MM-DD");
-    const document_name = "Dry Skin on Arm";
+    const creation_date = moment().format('YYYY-MM-DD');
+    const document_name = 'Dry Skin on Arm';
     const specificValues = {
       page: PageType.Diary
     };
-    let created_item = await item.createItemAsFile(
+    const created_item = await item.createItemAsFile(
       diaryFile,
       creation_date,
       1,
@@ -157,25 +157,25 @@ describe("Item Service", () => {
     expect(created_item.file).toBe(diaryFile);
     expect(created_item.file_id).toBe(diaryFile.id);
     expect(created_item.chosen_date).toBe(creation_date);
-    const countAfter = await mockDatabase.table("item").count();
+    const countAfter = await mockDatabase.table('item').count();
     expect(countAfter).toBe(countBefore + 1);
   });
 
-  it("GIVEN a medical document THEN it should create an item", async () => {
-    const countBefore = await mockDatabase.table("item").count();
+  it('GIVEN a medical document THEN it should create an item', async () => {
+    const countBefore = await mockDatabase.table('item').count();
     const medicalDoc: NativeFile = {
       id: 5,
-      path: "::directory/subdirectory/subsubdirectory2/",
+      path: '::directory/subdirectory/subsubdirectory2/',
       format: FileFormatType.PDF,
-      file_name: "lab_test.jpg",
+      file_name: 'lab_test.jpg',
       size: 8869
     };
-    const creation_date = moment().format("YYYY-MM-DD");
-    const document_name = "Blood Test";
+    const creation_date = moment().format('YYYY-MM-DD');
+    const document_name = 'Blood Test';
     const specificValues = {
       page: PageType.Portfolio
     };
-    let created_item = await item.createItemAsFile(
+    const created_item = await item.createItemAsFile(
       medicalDoc,
       creation_date,
       1,
@@ -189,20 +189,20 @@ describe("Item Service", () => {
     expect(created_item.file).toBe(medicalDoc);
     expect(created_item.file_id).toBe(medicalDoc.id);
     expect(created_item.chosen_date).toBe(creation_date);
-    const countAfter = await mockDatabase.table("item").count();
+    const countAfter = await mockDatabase.table('item').count();
     expect(countAfter).toBe(countBefore + 1);
   });
 
-  it("GIVEN a diary entry without an attached file THEN it should create an item", async () => {
-    const countBefore = await mockDatabase.table("item").count();
+  it('GIVEN a diary entry without an attached file THEN it should create an item', async () => {
+    const countBefore = await mockDatabase.table('item').count();
     const new_item: Item = {
-      title: "Blood Pressure Measurement",
-      description: "Morning measurement",
-      chosen_date: moment().format("YYYY-MM-DD"),
+      title: 'Blood Pressure Measurement',
+      description: 'Morning measurement',
+      chosen_date: moment().format('YYYY-MM-DD'),
       page: PageType.Diary,
       profile_id: 1
     };
-    let created_item = await item.addItemToDB(new_item);
+    const created_item = await item.addItemToDB(new_item);
 
     expect(created_item.profile_id).toBe(1);
     expect(created_item.page).toBe(new_item.page);
@@ -210,7 +210,7 @@ describe("Item Service", () => {
     expect(created_item.file).toBe(undefined);
     expect(created_item.file_id).toBe(undefined);
     expect(created_item.chosen_date).toBe(new_item.chosen_date);
-    const countAfter = await mockDatabase.table("item").count();
+    const countAfter = await mockDatabase.table('item').count();
     expect(countAfter).toBe(countBefore + 1);
   });
 });

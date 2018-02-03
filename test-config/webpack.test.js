@@ -5,6 +5,14 @@ module.exports = {
   devtool: 'inline-source-map',
 
   resolve: {
+    alias: {
+      "@pages": path.resolve('./src/pages/'),
+      "@services": path.resolve('./src/core/data/services/'),
+      "@enum": path.resolve('./src/core/data/enum/'),
+      "@pipes": path.resolve('./src/pipes'),
+      "@components": path.resolve('./src/components/'),
+      "@directives": path.resolve('./src/directives/'),
+    },
     extensions: ['.ts', '.js']
   },
 
