@@ -3,10 +3,11 @@ import { ViewController } from 'ionic-angular';
 import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 
 import { Reminder } from '@services/reminders/reminders.interface';
-import { RemindersService } from '@services/reminders/reminders.service';
+import { ReminderService } from '@services/reminders/reminder.service';
+
 import { NavParams } from 'ionic-angular';
 import * as moment from 'moment';
-import { ReminderMethodType } from '@enum/reminder-method-type';
+import { ReminderMethodType, ReminderType } from '@enum/reminder-method-type';
 
 @Component({
     selector: 'reminder-component',
@@ -25,7 +26,7 @@ export class ReminderComponent {
     constructor(
         public viewCtrl: ViewController,
         private formBuilder: FormBuilder,
-        private reminderService: RemindersService,
+        private reminderService: ReminderService,
         private navParams: NavParams
     ) {
 
@@ -60,10 +61,10 @@ export class ReminderComponent {
         // add unique reminder number, set to unix time NOTE: maybe not need anymore
         this.reminder.reminder_id = moment().unix();
 
+        this.reminder.reminder_type = ReminderType.Medication;
         if (this.reminderMethod === ReminderMethodType.EDIT_REMINDER) { // delete original notification
           await this.reminderService.deleteReminder(this.oldReminder);
         }
-
         // save
         const reminder = await this.reminderService.createReminder(this.reminder);
         await this.reminderService.mapToNotification(this.reminder);
