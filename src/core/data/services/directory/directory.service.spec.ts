@@ -7,8 +7,8 @@ import { ItemService } from '../item/item.service';
 import { FileService } from '../file/file.service';
 import Dexie from 'dexie';
 import { SCHEMA } from '../dexie/database';
-import { PageType } from "../../enum/page-type.enum";
-import { PortfolioType, FileFormatType } from "../../enum/file-type.enum";
+import { PageType } from '../../enum/page-type.enum';
+import { PortfolioType, FileFormatType } from '../../enum/file-type.enum';
 
 class DATABASE extends Dexie {
   constructor() {
@@ -23,9 +23,9 @@ class DATABASE extends Dexie {
         description: 'lab test1',
         file_id: 1,
         page: PageType.Portfolio,
-        chosen_date: "2018-01-01",
+        chosen_date: '2018-01-01',
         document_type: PortfolioType.DIAGNOSIS,
-        user_defined_file_name: "User defined name",
+        user_defined_file_name: 'User defined name',
         created: date
       },
       {
@@ -34,9 +34,9 @@ class DATABASE extends Dexie {
         description: 'lab test1',
         file_id: 2,
         page: PageType.Portfolio,
-        chosen_date: "2018-01-01",
+        chosen_date: '2018-01-01',
         document_type: PortfolioType.DIAGNOSIS,
-        user_defined_file_name: "User defined name",
+        user_defined_file_name: 'User defined name',
         created: date
       },
       {
@@ -45,9 +45,9 @@ class DATABASE extends Dexie {
         directory_id: 1,
         file_id: 3,
         page: PageType.Portfolio,
-        chosen_date: "2018-01-01",
+        chosen_date: '2018-01-01',
         document_type: PortfolioType.DIAGNOSIS,
-        user_defined_file_name: "User defined name",
+        user_defined_file_name: 'User defined name',
         created: date
       }
     ];
@@ -111,7 +111,7 @@ describe('Directory Service', () => {
 
   beforeEach(async() => {
     mockDatabase = new DATABASE();
-    let bed = TestBed.configureTestingModule(testBedSetup);
+    const bed = TestBed.configureTestingModule(testBedSetup);
     TestBed.overrideProvider(DexieService, { useValue: mockDatabase });
     dexie = bed.get(DexieService);
     directory = bed.get(DirectoryService);

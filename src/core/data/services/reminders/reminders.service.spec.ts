@@ -12,7 +12,7 @@ import Dexie from 'dexie';
 import { SCHEMA } from '../dexie/database';
 import { NotificationsService } from '../notifications/notifications.service';
 import * as moment from 'moment';
-import {Reminder} from "./reminders.interface";
+import {Reminder} from './reminders.interface';
 
 class DATABASE extends Dexie {
     constructor() {
@@ -24,8 +24,8 @@ class DATABASE extends Dexie {
             this.table('profile').add({
               id: 1,
               directory: 1,
-              name: "name",
-              password: "password"
+              name: 'name',
+              password: 'password'
             });
             this.table('reminders').bulkAdd([
                 {
@@ -36,11 +36,11 @@ class DATABASE extends Dexie {
                     text: 'Reminder1 text',
                     frequencies: [
                         {
-                            frequency: "2018-01-24T1:00:00-05:00",
+                            frequency: '2018-01-24T1:00:00-05:00',
                             frequency_id: 100
                         },
                         {
-                            frequency: "2018-01-24T2:00:00-05:00",
+                            frequency: '2018-01-24T2:00:00-05:00',
                             frequency_id: 101
                         }
                     ],
@@ -54,7 +54,7 @@ class DATABASE extends Dexie {
                     text: 'Reminder2 text',
                     frequencies: [
                         {
-                            frequency: "2018-01-24T14:00:00-05:00",
+                            frequency: '2018-01-24T14:00:00-05:00',
                             frequency_id: 102
                         },
                     ],
@@ -68,11 +68,11 @@ class DATABASE extends Dexie {
                     text: 'Reminder3 text',
                     frequencies: [
                         {
-                            frequency: "2018-01-24T14:00:00-05:00",
+                            frequency: '2018-01-24T14:00:00-05:00',
                             frequency_id: 103
                         },
                         {
-                            frequency: "2018-01-24T15:00:00-05:00",
+                            frequency: '2018-01-24T15:00:00-05:00',
                             frequency_id: 104
                         }
                     ],
@@ -86,11 +86,11 @@ class DATABASE extends Dexie {
                     text: 'Another profile',
                     frequencies: [
                         {
-                            frequency: "2018-01-24T16:00:00-05:00",
+                            frequency: '2018-01-24T16:00:00-05:00',
                             frequency_id: 1000
                         },
                         {
-                            frequency: "2018-01-24T17:00:00-05:00",
+                            frequency: '2018-01-24T17:00:00-05:00',
                             frequency_id: 2000
                         }
                     ],
@@ -123,12 +123,12 @@ describe('RemindersService TestBed', () => {
     let profileService: ProfileService;
     let notificationsService: NotificationsService;
     let mockDatabase = new DATABASE();
-    let today = moment('2018-01-24').toDate();
+    const today = moment('2018-01-24').toDate();
     jasmine.clock().mockDate(today); //set Todays Date
 
     beforeEach( async() => {
         mockDatabase = new DATABASE();
-        let bed = TestBed.configureTestingModule(testBedSetup);
+        const bed = TestBed.configureTestingModule(testBedSetup);
         TestBed.overrideProvider(DexieService, {useValue: mockDatabase});
         dexieService = bed.get(DexieService);
         profileService = bed.get(ProfileService);
@@ -157,20 +157,19 @@ describe('RemindersService TestBed', () => {
     });
 
     it('Create and then delete a reminder.', async () => {
-        let reminder : Reminder=
-        {
+        const reminder: Reminder = {
             reminder_id: 23,
             fk_profile_id: 1,
-            title: "Added reminder",
-            text: "Test create and delete",
+            title: 'Added reminder',
+            text: 'Test create and delete',
             frequencies: [
                 {
-                frequency: "2018-01-24T14:25:00-05:00",
+                frequency: '2018-01-24T14:25:00-05:00',
                 frequency_id: 12345
             }],
-            expires: "2018-01-25T14:25:33-05:00"
-        }
-        let newReminder = await service.createReminder(reminder);
+            expires: '2018-01-25T14:25:33-05:00'
+        };
+        const newReminder = await service.createReminder(reminder);
         let reminders = await service.getReminders(1);
         expect(reminders.length).toEqual(4);
 
@@ -180,19 +179,18 @@ describe('RemindersService TestBed', () => {
     });
 
     it('1 reminder with frequency 1 on 2018-01-24T14:24:33-05:00 should be added to the database', async () => {
-        let reminder : Reminder=
-        {
+        let reminder: Reminder = {
             reminder_id: 13,
             fk_profile_id: 1,
-            title: "Added reminder",
-            text: "Text for added reminder",
+            title: 'Added reminder',
+            text: 'Text for added reminder',
             frequencies: [
                 {
-                frequency: "2018-01-24T14:24:33-05:00",
+                frequency: '2018-01-24T14:24:33-05:00',
                 frequency_id: 1234
             }],
-            expires: "2018-01-25T14:24:33-05:00"
-        }
+            expires: '2018-01-25T14:24:33-05:00'
+        };
         reminder = await service.createReminder(reminder);
         const reminders = await service.getReminders(1);
         expect(reminders.length).toBe(4);
@@ -200,41 +198,39 @@ describe('RemindersService TestBed', () => {
         expect(reminders[1].reminder_id).toEqual(11);
         expect(reminders[2].reminder_id).toEqual(12);
         expect(reminders[3].reminder_id).toEqual(13);
-        expect(reminders[3].frequencies[0].frequency).toBe("2018-01-24T14:24:33-05:00");
+        expect(reminders[3].frequencies[0].frequency).toBe('2018-01-24T14:24:33-05:00');
     });
 
-  it( "GIVEN a reminder with frequency 2, 2 notifications should be created", async () => {
-    let reminder1 : Reminder=
-      {
+  it( 'GIVEN a reminder with frequency 2, 2 notifications should be created', async () => {
+    const reminder1: Reminder = {
         reminder_id: 14,
         fk_profile_id: 1,
-        title: "Added reminder",
-        text: "Text for added reminder",
+        title: 'Added reminder',
+        text: 'Text for added reminder',
         frequencies: [{
-          frequency: "2018-01-24T14:24:33-05:00",
+          frequency: '2018-01-24T14:24:33-05:00',
           frequency_id: 166
         },
           {
-            frequency: "2018-01-24T12:12:33-05:00",
+            frequency: '2018-01-24T12:12:33-05:00',
             frequency_id: 8768
           }],
-        expires: "2018-01-24T14:24:33-05:00"
+        expires: '2018-01-24T14:24:33-05:00'
       };
-    let notifications = await service.mapToNotification(reminder1);
+    const notifications = await service.mapToNotification(reminder1);
     expect(notifications.length).toEqual(2);
   });
 
   xit( 'GIVEN a reminder with frequency 2, 2 notifications should be created', async () => { //
-     let frequencyDate1 = moment("2018-01-24T14:24:33-05:00").toISOString();
-     let frequencyDate2 = moment("2018-01-24T12:12:33-05:00").toISOString();
-     let expire = moment("2018-01-24T14:24:33-05:00").toISOString();
+     const frequencyDate1 = moment('2018-01-24T14:24:33-05:00').toISOString();
+     const frequencyDate2 = moment('2018-01-24T12:12:33-05:00').toISOString();
+     const expire = moment('2018-01-24T14:24:33-05:00').toISOString();
 
-    let reminder1 : Reminder=
-      {
+    const reminder1: Reminder = {
         reminder_id: 14,
         fk_profile_id: 1,
-        title: "Added reminder",
-        text: "Text for added reminder",
+        title: 'Added reminder',
+        text: 'Text for added reminder',
         frequencies: [{
           frequency: frequencyDate1,
           frequency_id: 166
@@ -245,22 +241,22 @@ describe('RemindersService TestBed', () => {
           }],
         expires: expire
       };
-    let notification1: any = {
+    const notification1: any = {
       id: 166,
-      text: "Text for added reminder",
-      title: "Added reminder",
+      text: 'Text for added reminder',
+      title: 'Added reminder',
       trigger: { every: {hour: 14, minute: 24}, count: 1 }
-    }
-    let notification2: any = {
+    };
+    const notification2: any = {
       id: 8768,
-      text: "Text for added reminder",
-      title: "Added reminder",
+      text: 'Text for added reminder',
+      title: 'Added reminder',
       trigger: { every: {hour: 12, minute: 12}, count: 1 }
-    }
-    let notifications : Array<ILocalNotification> = [];
+    };
+    const notifications: Array<ILocalNotification> = [];
     notifications.push(notification1);
     notifications.push(notification2);
-    var spy = spyOn(notificationsService, "addNotifications");
+    const spy = spyOn(notificationsService, 'addNotifications');
     await service.mapToNotification(reminder1);
     expect(spy).toHaveBeenCalledWith(notifications);
   });
