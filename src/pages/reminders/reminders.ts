@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ModalController } from 'ionic-angular';
+import { ModalController, ActionSheetController } from 'ionic-angular';
 
-import { Reminder } from '@services/reminders/reminders.interface';
+import { Reminders } from '@services/reminders/reminders.interface';
 import { ReminderComponent } from './reminder/reminder';
+import { AppointmentComponent } from './appointment/appointment';
 import { RemindersService } from '@services/reminders/reminders.service';
-import { NotificationsService } from '@services/notifications/notifications.service';
 import { ProfileService } from '@services/profile/profile.service';
-import { ReminderMethodType } from '@enum/reminder-method-type';
+import { ReminderMethodType, ReminderType } from '@enum/reminder-method-type';
 
 @Component({
     selector: 'page-reminders',
@@ -14,13 +14,14 @@ import { ReminderMethodType } from '@enum/reminder-method-type';
 })
 export class RemindersPage {
 
-    reminders: Reminder[];
+    reminders: Reminders[];
     profile_id: number;
+    reminderType = ReminderType;
 
     constructor(
         public modalCtrl: ModalController,
+        public actionSheetCtrl: ActionSheetController,
         private remindersService: RemindersService,
-        private notificationsService: NotificationsService,
         private profileService: ProfileService
     ) {
         (
@@ -33,19 +34,50 @@ export class RemindersPage {
     }
 
     async getReminders() {
+        // this will get both reminder and appointment
         this.reminders = await this.remindersService.getReminders(this.profile_id);
     }
 
-    addReminder() {
-      const reminderMethod = ReminderMethodType.CREATE_REMINDER;
-      const reminderModal = this.modalCtrl.create(ReminderComponent, { reminderMethod });
-        reminderModal.onDidDismiss(() => {
+    handleReminderType(method: ReminderType) {
+        let reminderModal;
+        if (method === ReminderType.Medication) {
+            const reminderMethod = ReminderMethodType.CREATE_REMINDER;
+            reminderModal = this.modalCtrl.create(ReminderComponent, { reminderMethod });
+        }
+        if (method === ReminderType.Appointment) {
+            reminderModal = this.modalCtrl.create(AppointmentComponent, {});
+        }
+        reminderModal.onDidDismiss(async () => {
             this.getReminders();
         });
         reminderModal.present();
     }
 
-    editReminder(reminder: Reminder) {
+    addReminder() {
+        const actionSheet = this.actionSheetCtrl.create({
+            title: 'Reminder Type',
+            buttons: [
+              {
+                text: 'Medication',
+                icon: 'md-bookmarks',
+                handler: this.handleReminderType.bind(this, ReminderType.Medication)
+              },
+              {
+                text: 'Appointment',
+                icon: 'md-calendar',
+                handler: this.handleReminderType.bind(this, ReminderType.Appointment)
+              },
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                icon: 'md-close'
+              }
+            ]
+        });
+        actionSheet.present();
+    }
+
+    editReminder(reminder: Reminders) {
       const reminderMethod = ReminderMethodType.EDIT_REMINDER;
       const oldReminder = reminder;
       const reminderModal = this.modalCtrl.create(ReminderComponent, { reminderMethod, oldReminder });
@@ -56,7 +88,7 @@ export class RemindersPage {
       // deleteReminder(reminder: Reminder) if they accept the new reminder
     }
 
-    async deleteReminder(reminder: Reminder) {
+    async deleteReminder(reminder: Reminders) {
 
         // delete from database
         await this.remindersService.deleteReminder(reminder);

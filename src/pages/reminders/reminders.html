@@ -17,7 +17,7 @@
 <ion-content>
   <ion-list>
     <ng-container *ngFor="let reminder of reminders;">
-      <ion-card>
+      <ion-card *ngIf="reminder.reminder_type === reminderType.Medication">
         <ion-item>
           <ion-avatar item-start>
             <ion-icon name="notifications"></ion-icon>
@@ -52,6 +52,11 @@
           </ion-col>
         </ion-row>
 
+      </ion-card>
+      <ion-card *ngIf="reminder.reminder_type === reminderType.Appointment">
+        <ion-item>
+          {{ reminder.doctor }}
+        </ion-item>
       </ion-card>
     </ng-container>
   </ion-list>

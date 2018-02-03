@@ -4,15 +4,19 @@ import { IonicModule } from 'ionic-angular';
 
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
-import { RemindersPage } from '@pages/reminders/reminders';
-import { ReminderComponent } from '@pages/reminders/reminder/reminder';
-import { RemindersService } from '@services/reminders/reminders.service';
-import { NotificationsService } from '@services/notifications/notifications.service';
+import { RemindersPage } from '../pages/reminders/reminders';
+import { ReminderComponent } from '../pages/reminders/reminder/reminder';
+import { RemindersService } from '../core/data/services/reminders/reminders.service';
+import { ReminderService } from '../core/data/services/reminders/reminder.service';
+import { AppointmentService } from '../core/data/services/reminders/appointment.service';
+import { AppointmentComponent } from '../pages/reminders/appointment/appointment';
+import { NotificationsService } from '../core/data/services/notifications/notifications.service';
 
 @NgModule({
     declarations: [
         RemindersPage,
-        ReminderComponent
+        ReminderComponent,
+        AppointmentComponent
     ],
     imports: [
       CommonModule,
@@ -20,14 +24,18 @@ import { NotificationsService } from '@services/notifications/notifications.serv
     ],
     exports: [
       RemindersPage,
-      ReminderComponent
+      ReminderComponent,
+      AppointmentComponent
     ],
     entryComponents: [
-      ReminderComponent
+      ReminderComponent,
+      AppointmentComponent
     ],
     providers: [
       LocalNotifications,
       RemindersService,
+      ReminderService,
+      AppointmentService,
       NotificationsService
     ]
   })

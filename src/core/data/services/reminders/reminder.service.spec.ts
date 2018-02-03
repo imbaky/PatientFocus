@@ -1,7 +1,8 @@
 import { async, TestBed } from '@angular/core/testing';
 import { LocalNotifications, ILocalNotification } from '@ionic-native/local-notifications';
 
-import { RemindersService } from './reminders.service';
+import { ReminderService } from './reminder.service';
+import { ReminderType } from '../../enum/reminder-method-type';
 import { DexieService } from '../dexie/dexie.service';
 import { ProfileService } from '../profile/profile.service';
 import { DirectoryService } from '../directory/directory.service';
@@ -16,7 +17,7 @@ import {Reminder} from './reminders.interface';
 
 class DATABASE extends Dexie {
     constructor() {
-        super('reminders_test');
+        super('reminder_test');
 
         this.version(1).stores(SCHEMA);
 
@@ -27,10 +28,11 @@ class DATABASE extends Dexie {
               name: 'name',
               password: 'password'
             });
-            this.table('reminders').bulkAdd([
+            this.table('reminder').bulkAdd([
                 {
                     id: 1,
                     reminder_id: 10,
+                    reminder_type: ReminderType.Medication,
                     fk_profile_id: 1,
                     title: 'Reminder1',
                     text: 'Reminder1 text',
@@ -49,6 +51,7 @@ class DATABASE extends Dexie {
                 {
                     id: 2,
                     reminder_id: 11,
+                    reminder_type: ReminderType.Medication,
                     fk_profile_id: 1,
                     title: 'Reminder2',
                     text: 'Reminder2 text',
@@ -63,6 +66,7 @@ class DATABASE extends Dexie {
                 {
                     id: 3,
                     reminder_id: 12,
+                    reminder_type: ReminderType.Medication,
                     fk_profile_id: 1,
                     title: 'Reminder3',
                     text: 'Reminder3 text',
@@ -81,6 +85,7 @@ class DATABASE extends Dexie {
                 {
                     id: 10,
                     reminder_id: 112,
+                    reminder_type: ReminderType.Medication,
                     fk_profile_id: 10,
                     title: 'Reminder10',
                     text: 'Another profile',
@@ -103,7 +108,7 @@ class DATABASE extends Dexie {
 
 const testBedSetup = {
     providers: [
-        RemindersService,
+        ReminderService,
         LocalNotifications,
         NotificationsService,
         ProfileService,
@@ -118,7 +123,7 @@ const testBedSetup = {
 };
 
 describe('RemindersService TestBed', () => {
-    let service: RemindersService;
+    let service: ReminderService;
     let dexieService: DexieService;
     let profileService: ProfileService;
     let notificationsService: NotificationsService;
@@ -132,7 +137,7 @@ describe('RemindersService TestBed', () => {
         TestBed.overrideProvider(DexieService, {useValue: mockDatabase});
         dexieService = bed.get(DexieService);
         profileService = bed.get(ProfileService);
-        service = bed.get(RemindersService);
+        service = bed.get(ReminderService);
         notificationsService = bed.get(NotificationsService);
     });
 
@@ -159,6 +164,7 @@ describe('RemindersService TestBed', () => {
     it('Create and then delete a reminder.', async () => {
         const reminder: Reminder = {
             reminder_id: 23,
+            reminder_type: ReminderType.Medication,
             fk_profile_id: 1,
             title: 'Added reminder',
             text: 'Test create and delete',
@@ -181,6 +187,7 @@ describe('RemindersService TestBed', () => {
     it('1 reminder with frequency 1 on 2018-01-24T14:24:33-05:00 should be added to the database', async () => {
         let reminder: Reminder = {
             reminder_id: 13,
+            reminder_type: ReminderType.Medication,
             fk_profile_id: 1,
             title: 'Added reminder',
             text: 'Text for added reminder',
@@ -204,6 +211,7 @@ describe('RemindersService TestBed', () => {
   it( 'GIVEN a reminder with frequency 2, 2 notifications should be created', async () => {
     const reminder1: Reminder = {
         reminder_id: 14,
+        reminder_type: ReminderType.Medication,
         fk_profile_id: 1,
         title: 'Added reminder',
         text: 'Text for added reminder',
@@ -228,6 +236,7 @@ describe('RemindersService TestBed', () => {
 
     const reminder1: Reminder = {
         reminder_id: 14,
+        reminder_type: ReminderType.Medication,
         fk_profile_id: 1,
         title: 'Added reminder',
         text: 'Text for added reminder',
