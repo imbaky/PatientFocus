@@ -37,8 +37,22 @@ export class ItemService {
    * @returns {Item} items found in the directory
    */
   async getItemsByDirectoryId(directory: number): Promise<Item[]> {
-    const items = await this.table.where('directory_id').equals(directory).toArray();
-    return items;
+    return await this.table.where('directory_id').equals(directory).toArray();
+  }
+
+  /**
+   *  Retrieves a profile image if it exists
+   * @param directory
+   * @returns {Promise<any>}
+   */
+  async getProfileImage(directory: number): Promise<any> {
+    const items = <any> await this.table.where('directory_id').equals(directory).toArray();
+    for (const item of items) {
+      if (item.profile_img) {
+        return item;
+      }
+    }
+    return false;
   }
 
   /**
@@ -72,7 +86,7 @@ export class ItemService {
    * @returns {Item}
    */
   async addItemToDB(item: Item): Promise<Item> {
-    const pk = await this.table.add(item);
+    const pk = await this.table.put(item);
     this.table.update( pk, { id: pk });
     item.id = pk;
     return item;

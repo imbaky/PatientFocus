@@ -24,6 +24,7 @@ export class FileSystemService {
    * @param type type of medical document
    * @param newDocumentName new name associated to the document
    * @param directory user profile directory
+   * @param specificValues any additional information
    */
   async addNewFileToDirectory(fullPath: string, creationDate: string, newDocumentName: string,
                               directory: Directory, specificValues: any): Promise<Item> {

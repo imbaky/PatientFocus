@@ -9,6 +9,10 @@
 
 <ion-content padding>
   <ion-grid>
+      <div menuClose class="profile-image" (click)="selectFile()">
+          <img src="assets/placeholder-face.png" *ngIf="!profileImg"/>
+          <img src="{{profileImg}}" *ngIf="profileImg"/>
+      </div>
     <div class="profile-info-section">
       <ion-row>
         <ion-col col-10>
