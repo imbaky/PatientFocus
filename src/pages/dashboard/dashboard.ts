@@ -3,10 +3,10 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ProfileService } from '@services/profile/profile.service';
 
 @Component({
-  selector: 'page-welcome',
-  templateUrl: 'welcome.html'
+  selector: 'page-dashboard',
+  templateUrl: 'dashboard.html'
 })
-export class WelcomePage {
+export class DashboardPage {
   name: string;
 
   constructor(public navCtrl: NavController, private profileService: ProfileService) {

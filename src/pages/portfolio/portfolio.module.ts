@@ -6,14 +6,14 @@ import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import { File } from '@ionic-native/file';
 
-import { FilterFileName } from '@pipes/filterfilespace';
-import { FileFilterByDate, FileFilterByName, FileFilterByDocType, FileFilterByFormatType } from '@pipes/file-filter/file-filter.pipe';
+import { FilterFileNamePipe } from '@pages/portfolio/pipes/file-name-filter/filterfilespace.pipe';
+import { FileFilterByDate, FileFilterByName, FileFilterByDocType, FileFilterByFormatType } from '@pages/portfolio/pipes/file-filter/file-filter.pipe';
 import { PortfolioPage } from '@pages/portfolio/portfolio';
 import { ImportDocumentPage } from '@pages/portfolio/import-document/import-document';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { FileOpener } from '@ionic-native/file-opener';
 import { Camera } from '@ionic-native/camera';
-import { TextAvatarDirective } from '@directives/text-avatar/text-avatar';
+import { TextAvatarDirective } from '@directives/text-avatar/text-avatar.directive';
 
 @NgModule({
   imports: [
@@ -24,7 +24,7 @@ import { TextAvatarDirective } from '@directives/text-avatar/text-avatar';
   declarations: [
     PortfolioPage,
     ImportDocumentPage,
-    FilterFileName,
+    FilterFileNamePipe,
     FileFilterByDate,
     FileFilterByName,
     FileFilterByDocType,

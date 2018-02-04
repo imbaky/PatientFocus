@@ -95,7 +95,7 @@ const testBedSetup = {
 describe('File System Service', () => {
   let dexie: DexieService;
   let directory: DirectoryService;
-  let item: ItemService;
+  // let item: ItemService;
   let file: File;
   let fileService: FileService;
   let mockDatabase: DATABASE;

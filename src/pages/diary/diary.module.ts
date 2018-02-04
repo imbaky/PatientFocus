@@ -4,7 +4,7 @@ import { IonicModule } from 'ionic-angular';
 
 import { DiaryPage } from '@pages/diary/diary';
 import { AddEntryPage } from '@pages/diary/add-entry/add-entry';
-import { DetailedView } from '@components/detailed-view/detailed-view';
+import { DetailedView } from '@components/detailed-view/detailed-view.component';
 @NgModule({
   imports: [
     CommonModule,

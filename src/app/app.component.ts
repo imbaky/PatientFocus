@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { ProfilePage } from '@pages/profile/profile';
-import { WelcomePage } from '@pages/welcome/welcome';
+import { DashboardPage } from '@pages/dashboard/dashboard';
 import { RemindersPage } from '@pages/reminders/reminders';
 import { DiaryPage } from '@pages/diary/diary';
 import { ProfileService } from '@services/profile/profile.service';
@@ -29,7 +29,7 @@ export class MyApp {
   ) {
     this.pages = [
       { title: 'Profile info', component: ProfileInfoPage },
-      // { title: 'Dashboard', component: WelcomePage },
+      // { title: 'Dashboard', component: DashboardPage },
       { title: 'Medical Portfolio', component: PortfolioPage },
       { title: 'Personal Diary', component: DiaryPage },
       { title: 'Reminders', component: RemindersPage },

@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, Output, SimpleChanges, HostListener, EventEmitter, OnChanges } from '@angular/core';
-import { ColorGenerator } from './color-generator';
+import { ColorGenerator } from '@directives/text-avatar/color-generator';
 
 @Directive({
   selector: 'text-avatar',

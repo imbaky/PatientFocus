@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ModalController, ActionSheetController } from 'ionic-angular';
 
 import { Reminders, Reminder, Appointment } from '@services/reminders/reminders.interface';
-import { ReminderComponent } from '@pages/reminders/reminder/reminder';
+import { ReminderComponent } from '@pages/reminders/component/reminder.component';
 import { AppointmentComponent } from '@pages/reminders/appointment/appointment';
 import { RemindersService } from '@services/reminders/reminders.service';
 import { ProfileService } from '@services/profile/profile.service';
