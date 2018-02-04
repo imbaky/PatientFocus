@@ -11,7 +11,7 @@ import { ReminderMethodType, ReminderType } from '@enum/reminder-method-type';
 
 @Component({
     selector: 'reminder-component',
-    templateUrl: 'reminder.html'
+    templateUrl: 'reminder.component.html'
 })
 export class ReminderComponent {
 
