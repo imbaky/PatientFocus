@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController, ActionSheetController } from 'ionic-angular';
 
-import { Reminders } from '@services/reminders/reminders.interface';
+import { Reminders, Reminder, Appointment } from '@services/reminders/reminders.interface';
 import { ReminderComponent } from './reminder/reminder';
 import { AppointmentComponent } from './appointment/appointment';
 import { RemindersService } from '@services/reminders/reminders.service';
@@ -78,9 +78,21 @@ export class RemindersPage {
     }
 
     editReminder(reminder: Reminders) {
-      const reminderMethod = ReminderMethodType.EDIT_REMINDER;
-      const oldReminder = reminder;
-      const reminderModal = this.modalCtrl.create(ReminderComponent, { reminderMethod, oldReminder });
+        let reminderModal;
+        switch (reminder.reminder_type) {
+            case ReminderType.Medication: {
+                const reminderMethod = ReminderMethodType.EDIT_REMINDER;
+                const oldReminder = <Reminder> reminder;
+                reminderModal = this.modalCtrl.create(ReminderComponent, { reminderMethod, oldReminder });
+                break;
+            }
+            case ReminderType.Appointment: {
+                const appointment = <Appointment> reminder;
+                reminderModal = this.modalCtrl.create(AppointmentComponent, { appointment });
+                break;
+            }
+        }
+
       reminderModal.onDidDismiss(() => {
         this.getReminders();
       });

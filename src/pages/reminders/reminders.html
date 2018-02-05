@@ -33,9 +33,10 @@
           <ion-avatar item-start>
             <ion-icon name="notifications"></ion-icon>
           </ion-avatar>
-          <h2 ion-text color="primary">{{ reminder.title }}</h2>
+          <h2 ion-text color="danger">{{ reminder.title }}</h2>
           <h3>{{ reminder.doctor }}</h3>
           <h3>{{ reminder.address }}</h3>
+          <h4>{{ reminder.date | date: 'MMM dd, yyyy' }} {{ reminder.time | date: 'hh:mm a' }}</h4>
           <p text-wrap>{{ reminder.note }}</p>
         </ion-item>
         <ion-row>
@@ -55,9 +56,6 @@
             <button class="note" disabled ion-button clear small color="light">
             <ion-note *ngIf="reminder.reminder_type === reminderType.Medication">
               Expires {{ reminder.expires | date: 'MMM dd, yyyy' }}
-            </ion-note>
-            <ion-note *ngIf="reminder.reminder_type === reminderType.Appointment">
-              {{ reminder.date | date: 'MMM dd, yyyy' }} {{ reminder.time | date: 'hh:mm a' }}
             </ion-note>
             </button>
           </ion-col>
