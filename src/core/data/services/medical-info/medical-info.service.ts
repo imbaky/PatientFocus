@@ -28,11 +28,11 @@ export class MedicalInfoService {
     }
 
     async getMedicalInfo(): Promise<MedicalInfo> {
-        return await this.table.get(await this.profile.getFirstProfileId());
+        return await this.table.get(await this.profile.getCurrentProfileId());
     }
 
     async save(medical_info: MedicalInfo) {
-      const prof = await this.profile.getFirstProfileId();
+      const prof = await this.profile.getCurrentProfileId();
       medical_info.id = prof;
       await this.table.put(medical_info);
     }

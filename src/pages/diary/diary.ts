@@ -24,7 +24,7 @@ export class DiaryPage {
     private navCtrl: NavController,
     private directoryService: DirectoryService
   ) {
-    this.profileService.getFirstProfileId().then(async (profileId) => { // TODO need to get actual profile id
+    this.profileService.getCurrentProfileId().then(async (profileId) => { // TODO need to get actual profile id
       this.items$ = this.profileService.getProfileDiaryItems(profileId);
       this.directory = await this.directoryService.getDirectoryById(profileId);
     });

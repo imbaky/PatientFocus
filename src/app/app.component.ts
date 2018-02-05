@@ -38,15 +38,14 @@ export class MyApp {
     this.isProfileCreated();
   }
 
-  isProfileCreated() {
-    this.profileService.getFirstProfile().then(profile => {
-      if (profile) {
-        this.rootPage = ProfileInfoPage;
-        this.name = profile.name;
-      } else {
-        this.rootPage = ProfilePage;
-      }
-    });
+  async isProfileCreated() {
+    const profile = await this.profileService.getCurrentProfile();
+    if (profile) {
+      this.rootPage = ProfileInfoPage;
+      this.name = profile.name;
+    } else {
+      this.rootPage = ProfilePage;
+    }
   }
 
   ionViewDidLoad() {

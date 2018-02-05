@@ -19,7 +19,7 @@ import { ItemService } from "../../core/data/services/item/item.service";
     selector: 'page-profile-info',
     templateUrl: 'profile-info.html'
 })
-export class ProfileInfoPage{
+export class ProfileInfoPage {
 
     profile: UserProfile;
     emergencyContact: EmergencyContact;
@@ -38,7 +38,7 @@ export class ProfileInfoPage{
                 private fileSystemService: FileSystemService,
                 private itemService: ItemService, private ref:ChangeDetectorRef) {
 
-        this.profileService.getFirstProfile().then(profile => {
+        this.profileService.getCurrentProfile().then(profile => {
             this.profile = profile;
             emergencyContactService.getEmergencyContact(profile.emergency_contact_id).then(contact => {
                 this.emergencyContact = contact;
@@ -63,7 +63,7 @@ export class ProfileInfoPage{
                 infoObject: this.emergencyContact});
         await modal.present();
         modal.onDidDismiss(() => {
-            this.profileService.getFirstProfile().then(profile => {
+            this.profileService.getCurrentProfile().then(profile => {
                 this.emergencyContactService.getEmergencyContact(profile.emergency_contact_id).then(c => {
                     this.emergencyContact = c;
                 });
@@ -85,7 +85,7 @@ export class ProfileInfoPage{
     async editProfile() {
         const modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'profile', infoObject: this.profile});
         await modal.present();
-        modal.onDidDismiss(() => this.profileService.getFirstProfile().then(profile => this.profile = profile));
+        modal.onDidDismiss(() => this.profileService.getCurrentProfile().then(profile => this.profile = profile));
     }
 
     async selectFile() {
@@ -93,7 +93,7 @@ export class ProfileInfoPage{
         window.resolveLocalFileSystemURL(uri, (fileEntry) => {
            fileEntry.getMetadata(async(metadata) => {
                let imgSrc = await this.filePath.resolveNativePath(uri);
-               console.log(imgSrc);
+               console.log(imgSrc); // todo remove
                if(!this.profileImg) {
                    let image = await this.fileSystemService.addNewFileToDirectory(imgSrc, '', 'profile_image', this.directory, {profile_img: true});
                    this.profileImg = image.file.path;

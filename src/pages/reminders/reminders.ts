@@ -26,7 +26,7 @@ export class RemindersPage {
         (
             async() => {
                 // TODO: get current profile not just first one
-                this.profile_id = await this.profileService.getFirstProfileId();
+                this.profile_id = await this.profileService.getCurrentProfileId();
                 this.getReminders();
             }
         )();

@@ -25,7 +25,8 @@ class DATABASE extends Dexie {
               id: 1,
               directory: 1,
               name: "name",
-              password: "password"
+              password: "password",
+              current_profile: true
             });
             this.table('reminders').bulkAdd([
                 {
