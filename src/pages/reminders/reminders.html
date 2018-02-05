@@ -17,8 +17,8 @@
 <ion-content>
   <ion-list>
     <ng-container *ngFor="let reminder of reminders;">
-      <ion-card *ngIf="reminder.reminder_type === reminderType.Medication">
-        <ion-item>
+      <ion-card>
+        <ion-item *ngIf="reminder.reminder_type === reminderType.Medication">
           <ion-avatar item-start>
             <ion-icon name="notifications"></ion-icon>
           </ion-avatar>
@@ -29,7 +29,15 @@
               {{ frequency.frequency | date: 'hh:mm a' }} &nbsp;
           </ng-container>
         </ion-item>
-
+        <ion-item *ngIf="reminder.reminder_type === reminderType.Appointment">
+          <ion-avatar item-start>
+            <ion-icon name="notifications"></ion-icon>
+          </ion-avatar>
+          <h2 ion-text color="primary">{{ reminder.title }}</h2>
+          <h3>{{ reminder.doctor }}</h3>
+          <h3>{{ reminder.address }}</h3>
+          <p text-wrap>{{ reminder.note }}</p>
+        </ion-item>
         <ion-row>
           <ion-col col-3>
             <button ion-button icon-left clear small (click)="editReminder(reminder)">
@@ -45,20 +53,17 @@
           </ion-col>
           <ion-col col-6 center text-center >
             <button class="note" disabled ion-button clear small color="light">
-            <ion-note>
+            <ion-note *ngIf="reminder.reminder_type === reminderType.Medication">
               Expires {{ reminder.expires | date: 'MMM dd, yyyy' }}
+            </ion-note>
+            <ion-note *ngIf="reminder.reminder_type === reminderType.Appointment">
+              {{ reminder.date | date: 'MMM dd, yyyy' }} {{ reminder.time | date: 'hh:mm a' }}
             </ion-note>
             </button>
           </ion-col>
         </ion-row>
-
       </ion-card>
-      <ion-card *ngIf="reminder.reminder_type === reminderType.Appointment">
-        <ion-item>
-          {{ reminder.doctor }}
-        </ion-item>
-      </ion-card>
-    </ng-container>
+     </ng-container>
   </ion-list>
   <div *ngIf="!reminders" padding-top="50" text-center>
     Start adding your first reminder!
