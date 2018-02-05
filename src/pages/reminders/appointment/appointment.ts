@@ -25,6 +25,7 @@ export class AppointmentComponent {
         private navParams: NavParams
     ) {
         this.minExpiryDate = moment({}).format('YYYY-MM-DD');
+
         this.appointmentForm = this.formBuilder.group({
             title: ['', Validators.required],
             doctor: ['', Validators.required],
@@ -34,9 +35,19 @@ export class AppointmentComponent {
             time: [moment().format(), Validators.required],
             reminder: [1, Validators.required]
         });
+
+        // check if we are editing
+        this.appointment = this.navParams.get('appointment');
+        if (this.appointment) {
+            this.editAppointment();
+        }
     }
 
     async handleAppointmentForm() {
+        if (this.appointment) {
+            // coming from edit so delete old one
+            await this.appointmentService.deleteAppointment(this.appointment);
+        }
 
         this.appointment = this.appointmentForm.getRawValue();
         // generate unique ids
@@ -47,6 +58,18 @@ export class AppointmentComponent {
         // save
         await this.appointmentService.createAppointment(this.appointment);
         this.dismiss();
+    }
+
+    editAppointment() {
+        this.appointmentForm.patchValue({
+            title: this.appointment.title,
+            doctor: this.appointment.doctor,
+            address: this.appointment.address,
+            note: this.appointment.note,
+            date: this.appointment.date,
+            time: this.appointment.time,
+            reminder: this.appointment.reminder
+        });
     }
 
     dismiss() {

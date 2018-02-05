@@ -38,7 +38,10 @@ export class AppointmentService {
     }
 
     async deleteAppointment(appointment: Appointment) {
-        // delete reminder and appointment
+        // delete reminder and appointment from notifications
+        this.notificationsService.deleteNotification(appointment.reminder_id);
+        this.notificationsService.deleteNotification(appointment.appointment_id);
 
+        await this.table.delete(appointment.id);
     }
 }
