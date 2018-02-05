@@ -35,10 +35,9 @@ export class MyApp {
       { title: 'Reminders', component: RemindersPage },
     ];
 
-    this.isProfileCreated();
   }
 
-  isProfileCreated() {
+  ngOnInit() {
     this.profileService.getFirstProfile().then(profile => {
       if (profile) {
         this.rootPage = ProfileInfoPage;
@@ -47,7 +46,8 @@ export class MyApp {
         this.rootPage = ProfilePage;
       }
     });
-  }
+    }
+  
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {
