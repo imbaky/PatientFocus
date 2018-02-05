@@ -31,7 +31,7 @@ export class AppointmentComponent {
             address: ['', Validators.required],
             note: [''], // Optional
             date: [moment().format('YYYY-MM-DD'), Validators.required],
-            time: [moment().format('HH:mm:ss'), Validators.required],
+            time: [moment().format(), Validators.required],
             reminder: [1, Validators.required]
         });
     }

@@ -14,7 +14,7 @@ export class RemindersService {
         private reminderService: ReminderService,
         private appointmentService: AppointmentService
     ) {
-
+        this.allReminders = [];
     }
 
     /*
