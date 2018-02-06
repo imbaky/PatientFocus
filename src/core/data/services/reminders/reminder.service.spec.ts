@@ -1,19 +1,19 @@
 import { async, TestBed } from '@angular/core/testing';
 import { LocalNotifications, ILocalNotification } from '@ionic-native/local-notifications';
 
-import { ReminderService } from './reminder.service';
-import { ReminderType } from '../../enum/reminder-method-type';
-import { DexieService } from '../dexie/dexie.service';
-import { ProfileService } from '../profile/profile.service';
-import { DirectoryService } from '../directory/directory.service';
-import { ItemService } from '../item/item.service';
-import { FileService } from '../file/file.service';
+import { ReminderService } from '@services/reminders/reminder.service';
+import { ReminderType } from '@enum/reminder-method-type';
+import { DexieService } from '@services/dexie/dexie.service';
+import { ProfileService } from '@services/profile/profile.service';
+import { DirectoryService } from '@services/directory/directory.service';
+import { ItemService } from '@services/item/item.service';
+import { FileService } from '@services/file/file.service';
 
 import Dexie from 'dexie';
-import { SCHEMA } from '../dexie/database';
-import { NotificationsService } from '../notifications/notifications.service';
+import { SCHEMA } from '@services/dexie/database';
+import { NotificationsService } from '@services/notifications/notifications.service';
 import * as moment from 'moment';
-import {Reminder} from './reminders.interface';
+import {Reminder} from '@services/reminders/reminders.interface';
 
 class DATABASE extends Dexie {
     constructor() {

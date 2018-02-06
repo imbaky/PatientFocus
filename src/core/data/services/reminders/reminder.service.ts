@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ILocalNotification } from '@ionic-native/local-notifications';
 
-import { DexieService } from '../dexie/dexie.service';
+import { DexieService } from '@services/dexie/dexie.service';
 import Dexie from 'dexie';
 import * as moment from 'moment';
 
 
-import { RemindersService } from './reminders.service';
-import { Reminders, Reminder } from './reminders.interface';
-import { NotificationsService } from '../notifications/notifications.service';
-import { ProfileService } from '../profile/profile.service';
+import { RemindersService } from '@services/reminders/reminders.service';
+import { Reminders, Reminder } from '@services/reminders/reminders.interface';
+import { NotificationsService } from '@services/notifications/notifications.service';
+import { ProfileService } from '@services/profile/profile.service';
 
 @Injectable()
 export class ReminderService {
