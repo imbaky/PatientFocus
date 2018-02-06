@@ -4,9 +4,9 @@ import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { NavParams } from 'ionic-angular';
 import * as moment from 'moment';
 
-import { Appointment } from '../../../core/data/services/reminders/reminders.interface';
-import { AppointmentService } from '../../../core/data/services/reminders/appointment.service';
-import { ReminderType } from '../../../core/data/enum/reminder-method-type';
+import { Appointment } from '@services/reminders/reminders.interface';
+import { AppointmentService } from '@services/reminders/appointment.service';
+import { ReminderType } from '@enum/reminder-method-type';
 
 @Component({
     selector: 'appointment-component',

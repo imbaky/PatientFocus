@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { Reminders, Reminder, Appointment } from './reminders.interface';
 import { ReminderType } from '@enum/reminder-method-type';
-import { ReminderService } from './reminder.service';
-import { AppointmentService } from './appointment.service';
+import { ReminderService } from '@services/reminders/reminder.service';
+import { AppointmentService } from '@services/reminders/appointment.service';
 
 @Injectable()
 export class RemindersService {

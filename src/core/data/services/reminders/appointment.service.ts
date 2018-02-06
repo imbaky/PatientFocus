@@ -2,15 +2,13 @@ import { Injectable } from '@angular/core';
 import { ILocalNotification } from '@ionic-native/local-notifications';
 import * as moment from 'moment';
 
-import { DexieService } from '../dexie/dexie.service';
+import { DexieService } from '@services/dexie/dexie.service';
 import Dexie from 'dexie';
 
-import { RemindersService } from './reminders.service';
-import { Appointment } from './reminders.interface';
-import { NotificationsService } from '../notifications/notifications.service';
-import { ProfileService } from '../profile/profile.service';
-import { notDeepEqual } from 'assert';
-import { not } from '@angular/compiler/src/output/output_ast';
+import { RemindersService } from '@services/reminders/reminders.service';
+import { Appointment } from '@services/reminders/reminders.interface';
+import { NotificationsService } from '@services/notifications/notifications.service';
+import { ProfileService } from '@services/profile/profile.service';
 
 @Injectable()
 export class AppointmentService {

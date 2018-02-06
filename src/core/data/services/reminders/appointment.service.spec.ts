@@ -1,18 +1,18 @@
 import { async, TestBed } from '@angular/core/testing';
 import { LocalNotifications, ILocalNotification } from '@ionic-native/local-notifications';
 
-import { AppointmentService } from './appointment.service';
-import { ReminderType } from '../../enum/reminder-method-type';
-import { DexieService } from '../dexie/dexie.service';
-import { ProfileService } from '../profile/profile.service';
-import { DirectoryService } from '../directory/directory.service';
-import { ItemService } from '../item/item.service';
-import { FileService } from '../file/file.service';
+import { AppointmentService } from '@services/reminders/appointment.service';
+import { ReminderType } from '@enum/reminder-method-type';
+import { DexieService } from '@services/dexie/dexie.service';
+import { ProfileService } from '@services/profile/profile.service';
+import { DirectoryService } from '@services/directory/directory.service';
+import { ItemService } from '@services/item/item.service';
+import { FileService } from '@services/file/file.service';
 
 import Dexie from 'dexie';
-import { SCHEMA } from '../dexie/database';
-import { Appointment } from './reminders.interface';
-import { NotificationsService } from '../notifications/notifications.service';
+import { SCHEMA } from '@services/dexie/database';
+import { Appointment } from '@services/reminders/reminders.interface';
+import { NotificationsService } from '@services/notifications/notifications.service';
 import * as moment from 'moment';
 
 class DATABASE extends Dexie {
@@ -128,7 +128,7 @@ describe('AppointmentService TestBed', () => {
         expect(appointments[0].appointment_id).toEqual(30);
     });
 
-    it('Create and then delete a appointment.', async () => {
+    it('Given a created appointment it can be deleted.', async () => {
         const appointment: Appointment = {
             appointment_id: 21,
             fk_profile_id: 1,
