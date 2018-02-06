@@ -11,7 +11,7 @@ import { FileService } from '../file/file.service';
 
 import Dexie from 'dexie';
 import { SCHEMA } from '../dexie/database';
-import { Appointment } from "./reminders.interface";
+import { Appointment } from './reminders.interface';
 import { NotificationsService } from '../notifications/notifications.service';
 import * as moment from 'moment';
 
@@ -25,8 +25,8 @@ class DATABASE extends Dexie {
             this.table('profile').add({
                 id: 1,
                 directory: 1,
-                name: "name",
-                password: "password"
+                name: 'name',
+                password: 'password'
             });
             this.table('appointment').bulkAdd([
                 {
@@ -74,7 +74,7 @@ class DATABASE extends Dexie {
             ]);
         });
     }
-};
+}
 
 const testBedSetup = {
     providers: [
@@ -101,7 +101,7 @@ describe('AppointmentService TestBed', () => {
 
     beforeEach( async() => {
         mockDatabase = new DATABASE();
-        let bed = TestBed.configureTestingModule(testBedSetup);
+        const bed = TestBed.configureTestingModule(testBedSetup);
         TestBed.overrideProvider(DexieService, {useValue: mockDatabase});
         dexieService = bed.get(DexieService);
         profileService = bed.get(ProfileService);
@@ -129,8 +129,7 @@ describe('AppointmentService TestBed', () => {
     });
 
     it('Create and then delete a appointment.', async () => {
-        let appointment : Appointment=
-        {
+        const appointment: Appointment = {
             appointment_id: 21,
             fk_profile_id: 1,
             reminder_type: ReminderType.Appointment,
@@ -143,7 +142,7 @@ describe('AppointmentService TestBed', () => {
             reminder: 2,
             reminder_id: 221
         };
-        let newAppointment = await appointmentService.createAppointment(appointment);
+        const newAppointment = await appointmentService.createAppointment(appointment);
         let appointments = await appointmentService.getAppointments(1);
         expect(appointments.length).toEqual(3);
 
