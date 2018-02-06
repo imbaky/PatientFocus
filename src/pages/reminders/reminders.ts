@@ -24,6 +24,7 @@ export class RemindersPage {
         private remindersService: RemindersService,
         private profileService: ProfileService
     ) {
+        this.reminders = [];
         (
             async() => {
                 // TODO: get current profile not just first one
@@ -59,7 +60,7 @@ export class RemindersPage {
             buttons: [
               {
                 text: 'Medication',
-                icon: 'md-bookmarks',
+                icon: 'md-notifications',
                 handler: this.handleReminderType.bind(this, ReminderType.Medication)
               },
               {
