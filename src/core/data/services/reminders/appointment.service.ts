@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ILocalNotification } from '@ionic-native/local-notifications';
+import * as moment from 'moment';
 
 import { DexieService } from '../dexie/dexie.service';
 import Dexie from 'dexie';
@@ -8,6 +10,7 @@ import { Appointment } from './reminders.interface';
 import { NotificationsService } from '../notifications/notifications.service';
 import { ProfileService } from '../profile/profile.service';
 import { notDeepEqual } from 'assert';
+import { not } from '@angular/compiler/src/output/output_ast';
 
 @Injectable()
 export class AppointmentService {
@@ -43,5 +46,44 @@ export class AppointmentService {
         this.notificationsService.deleteNotification(appointment.appointment_id);
 
         await this.table.delete(appointment.id);
+    }
+
+    /*
+     * Need to create two notifications:
+     * 1. to remind X number of days before
+     * 2. the actual appointment
+     */
+    mapToNotification(appointment: Appointment) {
+        let note = {};
+        const notifications = new Array<ILocalNotification>();
+        // prepare
+        const triggerDate = moment(appointment.date);
+        const triggerTime = moment(appointment.time);
+        triggerDate.set({
+            'hour': triggerTime.get('hour'),
+            'minute': triggerTime.get('minute')
+        });
+        const reminderDate = moment(triggerDate).subtract(appointment.reminder, 'days');
+        // reminder first
+        note = {
+            id: appointment.reminder_id,
+            title: appointment.title,
+            text: 'Appointment in ' + appointment.reminder + ' day(s)',
+            trigger: { at: reminderDate.toDate() }
+        };
+        notifications.push(note);
+        note = {};
+        // the appointment
+        note = {
+            id: appointment.appointment_id,
+            title: appointment.title,
+            text: appointment.doctor + ' ' + appointment.address + ' ' + appointment.note,
+            trigger: { at: triggerDate.toDate() }
+        };
+        notifications.push(note);
+        // console.log(notifications);
+        // send to notification service
+        this.notificationsService.addNotifications(notifications);
+        return notifications;
     }
 }
