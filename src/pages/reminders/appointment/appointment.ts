@@ -30,10 +30,10 @@ export class AppointmentComponent {
             title: ['', Validators.required],
             doctor: ['', Validators.required],
             address: ['', Validators.required],
-            note: [''], // Optional
+            note: ['', Validators.maxLength(50)], // Optional
             date: [moment().format('YYYY-MM-DD'), Validators.required],
             time: [moment().format(), Validators.required],
-            reminder: [1, Validators.required]
+            reminder: [1, [Validators.required, Validators.min(1), Validators.max(5), Validators.pattern('[0-9]+')]]
         });
 
         // check if we are editing

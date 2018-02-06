@@ -31,13 +31,14 @@
         </ion-item>
         <ion-item *ngIf="reminder.reminder_type === reminderType.Appointment">
           <ion-avatar item-start>
-            <ion-icon name="notifications"></ion-icon>
+            <ion-icon name="calendar"></ion-icon>
           </ion-avatar>
           <h2 ion-text color="danger">{{ reminder.title }}</h2>
           <h3>{{ reminder.doctor }}</h3>
           <h3>{{ reminder.address }}</h3>
           <h4>{{ reminder.date | date: 'MMM dd, yyyy' }} {{ reminder.time | date: 'hh:mm a' }}</h4>
           <p text-wrap>{{ reminder.note }}</p>
+          <p text-wrap>Reminder {{ reminder.reminder }} day(s) before.</p>
         </ion-item>
         <ion-row>
           <ion-col col-3>
@@ -63,7 +64,7 @@
       </ion-card>
      </ng-container>
   </ion-list>
-  <div *ngIf="!reminders" padding-top="50" text-center>
+  <div *ngIf="reminders.length == 0" padding-top="50" text-center>
     Start adding your first reminder!
   </div>
 </ion-content>
