@@ -1,4 +1,5 @@
 export enum UploadType {
-    ImportFile = 'import-file',
-    TakePicture = 'take-picture'
-  }
+  IMPORT_FILE = 'import-file',
+  TAKE_PICTURE = 'take-picture',
+  EDIT_DOCUMENT = 'edit-document'
+}

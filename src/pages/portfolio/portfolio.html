@@ -39,39 +39,53 @@
           </ion-select>
         </ion-item>
         <ion-item>
-            <ion-label stacked>Date from</ion-label>
-            <ion-datetime displayFormat="YYYY-MM-DD" [max]="dateMaxDate" [(ngModel)]="dateFromTerm"></ion-datetime>
+          <ion-label stacked>Date from</ion-label>
+          <ion-datetime displayFormat="YYYY-MM-DD" [max]="dateMaxDate" [(ngModel)]="dateFromTerm"></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label stacked>Date to</ion-label>
-          <ion-datetime displayFormat="YYYY-MM-DD" [max]="dateMaxDate"  [(ngModel)]="dateToTerm"></ion-datetime>
+          <ion-datetime displayFormat="YYYY-MM-DD" [max]="dateMaxDate" [(ngModel)]="dateToTerm"></ion-datetime>
         </ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
 
   <ion-toolbar no-border-top #filterMenu color="primary">
-      <ion-buttons start>
-          <button ion-button icon-only menuToggle="filterMenu" color="white">
-              <ion-icon name="md-funnel"></ion-icon>
-          </button>
-        </ion-buttons>
-        <ion-searchbar [(ngModel)]="searchTerm" placeholder="Document Name" left></ion-searchbar>
-        <ion-buttons start>
-          <button ion-button icon-only color="white" [disabled]="hasSelected()" (tap)="emailDocuments()">
-              <ion-icon name="md-share" medium right></ion-icon>
-          </button>
-        </ion-buttons>
+    <ion-buttons start>
+      <button ion-button icon-only menuToggle="filterMenu" color="white">
+        <ion-icon name="md-funnel"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-searchbar [(ngModel)]="searchTerm" placeholder="Document Name" left></ion-searchbar>
+    <ion-buttons start>
+      <button ion-button icon-only color="white" [disabled]="hasSelected()" (tap)="emailDocuments()">
+        <ion-icon name="md-share" medium right></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-toolbar>
 
   <ion-list>
     <ng-container *ngFor="let item of (directory$ | async)?.items| fileFilterByName:searchTerm |
       fileFilterByDocType:docTerm | fileFilterByFormatType:fileTerm | fileFilterByDate:dateFromTerm:dateToTerm; let i=index">
-        <ion-item  *ngIf="item.page === PageType.Portfolio">
-            <text-avatar [selected]="checkedItems[i]" (update)="updateSelected($event, i)" [text]="item?.file.format" item-start class="item item-avatar"></text-avatar>
-            <h3 (tap)="viewDoc($event, item)" tappable>{{ item?.document_type}}<span (tap)="viewDoc($event, item)" tappable float-right>{{ item?.chosen_date | date:'MMMM d, y'}}</span></h3>
-            <h2 (tap)="viewDoc($event, item)" tappable>{{ item?.title}}</h2>
+      <ion-item-sliding>
+        <ion-item *ngIf="item.page === PageType.Portfolio">
+          <text-avatar [selected]="checkedItems[i]" (update)="updateSelected($event, i)" [text]="item?.file.format" item-start class="item item-avatar"></text-avatar>
+          <h3 (tap)="viewDoc($event, item)" tappable>{{ item?.document_type }}
+            <span (tap)="viewDoc($event, item)" tappable float-right>{{ item?.chosen_date | date:'MMMM d, y' }}</span>
+          </h3>
+          <h2 (tap)="viewDoc($event, item)" tappable>{{ item?.title }}</h2>
         </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="primary" (tap)="editDocument($event, item)">
+            <ion-icon name="edit"></ion-icon>
+            Edit
+          </button>
+          <button ion-button color="danger" (tap)="confirmDelete($event, item)">
+            <ion-icon name="delete"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
     </ng-container>
   </ion-list>
 
@@ -82,9 +96,9 @@
 </ion-content>
 
 <ng-container *ngIf="directory$ | async as directory">
-        <ion-fab right bottom>
-            <button ion-fab color="primary" id="addButton" (click)="importNewDocument(directory)">
-                <ion-icon name="add"></ion-icon>
-            </button>
-        </ion-fab>
+  <ion-fab right bottom>
+    <button ion-fab color="primary" id="addButton" (click)="importNewDocument(directory)">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ng-container>
