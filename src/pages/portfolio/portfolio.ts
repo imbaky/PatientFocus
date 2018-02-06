@@ -3,11 +3,20 @@ import { DatePipe } from '@angular/common';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { FileOpener } from '@ionic-native/file-opener';
 import { EmailComposer } from '@ionic-native/email-composer';
-import { ActionSheetController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {
+  ActionSheetController,
+  ModalController,
+  NavController,
+  NavParams,
+  AlertController
+} from 'ionic-angular';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
-import { Directory, DirectoryService } from '@services/directory/directory.service';
+import {
+  Directory,
+  DirectoryService
+} from '@services/directory/directory.service';
 import { ItemType } from '@enum/item-type.enum';
 import { Item } from '@services/item/item.service';
 import { ImportDocumentPage } from './import-document/import-document';
@@ -16,7 +25,6 @@ import { PortfolioType, FileFormatType } from '@enum/file-type.enum';
 import { UploadType } from '@enum/upload-type.enum';
 import { ProfileService } from '@services/profile/profile.service';
 import { PageType } from '@enum/page-type.enum';
-
 
 @Component({
   selector: 'page-portfolio',
@@ -50,24 +58,24 @@ export class PortfolioPage {
     private fileOpener: FileOpener,
     private profileService: ProfileService,
     private emailComposer: EmailComposer,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    public alertCtrl: AlertController
   ) {
     // set date to today by default
     // otherwise format is {year: 2017, month: 0, day: 1}
     // the webpage for moment.js has more information
-    this.dateFromTerm = this.getDate({year: 2005, month: 0, day: 1}); // set start date to be long ago to include all files by default
+    this.dateFromTerm = this.getDate({ year: 2005, month: 0, day: 1 }); // set start date to be long ago to include all files by default
     this.dateToTerm = this.getDate({});
     this.dateMaxDate = this.getDate({});
     this.currentItem = this.navParams.get('item');
     // TODO: get current profile directory id, currently set to 1.
     const id = !this.currentItem ? 1 : this.currentItem.file_id;
     this.directory$ = this.directoryService.getDirectoryById(id);
-    (
-      async () => {
-        const documents = await this.directory$;
-        this.allItems = documents.items;
-        this.checkedItems = new Array(this.allItems.length);
-      })();
+    (async () => {
+      const documents = await this.directory$;
+      this.allItems = documents.items;
+      this.checkedItems = new Array(this.allItems.length);
+    })();
   }
 
   getDate(chosen_date) {
@@ -81,7 +89,10 @@ export class PortfolioPage {
   }
 
   handleFileImport(directory: Directory, method: string) {
-    const importNewDocumentModal = this.modalCtrl.create(ImportDocumentPage, {directory, method});
+    const importNewDocumentModal = this.modalCtrl.create(ImportDocumentPage, {
+      directory,
+      method
+    });
     importNewDocumentModal.onDidDismiss(async () => {
       this.allItems = (await this.directory$).items;
     });
@@ -95,12 +106,20 @@ export class PortfolioPage {
         {
           text: 'Take Picture',
           icon: 'md-camera',
-          handler: this.handleFileImport.bind(this, directory, UploadType.TakePicture)
+          handler: this.handleFileImport.bind(
+            this,
+            directory,
+            UploadType.TAKE_PICTURE
+          )
         },
         {
           text: 'Import File',
           icon: 'md-document',
-          handler: this.handleFileImport.bind(this, directory, UploadType.ImportFile)
+          handler: this.handleFileImport.bind(
+            this,
+            directory,
+            UploadType.IMPORT_FILE
+          )
         },
         {
           text: 'Cancel',
@@ -137,33 +156,72 @@ export class PortfolioPage {
         } catch (error) {
           console.log('Error openening file', error);
         }
-      } else if (file.format === FileFormatType.PNG || file.format === FileFormatType.JPG) {
+      } else if (
+        file.format === FileFormatType.PNG ||
+        file.format === FileFormatType.JPG
+      ) {
         this.photoViewer.show(file.path);
       }
     }
   }
 
   emailDocuments() {
-      const attachments = [];
-      this.checkedItems.forEach((item, i) => {
-        if (this.checkedItems[i]) {
-          attachments.push((this.allItems[i].file as File).path);
-        }
-      });
-      const email = {
-        to: '',
-         cc: '',
-         bcc: '',
-         attachments: attachments,
-         subject : '',
-         body: '',
-         isHtml: true
-     };
-     this.emailComposer.open(email);
+    const attachments = [];
+    this.checkedItems.forEach((item, i) => {
+      if (this.checkedItems[i]) {
+        attachments.push((this.allItems[i].file as File).path);
+      }
+    });
+    const email = {
+      to: '',
+      cc: '',
+      bcc: '',
+      attachments: attachments,
+      subject: '',
+      body: '',
+      isHtml: true
+    };
+    this.emailComposer.open(email);
   }
 
-  updateSelected(event, i) {
-    this.checkedItems[i] = event.selected;
+  updateSelected(event, index) {
+    this.checkedItems[index] = event.selected;
     this.changeDetector.detectChanges();
+  }
+
+  async editDocument(event: any, item: Item) {
+    const directory = await this.directory$;
+    const documentFormModal = this.modalCtrl.create(ImportDocumentPage, {
+      directory: directory,
+      method: UploadType.EDIT_DOCUMENT,
+      item: item
+    });
+    documentFormModal.onDidDismiss(async () => {
+      this.allItems = (await this.directory$).items;
+    });
+    documentFormModal.present();
+  }
+
+  confirmDelete(event: any, item: Item) {
+    console.log('delete');
+    console.log(event);
+    console.log(item);
+    let confirmDeleteAlrt = this.alertCtrl.create({
+      title: `Confirm Delete`,
+      message: `Are you sure you want to delete ${item.title}?`,
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {}
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            console.log('Agree clicked');
+          }
+        }
+      ]
+    });
+    confirmDeleteAlrt.present();
   }
 }

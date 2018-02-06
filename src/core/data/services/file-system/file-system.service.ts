@@ -36,6 +36,11 @@ export class FileSystemService {
       return await this.directoryService.addFileToDirectory(entry, creationDate, directory, newDocumentName, specificValues);
   }
 
+  /**
+   * Creates a name for the file while handling existing names in the directory
+   * @param originalFileName name of the file
+   * @param directory user profile directory
+   */
   async createFileName(originalFileName: string, directory: Directory): Promise<string> {
     let newFileName: string = originalFileName;
     const extension = newFileName.substring(newFileName.lastIndexOf('.'));

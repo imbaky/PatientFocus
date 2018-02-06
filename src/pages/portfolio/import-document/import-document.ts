@@ -4,14 +4,15 @@ import { NavParams, ViewController, ToastController } from 'ionic-angular';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { File as NativeFile } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import * as moment from 'moment';
+
 import { FileSystemService } from '@services/file-system/file-system.service';
 import { File } from '@services/file/file.service';
-import { ItemService } from '@services/item/item.service';
+import { ItemService, Item } from '@services/item/item.service';
 import { Directory } from '@services/directory/directory.service';
 import { PortfolioType } from '@enum/file-type.enum';
-import { Camera, CameraOptions } from '@ionic-native/camera';
 import { UploadType } from '@enum/upload-type.enum';
-import * as moment from 'moment';
 import { ItemType } from '@enum/item-type.enum';
 import { PageType } from '@enum/page-type.enum';
 
@@ -30,6 +31,7 @@ export class ImportDocumentPage {
   directory: Directory;
   importDocumentForm: FormGroup;
   importMethod: string;
+  item: Item;
   constructor(
     public viewCtrl: ViewController,
     private toastCtrl: ToastController,
@@ -52,14 +54,20 @@ export class ImportDocumentPage {
       { name: 'Diagnosis Report', value: PortfolioType.DIAGNOSIS },
       { name: 'Other', value: PortfolioType.OTHER }
     ];
+
+    this.directory = this.params.get('directory');
+    this.importMethod = this.params.get('method');
+    this.item = this.params.get('item');
+    console.log(this.importMethod);
+    console.log(this.directory);
+    console.log(this.item);
+
     this.importDocumentForm = this.formBuilder.group({
       name: ['Medical Document', Validators.required],
       date: [moment().format('YYYY-MM-DD'), Validators.required],
       type: [PortfolioType.LAB_TEST, Validators.required],
       fullPath: ['', Validators.required]
     });
-    this.directory = this.params.get('directory');
-    this.importMethod = this.params.get('method');
     this.selectFile();
   }
 
@@ -75,7 +83,7 @@ export class ImportDocumentPage {
   }
 
   async selectFile() {
-    if (this.importMethod === UploadType.ImportFile) {
+    if (this.importMethod === UploadType.IMPORT_FILE) {
       const uri = await this.fileChooser.open();
       window.resolveLocalFileSystemURL(uri, fileEntry => {
         fileEntry.getMetadata(async metadata => {
@@ -84,7 +92,7 @@ export class ImportDocumentPage {
           );
         });
       });
-    } else if (this.importMethod === UploadType.TakePicture) {
+    } else if (this.importMethod === UploadType.TAKE_PICTURE) {
       try {
         this.importDocumentForm.controls['fullPath'].setValue(
           await this.camera.getPicture(this.OPTIONS)
@@ -99,6 +107,13 @@ export class ImportDocumentPage {
           })
           .present();
       }
+    } else if (this.importMethod === UploadType.EDIT_DOCUMENT) {
+      this.importDocumentForm.patchValue({
+        name: this.item.title,
+        date: this.item.chosen_date,
+        type: this.item.document_type,
+        fullPath: this.item.file.path
+      });
     }
   }
 
