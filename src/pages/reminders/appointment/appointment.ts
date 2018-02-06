@@ -57,6 +57,7 @@ export class AppointmentComponent {
         this.appointment.reminder_type = ReminderType.Appointment;
         // save
         await this.appointmentService.createAppointment(this.appointment);
+        this.appointmentService.mapToNotification(this.appointment);
         this.dismiss();
     }
 
