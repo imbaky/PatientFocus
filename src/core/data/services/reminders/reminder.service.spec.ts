@@ -129,7 +129,7 @@ describe('RemindersService TestBed', () => {
     let notificationsService: NotificationsService;
     let mockDatabase = new DATABASE();
     const today = moment('2018-01-24').toDate();
-    jasmine.clock().mockDate(today); //set Todays Date
+    jasmine.clock().mockDate(today); // set Todays Date
 
     beforeEach( async() => {
         mockDatabase = new DATABASE();
