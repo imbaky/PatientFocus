@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -10,6 +10,7 @@ import { DiaryPage } from '../pages/diary/diary';
 import { ProfileService } from '../core/data/services/profile/profile.service';
 import { PortfolioPage } from '../pages/portfolio/portfolio';
 import { ProfileInfoPage } from '../pages/profile-info/profile-info';
+import { ItemService } from '../core/data/services/item/item.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,13 +20,16 @@ export class MyApp {
 
   rootPage: any = ProfilePage;
   name: string;
+  profileImg: string;
   pages: Array<{ title: string; component: any }>;
 
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private itemService: ItemService,
+    private ref: ChangeDetectorRef
   ) {
     this.pages = [
       { title: 'Profile info', component: ProfileInfoPage },
@@ -36,6 +40,11 @@ export class MyApp {
     ];
 
     this.isProfileCreated();
+    this.profileService.profile.subscribe(name => this.name = name);
+    this.profileService.profileImg.subscribe(img => {
+      this.profileImg = img;
+      this.ref.detectChanges();
+    });
   }
 
   async isProfileCreated() {

@@ -9,6 +9,7 @@ import { ItemService } from "../item/item.service";
 import { FileService } from "../file/file.service";
 import { PageType } from "../../enum/page-type.enum";
 import { PortfolioType, FileFormatType } from "../../enum/file-type.enum";
+import { Observable } from "rxjs";
 
 class DATABASE extends Dexie {
   constructor() {
@@ -142,6 +143,9 @@ describe("Profile Service", () => {
       password: "Password"
     });
     let profile = await profileService.getCurrentProfile();
+    profileService.profileObserver =  new Object({
+      next(){}
+    });
     await profileService.editProfile("Tim", "Male", "January 1 1995");
     profile = await profileService.getCurrentProfile();
     expect(profile.gender).toEqual("Male");

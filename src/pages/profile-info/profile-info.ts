@@ -49,8 +49,10 @@ export class ProfileInfoPage {
             this.directoryService.getDirectoryById(this.profile.id).then(directory => {
                 this.directory = directory;
                 this.itemService.getProfileImage(directory.id).then(img => {
-                    if (img)
+                    if (img) {
                         this.profileImg = img.file.path;
+                        this.profileService.cacheProfileImg(img.file.path);
+                    }
                 })
             })
         });
@@ -93,16 +95,18 @@ export class ProfileInfoPage {
         window.resolveLocalFileSystemURL(uri, (fileEntry) => {
            fileEntry.getMetadata(async(metadata) => {
                let imgSrc = await this.filePath.resolveNativePath(uri);
-               console.log(imgSrc); // todo remove
                if(!this.profileImg) {
+                   await this.itemService.getProfileImage(this.directory.id);
                    let image = await this.fileSystemService.addNewFileToDirectory(imgSrc, '', 'profile_image', this.directory, {profile_img: true});
                    this.profileImg = image.file.path;
+                   this.profileService.cacheProfileImg(this.profileImg);
                    this.ref.detectChanges();
                } else {
                    let image = await this.itemService.getProfileImage(this.directory.id);
                    image.file.path = imgSrc;
                    await this.itemService.addItemToDB(image);
                    this.profileImg = imgSrc;
+                   this.profileService.cacheProfileImg(imgSrc);
                    this.ref.detectChanges();
                }
            });

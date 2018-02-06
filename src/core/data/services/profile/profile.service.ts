@@ -4,6 +4,7 @@ import { DexieService } from '../dexie/dexie.service';
 import Dexie from 'dexie';
 import { DirectoryService } from '../directory/directory.service';
 import { Item, ItemService } from '../item/item.service';
+import { Observable } from 'rxjs';
 
 
 export interface UserProfile {
@@ -20,13 +21,40 @@ export interface UserProfile {
 @Injectable()
 export class ProfileService {
   table: Dexie.Table<UserProfile, number>;
+  profileObserver: any;
+  profile: any;
+  profileImgObserver: any;
+  profileImg: any;
 
   constructor(private dexie: DexieService,
               private directoryService: DirectoryService,
               private itemService: ItemService) {
     this.table = this.dexie.table('profile');
+
+    this.profileObserver = null;
+    this.profileImgObserver = null;
+
+    this.profile = Observable.create(observer => {
+      this.profileObserver = observer;
+    });
+    this.profileImg = Observable.create(observer => {
+      this.profileImgObserver = observer;
+    });
   }
 
+  /**
+   * Notifies app component that profile img has changed
+   * @param path of img
+   */
+  cacheProfileImg(path) {
+    this.profileImgObserver.next(path);
+  }
+
+  /**
+   * Retrieve a profile by id
+   * @param id
+   * @returns {Promise<undefined|UserProfile>}
+   */
   async getProfileById(id: number): Promise<UserProfile> {
     return await this.table.get(id);
   }
@@ -51,6 +79,8 @@ export class ProfileService {
     newProfile.directory = directoryId;
     return await this.table.put(newProfile);
   }
+
+
 
   /**
    * Retrieve the current profile in the database
@@ -79,7 +109,7 @@ export class ProfileService {
   }
 
   /**
-   * Edits an existing profile
+   * Edits an existing profile and notifies the app component of changes
    * @param name of user profile
    * @param gender of user profile
    * @param dob date of birth
@@ -90,6 +120,7 @@ export class ProfileService {
     profile.name = name;
     profile.gender = gender;
     profile.dob = dob;
+    this.profileObserver.next(name);
     await this.table.put(profile);
   }
 
