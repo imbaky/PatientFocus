@@ -8,7 +8,8 @@ import {
   ModalController,
   NavController,
   NavParams,
-  AlertController
+  AlertController,
+  ToastController
 } from 'ionic-angular';
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -24,6 +25,7 @@ import { File } from '@services/file/file.service';
 import { PortfolioType, FileFormatType } from '@enum/file-type.enum';
 import { UploadType } from '@enum/upload-type.enum';
 import { ProfileService } from '@services/profile/profile.service';
+import { FileSystemService } from '@services/file-system/file-system.service';
 import { PageType } from '@enum/page-type.enum';
 
 @Component({
@@ -59,7 +61,9 @@ export class PortfolioPage {
     private profileService: ProfileService,
     private emailComposer: EmailComposer,
     private changeDetector: ChangeDetectorRef,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public fileSystemService: FileSystemService,
+    private toastCtrl: ToastController,
   ) {
     // set date to today by default
     // otherwise format is {year: 2017, month: 0, day: 1}
@@ -203,10 +207,8 @@ export class PortfolioPage {
   }
 
   confirmDelete(event: any, item: Item) {
-    console.log('delete');
-    console.log(event);
-    console.log(item);
-    let confirmDeleteAlrt = this.alertCtrl.create({
+    console.log('delete modal');
+    const confirmDeleteAlrt = this.alertCtrl.create({
       title: `Confirm Delete`,
       message: `Are you sure you want to delete ${item.title}?`,
       buttons: [
@@ -216,12 +218,23 @@ export class PortfolioPage {
         },
         {
           text: 'Yes',
-          handler: () => {
-            console.log('Agree clicked');
-          }
+          handler: this.handleFileDeletion.bind(this, item)
         }
       ]
     });
     confirmDeleteAlrt.present();
+  }
+
+  async handleFileDeletion(item: Item) {
+    const directory = await this.directory$;
+    await this.fileSystemService.deleteFileFromDirectory(item, directory);
+    const importToast = this.toastCtrl.create({
+      message: `${
+        item.title
+      } was successfully deleted`,
+      duration: 3000,
+      position: 'bottom'
+    });
+    await importToast.present();
   }
 }

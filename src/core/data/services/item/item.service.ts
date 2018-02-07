@@ -115,4 +115,12 @@ export class ItemService {
     items = newItems; // updates ui that an item has been added
     return items;
   }
+
+  /**
+   * Deletes an existing item based on its key
+   * @param item item to delete
+   */
+  async deleteItem(item: Item) {
+    await this.table.delete(item.id);
+  }
 }
