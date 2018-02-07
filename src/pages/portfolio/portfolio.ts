@@ -194,6 +194,9 @@ export class PortfolioPage {
   }
 
   async editDocument(event: any, item: Item) {
+    if (event) {
+      event.preventDefault();
+    }
     const directory = await this.directory$;
     const documentFormModal = this.modalCtrl.create(ImportDocumentPage, {
       directory: directory,
@@ -207,7 +210,9 @@ export class PortfolioPage {
   }
 
   confirmDelete(event: any, item: Item) {
-    console.log('delete modal');
+    if (event) {
+      event.preventDefault();
+    }
     const confirmDeleteAlrt = this.alertCtrl.create({
       title: `Confirm Delete`,
       message: `Are you sure you want to delete ${item.title}?`,
