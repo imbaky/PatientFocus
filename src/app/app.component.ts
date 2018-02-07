@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -14,7 +14,7 @@ import { ProfileInfoPage } from '@pages/profile-info/profile-info';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp implements OnInit {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = ProfilePage;
@@ -25,7 +25,8 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private events: Events
   ) {
     this.pages = [
       { title: 'Profile info', component: ProfileInfoPage },
@@ -34,6 +35,7 @@ export class MyApp {
       { title: 'Personal Diary', component: DiaryPage },
       { title: 'Reminders', component: RemindersPage },
     ];
+    this.events.subscribe('profile:update', profile => {this.name = profile.name; });
 
   }
 
@@ -41,13 +43,12 @@ export class MyApp {
     this.profileService.getFirstProfile().then(profile => {
       if (profile) {
         this.rootPage = ProfileInfoPage;
-        this.name = profile.name;
       } else {
         this.rootPage = ProfilePage;
       }
     });
     }
-  
+
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { File as NativeFile } from '@ionic-native/file';
-import { DexieService } from '../dexie/dexie.service';
+import { DexieService } from '@services/dexie/dexie.service';
 import Dexie from 'dexie';
-import { SCHEMA } from '../dexie/database';
-import { ProfileService } from './profile.service';
-import { DirectoryService } from '../directory/directory.service';
-import { ItemService } from '../item/item.service';
-import { FileService } from '../file/file.service';
-import { PageType } from '../../enum/page-type.enum';
+import { SCHEMA } from '@services/dexie/database';
+import { ProfileService } from '@services/profile/profile.service';
+import { DirectoryService } from '@services/directory/directory.service';
+import { ItemService } from '@services/item/item.service';
+import { FileService } from '@services/file/file.service';
+import { PageType } from '@enum/page-type.enum';
 import { PortfolioType, FileFormatType } from '../../enum/file-type.enum';
 
 class DATABASE extends Dexie {
