@@ -5,6 +5,7 @@ import { Directory, DirectoryService } from '@services/directory/directory.servi
 import { PortfolioType } from '@enum/file-type.enum';
 import { Item } from '@services/item/item.service';
 import {PageType} from '@enum/page-type.enum';
+import { Direction } from '@ionic-native/camera';
 
 
 declare var window;
@@ -28,12 +29,30 @@ export class FileSystemService {
   async addNewFileToDirectory(fullPath: string, creationDate: string, newDocumentName: string,
                               directory: Directory, specificValues: any): Promise<Item> {
       const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
-      const extension = filename.substring(filename.lastIndexOf('.'));
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
       // TODO file needs to be added to the correct directory
       const newFileName: string = await this.createFileName(filename, directory);
       const entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, newFileName);
       return await this.directoryService.addFileToDirectory(entry, creationDate, directory, newDocumentName, specificValues);
+  }
+
+  async updateFileToDirectory(fullPath: string, creationDate: string, newDocumentName: string, directory: Directory, specificValues: any) {
+    // TODO
+  }
+
+  /**
+   * Deletes file from external data directory and proceeds with file and item deletion in dexie data repository
+   * @param item item to delete
+   * @param directory user profile directory
+   */
+  async deleteFileFromDirectory(item: Item, directory: Directory) {
+    console.log('item to delete', item);
+    const removeResult = await this.file.removeFile(this.file.externalDataDirectory, item.file.file_name);
+    if (removeResult.success) {
+      return await this.directoryService.deleteItem(item, directory);
+    } else {
+      console.log('failed to delete file');
+    }
   }
 
   /**

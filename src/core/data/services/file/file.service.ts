@@ -53,4 +53,8 @@ export class FileService {
     await this.table.put(file, file.id);
   }
 
+  async deleteFile(file: File) {
+    await this.table.delete(file.id);
+  }
+
 }

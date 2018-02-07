@@ -82,39 +82,53 @@ export class ImportDocumentPage {
     this.viewCtrl.dismiss();
   }
 
-  async selectFile() {
-    if (this.importMethod === UploadType.IMPORT_FILE) {
-      const uri = await this.fileChooser.open();
-      window.resolveLocalFileSystemURL(uri, fileEntry => {
-        fileEntry.getMetadata(async metadata => {
-          this.importDocumentForm.controls['fullPath'].setValue(
-            await this.filePath.resolveNativePath(uri)
-          );
-        });
-      });
-    } else if (this.importMethod === UploadType.TAKE_PICTURE) {
-      try {
-        this.importDocumentForm.controls['fullPath'].setValue(
-          await this.camera.getPicture(this.OPTIONS)
-        );
-      } catch (err) {
-        // shows error as a toast
-        const errToast = this.toastCtrl
-          .create({
-            message: `Error: ${err} while taking photo`,
-            duration: 3000,
-            position: 'bottom'
-          })
-          .present();
-      }
-    } else if (this.importMethod === UploadType.EDIT_DOCUMENT) {
-      this.importDocumentForm.patchValue({
-        name: this.item.title,
-        date: this.item.chosen_date,
-        type: this.item.document_type,
-        fullPath: this.item.file.path
-      });
+  async selectFile(event?: any) {
+    if (event) {
+      event.preventDefault();
     }
+    if (this.importMethod === UploadType.IMPORT_FILE) {
+      this.selectFileEdit();
+    } else if (this.importMethod === UploadType.TAKE_PICTURE) {
+      this.takePicture();
+    } else if (this.importMethod === UploadType.EDIT_DOCUMENT) {
+      this.readDocumentInformation();
+    }
+  }
+
+  async takePicture() {
+    try {
+      this.importDocumentForm.controls['fullPath'].setValue(
+        await this.camera.getPicture(this.OPTIONS)
+      );
+    } catch (err) {
+      const errToast = this.toastCtrl
+        .create({
+          message: `Error: ${err} while taking photo`,
+          duration: 3000,
+          position: 'bottom'
+        })
+        .present();
+    }
+  }
+
+  async selectFileEdit() {
+    const uri = await this.fileChooser.open();
+    window.resolveLocalFileSystemURL(uri, fileEntry => {
+      fileEntry.getMetadata(async metadata => {
+        this.importDocumentForm.controls['fullPath'].setValue(
+          await this.filePath.resolveNativePath(uri)
+        );
+      });
+    });
+  }
+
+  readDocumentInformation() {
+    this.importDocumentForm.patchValue({
+      name: this.item.title,
+      date: this.item.chosen_date,
+      type: this.item.document_type,
+      fullPath: this.item.file.path
+    });
   }
 
   async importFile() {
@@ -122,22 +136,33 @@ export class ImportDocumentPage {
       document_type: this.importDocumentForm.controls['type'].value,
       page: PageType.Portfolio
     };
-    const item = await this.fileSystemService.addNewFileToDirectory(
-      this.importDocumentForm.controls['fullPath'].value,
-      this.importDocumentForm.controls['date'].value,
-      this.importDocumentForm.controls['name'].value,
-      this.directory,
-      pageSpecificValues
-    );
 
-    const importToast = this.toastCtrl.create({
-      message: `${
-        this.importDocumentForm.controls['name'].value
-      } was successfully imported`,
-      duration: 3000,
-      position: 'bottom'
-    });
-    await importToast.present();
-    this.viewCtrl.dismiss();
+    if (this.importMethod !== UploadType.EDIT_DOCUMENT) {
+      const item = await this.fileSystemService.addNewFileToDirectory(
+        this.importDocumentForm.controls['fullPath'].value,
+        this.importDocumentForm.controls['date'].value,
+        this.importDocumentForm.controls['name'].value,
+        this.directory,
+        pageSpecificValues
+      );
+
+      const importToast = this.toastCtrl.create({
+        message: `${
+          this.importDocumentForm.controls['name'].value
+        } was successfully imported`,
+        duration: 3000,
+        position: 'bottom'
+      });
+      await importToast.present();
+      this.viewCtrl.dismiss();
+    } else {
+      const result = await this.fileSystemService.updateFileToDirectory(
+        this.importDocumentForm.controls['fullPath'].value,
+        this.importDocumentForm.controls['date'].value,
+        this.importDocumentForm.controls['name'].value,
+        this.directory,
+        pageSpecificValues
+      );
+    }
   }
 }
