@@ -4,6 +4,7 @@ import { DexieService } from '../dexie/dexie.service';
 import Dexie from 'dexie';
 import { DirectoryService } from '../directory/directory.service';
 import {Item, ItemService} from '../item/item.service';
+import { Events } from 'ionic-angular';
 
 
 export interface UserProfile {
@@ -23,7 +24,8 @@ export class ProfileService {
   constructor(
     private dexie: DexieService,
     private directoryService: DirectoryService,
-    private itemService: ItemService
+    private itemService: ItemService,
+    private events: Events
   ) {
     this.table = this.dexie.table('profile');
   }
@@ -58,6 +60,7 @@ export class ProfileService {
      */
     getFirstProfile(): Promise<UserProfile> {
         return this.table.toArray(profile => {
+          this.events.publish('profile:update', profile[0]);
             return profile[0];
         });
     }
