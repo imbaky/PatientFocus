@@ -22,9 +22,9 @@ export class FileSystemService {
    * Adds a file to a directory
    * @param fullPath path of where the original file is located
    * @param creationDate in which the document should be placed
-   * @param type type of medical document
    * @param newDocumentName new name associated to the document
    * @param directory user profile directory
+   * @param specificValues module specific values
    */
   async addNewFileToDirectory(fullPath: string, creationDate: string, newDocumentName: string,
                               directory: Directory, specificValues: any): Promise<Item> {
@@ -33,12 +33,41 @@ export class FileSystemService {
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
       // TODO file needs to be added to the correct directory
       const newFileName: string = await this.createFileName(filename, directory);
-      if (specificValues.copyFile) {
-        entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, newFileName);
-      } else {
-        entry = await this.file.getFile(await this.file.resolveDirectoryUrl(this.file.externalDataDirectory), filename, { create: true })
-      }
+      entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, newFileName);
       return await this.directoryService.addFileToDirectory(entry, creationDate, directory, newDocumentName, specificValues);
+  }
+
+  /**
+   * Edits file and item deletion in dexie data repository and updates file from external data directory
+   * @param fullPath path of where the original file is located
+   * @param creationDate in which the document should be placed
+   * @param newDocumentName new name associated to the document
+   * @param directory user profile directory
+   * @param item item to edit
+   * @param specificValues module specific values
+   */
+  async editFileFromDirectory(fullPath: string, creationDate: string, newDocumentName: string,
+    directory: Directory, item: Item, specificValues: any) {
+      let entry;
+      const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
+      const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
+      const newFileName: string = await this.createFileName(filename, directory);
+      if (fullPath !== item.file.path) {
+        entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, newFileName);
+        const newFile = await this.directoryService.addFileToDirectory(entry, creationDate, directory, newDocumentName, specificValues);
+        const removeResult = await this.deleteFileFromDirectory(item, directory);
+      } else {
+        entry = await this.file.copyFile(this.file.externalDataDirectory, filename, this.file.externalDataDirectory, newFileName);
+        const newFile = await this.directoryService.addFileToDirectory(entry, creationDate, directory, newDocumentName, specificValues);
+        const removeResult = await this.file.removeFile(this.file.externalDataDirectory, filename);
+        if (removeResult.success) {
+          await this.directoryService.deleteItem(item, directory);
+          return await true;
+        } else {
+          console.error('Failed to remove file from external directory');
+          return await false;
+        }
+      }
   }
 
   /**

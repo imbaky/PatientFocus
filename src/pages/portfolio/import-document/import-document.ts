@@ -136,17 +136,29 @@ export class ImportDocumentPage {
   }
 
   async importFile() {
+    const pageSpecificValues = {
+      document_type: this.importDocumentForm.controls['type'].value,
+      page: PageType.Portfolio
+    };
     if (this.importMethod !== UploadType.EDIT_DOCUMENT) {
-      await this.addNewFile(true);
+      const result = await this.fileSystemService.addNewFileToDirectory(
+        this.importDocumentForm.controls['fullPath'].value,
+        this.importDocumentForm.controls['date'].value,
+        this.importDocumentForm.controls['name'].value,
+        this.directory,
+        pageSpecificValues
+      );
     } else {
-      if(this.importDocumentForm.controls['fullPath'].value === this.item.file.path){
-        await this.addNewFile(true);
-      } else {
-        await this.addNewFile(false);
-      }
-      const deleteResult = await this.fileSystemService.deleteFileFromDirectory(
+      const result = await this.fileSystemService.editFileFromDirectory(
+        this.importDocumentForm.controls['fullPath'].value,
+        this.importDocumentForm.controls['date'].value,
+        this.importDocumentForm.controls['name'].value,
+        this.directory,
         this.item,
-        this.directory
+        {
+          document_type: this.importDocumentForm.controls['type'].value,
+          page: PageType.Portfolio,
+        }
       );
     }
     const importToast = this.toastCtrl.create({
