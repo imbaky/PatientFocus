@@ -30,7 +30,7 @@
       <ion-input type="text" readonly="true" formControlName="fullPath">{{selectedFileName}}</ion-input>
     </ion-item>
     <ion-item *ngIf='importMethod != "edit-document"'>
-      <button ion-button outline="true" (click)="selectFile($event)">Select a File</button>
+      <button ion-button outline="true" (click)="selectFileEdit($event)">Select a File</button>
       <button ion-button color="primary" type="submit" [disabled]="!importDocumentForm.valid">Import</button>
     </ion-item>
     <ion-item *ngIf='importMethod == "edit-document"'>
@@ -38,7 +38,7 @@
         <ion-icon name='camera'></ion-icon>
         Camera
       </button>
-      <button ion-button outline icon-start (tap)="selectFileEdit()">
+      <button ion-button outline icon-start (tap)="selectFileEdit($event)">
         <ion-icon name='document'></ion-icon>
         File
       </button>

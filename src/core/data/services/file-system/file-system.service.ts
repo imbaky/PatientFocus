@@ -28,16 +28,17 @@ export class FileSystemService {
    */
   async addNewFileToDirectory(fullPath: string, creationDate: string, newDocumentName: string,
                               directory: Directory, specificValues: any): Promise<Item> {
+      let entry;
       const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
       // TODO file needs to be added to the correct directory
       const newFileName: string = await this.createFileName(filename, directory);
-      const entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, newFileName);
+      if (specificValues.copyFile) {
+        entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, newFileName);
+      } else {
+        entry = await this.file.getFile(await this.file.resolveDirectoryUrl(this.file.externalDataDirectory), filename, { create: true })
+      }
       return await this.directoryService.addFileToDirectory(entry, creationDate, directory, newDocumentName, specificValues);
-  }
-
-  async updateFileToDirectory(fullPath: string, creationDate: string, newDocumentName: string, directory: Directory, specificValues: any) {
-    // TODO
   }
 
   /**
@@ -45,13 +46,14 @@ export class FileSystemService {
    * @param item item to delete
    * @param directory user profile directory
    */
-  async deleteFileFromDirectory(item: Item, directory: Directory) {
-    console.log('item to delete', item);
+  async deleteFileFromDirectory(item: Item, directory: Directory): Promise<boolean> {
     const removeResult = await this.file.removeFile(this.file.externalDataDirectory, item.file.file_name);
     if (removeResult.success) {
-      return await this.directoryService.deleteItem(item, directory);
+      await this.directoryService.deleteItem(item, directory);
+      return await true;
     } else {
-      console.log('failed to delete file');
+      console.error('Failed to remove file from external directory');
+      return await false;
     }
   }
 
