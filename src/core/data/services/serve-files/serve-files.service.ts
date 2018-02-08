@@ -23,7 +23,7 @@ export class ServeFilesService {
         private profile: ProfileService,
         private medical: MedicalInfoService
     ) {
-        this.broadcaster.addEventListener('shareFiles')
+        this.broadcaster.addEventListener('android.intent.action.SEND')
             .subscribe((event) => {
                 console.log(event);
                 this.webextension = UUID.UUID();
