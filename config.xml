@@ -93,5 +93,6 @@
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
     <plugin name="cordova-plugin-email-composer" spec="^0.8.12" />
     <plugin name="cordova-plugin-local-notification" spec="~0.9.0-beta.2" />
+    <plugin name="cordova-plugin-httpd" spec="~0.9.3" />
     <engine name="android" spec="6.4.0" />
 </widget>

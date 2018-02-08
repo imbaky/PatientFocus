@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { NavController, ModalController } from 'ionic-angular';
 import { ProfileService, UserProfile } from '@services/profile/profile.service';
+import { Httpd, HttpdOptions } from '@ionic-native/httpd';
+
 import {
     EmergencyContactService,
     EmergencyContact
@@ -21,10 +23,12 @@ export class ProfileInfoPage {
     medicalInfo: MedicalInfo;
 
 
-    constructor(private profileService: ProfileService,
+    constructor(public navCtrl: NavController,
+                private profileService: ProfileService,
                 private medicalInfoService: MedicalInfoService,
                 private emergencyContactService: EmergencyContactService,
-                private modalCtrl: ModalController) {
+                private modalCtrl: ModalController,
+                private httpd: Httpd) {
 
         this.profileService.getFirstProfile().then(profile => {
             this.profile = profile;
@@ -72,4 +76,14 @@ export class ProfileInfoPage {
     submit() {
     }
 
+    startServer() {
+        const options: HttpdOptions = {
+          www_root: 'sharefolder',
+          port: 8080,
+          localhost_only: false
+        };
+        this.httpd.startServer(options).subscribe((data) => {
+          document.getElementById('url').innerHTML = 'server is started: <a href=' + data + '>' + data + '</a>';
+        });
+    }
 }
