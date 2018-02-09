@@ -28,8 +28,8 @@ export class AppointmentComponent {
 
         this.appointmentForm = this.formBuilder.group({
             title: ['', Validators.required],
-            doctor: ['', Validators.required],
-            address: ['', Validators.required],
+            doctor: [''],
+            address: [''],
             note: ['', Validators.maxLength(50)], // Optional
             date: [moment().format('YYYY-MM-DD'), Validators.required],
             time: [moment().format(), Validators.required],
