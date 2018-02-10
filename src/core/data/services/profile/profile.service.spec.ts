@@ -1,3 +1,4 @@
+import { Events } from 'ionic-angular/util/events';
 import { TestBed } from '@angular/core/testing';
 import { File as NativeFile } from '@ionic-native/file';
 import { DexieService } from '@services/dexie/dexie.service';
@@ -94,7 +95,8 @@ const testBedSetup = {
     DirectoryService,
     ItemService,
     FileService,
-    NativeFile
+    NativeFile,
+    Events
   ]
 };
 

@@ -1,3 +1,4 @@
+import { Events } from 'ionic-angular/util/events';
 import { async, TestBed } from '@angular/core/testing';
 import { LocalNotifications, ILocalNotification } from '@ionic-native/local-notifications';
 
@@ -118,7 +119,8 @@ const testBedSetup = {
         },
         DirectoryService,
         ItemService,
-        FileService
+        FileService,
+        Events
     ]
 };
 
