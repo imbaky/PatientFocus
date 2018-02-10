@@ -5,7 +5,7 @@ import { IonicModule } from 'ionic-angular';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { RemindersPage } from '@pages/reminders/reminders';
-import { ReminderComponent } from '@pages/reminders/reminder/reminder';
+import { ReminderComponent } from '@pages/reminders/components/reminder.component';
 import { RemindersService } from '@services/reminders/reminders.service';
 import { ReminderService } from '@services/reminders/reminder.service';
 import { AppointmentService } from '@services/reminders/appointment.service';
