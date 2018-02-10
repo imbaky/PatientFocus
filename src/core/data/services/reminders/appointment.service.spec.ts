@@ -14,6 +14,7 @@ import { SCHEMA } from '@services/dexie/database';
 import { Appointment } from '@services/reminders/reminders.interface';
 import { NotificationsService } from '@services/notifications/notifications.service';
 import * as moment from 'moment';
+import { Events } from 'ionic-angular';
 
 class DATABASE extends Dexie {
     constructor() {
@@ -88,7 +89,8 @@ const testBedSetup = {
         },
         DirectoryService,
         ItemService,
-        FileService
+        FileService,
+        Events
     ]
 };
 
