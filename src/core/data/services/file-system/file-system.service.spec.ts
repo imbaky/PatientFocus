@@ -101,7 +101,6 @@ describe('File System Service', () => {
   let mockDatabase: DATABASE;
   let fileSystemService: FileSystemService;
 
-
   beforeEach( async() => {
     mockDatabase = new DATABASE();
     const bed = TestBed.configureTestingModule(testBedSetup);
@@ -143,6 +142,24 @@ describe('File System Service', () => {
     newFileName = await fileSystemService.createFileName(originalFileName, folder);
     expect(spy).toHaveBeenCalledTimes(3);
     expect(newFileName).toBe('Filename1_2.txt');
+  });
+
+  xit('GIVEN new file information THEN an item should be created', async() => {
+    const fileInfo = {
+      fullPath: 'directory/subdirectory/subsubdirectory',
+      creationDate: this.date,
+      newDocumentName: 'New Blood Test',
+      specificValues: {
+        document_type: PortfolioType.BLOOD_TEST,
+        page: PageType.Portfolio
+      }
+    }
+    const folder = await directory.getDirectoryById(1);
+    const item = await fileSystemService.addNewFileToDirectory(fileInfo.fullPath, 
+      fileInfo.creationDate, fileInfo.newDocumentName, folder, fileInfo.specificValues);
+    expect(item.title).toBe('Filename1.txt');
+    expect(item.page).toBe(PageType.Portfolio);
+    expect(item.chosen_date).toBe(this.date);
   });
 
 
