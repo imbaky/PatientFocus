@@ -81,13 +81,13 @@ export class DirectoryService {
 
   async deleteItem(item: Item, directory: Directory) {
     try {
-    const itemFileDeleteResult = await this.fileService.deleteFile(item.file);
-    const itemDeleteResult = await this.items.deleteItem(item);
-    const index = directory.items.indexOf(item);
-    directory.items.splice(index, 1);
-    const newItems = [];
-    directory.items.forEach( (newItem) => newItems.push(newItem));
-    directory.items = newItems;
+      const itemFileDeleteResult = await this.fileService.deleteFile(item.file);
+      const itemDeleteResult = await this.items.deleteItem(item);
+      const index = directory.items.indexOf(item);
+      directory.items.splice(index, 1);
+      const newItems = [];
+      directory.items.forEach( (newItem) => newItems.push(newItem));
+      directory.items = newItems;
     } catch (err) {
       console.error('Failed to delete item or file');
     }
