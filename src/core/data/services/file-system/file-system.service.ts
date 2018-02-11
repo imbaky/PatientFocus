@@ -55,7 +55,7 @@ export class FileSystemService {
       if (fullPath !== item.file.path) {
         entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, newFileName);
         const newFile = await this.directoryService.addFileToDirectory(entry, creationDate, directory, newDocumentName, specificValues);
-        const removeResult = await this.deleteFileFromDirectory(item, directory);
+        return await this.deleteFileFromDirectory(item, directory);
       } else {
         entry = await this.file.copyFile(this.file.externalDataDirectory, filename, this.file.externalDataDirectory, newFileName);
         const newFile = await this.directoryService.addFileToDirectory(entry, creationDate, directory, newDocumentName, specificValues);
@@ -112,18 +112,6 @@ export class FileSystemService {
     }
     newFileName = newFileName.concat(extension);
     return newFileName;
-  }
-
-  addDirectoryToDevice(directory: Directory) {
-    this.file.createDir(this.file.dataDirectory + 'Documents/', directory.id.toString() , false);
-  }
-
-  /**
-   * Gets the file with an id.
-   * @param id
-   */
-  getFile(item: Item) {
-
   }
 
 }
