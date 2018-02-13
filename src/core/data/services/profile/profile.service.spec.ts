@@ -9,7 +9,7 @@ import { DirectoryService } from '@services/directory/directory.service';
 import { Item, ItemService } from '@services/item/item.service';
 import { FileService } from '@services/file/file.service';
 import { PageType } from '@enum/page-type.enum';
-import { PortfolioType, FileFormatType } from '../../enum/file-type.enum';
+import { PortfolioType, FileFormatType } from '@enum/file-type.enum';
 import { BackupDBService } from '../backup/backup-db.service';
 import { Zip } from '@ionic-native/zip';
 import { FileSystemService } from '@services/file-system/file-system.service';

@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { File } from '@ionic-native/file';
 import Dexie from 'dexie';
-import { DexieService } from '../dexie/dexie.service';
-import { DirectoryService } from '../directory/directory.service';
-import { ItemService } from '../item/item.service';
-import { FileService, File as FileType } from '../file/file.service';
-
-import { PortfolioType, FileFormatType } from '../../enum/file-type.enum';
-import { ItemType } from '../../enum/item-type.enum';
-import { SCHEMA } from '../dexie/database';
+import { DexieService } from '@services/dexie/dexie.service';
+import { DirectoryService } from '@services/directory/directory.service';
+import { ItemService } from '@services/item/item.service';
+import { FileService } from '@services/file/file.service';
+import { PortfolioType, FileFormatType } from '@enum/file-type.enum';
+import { ItemType } from '@enum/item-type.enum';
+import { SCHEMA } from '@services/dexie/database';
 import { BackupDBService } from '../backup/backup-db.service';
 import { Zip } from '@ionic-native/zip';
+import { File as FileType } from '@interface/file/file';
 
 class DATABASE extends Dexie {
   constructor() {

@@ -1,7 +1,4 @@
-import Dexie from 'dexie';
-
-import { DexieService } from '@services/dexie/dexie.service';
-import { ReminderType } from '@enum/reminder-method-type';
+import { ReminderType } from 'core/data/enum/reminder-method-type';
 
 export interface Reminders {
     id?: number;

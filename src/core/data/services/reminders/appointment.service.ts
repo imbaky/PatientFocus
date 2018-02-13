@@ -5,8 +5,7 @@ import * as moment from 'moment';
 import { DexieService } from '@services/dexie/dexie.service';
 import Dexie from 'dexie';
 
-import { RemindersService } from '@services/reminders/reminders.service';
-import { Appointment } from '@services/reminders/reminders.interface';
+import { Appointment } from '@interfaces/reminder/reminders';
 import { NotificationsService } from '@services/notifications/notifications.service';
 import { ProfileService } from '@services/profile/profile.service';
 

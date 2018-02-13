@@ -2,22 +2,12 @@ import { Injectable } from '@angular/core';
 import Dexie from 'dexie';
 
 import { DexieService } from '@services/dexie/dexie.service';
-import { FileService, File } from '@services/file/file.service';
-import { ItemType } from '@enum/item-type.enum';
+import { FileService } from '@services/file/file.service';
 import { PortfolioType } from '@enum/file-type.enum';
 import { PageType } from '@enum/page-type.enum';
+import {File} from '@interfaces/file/file';
+import {Item} from '@interfaces/item/item';
 
-export interface Item {
-  id?: number;
-  title?: string;
-  description?: string;
-  file_id?: number;
-  page: PageType; // specifies which page item belongs to
-  chosen_date?: string;
-  document_type?: PortfolioType;
-  file?: File; // TODO change field to file and remove directory
-  directory_id: number;
-}
 
 @Injectable()
 export class ItemService {
