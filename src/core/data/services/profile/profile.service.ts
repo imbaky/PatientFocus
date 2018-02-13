@@ -3,10 +3,11 @@ import { DexieService } from '../dexie/dexie.service';
 
 import Dexie from 'dexie';
 import { DirectoryService } from '../directory/directory.service';
-import {Item, ItemService} from '../item/item.service';
 import { Events } from 'ionic-angular';
 import { FileSystemService } from '@services/file-system/file-system.service';
 import { BackupDBService } from '@services/backup/backup-db.service';
+import { ItemService} from '../item/item.service';
+import {Item} from '@interfaces/item/item';
 
 
 export interface UserProfile {

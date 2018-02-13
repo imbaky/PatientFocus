@@ -1,16 +1,9 @@
 import { Injectable } from '@angular/core';
 import { DexieService } from '@services/dexie/dexie.service';
 import { FileFormatType } from '@enum/file-type.enum';
+import {File} from '@interfaces/file/file';
 
 import Dexie from 'dexie';
-
-export interface File {
-  id?: number;
-  path: string;
-  size?: number;
-  format: FileFormatType;
-  file_name: string;
-}
 
 @Injectable()
 export class FileService {

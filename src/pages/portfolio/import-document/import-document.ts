@@ -8,13 +8,13 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import * as moment from 'moment';
 
 import { FileSystemService } from '@services/file-system/file-system.service';
-import { File } from '@services/file/file.service';
-import { ItemService, Item } from '@services/item/item.service';
-import { Directory } from '@services/directory/directory.service';
+import { ItemService } from '@services/item/item.service';
 import { PortfolioType } from '@enum/file-type.enum';
 import { UploadType } from '@enum/upload-type.enum';
 import { ItemType } from '@enum/item-type.enum';
 import { PageType } from '@enum/page-type.enum';
+import {Directory} from '@interfaces/directory/directory';
+import {File} from '@interfaces/file/file';
 
 declare var window;
 

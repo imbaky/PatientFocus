@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 
-import { ModalController, ToastController } from 'ionic-angular';
+import {  ModalController , ToastController } from 'ionic-angular';
 import { ProfileService, UserProfile } from '@services/profile/profile.service';
-import { EmergencyContactService, EmergencyContact } from '@services/emergency-contact/emergency-contact.service';
+import { EmergencyContactService } from '@services/emergency-contact/emergency-contact.service';
 import { EditInfoModal } from '@pages/profile-info/edit-info/edit-info';
-import { MedicalInfo, MedicalInfoService } from '@services/medical-info/medical-info.service';
+import {MedicalInfoService} from '@services/medical-info/medical-info.service';
+import {EmergencyContact} from '@interfaces/emergency-contact/emergency-contact';
+import {MedicalInfo} from '@interfaces/medical-info/medical-info';
 
 
 @Component({

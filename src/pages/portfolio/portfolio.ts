@@ -1,5 +1,4 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { FileOpener } from '@ionic-native/file-opener';
 import { EmailComposer } from '@ionic-native/email-composer';
@@ -14,19 +13,17 @@ import {
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
-import {
-  Directory,
-  DirectoryService
-} from '@services/directory/directory.service';
+import { DirectoryService } from '@services/directory/directory.service';
 import { ItemType } from '@enum/item-type.enum';
-import { Item } from '@services/item/item.service';
 import { ImportDocumentPage } from './import-document/import-document';
-import { File } from '@services/file/file.service';
 import { PortfolioType, FileFormatType } from '@enum/file-type.enum';
 import { UploadType } from '@enum/upload-type.enum';
 import { ProfileService } from '@services/profile/profile.service';
 import { FileSystemService } from '@services/file-system/file-system.service';
 import { PageType } from '@enum/page-type.enum';
+import {Directory} from '@interfaces/directory/directory';
+import {Item} from '@interfaces/item/item';
+import {File} from '@interfaces/file/file';
 
 @Component({
   selector: 'page-portfolio',
@@ -36,7 +33,6 @@ export class PortfolioPage {
   directory$: Promise<Directory>;
   currentItem: Item;
 
-  ItemType = ItemType;
   PortfolioType = PortfolioType;
   FileFormatType = FileFormatType;
   PageType = PageType;
