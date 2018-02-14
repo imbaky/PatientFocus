@@ -10,7 +10,7 @@ import { ItemType } from '@enum/item-type.enum';
 import { SCHEMA } from '@services/dexie/database';
 import { BackupDBService } from '../backup/backup-db.service';
 import { Zip } from '@ionic-native/zip';
-import { File as FileType } from '@interface/file/file';
+import { File as FileType } from '@interfaces/file/file';
 
 class DATABASE extends Dexie {
   constructor() {
