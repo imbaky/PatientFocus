@@ -1,3 +1,4 @@
+import { Item } from '@interfaces/item/item';
 import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { NavParams, ViewController, ToastController } from 'ionic-angular';
@@ -112,6 +113,7 @@ export class ImportDocumentPage {
   }
 
   async selectFileEdit(event?: any) {
+    console.log('selectFileEdit');
     if (event) {
       event.preventDefault();
     }
