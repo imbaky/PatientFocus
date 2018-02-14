@@ -1,3 +1,5 @@
+import { PasswordPromptPageModule } from './../pages/password-prompt/password-prompt.module';
+import { PasswordPromptPage } from './../pages/password-prompt/password-prompt';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -35,6 +37,7 @@ import { TourPage } from '@pages/tour//tour';
         PortfolioModule,
         RemindersModule,
         DiaryModule,
+        PasswordPromptPageModule,
         DataModule.forRoot(),
         IonicModule.forRoot(MyApp, {}, {links: []}),
         BrowserAnimationsModule
@@ -47,6 +50,7 @@ import { TourPage } from '@pages/tour//tour';
         ProfileInfoPage,
         TourPage,
         EditInfoModal,
+        PasswordPromptPage
     ],
     providers: AppProviders.getProviders()
 })
