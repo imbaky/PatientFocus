@@ -21,6 +21,7 @@
     "fix-gradle": "sed -i 's/1.0.0@aar/2.0.1@aar/g' platforms/android/cordova-safe/starter-conceal.gradle"
   },
   "dependencies": {
+    "@angular/animations": "^5.0.3",
     "@angular/common": "5.0.3",
     "@angular/compiler": "5.0.3",
     "@angular/compiler-cli": "5.0.3",
