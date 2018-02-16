@@ -1,5 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { AppProviders } from './app.providers';
@@ -7,6 +8,7 @@ import { AppProviders } from './app.providers';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
 
 // modules
 import { DataModule } from '../core/data/data.module';
@@ -17,6 +19,7 @@ import { EditInfoModal } from '@pages/profile-info/edit-info/edit-info';
 import { PortfolioModule } from '@pages/portfolio/portfolio.module';
 import { DiaryModule } from '@pages/diary/diary.module';
 import { RemindersModule } from '@pages/reminders/reminders.module';
+import { TourPage } from '@pages/tour//tour';
 
 @NgModule({
     declarations: [
@@ -24,6 +27,7 @@ import { RemindersModule } from '@pages/reminders/reminders.module';
         ProfilePage,
         DashboardPage,
         ProfileInfoPage,
+        TourPage,
         EditInfoModal
     ],
     imports: [
@@ -32,7 +36,8 @@ import { RemindersModule } from '@pages/reminders/reminders.module';
         RemindersModule,
         DiaryModule,
         DataModule.forRoot(),
-        IonicModule.forRoot(MyApp, {}, {links: []})
+        IonicModule.forRoot(MyApp, {}, {links: []}),
+        BrowserAnimationsModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -40,6 +45,7 @@ import { RemindersModule } from '@pages/reminders/reminders.module';
         ProfilePage,
         DashboardPage,
         ProfileInfoPage,
+        TourPage,
         EditInfoModal,
     ],
     providers: AppProviders.getProviders()

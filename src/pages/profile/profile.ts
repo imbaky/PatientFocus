@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfileService } from '@services/profile/profile.service';
 import { DashboardPage } from '@pages/dashboard/dashboard';
 import { ProfileInfoPage } from '@pages/profile-info/profile-info';
+import { TourPage } from '@pages/tour/tour';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class ProfilePage {
     async makeNewProfile() {
         const profile = await this.profileService.save(this.createProfile.value);
         if (profile) {
-            this.navCtrl.setRoot(ProfileInfoPage);
+            this.navCtrl.setRoot(TourPage);
         }
     }
 }
