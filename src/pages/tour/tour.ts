@@ -46,6 +46,7 @@ export class TourPage {
   constructor(public navCtrl: NavController) {}
 
   skipTour() {
+    this.navCtrl.setRoot(ProfileInfoPage);
     this.navCtrl.push(ProfileInfoPage);
   }
 
