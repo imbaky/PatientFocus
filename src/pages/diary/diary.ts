@@ -37,10 +37,8 @@ export class DiaryPage {
     this.dateToTerm = this.getDate({});
     this.dateMaxDate = this.getDate({});
 
-    this.profileService.getFirstProfileId().then(async (profileId) => { // TODO need to get actual profile id
-      this.items$ = this.profileService.getProfileDiaryItems(profileId);
-      this.directory = await this.directoryService.getDirectoryById(profileId);
-    });
+    this.getDiaryEntries();
+
   }
 
   getDate(chosen_date) {
@@ -59,9 +57,19 @@ export class DiaryPage {
     addButton.style.visibility = 'hidden';
   }
 
+  getDiaryEntries() {
+    this.profileService.getFirstProfileId().then(async (profileId) => { // TODO need to get actual profile id
+      this.items$ = this.profileService.getProfileDiaryItems(profileId);
+      this.directory = await this.directoryService.getDirectoryById(profileId);
+    });
+  }
+
   async addEntry(itemsToSend: Item[]) {
     const items = await itemsToSend;
     const addEntry = this.modalCtrl.create(AddEntryPage, { directory: this.directory, items});
+    addEntry.onDidDismiss(async () => {
+      this.getDiaryEntries();
+    });
     addEntry.present();
   }
 
