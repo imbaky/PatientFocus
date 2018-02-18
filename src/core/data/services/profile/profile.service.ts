@@ -5,6 +5,7 @@ import Dexie from 'dexie';
 import { DirectoryService } from '../directory/directory.service';
 import { Item, ItemService } from '../item/item.service';
 import { Observable } from 'rxjs';
+import { Events } from 'ionic-angular';
 
 
 export interface UserProfile {
@@ -28,7 +29,8 @@ export class ProfileService {
 
   constructor(private dexie: DexieService,
               private directoryService: DirectoryService,
-              private itemService: ItemService) {
+              private itemService: ItemService,
+              private events: Events) {
     this.table = this.dexie.table('profile');
 
     this.profileObserver = null;
@@ -80,8 +82,6 @@ export class ProfileService {
     return await this.table.put(newProfile);
   }
 
-
-
   /**
    * Retrieve the current profile in the database
    * @returns {Promise<R>}
@@ -89,7 +89,8 @@ export class ProfileService {
   async getCurrentProfile(): Promise<UserProfile> {
     const profiles = await this.table.toArray();
     for (const profile of profiles) {
-      if (profile.current_profile){
+      if (profile.current_profile) {
+        this.events.publish('profile:update', profile);
         return profile;
       }
     }

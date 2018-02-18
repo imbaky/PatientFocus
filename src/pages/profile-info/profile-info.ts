@@ -1,18 +1,17 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-
-import { ModalController } from 'ionic-angular';
-import { ProfileService, UserProfile } from '../../core/data/services/profile/profile.service';
+import { NavController, ModalController } from 'ionic-angular';
+import { ProfileService, UserProfile } from '@services/profile/profile.service';
 import {
     EmergencyContactService,
     EmergencyContact
-} from '../../core/data/services/emergency-contact/emergency-contact.service';
-import { EditInfoModal } from '../../pages/profile-info/edit-info/edit-info';
-import {MedicalInfo, MedicalInfoService} from '../../core/data/services/medical-info/medical-info.service';
-import { FileChooser } from '@ionic-native/file-chooser';
+} from '@services/emergency-contact/emergency-contact.service';
+import { EditInfoModal } from '@pages/profile-info/edit-info/edit-info';
+import {MedicalInfo, MedicalInfoService} from '@services/medical-info/medical-info.service';
+import { FileChooser } from "@ionic-native/file-chooser";
 import { FilePath } from "@ionic-native/file-path";
-import { DirectoryService } from "../../core/data/services/directory/directory.service";
-import { FileSystemService } from "../../core/data/services/file-system/file-system.service";
-import { ItemService } from "../../core/data/services/item/item.service";
+import { DirectoryService } from "@services/directory/directory.service";
+import { FileSystemService } from "@services/file-system/file-system.service";
+import { ItemService } from "@services/item/item.service";
 
 
 @Component({
@@ -36,7 +35,8 @@ export class ProfileInfoPage {
                 private filePath: FilePath,
                 private directoryService: DirectoryService,
                 private fileSystemService: FileSystemService,
-                private itemService: ItemService, private ref:ChangeDetectorRef) {
+                private itemService: ItemService,
+                private ref: ChangeDetectorRef) {
 
         this.profileService.getCurrentProfile().then(profile => {
             this.profile = profile;

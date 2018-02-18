@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { DexieService } from '../dexie/dexie.service';
-import { PortfolioType, FileFormatType } from '../../enum/file-type.enum';
+import { DexieService } from '@services/dexie/dexie.service';
+import { PortfolioType, FileFormatType } from '@enum/file-type.enum';
 
 import Dexie from 'dexie';
 
@@ -51,6 +51,10 @@ export class FileService {
 
   async updateFile(file: File) { // replaces old file with new contents
     await this.table.put(file, file.id);
+  }
+
+  async deleteFile(file: File) {
+    await this.table.delete(file.id);
   }
 
 }

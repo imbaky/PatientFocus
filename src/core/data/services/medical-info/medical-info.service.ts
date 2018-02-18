@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { DexieService } from '../dexie/dexie.service';
 
 import Dexie from 'dexie';
-import {BloodType} from '../../enum/blood-type.enum';
-import {ProfileService} from '../profile/profile.service';
+import {BloodType} from '@enum/blood-type.enum';
+import {ProfileService} from '@services/profile/profile.service';
 
 export interface MedicalInfo {
     id: number;

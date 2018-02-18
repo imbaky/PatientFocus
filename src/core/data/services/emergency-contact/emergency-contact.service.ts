@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DexieService } from '../dexie/dexie.service';
 
 import Dexie from 'dexie';
-import { ProfileService } from '../profile/profile.service';
+import { ProfileService } from '@services/profile/profile.service';
 
 export interface EmergencyContact {
     id?: number;

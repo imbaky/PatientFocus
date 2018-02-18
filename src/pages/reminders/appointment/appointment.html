@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">Close</button>
+        </ion-buttons>
+        <ion-title>{{ title }} Appointment</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="appointmentForm" (ngSubmit)="handleAppointmentForm()">
+        <ion-item>
+            <ion-label>Name</ion-label>
+            <ion-input type="text" placeholder="ie. Check up" formControlName="title"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Doctor</ion-label>
+            <ion-input type="text" placeholder="ie. Dr. Smith" formControlName="doctor"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Address</ion-label>
+            <ion-input type="text" placeholder="" formControlName="address"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Note</ion-label>
+            <ion-input type="text" placeholder="" formControlName="note"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Date</ion-label>
+            <ion-datetime displayFormat="MMM DD, YYYY" max="2100-01-01" [min]="minExpiryDate" formControlName="date"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>Time</ion-label>
+            <ion-datetime displayFormat="hh:mm A" formControlName="time"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>Reminder day(s) before</ion-label>
+            <ion-input type="text" placeholder="1" formControlName="reminder"></ion-input>
+        </ion-item>
+        <button ion-button type="submit" [disabled]="!appointmentForm.valid" block>{{ submit }} Appointment</button>
+    </form>
+</ion-content>

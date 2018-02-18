@@ -3,7 +3,7 @@ import { NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'detailed-view',
-  templateUrl: 'detailed-view.html'
+  templateUrl: 'detailed-view.component.html'
 })
 
 export class DetailedView {

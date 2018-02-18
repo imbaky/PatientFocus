@@ -18,7 +18,7 @@
   <ion-list>
     <ng-container *ngFor="let reminder of reminders;">
       <ion-card>
-        <ion-item>
+        <ion-item *ngIf="reminder.reminder_type === reminderType.Medication">
           <ion-avatar item-start>
             <ion-icon name="notifications"></ion-icon>
           </ion-avatar>
@@ -29,7 +29,17 @@
               {{ frequency.frequency | date: 'hh:mm a' }} &nbsp;
           </ng-container>
         </ion-item>
-
+        <ion-item *ngIf="reminder.reminder_type === reminderType.Appointment">
+          <ion-avatar item-start>
+            <ion-icon name="calendar"></ion-icon>
+          </ion-avatar>
+          <h2 ion-text color="danger">{{ reminder.title }}</h2>
+          <h3>{{ reminder.doctor }}</h3>
+          <h3>{{ reminder.address }}</h3>
+          <h4>{{ reminder.date | date: 'MMM dd, yyyy' }} {{ reminder.time | date: 'hh:mm a' }}</h4>
+          <p text-wrap>{{ reminder.note }}</p>
+          <p text-wrap>Reminder {{ reminder.reminder }} day(s) before.</p>
+        </ion-item>
         <ion-row>
           <ion-col col-3>
             <button ion-button icon-left clear small (click)="editReminder(reminder)">
@@ -45,17 +55,16 @@
           </ion-col>
           <ion-col col-6 center text-center >
             <button class="note" disabled ion-button clear small color="light">
-            <ion-note>
+            <ion-note *ngIf="reminder.reminder_type === reminderType.Medication">
               Expires {{ reminder.expires | date: 'MMM dd, yyyy' }}
             </ion-note>
             </button>
           </ion-col>
         </ion-row>
-
       </ion-card>
-    </ng-container>
+     </ng-container>
   </ion-list>
-  <div *ngIf="!reminders" padding-top="50" text-center>
+  <div *ngIf="reminders.length == 0" padding-top="50" text-center>
     Start adding your first reminder!
   </div>
 </ion-content>

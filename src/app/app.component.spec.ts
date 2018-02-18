@@ -10,12 +10,12 @@ import {
     StatusBarMock,
     SplashScreenMock
 } from '../../test-config/mocks-ionic';
-import { ProfileService } from "../core/data/services/profile/profile.service";
-import { DexieService } from "../core/data/services/dexie/dexie.service";
-import { FileService } from "../core/data/services/file/file.service";
-import { FileSystemService } from "../core/data/services/file-system/file-system.service";
-import { ItemService } from "../core/data/services/item/item.service";
-import { DirectoryService } from "../core/data/services/directory/directory.service";
+import { ProfileService } from '../core/data/services/profile/profile.service';
+import { DexieService } from '../core/data/services/dexie/dexie.service';
+import { FileService } from '../core/data/services/file/file.service';
+import { FileSystemService } from '../core/data/services/file-system/file-system.service';
+import { ItemService } from '../core/data/services/item/item.service';
+import { DirectoryService } from '../core/data/services/directory/directory.service';
 
 describe('MyApp Component', () => {
     let fixture;
@@ -39,7 +39,7 @@ describe('MyApp Component', () => {
                 FileSystemService,
                 FileNative
             ]
-        })
+        });
     }));
 
     beforeEach(() => {

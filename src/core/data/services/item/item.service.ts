@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import Dexie from 'dexie';
 
-import { DexieService } from '../dexie/dexie.service';
-import { FileService, File } from '../file/file.service';
-import { ItemType } from '../../enum/item-type.enum';
-import { PortfolioType } from '../../enum/file-type.enum';
-import { PageType } from '../../enum/page-type.enum';
+import { DexieService } from '@services/dexie/dexie.service';
+import { FileService, File } from '@services/file/file.service';
+import { ItemType } from '@enum/item-type.enum';
+import { PortfolioType } from '@enum/file-type.enum';
+import { PageType } from '@enum/page-type.enum';
 
 export interface Item {
   id?: number;
@@ -128,5 +128,13 @@ export class ItemService {
     });
     items = newItems; // updates ui that an item has been added
     return items;
+  }
+
+  /**
+   * Deletes an existing item based on its key
+   * @param item item to delete
+   */
+  async deleteItem(item: Item) {
+    await this.table.delete(item.id);
   }
 }

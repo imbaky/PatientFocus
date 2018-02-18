@@ -4,16 +4,17 @@ import { NavParams, ViewController, ToastController } from 'ionic-angular';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { File as NativeFile } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
-import { FileSystemService } from '../../../core/data/services/file-system/file-system.service';
-import { File } from '../../../core/data/services/file/file.service';
-import { ItemService } from '../../../core/data/services/item/item.service';
-import { Directory } from '../../../core/data/services/directory/directory.service';
-import { PortfolioType } from '../../../core/data/enum/file-type.enum';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { UploadType } from '../../../core/data/enum/upload-type.enum';
 import * as moment from 'moment';
-import { ItemType } from '../../../core/data/enum/item-type.enum';
-import { PageType } from '../../../core/data/enum/page-type.enum';
+
+import { FileSystemService } from '@services/file-system/file-system.service';
+import { File } from '@services/file/file.service';
+import { ItemService, Item } from '@services/item/item.service';
+import { Directory } from '@services/directory/directory.service';
+import { PortfolioType } from '@enum/file-type.enum';
+import { UploadType } from '@enum/upload-type.enum';
+import { ItemType } from '@enum/item-type.enum';
+import { PageType } from '@enum/page-type.enum';
 
 declare var window;
 
@@ -30,6 +31,7 @@ export class ImportDocumentPage {
   directory: Directory;
   importDocumentForm: FormGroup;
   importMethod: string;
+  item: Item;
   constructor(
     public viewCtrl: ViewController,
     private toastCtrl: ToastController,
@@ -52,14 +54,17 @@ export class ImportDocumentPage {
       { name: 'Diagnosis Report', value: PortfolioType.DIAGNOSIS },
       { name: 'Other', value: PortfolioType.OTHER }
     ];
+
+    this.directory = this.params.get('directory');
+    this.importMethod = this.params.get('method');
+    this.item = this.params.get('item');
+
     this.importDocumentForm = this.formBuilder.group({
       name: ['Medical Document', Validators.required],
       date: [moment().format('YYYY-MM-DD'), Validators.required],
       type: [PortfolioType.LAB_TEST, Validators.required],
       fullPath: ['', Validators.required]
     });
-    this.directory = this.params.get('directory');
-    this.importMethod = this.params.get('method');
     this.selectFile();
   }
 
@@ -74,32 +79,60 @@ export class ImportDocumentPage {
     this.viewCtrl.dismiss();
   }
 
-  async selectFile() {
-    if (this.importMethod === UploadType.ImportFile) {
-      const uri = await this.fileChooser.open();
-      window.resolveLocalFileSystemURL(uri, fileEntry => {
-        fileEntry.getMetadata(async metadata => {
-          this.importDocumentForm.controls['fullPath'].setValue(
-            await this.filePath.resolveNativePath(uri)
-          );
-        });
-      });
-    } else if (this.importMethod === UploadType.TakePicture) {
-      try {
-        this.importDocumentForm.controls['fullPath'].setValue(
-          await this.camera.getPicture(this.OPTIONS)
-        );
-      } catch (err) {
-        // shows error as a toast
-        const errToast = this.toastCtrl
-          .create({
-            message: `Error: ${err} while taking photo`,
-            duration: 3000,
-            position: 'bottom'
-          })
-          .present();
-      }
+  async selectFile(event?: any) {
+    if (event) {
+      event.preventDefault();
     }
+    if (this.importMethod === UploadType.IMPORT_FILE) {
+      this.selectFileEdit();
+    } else if (this.importMethod === UploadType.TAKE_PICTURE) {
+      this.takePicture();
+    } else if (this.importMethod === UploadType.EDIT_DOCUMENT) {
+      this.readDocumentInformation();
+    }
+  }
+
+  async takePicture(event?: any) {
+    if (event) {
+      event.preventDefault();
+    }
+    try {
+      this.importDocumentForm.controls['fullPath'].setValue(
+        await this.camera.getPicture(this.OPTIONS)
+      );
+    } catch (err) {
+      const errToast = this.toastCtrl
+        .create({
+          message: `Error: ${err} while taking photo`,
+          duration: 3000,
+          position: 'bottom'
+        })
+        .present();
+    }
+  }
+
+  async selectFileEdit(event?: any) {
+    console.log("selectFileEdit");
+    if (event) {
+      event.preventDefault();
+    }
+    const uri = await this.fileChooser.open();
+    window.resolveLocalFileSystemURL(uri, fileEntry => {
+      fileEntry.getMetadata(async metadata => {
+        this.importDocumentForm.controls['fullPath'].setValue(
+          await this.filePath.resolveNativePath(uri)
+        );
+      });
+    });
+  }
+
+  readDocumentInformation() {
+    this.importDocumentForm.patchValue({
+      name: this.item.title,
+      date: this.item.chosen_date,
+      type: this.item.document_type,
+      fullPath: this.item.file.path
+    });
   }
 
   async importFile() {
@@ -107,14 +140,27 @@ export class ImportDocumentPage {
       document_type: this.importDocumentForm.controls['type'].value,
       page: PageType.Portfolio
     };
-    const item = await this.fileSystemService.addNewFileToDirectory(
-      this.importDocumentForm.controls['fullPath'].value,
-      this.importDocumentForm.controls['date'].value,
-      this.importDocumentForm.controls['name'].value,
-      this.directory,
-      pageSpecificValues
-    );
-
+    if (this.importMethod !== UploadType.EDIT_DOCUMENT) {
+      const result = await this.fileSystemService.addNewFileToDirectory(
+        this.importDocumentForm.controls['fullPath'].value,
+        this.importDocumentForm.controls['date'].value,
+        this.importDocumentForm.controls['name'].value,
+        this.directory,
+        pageSpecificValues
+      );
+    } else {
+      const result = await this.fileSystemService.editFileFromDirectory(
+        this.importDocumentForm.controls['fullPath'].value,
+        this.importDocumentForm.controls['date'].value,
+        this.importDocumentForm.controls['name'].value,
+        this.directory,
+        this.item,
+        {
+          document_type: this.importDocumentForm.controls['type'].value,
+          page: PageType.Portfolio,
+        }
+      );
+    }
     const importToast = this.toastCtrl.create({
       message: `${
         this.importDocumentForm.controls['name'].value
@@ -124,5 +170,20 @@ export class ImportDocumentPage {
     });
     await importToast.present();
     this.viewCtrl.dismiss();
+  }
+
+  private async addNewFile(copyFile: boolean) {
+    const pageSpecificValues = {
+      document_type: this.importDocumentForm.controls['type'].value,
+      page: PageType.Portfolio,
+      copyFile: copyFile
+    };
+    const result = await this.fileSystemService.addNewFileToDirectory(
+      this.importDocumentForm.controls['fullPath'].value,
+      this.importDocumentForm.controls['date'].value,
+      this.importDocumentForm.controls['name'].value,
+      this.directory,
+      pageSpecificValues
+    );
   }
 }

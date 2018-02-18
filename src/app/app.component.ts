@@ -1,21 +1,21 @@
-import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { ProfilePage } from '../pages/profile/profile';
-import { WelcomePage } from '../pages/welcome/welcome';
-import { RemindersPage } from '../pages/reminders/reminders';
-import { DiaryPage } from '../pages/diary/diary';
-import { ProfileService } from '../core/data/services/profile/profile.service';
-import { PortfolioPage } from '../pages/portfolio/portfolio';
-import { ProfileInfoPage } from '../pages/profile-info/profile-info';
-import { ItemService } from '../core/data/services/item/item.service';
+import { ProfilePage } from '@pages/profile/profile';
+import { DashboardPage } from '@pages/dashboard/dashboard';
+import { RemindersPage } from '@pages/reminders/reminders';
+import { DiaryPage } from '@pages/diary/diary';
+import { ProfileService } from '@services/profile/profile.service';
+import { PortfolioPage } from '@pages/portfolio/portfolio';
+import { ProfileInfoPage } from '@pages/profile-info/profile-info';
+import { ItemService } from "@services/item/item.service";
 
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp implements OnInit {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = ProfilePage;
@@ -29,17 +29,19 @@ export class MyApp {
     public splashScreen: SplashScreen,
     private profileService: ProfileService,
     private itemService: ItemService,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private events: Events
+
   ) {
     this.pages = [
       { title: 'Profile info', component: ProfileInfoPage },
-      // { title: 'Dashboard', component: WelcomePage },
+      // { title: 'Dashboard', component: DashboardPage },
       { title: 'Medical Portfolio', component: PortfolioPage },
       { title: 'Personal Diary', component: DiaryPage },
       { title: 'Reminders', component: RemindersPage },
     ];
+    this.events.subscribe('profile:update', profile => {this.name = profile.name; });
 
-    this.isProfileCreated();
     this.profileService.profile.subscribe(name => this.name = name);
     this.profileService.profileImg.subscribe(img => {
       this.profileImg = img;
@@ -47,11 +49,10 @@ export class MyApp {
     });
   }
 
-  async isProfileCreated() {
+  async ngOnInit() {
     const profile = await this.profileService.getCurrentProfile();
     if (profile) {
       this.rootPage = ProfileInfoPage;
-      this.name = profile.name;
     } else {
       this.rootPage = ProfilePage;
     }

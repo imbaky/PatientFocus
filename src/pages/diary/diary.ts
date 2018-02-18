@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from 'ionic-angular';
 
-import { ProfileService, UserProfile } from '../../core/data/services/profile/profile.service';
-import { ItemService, Item } from '../../core/data/services/item/item.service';
+import { ProfileService, UserProfile } from '@services/profile/profile.service';
+import { ItemService, Item } from '@services/item/item.service';
 import { AddEntryPage } from './add-entry/add-entry';
-import { DetailedView } from '../../components/detailed-view/detailed-view';
-import { Directory, DirectoryService } from '../../core/data/services/directory/directory.service';
-import { PageType } from '../../core/data/enum/page-type.enum';
+import { DetailedView } from '@components/detailed-view/detailed-view.component';
+import { Directory, DirectoryService } from '@services/directory/directory.service';
+import { PageType } from '@enum/page-type.enum';
 
 @Component({
   selector: 'page-diary',
