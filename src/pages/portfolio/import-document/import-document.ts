@@ -112,7 +112,6 @@ export class ImportDocumentPage {
   }
 
   async selectFileEdit(event?: any) {
-    console.log("selectFileEdit");
     if (event) {
       event.preventDefault();
     }
