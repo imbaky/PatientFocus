@@ -15,6 +15,36 @@
 </ion-header>
 
 <ion-content>
+
+    <ion-menu type="overlay" side="right" id="filterMenu" [content]="filterMenu" (ionOpen)='filterToggle()' (ionClose)='filterToggle()'>
+        <ion-content>
+          <div class="toolbar-content toolbar-content-md">
+            <ion-title class="title title-md">
+              <div class="toolbar-title toolbar-title-md">Filter by:</div>
+            </ion-title>
+          </div>
+          <ion-list>
+            <ion-item>
+              <ion-label stacked>Date from</ion-label>
+              <ion-datetime displayFormat="YYYY-MM-DD" [max]="dateMaxDate" [(ngModel)]="dateFromTerm"></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked>Date to</ion-label>
+              <ion-datetime displayFormat="YYYY-MM-DD" [max]="dateMaxDate" [(ngModel)]="dateToTerm"></ion-datetime>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+    </ion-menu>
+
+    <ion-toolbar no-border-top #filterMenu color="primary">
+      <ion-buttons start>
+        <button ion-button icon-only menuToggle="filterMenu" color="white">
+          <ion-icon name="md-funnel"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-searchbar [(ngModel)]="searchTerm" placeholder="Search diary" left></ion-searchbar>
+    </ion-toolbar>
+
     <ion-list>
         <ng-container *ngFor="let entry of items$ | async">
             <ion-card (tap)="viewDetails($event, entry)" *ngIf="entry.page === PageType.Diary" tappable>
@@ -30,7 +60,7 @@
               <ion-item  text-center *ngIf="entry.file">
                 <img class="attachment" [src]="entry.file.path"/>
               </ion-item>
-              
+
             </ion-card>
         </ng-container>
     </ion-list>
