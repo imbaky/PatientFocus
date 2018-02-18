@@ -19,6 +19,7 @@ export class DiaryPage {
   directory: Directory;
   PageType = PageType;
 
+  searchTerm = '';
   dateFromTerm: string;
   dateToTerm: string;
   dateMaxDate: string;
