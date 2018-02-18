@@ -46,7 +46,7 @@
     </ion-toolbar>
 
     <ion-list>
-        <ng-container *ngFor="let entry of items$ | async">
+        <ng-container *ngFor="let entry of (items$ | async) | diaryFilterByTerm:searchTerm">
             <ion-card (tap)="viewDetails($event, entry)" *ngIf="entry.page === PageType.Diary" tappable>
               <ion-item>
                 <h2 ion-text color="primary"> {{ entry?.title }} </h2>
