@@ -2,8 +2,6 @@ import { ItemType } from '@enum/item-type.enum';
 import { PortfolioType, FileFormatType } from '@enum/file-type.enum';
 import { FileFilterByDate, FileFilterByName, FileFilterByDocType, FileFilterByFormatType } from './file-filter.pipe';
 import { Item } from '@services/item/item.service';
-import { File } from '@services/file/file.service';
-import {Directory} from '@services/directory/directory.service';
 
 describe('FilterItemPipe', () => {
     const pipeFilterByDate = new FileFilterByDate();

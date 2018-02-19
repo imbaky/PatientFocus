@@ -15,6 +15,10 @@ import { SCHEMA } from '@services/dexie/database';
 import { NotificationsService } from '@services/notifications/notifications.service';
 import * as moment from 'moment';
 import {Reminder} from '@services/reminders/reminders.interface';
+import { BackupDBService } from '../backup/backup-db.service';
+import { File } from '@ionic-native/file';
+import {Zip} from '@ionic-native/zip';
+import { FileSystemService } from '@services/file-system/file-system.service';
 
 class DATABASE extends Dexie {
     constructor() {
@@ -120,7 +124,11 @@ const testBedSetup = {
         DirectoryService,
         ItemService,
         FileService,
-        Events
+        FileSystemService,
+        Events,
+        BackupDBService,
+        File,
+        Zip
     ]
 };
 

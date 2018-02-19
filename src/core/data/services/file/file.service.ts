@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DexieService } from '@services/dexie/dexie.service';
-import { PortfolioType, FileFormatType } from '@enum/file-type.enum';
+import { FileFormatType } from '@enum/file-type.enum';
 
 import Dexie from 'dexie';
 
