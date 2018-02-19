@@ -24,7 +24,7 @@ export class MedicalInfoService {
     table: Dexie.Table<MedicalInfo, number>;
 
     constructor(private dexie: DexieService, private profile: ProfileService) {
-        this.table = this.dexie.table('medical-info');
+        this.table = this.dexie.table('medical_info');
     }
 
     async getMedicalInfo(): Promise<MedicalInfo> {

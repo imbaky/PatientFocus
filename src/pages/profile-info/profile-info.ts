@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
 
-import { NavController, ModalController } from 'ionic-angular';
+import { ModalController, ToastController } from 'ionic-angular';
 import { ProfileService, UserProfile } from '@services/profile/profile.service';
-import {
-    EmergencyContactService,
-    EmergencyContact
-} from '@services/emergency-contact/emergency-contact.service';
+import { EmergencyContactService, EmergencyContact } from '@services/emergency-contact/emergency-contact.service';
 import { EditInfoModal } from '@pages/profile-info/edit-info/edit-info';
-import {MedicalInfo, MedicalInfoService} from '@services/medical-info/medical-info.service';
+import { MedicalInfo, MedicalInfoService } from '@services/medical-info/medical-info.service';
 
 
 @Component({
@@ -24,7 +21,8 @@ export class ProfileInfoPage {
     constructor(private profileService: ProfileService,
                 private medicalInfoService: MedicalInfoService,
                 private emergencyContactService: EmergencyContactService,
-                private modalCtrl: ModalController) {
+                private modalCtrl: ModalController,
+                private toastCtrl: ToastController) {
 
         this.profileService.getFirstProfile().then(profile => {
             this.profile = profile;
@@ -71,5 +69,15 @@ export class ProfileInfoPage {
 
     submit() {
     }
+
+   async exportProfile() {
+     const importToast = this.toastCtrl.create({
+       message: `Profile exported to Downloads folder as patient-focus-profile.zip`,
+       duration: 6000,
+       position: 'bottom'
+     });
+     await importToast.present();
+     this.profileService.exportProfile(this.profile.id);
+   }
 
 }
