@@ -11,6 +11,8 @@ import { FileSystemService } from './services/file-system/file-system.service';
 import { EmergencyContactService } from './services/emergency-contact/emergency-contact.service';
 import { ReminderService } from './services/reminders/reminder.service';
 import { MedicalInfoService } from './services/medical-info/medical-info.service';
+import { BackupDBService } from './services/backup/backup-db.service';
+import { Zip } from '@ionic-native/zip';
 
 @NgModule({
     imports: [
@@ -35,7 +37,9 @@ export class DataModule {
                 FileSystemService,
                 EmergencyContactService,
                 MedicalInfoService,
-                ReminderService
+                ReminderService,
+                BackupDBService,
+                Zip
             ],
             ngModule: DataModule
         };
