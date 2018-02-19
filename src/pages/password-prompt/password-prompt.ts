@@ -1,5 +1,7 @@
+import { ProfileInfoPage } from '@pages/profile-info/profile-info';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ProfileService } from '@services/profile/profile.service';
 
 
 @IonicPage()
@@ -8,12 +10,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'password-prompt.html',
 })
 export class PasswordPromptPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+pwd: string;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private profileService: ProfileService) {
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PasswordPromptPage');
+  async checkPwd() {
+    this.profileService.getFirstProfile().then(profile => {
+      if (profile.password === this.pwd) {
+        this.navCtrl.setRoot(ProfileInfoPage);
+      }
+    });
   }
 
 }
