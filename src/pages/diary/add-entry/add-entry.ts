@@ -98,7 +98,7 @@ export class AddEntryPage {
         description: this.addEntryForm.controls['description'].value,
         chosen_date: moment().format('YYYY-MM-DD'),
         page: PageType.Diary,
-        profile_id: this.directory.id
+        directory_id: this.directory.id
       };
       await this.itemService.addItemToDB(item);
     }
