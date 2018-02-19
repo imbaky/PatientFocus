@@ -10,6 +10,9 @@ import { SCHEMA } from '../dexie/database';
 import { ItemService, Item } from '../item/item.service';
 import { PageType } from '../../enum/page-type.enum';
 import { PortfolioType, FileFormatType } from '../../enum/file-type.enum';
+import {BackupDBService} from '../backup/backup-db.service';
+import { Zip } from '@ionic-native/zip';
+import { FileSystemService } from '@services/file-system/file-system.service';
 
 class DATABASE extends Dexie {
   constructor() {
@@ -97,7 +100,10 @@ const testBedSetup = {
     DirectoryService,
     ItemService,
     FileService,
-    File
+    FileSystemService,
+    File,
+    BackupDBService,
+    Zip,
   ]
 };
 
@@ -114,6 +120,12 @@ describe('Item Service', () => {
     dexie = bed.get(DexieService);
     item = bed.get(ItemService);
     file = bed.get(FileService);
+  });
+
+  afterAll( async() => {
+    mockDatabase.delete();
+    mockDatabase = new DATABASE();
+    TestBed.overrideProvider(DexieService, {useValue: mockDatabase});
   });
 
   it('GIVEN three items in a directory THEN it should retrieve all the items', async () => {
@@ -151,7 +163,7 @@ describe('Item Service', () => {
       specificValues
     );
 
-    expect(created_item.profile_id).toBe(1);
+    expect(created_item.directory_id).toBe(1);
     expect(created_item.page).toBe(specificValues.page);
     expect(created_item.title).toBe(document_name);
     expect(created_item.file).toBe(diaryFile);
@@ -183,7 +195,7 @@ describe('Item Service', () => {
       specificValues
     );
 
-    expect(created_item.profile_id).toBe(1);
+    expect(created_item.directory_id).toBe(1);
     expect(created_item.page).toBe(specificValues.page);
     expect(created_item.title).toBe(document_name);
     expect(created_item.file).toBe(medicalDoc);
@@ -200,11 +212,11 @@ describe('Item Service', () => {
       description: 'Morning measurement',
       chosen_date: moment().format('YYYY-MM-DD'),
       page: PageType.Diary,
-      profile_id: 1
+      directory_id: 1
     };
     const created_item = await item.addItemToDB(new_item);
 
-    expect(created_item.profile_id).toBe(1);
+    expect(created_item.directory_id).toBe(1);
     expect(created_item.page).toBe(new_item.page);
     expect(created_item.title).toBe(new_item.title);
     expect(created_item.file).toBe(undefined);
