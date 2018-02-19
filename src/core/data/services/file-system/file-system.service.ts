@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
-import { File as NativeFile} from '@ionic-native/file';
-import { File } from '@services/file/file.service';
+import { File } from '@ionic-native/file';
 import { Directory, DirectoryService } from '@services/directory/directory.service';
-import { PortfolioType } from '@enum/file-type.enum';
 import { Item } from '@services/item/item.service';
-import {PageType} from '@enum/page-type.enum';
-import { Direction } from '@ionic-native/camera';
-
+import * as jszip from 'jszip';
 
 declare var window;
 
@@ -15,7 +11,7 @@ export class FileSystemService {
 
   constructor(
     private directoryService: DirectoryService,
-    private file: NativeFile
+    private file: File
   ) { }
 
   /**
@@ -28,12 +24,11 @@ export class FileSystemService {
    */
   async addNewFileToDirectory(fullPath: string, creationDate: string, newDocumentName: string,
                               directory: Directory, specificValues: any): Promise<Item> {
-      let entry;
       const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
       // TODO file needs to be added to the correct directory
       const newFileName: string = await this.createFileName(filename, directory);
-      entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, newFileName);
+      const entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory + "/" + String(directory.id), newFileName);
       return await this.directoryService.addFileToDirectory(entry, creationDate, directory, newDocumentName, specificValues);
   }
 
@@ -53,13 +48,13 @@ export class FileSystemService {
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
       const newFileName: string = await this.createFileName(filename, directory);
       if (fullPath !== item.file.path) {
-        entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory, newFileName);
+        entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory + "/" + String(directory.id), newFileName);
         const newFile = await this.directoryService.addFileToDirectory(entry, creationDate, directory, newDocumentName, specificValues);
         return await this.deleteFileFromDirectory(item, directory);
       } else {
-        entry = await this.file.copyFile(this.file.externalDataDirectory, filename, this.file.externalDataDirectory, newFileName);
+        entry = await this.file.copyFile(this.file.externalDataDirectory + "/" + String(directory.id), filename, this.file.externalDataDirectory + "/" + String(directory.id), newFileName);
         const newFile = await this.directoryService.addFileToDirectory(entry, creationDate, directory, newDocumentName, specificValues);
-        const removeResult = await this.file.removeFile(this.file.externalDataDirectory, filename);
+        const removeResult = await this.file.removeFile(this.file.externalDataDirectory + "/" + String(directory.id), filename);
         if (removeResult.success) {
           await this.directoryService.deleteItem(item, directory);
           return await true;
@@ -76,7 +71,7 @@ export class FileSystemService {
    * @param directory user profile directory
    */
   async deleteFileFromDirectory(item: Item, directory: Directory): Promise<boolean> {
-    const removeResult = await this.file.removeFile(this.file.externalDataDirectory, item.file.file_name);
+    const removeResult = await this.file.removeFile(this.file.externalDataDirectory + "/" + String(directory.id), item.file.file_name);
     if (removeResult.success) {
       await this.directoryService.deleteItem(item, directory);
       return await true;
@@ -99,7 +94,8 @@ export class FileSystemService {
     newFileName = name_without_extension;
     for (let _i = 1; _i <= directory.items.length; _i++) {
       try {
-        const found = await this.file.checkFile(this.file.externalDataDirectory, newFileName.concat(extension));
+        const found = await this.file.checkFile(this.file.externalDataDirectory + String(directory.id)+"/",
+          newFileName.concat(extension));
         if (found) {
           newFileName = name_without_extension;
           newFileName = newFileName.concat('_' + _i.toString());
@@ -107,6 +103,7 @@ export class FileSystemService {
           break;
         }
       } catch (e) {
+        console.log("error", e);
         break; // file not found
       }
     }
@@ -114,4 +111,13 @@ export class FileSystemService {
     return newFileName;
   }
 
+  async createNewDirectory(profileId: number) {
+    try {
+      await this.file.createDir(this.file.externalDataDirectory + "/", String(profileId), false);
+    }
+    catch(e) {
+      console.log(e);
+    }
+    return await this.directoryService.createNewDirectory(profileId);
+  }
 }
