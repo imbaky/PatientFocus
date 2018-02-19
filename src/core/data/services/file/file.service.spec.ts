@@ -9,6 +9,8 @@ import { FileService, File as FileType } from '../file/file.service';
 import { PortfolioType, FileFormatType } from '../../enum/file-type.enum';
 import { ItemType } from '../../enum/item-type.enum';
 import { SCHEMA } from '../dexie/database';
+import { BackupDBService } from '../backup/backup-db.service';
+import { Zip } from '@ionic-native/zip';
 
 class DATABASE extends Dexie {
   constructor() {
@@ -97,7 +99,9 @@ describe('File Service', () => {
         DirectoryService,
         ItemService,
         FileService,
-        File
+        File,
+        BackupDBService,
+        Zip
       ]
     });
 

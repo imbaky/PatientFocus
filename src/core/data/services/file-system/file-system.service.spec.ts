@@ -7,7 +7,8 @@ import { ItemService } from '../item/item.service';
 import { FileService } from '../file/file.service';
 import { PortfolioType, FileFormatType } from '../../enum/file-type.enum';
 import { FileSystemService } from './file-system.service';
-
+import { BackupDBService } from '../backup/backup-db.service';
+import { Zip } from '@ionic-native/zip';
 import Dexie from 'dexie';
 import { SCHEMA } from '../dexie/database';
 import {PageType} from '../../enum/page-type.enum';
@@ -88,7 +89,9 @@ const testBedSetup = {
     DirectoryService,
     ItemService,
     FileService,
-    File
+    File,
+    BackupDBService,
+    Zip
   ]
 };
 
@@ -154,7 +157,7 @@ describe('File System Service', () => {
       }
     }
     const folder = await directory.getDirectoryById(1);
-    const item = await fileSystemService.addNewFileToDirectory(fileInfo.fullPath, 
+    const item = await fileSystemService.addNewFileToDirectory(fileInfo.fullPath,
       fileInfo.creationDate, fileInfo.newDocumentName, folder, fileInfo.specificValues);
     expect(item.title).toBe('Filename1.txt');
     expect(item.page).toBe(PageType.Portfolio);

@@ -8,6 +8,7 @@ import { ProfileService } from '@services/profile/profile.service';
 import { DirectoryService } from '@services/directory/directory.service';
 import { ItemService } from '@services/item/item.service';
 import { FileService } from '@services/file/file.service';
+import { File } from '@ionic-native/file'
 
 import Dexie from 'dexie';
 import { SCHEMA } from '@services/dexie/database';
@@ -15,6 +16,9 @@ import { Appointment } from '@services/reminders/reminders.interface';
 import { NotificationsService } from '@services/notifications/notifications.service';
 import * as moment from 'moment';
 import { Events } from 'ionic-angular';
+import { FileSystemService } from '@services/file-system/file-system.service';
+import { BackupDBService } from '@services/backup/backup-db.service';
+import { Zip } from '@ionic-native/zip';
 
 class DATABASE extends Dexie {
     constructor() {
@@ -90,7 +94,11 @@ const testBedSetup = {
         DirectoryService,
         ItemService,
         FileService,
-        Events
+        FileSystemService,
+        File,
+        Events,
+        BackupDBService,
+        Zip
     ]
 };
 
