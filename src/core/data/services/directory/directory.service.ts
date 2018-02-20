@@ -81,7 +81,9 @@ export class DirectoryService {
 
   async deleteItem(item: Item, directory: Directory) {
     try {
-      const itemFileDeleteResult = await this.fileService.deleteFile(item.file);
+      if (item.file) {
+        const itemFileDeleteResult = await this.fileService.deleteFile(item.file);
+      }
       const itemDeleteResult = await this.items.deleteItem(item);
       const index = directory.items.indexOf(item);
       directory.items.splice(index, 1);

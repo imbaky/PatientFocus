@@ -78,9 +78,9 @@ export class BackupDBService {
       //let encrypyedJson = await this.file.readAsText(this.rootPath, this.fileName);
       const bytes = crypto.AES.decrypt(encrypyedJson.toString(), password);
       const decryptedData = JSON.parse(bytes.toString(crypto.enc.Utf8));
+      return decryptedData;
     } catch (e) {
-      console.log('could not decrpt zip', e);
+      console.log('Could not decrypt zip', e);
     }
-    return decryptedData;
   }
 }
