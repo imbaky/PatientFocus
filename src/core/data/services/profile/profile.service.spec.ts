@@ -123,7 +123,7 @@ describe('Profile Service', () => {
     TestBed.overrideProvider(DexieService, {useValue: mockDatabase});
   });
 
-  it("GIVEN no Profiles THEN it should not retrieve anything", async () => {
+  it('GIVEN no Profiles THEN it should not retrieve anything', async () => {
     const profile = await profileService.getFirstProfile();
     expect(profile).toBeUndefined();
   });
@@ -134,7 +134,7 @@ describe('Profile Service', () => {
       password: 'Password'
     });
     const profile = await profileService.getFirstProfile();
-    const diaryEntries : Item[] = await profileService.getProfileDiaryItems(profile.id);
+    const diaryEntries: Item[] = await profileService.getProfileDiaryItems(profile.id);
     expect(profile.name).toBe('John');
     expect(diaryEntries.length).toBe(2);
   });
