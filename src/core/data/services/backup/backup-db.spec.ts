@@ -35,10 +35,10 @@ describe('Backup Database Service', async() => {
     TestBed.overrideProvider(DexieService, {useValue: mockDatabase});
     dexieService = bed.get(DexieService);
     backUpDbService = bed.get(BackupDBService);
-    jsonObject = JSON.parse(await backUpDbService.exportProfile(1, "password"));
+    jsonObject = JSON.parse(await backUpDbService.exportProfile(1, 'password'));
   });
 
-  it('GIVEN a dexie database of a profile THEN the correct tables should be extracted', async() =>{
+  it('GIVEN a dexie database of a profile THEN the correct tables should be extracted', async() => {
     expect(jsonObject.item).toBeDefined();
     expect(jsonObject.directory).toBeDefined();
     expect(jsonObject.profile).toBeDefined();
@@ -48,20 +48,19 @@ describe('Backup Database Service', async() => {
     expect(jsonObject.reminder).toBeDefined();
     expect(jsonObject.appointment).toBeDefined();
     expect(jsonObject.emergency_contact).toBeDefined();
-    expect(Object.keys(jsonObject).length).toBe(8); //There should only be 8 tables in the database (depends on SCHEMA) If you add a table increase number
+    expect(Object.keys(jsonObject).length).toBe(8); // There should only be 8 tables in the database (depends on SCHEMA) If you add a table increase number
   });
 
-  it('GIVEN a dexie database of a profile THEN the correct information of the files should be extracted', async() =>{
-    let files : File[] = JSON.parse(jsonObject.file);
+  it('GIVEN a dexie database of a profile THEN the correct information of the files should be extracted', async() => {
+    const files: File[] = JSON.parse(jsonObject.file);
     expect(files.length).toBe(3);
-    expect(files[0].file_name).toBe("filename1");
+    expect(files[0].file_name).toBe('filename1');
   });
-
 
   it('GIVEN a dexie database of a profile THEN the correct information of the items should be extracted', async () => {
-    let items : Item[] = JSON.parse(jsonObject.item);
+    const items: Item[] = JSON.parse(jsonObject.item);
     expect(items.length).toBe(3);
-    expect(items[0].title).toBe("Health Problems1");
+    expect(items[0].title).toBe('Health Problems1');
     expect(items[0].directory_id).toBe(1);
     expect(items[0].description).toBe('lab test1');
     expect(items[0].file_id).toBe(1);
@@ -71,18 +70,18 @@ describe('Backup Database Service', async() => {
   });
 
   it('GIVEN a dexie database of a profile THEN the correct information of the profile should be extracted', async () => {
-    let profile : UserProfile[] = JSON.parse(jsonObject.profile);
+    const profile: UserProfile[] = JSON.parse(jsonObject.profile);
     expect(profile.length).toBe(1);
     expect(profile[0].id).toBe(1);
     expect(profile[0].directory).toBe(1);
     expect(profile[0].dob).toBe('2018-04-01');
     expect(profile[0].gender).toBe('male');
     expect(profile[0].name).toBe( 'Deez Nuts');
-    expect(profile[0].password).toBe("password");
+    expect(profile[0].password).toBe('password');
   });
 
   it('GIVEN a dexie database of a profile THEN the correct information of the reminders should be extracted', async () => {
-    let reminders : Reminder[] = JSON.parse(jsonObject.reminder);
+    const reminders: Reminder[] = JSON.parse(jsonObject.reminder);
     expect(reminders.length).toBe(4);
     expect(reminders[0].frequencies.length).toBe(2);
     expect(reminders[0].frequencies[0].frequency).toBe('2018-01-24T1:00:00-05:00');
@@ -91,11 +90,9 @@ describe('Backup Database Service', async() => {
   });
 
   it('GIVEN a dexie database of a profile THEN the correct information of the appointments should be extracted', async () => {
-    let appointments : Reminder[] = JSON.parse(jsonObject.appointment);
+    const appointments: Reminder[] = JSON.parse(jsonObject.appointment);
     expect(appointments.length).toBe(3);
     expect(appointments[0].title).toBe('Check up1');
   });
-
-
 
 });

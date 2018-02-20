@@ -58,34 +58,34 @@ export class DATABASE extends Dexie {
 
   addFiles() {
 
-    let files : File[]= [
+    const files: File[] = [
       {
         id: 1,
         path: '::directory/subdirectory/subsubdirectory1',
         size: 885421,
         format: FileFormatType.JPG,
-        file_name: "filename1"
+        file_name: 'filename1'
       },
       {
         id: 2,
         path: '::directory/subdirectory/subsubdirectory1',
         size: 885421,
         format: FileFormatType.JPG,
-        file_name: "filename2"
+        file_name: 'filename2'
       },
       {
         id: 3,
         path: '::directory/subdirectory/subsubdirectory1',
         size: 885421,
         format: FileFormatType.JPG,
-        file_name: "filename3"
+        file_name: 'filename3'
       }
-    ]
+    ];
     this.table('file').bulkAdd(files);
   }
 
   addAppointments() {
-    let appointments = [{
+    const appointments = [{
       id: 1,
       appointment_id: 10,
       fk_profile_id: 1,
@@ -131,7 +131,7 @@ export class DATABASE extends Dexie {
   }
 
   addReminders() {
-    let reminders = [
+    const reminders = [
       {
         id: 1,
         reminder_id: 10,
@@ -209,7 +209,7 @@ export class DATABASE extends Dexie {
   }
 
   addProfile() {
-    let profile = [{
+    const profile = [{
       id: 1,
       directory: 1,
       name: 'Deez Nuts',

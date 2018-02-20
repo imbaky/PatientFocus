@@ -1,7 +1,7 @@
 import { async, TestBed } from '@angular/core/testing';
 import { IonicModule, Platform } from 'ionic-angular';
 import { File as NativeFile } from '@ionic-native/file';
-import { Zip } from "@ionic-native/zip";
+import { Zip } from '@ionic-native/zip';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -17,7 +17,7 @@ import { FileService } from '../core/data/services/file/file.service';
 import { FileSystemService } from '../core/data/services/file-system/file-system.service';
 import { ItemService } from '../core/data/services/item/item.service';
 import { DirectoryService } from '../core/data/services/directory/directory.service';
-import { BackupDBService } from "../core/data/services/backup/backup-db.service";
+import { BackupDBService } from '../core/data/services/backup/backup-db.service';
 
 describe('MyApp Component', () => {
     let fixture;
