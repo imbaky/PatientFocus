@@ -21,6 +21,7 @@ import { EditInfoModal } from '@pages/profile-info/edit-info/edit-info';
 import { PortfolioModule } from '@pages/portfolio/portfolio.module';
 import { DiaryModule } from '@pages/diary/diary.module';
 import { RemindersModule } from '@pages/reminders/reminders.module';
+import { SurveyButtonComponent } from '@components/survey-button/survey-button.component';
 import { TourPage } from '@pages/tour//tour';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { TourPage } from '@pages/tour//tour';
         DashboardPage,
         ProfileInfoPage,
         TourPage,
-        EditInfoModal
+        EditInfoModal,
+        SurveyButtonComponent
     ],
     imports: [
         BrowserModule,
