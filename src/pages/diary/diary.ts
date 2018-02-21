@@ -10,9 +10,13 @@ import { ProfileService, UserProfile } from '@services/profile/profile.service';
 import { ItemService, Item } from '@services/item/item.service';
 import { AddEntryPage } from './add-entry/add-entry';
 import { DetailedView } from '@components/detailed-view/detailed-view.component';
-import { Directory, DirectoryService } from '@services/directory/directory.service';
-import { PageType } from '@enum/page-type.enum';
+import {
+  Directory,
+  DirectoryService
+} from '@services/directory/directory.service';
 import { FileSystemService } from '@services/file-system/file-system.service';
+import { EditEntryPage } from './edit-entry/edit-entry';
+import { PageType } from '@enum/page-type.enum';
 
 @Component({
   selector: 'page-diary',
@@ -22,6 +26,7 @@ export class DiaryPage {
   items$: Promise<Item[]>;
   directory: Directory;
   PageType = PageType;
+  profileId: number;
 
   searchTerm = '';
   dateFromTerm: string;
@@ -152,5 +157,19 @@ export class DiaryPage {
       this.items$ = this.profileService.getProfileDiaryItems(profileId);
       this.directory = await this.directoryService.getDirectoryById(profileId);
     });
+  }
+
+  async editEntry(event: any, item: Item) {
+    if (event) {
+      event.preventDefault();
+    }
+    const documentFormModal = this.modalCtrl.create(EditEntryPage, {
+      directory: this.directory,
+      item: item
+    });
+    documentFormModal.onDidDismiss(async () => {
+      this.items$ = this.profileService.getProfileDiaryItems(this.profileId);
+    });
+    documentFormModal.present();
   }
 }

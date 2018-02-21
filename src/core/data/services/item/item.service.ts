@@ -57,7 +57,8 @@ export class ItemService {
       file: newFile,
       title: documentName,
       page: specificValues.page,
-      directory_id: directory_id
+      directory_id: directory_id,
+      description: specificValues.description
     };
     item = Object.assign(item, specificValues); // combine values
     const pk = await this.table.add(item);

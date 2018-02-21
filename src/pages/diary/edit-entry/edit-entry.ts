@@ -6,6 +6,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { Directory } from '@services/directory/directory.service';
 import { FileSystemService } from '@services/file-system/file-system.service';
+import { File } from '@ionic-native/file';
 import { ItemService } from '@services/item/item.service';
 import { Item } from '@services/item/item.service';
 import { PageType } from '@enum/page-type.enum';
@@ -30,7 +31,8 @@ export class EditEntryPage {
     private fileChooser: FileChooser,
     private filePath: FilePath,
     private fileSystemService: FileSystemService,
-    private itemService: ItemService
+    private itemService: ItemService,
+    private file: File
   ) {
     this.editEntryForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -61,12 +63,11 @@ export class EditEntryPage {
    * @param item Diary entry to display
    */
   displayEntryValues(item: Item) {
-    console.log('hasFile?', item.file);
     if (item.file) {
       this.editEntryForm.patchValue({
         title: this.item.title,
         description: this.item.description,
-        chosen_date: this.item.chosen_date,
+        chosen_date: this.item.chosen_date
       });
       this.imgSrc = this.item.file.path;
     } else {
@@ -133,15 +134,24 @@ export class EditEntryPage {
         this.item,
         {
           description: this.editEntryForm.controls['description'].value,
-          page: PageType.Diary,
+          page: PageType.Diary
         }
       );
     } else {
+      // Remove an existing file attachment from a diary entry
+      if (this.item.file) {
+        const result = await this.file.removeFile(
+          this.file.externalDataDirectory + '/' + String(this.directory.id),
+          this.item.file.file_name
+        );
+      }
       // Edit diary entry without file
       const result = await this.itemService.updateItem(this.item, {
-        title : this.editEntryForm.controls['title'].value,
+        title: this.editEntryForm.controls['title'].value,
         chosen_date: moment().format('YYYY-MM-DD'),
-        description: this.editEntryForm.controls['description'].value
+        description: this.editEntryForm.controls['description'].value,
+        file: null,
+        file_id: null
       });
     }
     const importToast = this.toastCtrl.create({
