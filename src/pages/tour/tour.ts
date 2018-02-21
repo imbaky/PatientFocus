@@ -57,8 +57,7 @@ export class TourPage {
   onSlideDragged() {
     if (this.slides.getActiveIndex() >= this.slides.getPreviousIndex()) {
       this.state = 'rightSwipe';
-    }
-    else { this.state = 'leftSwipe'; }
+    } else { this.state = 'leftSwipe'; }
   }
 
   onSlideDone() {
