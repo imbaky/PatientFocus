@@ -58,29 +58,29 @@ export class DATABASE extends Dexie {
 
   addFiles() {
 
-    let files : File[]= [
+    let files : File []= [
       {
         id: 1,
         path: '::directory/subdirectory/subsubdirectory1',
         size: 885421,
         format: FileFormatType.JPG,
-        file_name: "filename1"
+        file_name: 'filename1'
       },
       {
         id: 2,
         path: '::directory/subdirectory/subsubdirectory1',
         size: 885421,
         format: FileFormatType.JPG,
-        file_name: "filename2"
+        file_name: 'filename2'
       },
       {
         id: 3,
         path: '::directory/subdirectory/subsubdirectory1',
         size: 885421,
         format: FileFormatType.JPG,
-        file_name: "filename3"
+        file_name: 'filename3'
       }
-    ]
+    ];
     this.table('file').bulkAdd(files);
   }
 

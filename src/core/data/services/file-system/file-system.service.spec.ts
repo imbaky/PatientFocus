@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { File } from '@ionic-native/file';
 import { DexieService } from '../dexie/dexie.service';
-import { ItemType } from '../../enum/item-type.enum';
 import { DirectoryService } from '../directory/directory.service';
 import { ItemService } from '../item/item.service';
 import { FileService } from '../file/file.service';

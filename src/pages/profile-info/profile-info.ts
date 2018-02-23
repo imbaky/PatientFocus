@@ -1,14 +1,14 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { NavController, ModalController, ToastController } from 'ionic-angular';
 import {MedicalInfo, MedicalInfoService} from '@services/medical-info/medical-info.service';
-import { FileChooser } from "@ionic-native/file-chooser";
-import { FilePath } from "@ionic-native/file-path";
-import { DirectoryService } from "@services/directory/directory.service";
-import { FileSystemService } from "@services/file-system/file-system.service";
-import { ItemService } from "@services/item/item.service";
-import { UserProfile, ProfileService } from "@services/profile/profile.service";
-import { EmergencyContact, EmergencyContactService } from "@services/emergency-contact/emergency-contact.service";
-import { EditInfoModal } from "@pages/profile-info/edit-info/edit-info";
+import { FileChooser } from '@ionic-native/file-chooser';
+import { FilePath } from '@ionic-native/file-path';
+import { DirectoryService } from '@services/directory/directory.service';
+import { FileSystemService } from '@services/file-system/file-system.service';
+import { ItemService } from '@services/item/item.service';
+import { UserProfile, ProfileService } from '@services/profile/profile.service';
+import { EmergencyContact, EmergencyContactService } from '@services/emergency-contact/emergency-contact.service';
+import { EditInfoModal } from '@pages/profile-info/edit-info/edit-info';
 
 
 @Component({
