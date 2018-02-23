@@ -5,8 +5,8 @@ import Dexie from 'dexie';
 import { DexieService } from '../dexie/dexie.service';
 import { Item, ItemService } from '@services/item/item.service';
 import { PortfolioType } from '@enum/file-type.enum';
-import { FileService, File } from '@services/file/file.service';
-import { PageType } from '@enum/page-type.enum';
+import { FileService } from '@services/file/file.service';
+
 
 export interface Directory {
   id?: number;
@@ -22,7 +22,7 @@ export class DirectoryService {
   constructor(
     private dexie: DexieService,
     private items: ItemService,
-    private fileService: FileService
+    private fileService: FileService,
   ) {
     this.table = this.dexie.table('directory');
   }

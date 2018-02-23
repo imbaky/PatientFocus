@@ -16,7 +16,7 @@ export interface Item {
   chosen_date?: string;
   document_type?: PortfolioType;
   file?: File; // TODO change field to file and remove directory
-  profile_id: number;
+  directory_id: number;
 }
 
 @Injectable()
@@ -71,7 +71,7 @@ export class ItemService {
       file: newFile,
       title: documentName,
       page: specificValues.page,
-      profile_id: directory_id
+      directory_id: directory_id
     };
     item = Object.assign(item, specificValues); // combine values
     const pk = await this.table.add(item);
@@ -106,7 +106,7 @@ export class ItemService {
    * @param {number} profileId
    */
   async getDiaryItemsByProfileID(profileId: number): Promise<Item[]> {
-    const items = await this.table.where('profile_id').equals(profileId).and( item => {
+    const items = await this.table.where('directory_id').equals(profileId).and( item => {
       if (item.page === PageType.Diary) {
         return true;
       }

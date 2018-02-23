@@ -1,0 +1,33 @@
+
+<ion-content>
+  <ion-slides pager (ionSlideDidChange)="onSlideChanged()" (ionSlideDrag)="onSlideDragged()">
+    <ion-slide>
+      <div class="tour__card" style="background: url('assets/background.svg') no-repeat">
+        <ion-icon [@bounce]='state' name="folder-open" color="primary" (@bounce.done)="onSlideDone()"></ion-icon>
+      </div>
+      <div [@bounce]='state'>
+        <h2 class="tour__title" ion-text color="primary">Store medical documents</h2>
+        <p class="tour__subtitle">Safely add your electronic medical records on your device's local storage.</p>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="tour__card" style="background: url('assets/background.svg') no-repeat">
+        <ion-icon [@bounce]='state' name="bookmark" color="primary"></ion-icon>
+      </div>
+      <div [@bounce]='state'>
+        <h2 class="tour__title" ion-text color="primary">Track your health</h2>
+        <p class="tour__subtitle">Keep an eye on your health with our flexible logging system. Track any of your health related information.</p>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="tour__card" style="background: url('assets/background.svg') no-repeat">
+        <ion-icon [@bounce]='state' name="share" color="primary" ></ion-icon>
+      </div>
+      <div [@bounce]='state'>
+        <h2 class="tour__title" ion-text color="primary">Share medical data</h2>
+        <p class="tour__subtitle">Provide access of your medical information without compromise.</p>
+      </div>
+    </ion-slide>
+  </ion-slides>
+  <button ion-button (click)="skipTour()" class="tour__skip">{{ skipMsg }}</button>
+</ion-content>

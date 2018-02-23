@@ -7,13 +7,19 @@ import { FilePath } from '@ionic-native/file-path';
 import { File } from '@ionic-native/file';
 
 import { FilterFileNamePipe } from '@pages/portfolio/pipes/file-name-filter/filterfilespace.pipe';
-import { FileFilterByDate, FileFilterByName, FileFilterByDocType, FileFilterByFormatType } from '@pages/portfolio/pipes/file-filter/file-filter.pipe';
+import {
+  FileFilterByDate,
+  FileFilterByName,
+  FileFilterByDocType,
+  FileFilterByFormatType
+} from '@pages/portfolio/pipes/file-filter/file-filter.pipe';
 import { PortfolioPage } from '@pages/portfolio/portfolio';
 import { ImportDocumentPage } from '@pages/portfolio/import-document/import-document';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { FileOpener } from '@ionic-native/file-opener';
 import { Camera } from '@ionic-native/camera';
 import { TextAvatarDirective } from '@directives/text-avatar/text-avatar.directive';
+import { ImageResizer } from "@ionic-native/image-resizer";
 
 @NgModule({
   imports: [
@@ -41,7 +47,9 @@ import { TextAvatarDirective } from '@directives/text-avatar/text-avatar.directi
     FileOpener,
     PhotoViewer,
     File,
-    Camera
+    Camera,
+    ImageResizer
   ]
 })
-export class PortfolioModule { }
+export class PortfolioModule {
+}

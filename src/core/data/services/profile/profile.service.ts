@@ -6,6 +6,8 @@ import { DirectoryService } from '../directory/directory.service';
 import { Item, ItemService } from '../item/item.service';
 import { Observable } from 'rxjs';
 import { Events } from 'ionic-angular';
+import { FileSystemService } from "@services/file-system/file-system.service";
+import { BackupDBService } from '@services/backup/backup-db.service';
 
 
 export interface UserProfile {
@@ -27,10 +29,14 @@ export class ProfileService {
   profileImgObserver: any;
   profileImg: any;
 
-  constructor(private dexie: DexieService,
-              private directoryService: DirectoryService,
-              private itemService: ItemService,
-              private events: Events) {
+  constructor(
+    private dexie: DexieService,
+    private directoryService: DirectoryService,
+    private itemService: ItemService,
+    private events: Events,
+    private fileSystemService: FileSystemService,
+    private backUpDBService: BackupDBService
+  ) {
     this.table = this.dexie.table('profile');
 
     this.profileObserver = null;
@@ -74,9 +80,7 @@ export class ProfileService {
       current_profile: true
     };
     const profileId = await this.table.put(newProfile);
-    const directoryId = await this.directoryService.createNewDirectory(
-        profileId
-    );
+    const directoryId = await this.fileSystemService.createNewDirectory(profileId);
     newProfile = await this.table.get(profileId);
     newProfile.directory = directoryId;
     return await this.table.put(newProfile);
@@ -131,6 +135,11 @@ export class ProfileService {
    */
   getProfileDiaryItems(profileId: number): Promise<Item[]> {
     return this.itemService.getDiaryItemsByProfileID(profileId);
+  }
+
+  async exportProfile(profile_id: number) {
+    let profile = await this.getCurrentProfile();
+    this.backUpDBService.exportProfile(profile_id, profile.password);
   }
 }
 

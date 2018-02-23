@@ -8,6 +8,7 @@ import { ProfileService } from '@services/profile/profile.service';
 import { DirectoryService } from '@services/directory/directory.service';
 import { ItemService } from '@services/item/item.service';
 import { FileService } from '@services/file/file.service';
+import { File } from '@ionic-native/file'
 
 import Dexie from 'dexie';
 import { SCHEMA } from '@services/dexie/database';
@@ -15,6 +16,9 @@ import { Appointment } from '@services/reminders/reminders.interface';
 import { NotificationsService } from '@services/notifications/notifications.service';
 import * as moment from 'moment';
 import { Events } from 'ionic-angular';
+import { FileSystemService } from '@services/file-system/file-system.service';
+import { BackupDBService } from '@services/backup/backup-db.service';
+import { Zip } from '@ionic-native/zip';
 
 class DATABASE extends Dexie {
     constructor() {
@@ -27,7 +31,8 @@ class DATABASE extends Dexie {
                 id: 1,
                 directory: 1,
                 name: 'name',
-                password: 'password'
+                password: 'password',
+                currentProfile: true
             });
             this.table('appointment').bulkAdd([
                 {
@@ -90,7 +95,11 @@ const testBedSetup = {
         DirectoryService,
         ItemService,
         FileService,
-        Events
+        FileSystemService,
+        File,
+        Events,
+        BackupDBService,
+        Zip
     ]
 };
 
@@ -146,9 +155,9 @@ describe('AppointmentService TestBed', () => {
         };
         const newAppointment = await appointmentService.createAppointment(appointment);
         let appointments = await appointmentService.getAppointments(1);
-        expect(appointments.length).toEqual(3);
+        expect(appointments.length).toEqual(2);
 
-        await appointmentService.deleteAppointment(newAppointment);
+        await appointmentService.deleteAppointment(newAppointment)
         appointments = await appointmentService.getAppointments(1);
         expect(appointments.length).toEqual(2);
     });

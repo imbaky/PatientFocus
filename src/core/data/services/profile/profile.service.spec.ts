@@ -6,10 +6,13 @@ import Dexie from 'dexie';
 import { SCHEMA } from '@services/dexie/database';
 import { ProfileService } from '@services/profile/profile.service';
 import { DirectoryService } from '@services/directory/directory.service';
-import { ItemService } from '@services/item/item.service';
+import { Item, ItemService } from '@services/item/item.service';
 import { FileService } from '@services/file/file.service';
 import { PageType } from '@enum/page-type.enum';
 import { PortfolioType, FileFormatType } from '../../enum/file-type.enum';
+import { BackupDBService } from '../backup/backup-db.service';
+import { Zip } from '@ionic-native/zip';
+import { FileSystemService } from '@services/file-system/file-system.service';
 
 class DATABASE extends Dexie {
   constructor() {
@@ -23,7 +26,6 @@ class DATABASE extends Dexie {
         directory_id: 1,
         description: 'lab test1',
         file_id: 1,
-        profile_id: 1,
         page: PageType.Portfolio,
         chosen_date: '2018-01-01',
         document_type: PortfolioType.DIAGNOSIS,
@@ -35,7 +37,6 @@ class DATABASE extends Dexie {
         directory_id: 1,
         description: 'lab test1',
         file_id: 2,
-        profile_id: 1,
         page: PageType.Diary,
         chosen_date: '2018-01-01',
         user_defined_file_name: 'User defined name',
@@ -46,7 +47,6 @@ class DATABASE extends Dexie {
         description: 'lab test1',
         directory_id: 1,
         file_id: 3,
-        profile_id: 1,
         page: PageType.Diary,
         chosen_date: '2018-01-01',
         user_defined_file_name: 'User defined name',
@@ -96,7 +96,10 @@ const testBedSetup = {
     ItemService,
     FileService,
     NativeFile,
-    Events
+    Events,
+    FileSystemService,
+    BackupDBService,
+    Zip,
   ]
 };
 
@@ -113,6 +116,12 @@ describe('Profile Service', () => {
     profileService = bed.get(ProfileService);
   });
 
+  afterAll( async() => {
+    mockDatabase.delete();
+    mockDatabase = new DATABASE();
+    TestBed.overrideProvider(DexieService, {useValue: mockDatabase});
+  });
+
   it("GIVEN no Profiles THEN it should not retrieve anything", async () => {
     const profile = await profileService.getCurrentProfile();
     expect(profile).toBeNull();
@@ -124,7 +133,7 @@ describe('Profile Service', () => {
       password: 'Password'
     });
     const profile = await profileService.getCurrentProfile();
-    const diaryEntries = await profileService.getProfileDiaryItems(profile.id);
+    const diaryEntries : Item[] = await profileService.getProfileDiaryItems(profile.id);
     expect(profile.name).toBe('John');
     expect(diaryEntries.length).toBe(2);
   });

@@ -1,17 +1,14 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
-import { ProfileService, UserProfile } from '@services/profile/profile.service';
-import {
-    EmergencyContactService,
-    EmergencyContact
-} from '@services/emergency-contact/emergency-contact.service';
-import { EditInfoModal } from '@pages/profile-info/edit-info/edit-info';
+import { NavController, ModalController, ToastController } from 'ionic-angular';
 import {MedicalInfo, MedicalInfoService} from '@services/medical-info/medical-info.service';
 import { FileChooser } from "@ionic-native/file-chooser";
 import { FilePath } from "@ionic-native/file-path";
 import { DirectoryService } from "@services/directory/directory.service";
 import { FileSystemService } from "@services/file-system/file-system.service";
 import { ItemService } from "@services/item/item.service";
+import { UserProfile, ProfileService } from "@services/profile/profile.service";
+import { EmergencyContact, EmergencyContactService } from "@services/emergency-contact/emergency-contact.service";
+import { EditInfoModal } from "@pages/profile-info/edit-info/edit-info";
 
 
 @Component({
@@ -36,7 +33,8 @@ export class ProfileInfoPage {
                 private directoryService: DirectoryService,
                 private fileSystemService: FileSystemService,
                 private itemService: ItemService,
-                private ref: ChangeDetectorRef) {
+                private ref: ChangeDetectorRef,
+                private toastCtrl: ToastController) {
 
         this.profileService.getCurrentProfile().then(profile => {
             this.profile = profile;
@@ -112,5 +110,15 @@ export class ProfileInfoPage {
            });
         });
     }
+
+   async exportProfile() {
+     const importToast = this.toastCtrl.create({
+       message: `Profile exported to Downloads folder as patient-focus-profile.zip`,
+       duration: 6000,
+       position: 'bottom'
+     });
+     await importToast.present();
+     this.profileService.exportProfile(this.profile.id);
+   }
 
 }

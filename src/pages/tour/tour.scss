@@ -1,0 +1,47 @@
+page-tour {
+  background-color: #efefef !important;
+
+  .tour__card {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 66%;
+    top: 0;
+  }
+
+  ion-icon {
+    margin-top: 40%;
+    font-size: 7em;
+  }
+
+  .tour__title {
+    margin-top: 80% !important;
+    font-weight: bold;
+    font-size: 1em;
+  }
+
+  .tour__subtitle {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+    font-size: 0.9em;
+  }
+
+  .swiper-pagination {
+    bottom: 10% !important;
+  }
+
+  .tour__skip {
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 5;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+  }
+}

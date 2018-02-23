@@ -9,6 +9,9 @@ import Dexie from 'dexie';
 import { SCHEMA } from '../dexie/database';
 import { PageType } from '../../enum/page-type.enum';
 import { PortfolioType, FileFormatType } from '../../enum/file-type.enum';
+import { BackupDBService } from '../backup/backup-db.service';
+import { Zip } from '@ionic-native/zip';
+import { FileSystemService } from '@services/file-system/file-system.service';
 
 class DATABASE extends Dexie {
   constructor() {
@@ -98,7 +101,10 @@ const testBedSetup = {
     DirectoryService,
     ItemService,
     FileService,
-    File
+    File,
+    BackupDBService,
+    Zip,
+    FileSystemService
   ]
 };
 

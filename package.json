@@ -21,6 +21,7 @@
     "fix-gradle": "sed -i 's/1.0.0@aar/2.0.1@aar/g' platforms/android/cordova-safe/starter-conceal.gradle"
   },
   "dependencies": {
+    "@angular/animations": "^5.0.3",
     "@angular/common": "5.0.3",
     "@angular/compiler": "5.0.3",
     "@angular/compiler-cli": "5.0.3",
@@ -35,18 +36,23 @@
     "@ionic-native/email-composer": "^4.5.2",
     "@ionic-native/file": "latest",
     "@ionic-native/file-chooser": "^4.5.0",
-    "@ionic-native/file-encryption": "^4.4.2",
+    "@ionic-native/file-encryption": "^4.5.3",
     "@ionic-native/file-opener": "^4.5.2",
     "@ionic-native/file-path": "^4.5.0",
     "@ionic-native/file-transfer": "^4.5.0",
+    "@ionic-native/image-resizer": "^4.5.3",
     "@ionic-native/local-notifications": "^4.5.2",
     "@ionic-native/photo-viewer": "^4.5.2",
     "@ionic-native/splash-screen": "4.4.2",
     "@ionic-native/status-bar": "4.4.2",
+    "@ionic-native/zip": "^4.5.3",
     "@ionic/storage": "2.1.3",
+    "@types/crypto-js": "^3.1.38",
+    "@types/jszip": "^3.1.3",
     "com-sarriaroman-photoviewer": "^1.1.11",
     "cordova": "^8.0.0",
     "cordova-android": "6.4.0",
+    "cordova-browser": "^5.0.3",
     "cordova-plugin-badge": "^0.8.7",
     "cordova-plugin-camera": "^3.0.0",
     "cordova-plugin-device": "^1.1.7",
@@ -61,11 +67,15 @@
     "cordova-plugin-local-notification": "^0.9.0-beta.2",
     "cordova-plugin-splashscreen": "^4.1.0",
     "cordova-plugin-whitelist": "^1.3.3",
+    "cordova-plugin-zip": "^3.1.0",
     "cordova-safe": "^2.0.1",
+    "crypto-js": "^3.1.9-1",
     "dexie": "^2.0.1",
+    "info.protonet.imageresizer": "0.1.1",
     "ionic-angular": "3.9.2",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
+    "jszip": "^3.1.5",
     "moment": "^2.19.3",
     "rxjs": "5.5.2",
     "sw-toolbox": "3.6.0",
@@ -115,10 +125,13 @@
       "cordova-plugin-document-viewer": {},
       "cordova-plugin-file-opener2": {},
       "cordova-plugin-email-composer": {},
-      "cordova-plugin-local-notification": {}
+      "cordova-plugin-local-notification": {},
+      "cordova-plugin-zip": {},
+      "info.protonet.imageresizer": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "browser"
     ]
   },
   "config": {
