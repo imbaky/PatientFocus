@@ -10,7 +10,7 @@ import { DiaryPage } from '@pages/diary/diary';
 import { ProfileService } from '@services/profile/profile.service';
 import { PortfolioPage } from '@pages/portfolio/portfolio';
 import { ProfileInfoPage } from '@pages/profile-info/profile-info';
-import { ItemService } from "@services/item/item.service";
+import { ItemService } from '@services/item/item.service';
 
 @Component({
   templateUrl: 'app.html'

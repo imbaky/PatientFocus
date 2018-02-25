@@ -40,7 +40,6 @@
     "@ionic-native/file-opener": "^4.5.2",
     "@ionic-native/file-path": "^4.5.0",
     "@ionic-native/file-transfer": "^4.5.0",
-    "@ionic-native/image-resizer": "^4.5.3",
     "@ionic-native/local-notifications": "^4.5.2",
     "@ionic-native/photo-viewer": "^4.5.2",
     "@ionic-native/splash-screen": "4.4.2",
@@ -71,7 +70,6 @@
     "cordova-safe": "^2.0.1",
     "crypto-js": "^3.1.9-1",
     "dexie": "^2.0.1",
-    "info.protonet.imageresizer": "0.1.1",
     "ionic-angular": "3.9.2",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
@@ -126,8 +124,7 @@
       "cordova-plugin-file-opener2": {},
       "cordova-plugin-email-composer": {},
       "cordova-plugin-local-notification": {},
-      "cordova-plugin-zip": {},
-      "info.protonet.imageresizer": {}
+      "cordova-plugin-zip": {}
     },
     "platforms": [
       "android",

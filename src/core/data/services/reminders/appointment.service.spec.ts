@@ -8,7 +8,7 @@ import { ProfileService } from '@services/profile/profile.service';
 import { DirectoryService } from '@services/directory/directory.service';
 import { ItemService } from '@services/item/item.service';
 import { FileService } from '@services/file/file.service';
-import { File } from '@ionic-native/file'
+import { File } from '@ionic-native/file';
 
 import Dexie from 'dexie';
 import { SCHEMA } from '@services/dexie/database';

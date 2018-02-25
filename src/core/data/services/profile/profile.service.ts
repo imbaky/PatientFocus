@@ -138,7 +138,7 @@ export class ProfileService {
   }
 
   async exportProfile(profile_id: number) {
-    let profile = await this.getCurrentProfile();
+    const profile = await this.getCurrentProfile();
     this.backUpDBService.exportProfile(profile_id, profile.password);
   }
 }

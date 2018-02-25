@@ -94,7 +94,7 @@ export class FileSystemService {
     newFileName = name_without_extension;
     for (let _i = 1; _i <= directory.items.length; _i++) {
       try {
-        const found = await this.file.checkFile(this.file.externalDataDirectory + String(directory.id)+'/',
+        const found = await this.file.checkFile(this.file.externalDataDirectory + String(directory.id) + '/',
           newFileName.concat(extension));
         if (found) {
           newFileName = name_without_extension;
@@ -114,8 +114,7 @@ export class FileSystemService {
   async createNewDirectory(profileId: number) {
     try {
       await this.file.createDir(this.file.externalDataDirectory + '/', String(profileId), false);
-    }
-    catch(e) {
+    } catch (e) {
       console.log(e);
     }
     return await this.directoryService.createNewDirectory(profileId);

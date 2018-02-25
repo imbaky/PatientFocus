@@ -51,8 +51,8 @@ export class ProfileInfoPage {
                         this.profileImg = img.file.path;
                         this.profileService.cacheProfileImg(img.file.path);
                     }
-                })
-            })
+                });
+            });
         });
     }
 
@@ -92,15 +92,15 @@ export class ProfileInfoPage {
         const uri = await this.fileChooser.open();
         window.resolveLocalFileSystemURL(uri, (fileEntry) => {
            fileEntry.getMetadata(async(metadata) => {
-               let imgSrc = await this.filePath.resolveNativePath(uri);
-               if(!this.profileImg) {
+               const imgSrc = await this.filePath.resolveNativePath(uri);
+               if (!this.profileImg) {
                    await this.itemService.getProfileImage(this.directory.id);
-                   let image = await this.fileSystemService.addNewFileToDirectory(imgSrc, '', 'profile_image', this.directory, {profile_img: true});
+                   const image = await this.fileSystemService.addNewFileToDirectory(imgSrc, '', 'profile_image', this.directory, {profile_img: true});
                    this.profileImg = image.file.path;
                    this.profileService.cacheProfileImg(this.profileImg);
                    this.ref.detectChanges();
                } else {
-                   let image = await this.itemService.getProfileImage(this.directory.id);
+                   const image = await this.itemService.getProfileImage(this.directory.id);
                    image.file.path = imgSrc;
                    await this.itemService.addItemToDB(image);
                    this.profileImg = imgSrc;

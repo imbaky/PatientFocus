@@ -154,7 +154,7 @@ describe('File System Service', () => {
         document_type: PortfolioType.BLOOD_TEST,
         page: PageType.Portfolio
       }
-    }
+    };
     const folder = await directory.getDirectoryById(1);
     const item = await fileSystemService.addNewFileToDirectory(fileInfo.fullPath,
       fileInfo.creationDate, fileInfo.newDocumentName, folder, fileInfo.specificValues);
@@ -162,6 +162,5 @@ describe('File System Service', () => {
     expect(item.page).toBe(PageType.Portfolio);
     expect(item.chosen_date).toBe(this.date);
   });
-
 
 });

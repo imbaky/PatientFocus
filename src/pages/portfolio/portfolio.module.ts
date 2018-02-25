@@ -19,7 +19,6 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { FileOpener } from '@ionic-native/file-opener';
 import { Camera } from '@ionic-native/camera';
 import { TextAvatarDirective } from '@directives/text-avatar/text-avatar.directive';
-import { ImageResizer } from "@ionic-native/image-resizer";
 
 @NgModule({
   imports: [
@@ -48,7 +47,6 @@ import { ImageResizer } from "@ionic-native/image-resizer";
     PhotoViewer,
     File,
     Camera,
-    ImageResizer
   ]
 })
 export class PortfolioModule {
