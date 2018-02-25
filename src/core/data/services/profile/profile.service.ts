@@ -1,4 +1,4 @@
-import { SHA256} from 'crypto-js';
+import { MD5 , SHA256} from 'crypto-js';
 import { Injectable } from '@angular/core';
 import { DexieService } from '../dexie/dexie.service';
 
@@ -41,17 +41,17 @@ export class ProfileService {
         return await this.table.get(id);
     }
 
-  /**
+  /**crypto-js
    * Saves a new profile and attaches a new directory and diary with the same id
    * @param profile object form
    * @returns {Promise<number>}
    */
   async save(profile: any) {
-    const salt=MD5(Math.random().toString()).toString();
+    const salt = MD5(Math.random().toString()).toString();
     let newProfile = {
       directory: null,
       name: profile.name,
-      password:  SHA256(salt+profile.password).toString(),
+      password:  SHA256(salt + profile.password).toString(),
       salt: salt
     };
     const profileId = await this.table.put(newProfile);

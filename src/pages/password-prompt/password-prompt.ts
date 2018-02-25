@@ -21,12 +21,10 @@ password: string;
   }
   async checkPwd() {
     await this.profileService.getFirstProfile().then(profile => {
-      if (profile.password === SHA256(profile.salt+this.password).toString()) {
+      if (profile.password === SHA256(profile.salt + this.password).toString()) {
         this.menu.swipeEnable(true, 'left');
         this.navCtrl.setRoot(ProfileInfoPage);
-      }
-      else
-      {
+      } else {
         const alert = this.alertCtrl.create({
           title: 'Incorrect password',
           subTitle: 'Please re-enter your password',

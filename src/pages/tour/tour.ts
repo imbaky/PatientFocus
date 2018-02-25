@@ -40,8 +40,8 @@ import { ProfileInfoPage } from '@pages/profile-info/profile-info';
 })
 export class TourPage {
   @ViewChild(Slides) slides: Slides;
-  skipMsg: string = 'Skip';
-  state: string = 'x';
+  skipMsg = 'Skip';
+  state = 'x';
 
   constructor(public navCtrl: NavController) {}
 
@@ -51,13 +51,15 @@ export class TourPage {
   }
 
   onSlideChanged() {
-    if (this.slides.isEnd()) this.skipMsg = 'Begin!';
+    if (this.slides.isEnd()) { this.skipMsg = 'Begin!'; }
   }
 
   onSlideDragged() {
-    if (this.slides.getActiveIndex() >= this.slides.getPreviousIndex())
+    if (this.slides.getActiveIndex() >= this.slides.getPreviousIndex()) {
       this.state = 'rightSwipe';
-    else this.state = 'leftSwipe';
+    } else {
+      this.state = 'leftSwipe';
+    }
   }
 
   onSlideDone() {
