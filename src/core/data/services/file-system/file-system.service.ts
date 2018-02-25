@@ -47,7 +47,7 @@ export class FileSystemService {
       const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
       const newFileName: string = await this.createFileName(filename, directory);
-      if ((fullPath && item.file === undefined) || (fullPath !== item.file.path)) {
+      if ((fullPath && item.file == undefined) || (fullPath !== item.file.path)) {
         entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory + '/' + String(directory.id), newFileName);
         const newFile = await this.directoryService.addFileToDirectory(entry, creationDate, directory, newDocumentName, specificValues);
         return await this.deleteFileFromDirectory(item, directory);

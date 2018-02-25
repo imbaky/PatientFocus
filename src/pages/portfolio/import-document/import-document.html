@@ -34,11 +34,11 @@
       <button ion-button color="primary" type="submit" [disabled]="!importDocumentForm.valid">Import</button>
     </ion-item>
     <ion-item *ngIf='importMethod == "edit-document"'>
-      <button ion-button outline icon-start (tap)="takePicture()">
+      <button ion-button outline icon-start type="button" (tap)="takePicture()">
         <ion-icon name='camera'></ion-icon>
         Camera
       </button>
-      <button ion-button outline icon-start (tap)="selectFileEdit($event)">
+      <button ion-button outline icon-start type="button" (tap)="selectFileEdit($event)">
         <ion-icon name='document'></ion-icon>
         File
       </button>
