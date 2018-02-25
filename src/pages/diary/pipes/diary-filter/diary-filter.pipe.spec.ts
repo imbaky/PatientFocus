@@ -1,5 +1,5 @@
 import { DiaryFilterByDate, DiaryFilterByTerm } from './diary-filter.pipe';
-import { Item } from '@services/item/item.service';
+import { Item } from '@interfaces/item/item';
 import { PortfolioType, FileFormatType } from '@enum/file-type.enum';
 
 describe('DiaryFilterPipe', () => {

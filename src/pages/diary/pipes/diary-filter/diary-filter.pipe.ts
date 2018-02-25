@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import * as moment from 'moment';
 
-import { Item } from '@services/item/item.service';
+import { Item } from '@interfaces/item/item';
 
 @Pipe({
     name: 'diaryFilterByDate'
