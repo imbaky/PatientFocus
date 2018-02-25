@@ -1,4 +1,4 @@
-import { Md5 } from 'ts-md5/dist/md5';
+import { SHA256 } from 'crypto-js';
 import { ProfileInfoPage } from '@pages/profile-info/profile-info';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
@@ -21,7 +21,7 @@ password: string;
   }
   async checkPwd() {
     await this.profileService.getFirstProfile().then(profile => {
-      if (profile.password === Md5.hashStr(this.password)) {
+      if (profile.password === SHA256(profile.salt+this.password).toString()) {
         this.menu.swipeEnable(true, 'left');
         this.navCtrl.setRoot(ProfileInfoPage);
       }

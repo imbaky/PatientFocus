@@ -1,4 +1,4 @@
-import { Md5 } from 'ts-md5/dist/md5';
+import { SHA256} from 'crypto-js';
 import { Injectable } from '@angular/core';
 import { DexieService } from '../dexie/dexie.service';
 
@@ -16,6 +16,7 @@ export interface UserProfile {
   directory: number;
   name: string;
   password: string;
+  salt: string;
   emergency_contact_id?: number;
   gender?: string;
   dob?: string;
@@ -46,10 +47,12 @@ export class ProfileService {
    * @returns {Promise<number>}
    */
   async save(profile: any) {
+    const salt=MD5(Math.random().toString()).toString();
     let newProfile = {
       directory: null,
       name: profile.name,
-      password:  Md5.hashStr(profile.password) as string
+      password:  SHA256(salt+profile.password).toString(),
+      salt: salt
     };
     const profileId = await this.table.put(newProfile);
     const directoryId = await this.fileSystemService.createNewDirectory(profileId);
