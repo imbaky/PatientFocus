@@ -31,7 +31,8 @@ class DATABASE extends Dexie {
                 id: 1,
                 directory: 1,
                 name: 'name',
-                password: 'password'
+                password: 'password',
+                currentProfile: true
             });
             this.table('appointment').bulkAdd([
                 {
@@ -154,9 +155,9 @@ describe('AppointmentService TestBed', () => {
         };
         const newAppointment = await appointmentService.createAppointment(appointment);
         let appointments = await appointmentService.getAppointments(1);
-        expect(appointments.length).toEqual(3);
+        expect(appointments.length).toEqual(2);
 
-        await appointmentService.deleteAppointment(newAppointment);
+        await appointmentService.deleteAppointment(newAppointment)
         appointments = await appointmentService.getAppointments(1);
         expect(appointments.length).toEqual(2);
     });

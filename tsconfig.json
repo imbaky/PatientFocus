@@ -20,8 +20,8 @@
       "@interfaces/*": ["core/data/interfaces/*"]
     }
   },
-  "include": ["src/**/*.ts", "plugins/cordova-plugin-file/types/index.d.ts", "src/**/*.enum.ts", "src/**/*.spec.ts"],
-  "exclude": ["node_modules"],
+  "include": ["src/**/*.ts", "plugins/cordova-plugin-file/types/index.d.ts", "src/**/*.enum.ts"],
+  "exclude": ["node_modules", "src/**/*.spec.ts"],
   "compileOnSave": false,
   "atom": {
     "rewriteTsconfig": false

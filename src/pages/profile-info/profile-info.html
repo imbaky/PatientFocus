@@ -8,7 +8,11 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-grid>
+    <ion-grid>
+        <div menuClose class="profile-image" (click)="selectFile()">
+            <img src="assets/placeholder-face.png" *ngIf="!profileImg"/>
+            <ion-avatar item-start><img style="height:159px" src="{{profileImg}}" *ngIf="profileImg"/></ion-avatar>
+        </div>
     <div class="profile-info-section">
       <ion-row>
         <ion-col col-10>

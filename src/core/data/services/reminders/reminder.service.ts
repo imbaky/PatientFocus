@@ -28,7 +28,7 @@ export class ReminderService {
 
     async createReminder(reminder: Reminder) {
         // TODO: get current profile not just first one
-        reminder.fk_profile_id = await this.profileService.getFirstProfileId();
+        reminder.fk_profile_id = await this.profileService.getCurrentProfileId();
         const pk = await this.table.add(reminder);
         reminder.id = pk;
         return reminder;

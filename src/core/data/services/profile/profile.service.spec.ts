@@ -115,7 +115,6 @@ describe('Profile Service', () => {
     TestBed.overrideProvider(DexieService, { useValue: mockDatabase });
     dexie = bed.get(DexieService);
     profileService = bed.get(ProfileService);
-    profileService.clearDb();
   });
 
   afterAll( async() => {
@@ -124,9 +123,9 @@ describe('Profile Service', () => {
     TestBed.overrideProvider(DexieService, {useValue: mockDatabase});
   });
 
-  it('GIVEN no Profiles THEN it should not retrieve anything', async () => {
-    const profile = await profileService.getFirstProfile();
-    expect(profile).toBeUndefined();
+  it("GIVEN no Profiles THEN it should not retrieve anything", async () => {
+    const profile = await profileService.getCurrentProfile();
+    expect(profile).toBeNull();
   });
 
   it('GIVEN an existing Profile THEN it should retrieve it', async () => {
@@ -134,8 +133,8 @@ describe('Profile Service', () => {
       name: 'John',
       password: 'Password'
     });
-    const profile = await profileService.getFirstProfile();
-    const diaryEntries: Item[] = await profileService.getProfileDiaryItems(profile.id);
+    const profile = await profileService.getCurrentProfile();
+    const diaryEntries : Item[] = await profileService.getProfileDiaryItems(profile.id);
     expect(profile.name).toBe('John');
     expect(diaryEntries.length).toBe(2);
   });
@@ -145,7 +144,7 @@ describe('Profile Service', () => {
       name: 'John',
       password: 'Password'
     });
-    const profile = await profileService.getFirstProfile();
+    const profile = await profileService.getCurrentProfile();
     expect(profile.directory).toEqual(profile.id);
   });
 
@@ -154,11 +153,14 @@ describe('Profile Service', () => {
       name: 'John',
       password: 'Password'
     });
-    let profile = await profileService.getFirstProfile();
-    await profileService.editProfile('Tim', 'Male', 'January 1 1995');
-    profile = await profileService.getFirstProfile();
-    expect(profile.gender).toEqual('Male');
-    expect(profile.name).toEqual('Tim');
-    expect(profile.dob).toEqual('January 1 1995');
+    let profile = await profileService.getCurrentProfile();
+    profileService.profileObserver =  new Object({
+      next(){}
+    });
+    await profileService.editProfile("Tim", "Male", "January 1 1995");
+    profile = await profileService.getCurrentProfile();
+    expect(profile.gender).toEqual("Male");
+    expect(profile.name).toEqual("Tim");
+    expect(profile.dob).toEqual("January 1 1995");
   });
 });

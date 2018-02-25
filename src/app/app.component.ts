@@ -1,5 +1,5 @@
 import { PasswordPromptPage } from '@pages/password-prompt/password-prompt';
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -11,6 +11,7 @@ import { DiaryPage } from '@pages/diary/diary';
 import { ProfileService } from '@services/profile/profile.service';
 import { PortfolioPage } from '@pages/portfolio/portfolio';
 import { ProfileInfoPage } from '@pages/profile-info/profile-info';
+import { ItemService } from '@services/item/item.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -20,6 +21,7 @@ export class MyApp implements OnInit {
 
   rootPage: any = ProfilePage;
   name: string;
+  profileImg: string;
   pages: Array<{ title: string; component: any }>;
 
   constructor(
@@ -27,7 +29,10 @@ export class MyApp implements OnInit {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     private profileService: ProfileService,
+    private itemService: ItemService,
+    private ref: ChangeDetectorRef,
     private events: Events
+
   ) {
     this.pages = [
       { title: 'Profile info', component: ProfileInfoPage },
@@ -38,18 +43,21 @@ export class MyApp implements OnInit {
     ];
     this.events.subscribe('profile:update', profile => {this.name = profile.name; });
 
+    this.profileService.profile.subscribe(name => this.name = name);
+    this.profileService.profileImg.subscribe(img => {
+      this.profileImg = img;
+      this.ref.detectChanges();
+    });
   }
 
-  ngOnInit() {
-    this.profileService.getFirstProfile().then(profile => {
-      if (profile) {
-        this.rootPage = PasswordPromptPage;
-      } else {
-        this.rootPage = ProfilePage;
-      }
-    });
+  async ngOnInit() {
+    const profile = await this.profileService.getCurrentProfile();
+    if (profile) {
+      this.rootPage = PasswordPromptPage;
+    } else {
+      this.rootPage = ProfilePage;
     }
-
+  }
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {

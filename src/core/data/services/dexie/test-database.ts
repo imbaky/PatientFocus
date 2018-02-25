@@ -57,7 +57,6 @@ export class DATABASE extends Dexie {
   }
 
   addFiles() {
-
     const files: File[] = [
       {
         id: 1,

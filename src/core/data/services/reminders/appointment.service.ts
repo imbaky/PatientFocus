@@ -24,7 +24,7 @@ export class AppointmentService {
     }
 
     async createAppointment(appointment: Appointment) {
-        appointment.fk_profile_id = await this.profileService.getFirstProfileId();
+        appointment.fk_profile_id = await this.profileService.getCurrentProfileId();
         const pk = await this.table.add(appointment);
         appointment.id = pk;
         return appointment;

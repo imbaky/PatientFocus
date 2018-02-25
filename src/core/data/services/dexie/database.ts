@@ -1,6 +1,6 @@
 export const SCHEMA = {
   'directory': '++id',
-  'profile': '++id, directory, name, password, salt, emergency_contact_id, gender, dob',
+  'profile': '++id, directory, name, password, salt, emergency_contact_id, gender, dob, current_profile',
   'medical_info': '++id, blood_type, known_conditions, allergies',
   'item': '++id, title, description, file_id, page, directory_id, chosen_date',
   'file': '++id, path, size, format, directory_id, file_name',
