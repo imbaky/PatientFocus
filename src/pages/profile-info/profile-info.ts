@@ -1,3 +1,8 @@
+import { ItemService } from '@services/item/item.service';
+import { FileSystemService } from '@services/file-system/file-system.service';
+import { DirectoryService } from '@services/directory/directory.service';
+import { FilePath } from '@ionic-native/file-path';
+import { FileChooser } from '@ionic-native/file-chooser';
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { NavController, ModalController, ToastController } from 'ionic-angular';
 import { ProfileService, UserProfile } from '@services/profile/profile.service';

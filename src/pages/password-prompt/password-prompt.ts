@@ -20,7 +20,7 @@ password: string;
       this.menu.swipeEnable(false, 'left');
   }
   async checkPwd() {
-    await this.profileService.getFirstProfile().then(profile => {
+    await this.profileService.getCurrentProfile().then(profile => {
       if (profile.password === SHA256(profile.salt + this.password).toString()) {
         this.menu.swipeEnable(true, 'left');
         this.navCtrl.setRoot(ProfileInfoPage);

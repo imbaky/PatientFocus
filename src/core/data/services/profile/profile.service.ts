@@ -4,7 +4,7 @@ import { DexieService } from '../dexie/dexie.service';
 
 import Dexie from 'dexie';
 import { DirectoryService } from '../directory/directory.service';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { Events } from 'ionic-angular';
 import { FileSystemService } from '@services/file-system/file-system.service';
 import { BackupDBService } from '@services/backup/backup-db.service';
