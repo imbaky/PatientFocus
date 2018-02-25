@@ -1,4 +1,5 @@
-import { Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
+import { PasswordPromptPage } from '@pages/password-prompt/password-prompt';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -52,7 +53,7 @@ export class MyApp implements OnInit {
   async ngOnInit() {
     const profile = await this.profileService.getCurrentProfile();
     if (profile) {
-      this.rootPage = ProfileInfoPage;
+      this.rootPage = PasswordPromptPage;
     } else {
       this.rootPage = ProfilePage;
     }

@@ -1,13 +1,15 @@
+import { MD5 , SHA256} from 'crypto-js';
 import { Injectable } from '@angular/core';
 import { DexieService } from '../dexie/dexie.service';
 
 import Dexie from 'dexie';
 import { DirectoryService } from '../directory/directory.service';
-import { Item, ItemService } from '../item/item.service';
 import { Observable } from 'rxjs';
 import { Events } from 'ionic-angular';
 import { FileSystemService } from '@services/file-system/file-system.service';
 import { BackupDBService } from '@services/backup/backup-db.service';
+import { ItemService} from '../item/item.service';
+import {Item} from '@interfaces/item/item';
 
 
 export interface UserProfile {
@@ -15,6 +17,7 @@ export interface UserProfile {
   directory: number;
   name: string;
   password: string;
+  salt: string;
   emergency_contact_id?: number;
   gender?: string;
   dob?: string;
@@ -67,16 +70,18 @@ export class ProfileService {
     return await this.table.get(id);
   }
 
-  /**
+  /**crypto-js
    * Saves a new profile and attaches a new directory and diary with the same id
    * @param profile object form
    * @returns {Promise<number>}
    */
   async save(profile: any) {
+    const salt = MD5(Math.random().toString()).toString();
     let newProfile = {
       directory: null,
       name: profile.name,
-      password: profile.password,
+      password:  SHA256(salt + profile.password).toString(),
+      salt: salt,
       current_profile: true
     };
     const profileId = await this.table.put(newProfile);

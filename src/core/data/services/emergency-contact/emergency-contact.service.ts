@@ -3,13 +3,9 @@ import { DexieService } from '../dexie/dexie.service';
 
 import Dexie from 'dexie';
 import { ProfileService } from '@services/profile/profile.service';
+import {EmergencyContact} from '@interfaces/emergency-contact/emergency-contact';
 
-export interface EmergencyContact {
-    id?: number;
-    name: string;
-    relationship: string;
-    phoneNumber: number;
-}
+
 
 @Injectable()
 export class EmergencyContactService {

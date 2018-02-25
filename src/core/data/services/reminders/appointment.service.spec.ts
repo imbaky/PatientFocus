@@ -1,5 +1,5 @@
 import { async, TestBed } from '@angular/core/testing';
-import { LocalNotifications, ILocalNotification } from '@ionic-native/local-notifications';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { AppointmentService } from '@services/reminders/appointment.service';
 import { ReminderType } from '@enum/reminder-method-type';
@@ -12,7 +12,7 @@ import { File } from '@ionic-native/file';
 
 import Dexie from 'dexie';
 import { SCHEMA } from '@services/dexie/database';
-import { Appointment } from '@services/reminders/reminders.interface';
+import { Appointment } from '@interfaces/reminder/reminders';
 import { NotificationsService } from '@services/notifications/notifications.service';
 import * as moment from 'moment';
 import { Events } from 'ionic-angular';

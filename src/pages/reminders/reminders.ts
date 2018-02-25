@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController, ActionSheetController } from 'ionic-angular';
 
-import { Reminders, Reminder, Appointment } from '@services/reminders/reminders.interface';
+import { Reminders, Reminder, Appointment } from '@interfaces/reminder/reminders';
 import { ReminderComponent } from '@pages/reminders/components/reminder.component';
 import { AppointmentComponent } from '@pages/reminders/appointment/appointment';
 import { RemindersService } from '@services/reminders/reminders.service';
