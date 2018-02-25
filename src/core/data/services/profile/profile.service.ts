@@ -1,3 +1,4 @@
+import { Md5 } from 'ts-md5/dist/md5';
 import { Injectable } from '@angular/core';
 import { DexieService } from '../dexie/dexie.service';
 
@@ -48,7 +49,7 @@ export class ProfileService {
     let newProfile = {
       directory: null,
       name: profile.name,
-      password: profile.password
+      password:  Md5.hashStr(profile.password) as string
     };
     const profileId = await this.table.put(newProfile);
     const directoryId = await this.fileSystemService.createNewDirectory(profileId);
