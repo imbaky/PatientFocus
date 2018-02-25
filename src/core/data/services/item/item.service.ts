@@ -2,22 +2,12 @@ import { Injectable } from '@angular/core';
 import Dexie from 'dexie';
 
 import { DexieService } from '@services/dexie/dexie.service';
-import { FileService, File } from '@services/file/file.service';
-import { ItemType } from '@enum/item-type.enum';
+import { FileService } from '@services/file/file.service';
 import { PortfolioType } from '@enum/file-type.enum';
 import { PageType } from '@enum/page-type.enum';
+import {File} from '@interfaces/file/file';
+import {Item} from '@interfaces/item/item';
 
-export interface Item {
-  id?: number;
-  title?: string;
-  description?: string;
-  file_id?: number;
-  page: PageType; // specifies which page item belongs to
-  chosen_date?: string;
-  document_type?: PortfolioType;
-  file?: File; // TODO change field to file and remove directory
-  directory_id: number;
-}
 
 @Injectable()
 export class ItemService {
@@ -37,8 +27,22 @@ export class ItemService {
    * @returns {Item} items found in the directory
    */
   async getItemsByDirectoryId(directory: number): Promise<Item[]> {
-    const items = await this.table.where('directory_id').equals(directory).toArray();
-    return items;
+    return await this.table.where('directory_id').equals(directory).toArray();
+  }
+
+  /**
+   *  Retrieves a profile image if it exists
+   * @param directory
+   * @returns {Promise<any>}
+   */
+  async getProfileImage(directory: number): Promise<any> {
+    const items = <any> await this.table.where('directory_id').equals(directory).toArray();
+    for (const item of items) {
+      if (item.profile_img) {
+        return item;
+      }
+    }
+    return false;
   }
 
   /**
@@ -73,7 +77,7 @@ export class ItemService {
    * @returns {Item}
    */
   async addItemToDB(item: Item): Promise<Item> {
-    const pk = await this.table.add(item);
+    const pk = await this.table.put(item);
     this.table.update( pk, { id: pk });
     item.id = pk;
     return item;

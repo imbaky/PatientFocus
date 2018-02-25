@@ -4,11 +4,11 @@ import { NavParams, ToastController, ViewController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FilePath } from '@ionic-native/file-path';
 import { FileChooser } from '@ionic-native/file-chooser';
-import { Directory } from '@services/directory/directory.service';
+import { Directory } from '@interfaces/directory/directory';
 import { FileSystemService } from '@services/file-system/file-system.service';
 import { File } from '@ionic-native/file';
 import { ItemService } from '@services/item/item.service';
-import { Item } from '@services/item/item.service';
+import { Item } from '@interfaces/item/item';
 import { PageType } from '@enum/page-type.enum';
 import * as moment from 'moment';
 

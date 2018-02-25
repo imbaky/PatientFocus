@@ -12,6 +12,7 @@ if (env === 'prod' || env === 'dev') {
     "@pipes": path.resolve('./src/pipes'),
     "@components": path.resolve('./src/components/'),
     "@directives": path.resolve('./src/directives/'),
+    "@interfaces": path.resolve('./src/core/data/interfaces')
   };
 
 } else {
@@ -25,6 +26,7 @@ if (env === 'prod' || env === 'dev') {
     "@pipes": path.resolve('./src/pipes'),
     "@components": path.resolve('./src/components/'),
     "@directives": path.resolve('./src/directives/'),
+    "@interfaces": path.resolve('./src/core/data/interfaces')
   };
 
 }

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { File } from '@ionic-native/file';
-import { Directory, DirectoryService } from '@services/directory/directory.service';
-import { Item } from '@services/item/item.service';
+import { DirectoryService } from '@services/directory/directory.service';
+import { Item } from '@interfaces/item/item';
+import {Directory} from '@interfaces/directory/directory';
 import * as jszip from 'jszip';
+
 
 declare var window;
 

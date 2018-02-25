@@ -10,12 +10,8 @@ export class DashboardPage {
   name: string;
 
   constructor(public navCtrl: NavController, private profileService: ProfileService) {
-      this.profileService.getFirstProfile().then(profile => {
+      this.profileService.getCurrentProfile().then(profile => {
           this.name = profile.name;
       });
-    }
-
-    clear() {
-      this.profileService.clearDb();
     }
 }

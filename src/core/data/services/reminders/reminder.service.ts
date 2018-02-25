@@ -6,8 +6,7 @@ import Dexie from 'dexie';
 import * as moment from 'moment';
 
 
-import { RemindersService } from '@services/reminders/reminders.service';
-import { Reminders, Reminder } from '@services/reminders/reminders.interface';
+import { Reminder } from '@interfaces/reminder/reminders';
 import { NotificationsService } from '@services/notifications/notifications.service';
 import { ProfileService } from '@services/profile/profile.service';
 
@@ -29,7 +28,7 @@ export class ReminderService {
 
     async createReminder(reminder: Reminder) {
         // TODO: get current profile not just first one
-        reminder.fk_profile_id = await this.profileService.getFirstProfileId();
+        reminder.fk_profile_id = await this.profileService.getCurrentProfileId();
         const pk = await this.table.add(reminder);
         reminder.id = pk;
         return reminder;

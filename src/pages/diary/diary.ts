@@ -7,16 +7,15 @@ import {
 } from 'ionic-angular';
 import * as moment from 'moment';
 import { ProfileService, UserProfile } from '@services/profile/profile.service';
-import { ItemService, Item } from '@services/item/item.service';
+import { ItemService } from '@services/item/item.service';
 import { AddEntryPage } from './add-entry/add-entry';
 import { DetailedView } from '@components/detailed-view/detailed-view.component';
-import {
-  Directory,
-  DirectoryService
-} from '@services/directory/directory.service';
+import { DirectoryService } from '@services/directory/directory.service';
 import { FileSystemService } from '@services/file-system/file-system.service';
 import { EditEntryPage } from './edit-entry/edit-entry';
 import { PageType } from '@enum/page-type.enum';
+import {Item} from '@interfaces/item/item';
+import {Directory} from '@interfaces/directory/directory';
 
 @Component({
   selector: 'page-diary',
@@ -70,8 +69,8 @@ export class DiaryPage {
   }
 
   getDiaryEntries() {
-    this.profileService.getFirstProfileId().then(async (profileId) => { // TODO need to get actual profile id
-      this.profileId = profileId;
+    this.profileService.getCurrentProfileId().then(async (profileId) => { // TODO need to get actual profile id
+    this.profileId = profileId;
       this.items$ = this.profileService.getProfileDiaryItems(profileId);
       this.directory = await this.directoryService.getDirectoryById(profileId);
     });
@@ -154,7 +153,7 @@ export class DiaryPage {
     });
     await importToast.present();
     // TODO - Needs to change asap...
-    this.profileService.getFirstProfileId().then(async profileId => {
+    this.profileService.getCurrentProfileId().then(async profileId => {
       this.items$ = this.profileService.getProfileDiaryItems(profileId);
       this.directory = await this.directoryService.getDirectoryById(profileId);
     });

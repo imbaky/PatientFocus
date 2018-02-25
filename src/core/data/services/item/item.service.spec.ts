@@ -1,15 +1,17 @@
-import { TestBed } from '@angular/core/testing';
-import { File } from '@ionic-native/file';
+import {TestBed} from '@angular/core/testing';
+import {File} from '@ionic-native/file';
 import Dexie from 'dexie';
 import * as moment from 'moment';
 
-import { DirectoryService } from '../directory/directory.service';
-import { FileService, File as NativeFile } from '../file/file.service';
-import { DexieService } from '../dexie/dexie.service';
-import { SCHEMA } from '../dexie/database';
-import { ItemService, Item } from '../item/item.service';
-import { PageType } from '../../enum/page-type.enum';
-import { PortfolioType, FileFormatType } from '../../enum/file-type.enum';
+import {FileService} from '@services/file/file.service';
+import {DexieService} from '@services/dexie/dexie.service';
+import {SCHEMA} from '@services/dexie/database';
+import {ItemService} from '@services/item/item.service';
+import {PageType} from '@enum/page-type.enum';
+import {FileFormatType, PortfolioType} from '@enum/file-type.enum';
+import {File as NativeFile} from '@interfaces/file/file';
+import {Item} from '@interfaces/item/item';
+import {DirectoryService} from '@services/directory/directory.service';
 import {BackupDBService} from '../backup/backup-db.service';
 import { Zip } from '@ionic-native/zip';
 import { FileSystemService } from '@services/file-system/file-system.service';

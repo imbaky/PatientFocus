@@ -1,5 +1,5 @@
 import { async, TestBed } from '@angular/core/testing';
-import { LocalNotifications, ILocalNotification } from '@ionic-native/local-notifications';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { AppointmentService } from '@services/reminders/appointment.service';
 import { ReminderType } from '@enum/reminder-method-type';
@@ -12,7 +12,7 @@ import { File } from '@ionic-native/file';
 
 import Dexie from 'dexie';
 import { SCHEMA } from '@services/dexie/database';
-import { Appointment } from '@services/reminders/reminders.interface';
+import { Appointment } from '@interfaces/reminder/reminders';
 import { NotificationsService } from '@services/notifications/notifications.service';
 import * as moment from 'moment';
 import { Events } from 'ionic-angular';
@@ -31,7 +31,8 @@ class DATABASE extends Dexie {
                 id: 1,
                 directory: 1,
                 name: 'name',
-                password: 'password'
+                password: 'password',
+                currentProfile: true
             });
             this.table('appointment').bulkAdd([
                 {
@@ -154,9 +155,9 @@ describe('AppointmentService TestBed', () => {
         };
         const newAppointment = await appointmentService.createAppointment(appointment);
         let appointments = await appointmentService.getAppointments(1);
-        expect(appointments.length).toEqual(3);
+        expect(appointments.length).toEqual(2);
 
-        await appointmentService.deleteAppointment(newAppointment);
+        await appointmentService.deleteAppointment(newAppointment)
         appointments = await appointmentService.getAppointments(1);
         expect(appointments.length).toEqual(2);
     });

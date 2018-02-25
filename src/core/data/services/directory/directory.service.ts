@@ -1,18 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Entry } from '@ionic-native/file';
+import {Injectable} from '@angular/core';
+import {Entry} from '@ionic-native/file';
 import Dexie from 'dexie';
 
-import { DexieService } from '../dexie/dexie.service';
-import { Item, ItemService } from '@services/item/item.service';
-import { PortfolioType } from '@enum/file-type.enum';
-import { FileService } from '@services/file/file.service';
+import {DexieService} from '../dexie/dexie.service';
+import {ItemService} from '@services/item/item.service';
+import {PortfolioType} from '@enum/file-type.enum';
+import {FileService} from '@services/file/file.service';
+import {Directory} from '@interfaces/directory/directory';
+import {Item} from '@interfaces/item/item';
 
-
-export interface Directory {
-  id?: number;
-  items: Item[];
-  directories: Directory[]; // directories on the first level. inner level directories would be defined in subsequent directories
-}
 
 @Injectable()
 export class DirectoryService {

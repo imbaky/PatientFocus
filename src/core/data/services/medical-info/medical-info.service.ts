@@ -1,22 +1,10 @@
 import { Injectable } from '@angular/core';
-import { DexieService } from '../dexie/dexie.service';
+import { DexieService } from '@services/dexie/dexie.service';
 
 import Dexie from 'dexie';
-import {BloodType} from '@enum/blood-type.enum';
 import {ProfileService} from '@services/profile/profile.service';
+import {MedicalInfo} from '@interfaces/medical-info/medical-info';
 
-export interface MedicalInfo {
-    id: number;
-    blood_type: BloodType;
-    known_conditions: string;
-    allergies: string;
-    profile_id: number;
-}
-
-export interface BloodTypeOption {
-    name: string;
-    value: BloodType;
-}
 
 @Injectable()
 export class MedicalInfoService {
@@ -28,11 +16,11 @@ export class MedicalInfoService {
     }
 
     async getMedicalInfo(): Promise<MedicalInfo> {
-        return await this.table.get(await this.profile.getFirstProfileId());
+        return await this.table.get(await this.profile.getCurrentProfileId());
     }
 
     async save(medical_info: MedicalInfo) {
-      const prof = await this.profile.getFirstProfileId();
+      const prof = await this.profile.getCurrentProfileId();
       medical_info.id = prof;
       await this.table.put(medical_info);
     }

@@ -4,7 +4,7 @@ import Dexie from 'dexie';
 import { FileFormatType, PortfolioType } from '@enum/file-type.enum';
 import { PageType } from '@enum/page-type.enum';
 import * as moment from 'moment';
-import { File } from '@services/file/file.service';
+import { File } from '@interfaces/file/file';
 
 export class DATABASE extends Dexie {
   constructor() {
@@ -57,7 +57,6 @@ export class DATABASE extends Dexie {
   }
 
   addFiles() {
-
     const files: File[] = [
       {
         id: 1,

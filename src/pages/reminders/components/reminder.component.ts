@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 
-import { Reminder } from '@services/reminders/reminders.interface';
+import { Reminder } from '@interfaces/reminder/reminders';
 import { ReminderService } from '@services/reminders/reminder.service';
 
 import { NavParams } from 'ionic-angular';

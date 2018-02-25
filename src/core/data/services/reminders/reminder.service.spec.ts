@@ -1,5 +1,5 @@
 import { Events } from 'ionic-angular/util/events';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { LocalNotifications, ILocalNotification } from '@ionic-native/local-notifications';
 
 import { ReminderService } from '@services/reminders/reminder.service';
@@ -14,7 +14,7 @@ import Dexie from 'dexie';
 import { SCHEMA } from '@services/dexie/database';
 import { NotificationsService } from '@services/notifications/notifications.service';
 import * as moment from 'moment';
-import {Reminder} from '@services/reminders/reminders.interface';
+import {Reminder} from '@interfaces/reminder/reminders';
 import { BackupDBService } from '../backup/backup-db.service';
 import { File } from '@ionic-native/file';
 import {Zip} from '@ionic-native/zip';
@@ -30,8 +30,9 @@ class DATABASE extends Dexie {
             this.table('profile').add({
               id: 1,
               directory: 1,
-              name: 'name',
-              password: 'password'
+              name: "name",
+              password: "password",
+              current_profile: true
             });
             this.table('reminder').bulkAdd([
                 {

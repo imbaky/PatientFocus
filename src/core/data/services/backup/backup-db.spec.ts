@@ -4,12 +4,12 @@ import { DATABASE } from '../dexie/test-database';
 import { BackupDBService } from '../backup/backup-db.service';
 import { PortfolioType } from '@enum/file-type.enum';
 import { Zip } from '@ionic-native/zip';
-import { Item } from '@services/item/item.service';
+import { Item } from '@interfaces/item/item';
 import { PageType } from '@enum/page-type.enum';
 import { UserProfile } from '@services/profile/profile.service';
-import { Reminder } from '@services/reminders/reminders.interface';
+import { Reminder } from '@interfaces/reminder/reminders';
 import { File as NativeFile } from '@ionic-native/file';
-import { File } from '@services/file/file.service';
+import { File } from '@interfaces/file/file';
 
 const testBedSetup = {
   providers: [
