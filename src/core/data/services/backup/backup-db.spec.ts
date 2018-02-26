@@ -48,7 +48,7 @@ describe('Backup Database Service', async() => {
     expect(jsonObject.reminder).toBeDefined();
     expect(jsonObject.appointment).toBeDefined();
     expect(jsonObject.emergency_contact).toBeDefined();
-    expect(Object.keys(jsonObject).length).toBe(8); // There should only be 8 tables in the database (depends on SCHEMA) If you add a table increase number
+    expect(Object.keys(jsonObject).length).toBe(8); //There should only be 8 tables in the database (depends on SCHEMA) If you add a table increase number
   });
 
   it('GIVEN a dexie database of a profile THEN the correct information of the files should be extracted', async() => {
@@ -56,6 +56,7 @@ describe('Backup Database Service', async() => {
     expect(files.length).toBe(3);
     expect(files[0].file_name).toBe('filename1');
   });
+
 
   it('GIVEN a dexie database of a profile THEN the correct information of the items should be extracted', async () => {
     const items: Item[] = JSON.parse(jsonObject.item);
@@ -94,5 +95,7 @@ describe('Backup Database Service', async() => {
     expect(appointments.length).toBe(3);
     expect(appointments[0].title).toBe('Check up1');
   });
+
+
 
 });

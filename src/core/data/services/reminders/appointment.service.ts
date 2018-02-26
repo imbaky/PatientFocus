@@ -78,7 +78,6 @@ export class AppointmentService {
             trigger: { at: triggerDate.toDate() }
         };
         notifications.push(note);
-        // console.log(notifications);
         // send to notification service
         this.notificationsService.addNotifications(notifications);
         return notifications;

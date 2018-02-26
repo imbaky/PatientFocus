@@ -47,20 +47,26 @@
 
     <ion-list>
         <ng-container *ngFor="let entry of (items$ | async) | diaryFilterByTerm:searchTerm | diaryFilterByDate:dateFromTerm:dateToTerm">
-            <ion-card (tap)="viewDetails($event, entry)" *ngIf="entry.page === PageType.Diary" tappable>
+            <ion-card *ngIf="entry.page === PageType.Diary" tappable>
               <ion-item>
-                <h2 ion-text color="primary"> {{ entry?.title }} </h2>
+                <h2 ion-text color="primary" (tap)="viewDetails($event, entry)"> {{ entry?.title }} </h2>
+                <button ion-button icon-left clear item-end (tap)="editEntry($event, entry)">
+                  <ion-icon name="create"></ion-icon>
+                </button>
+                <button ion-button icon-left clear item-end (tap)="confirmDelete($event, entry)">
+                  <ion-icon name="trash"></ion-icon>
+                </button>
                 <p> {{ entry?.chosen_date }}</p>
               </ion-item>
 
-              <ion-card-content>
+              <ion-card-content (tap)="viewDetails($event, entry)">
                 <p> {{ entry?.description }} </p>
               </ion-card-content>
 
-              <ion-item  text-center *ngIf="entry.file">
+              <ion-item  (tap)="viewDetails($event, entry)" text-center *ngIf="entry.file">
                 <img class="attachment" [src]="entry.file.path"/>
               </ion-item>
-
+              
             </ion-card>
         </ng-container>
     </ion-list>

@@ -26,4 +26,4 @@ cache:
 before_script:
   - ionic cordova build android --no-interactive --confirm
 
-script: npm install && npm run test-ci
+script: travis_wait npm install && npm run test-ci
