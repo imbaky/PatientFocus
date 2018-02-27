@@ -21,6 +21,10 @@ export class EditInfoModal {
     private infoForm: string;
     private profileId: number;
     private infoObject: any;
+    private conditions: string[];
+    private allergies: string[];
+    private bloodType: BloodType;
+
 
     bloodTypes: Array<BloodTypeOption> = [];
 
@@ -30,6 +34,9 @@ export class EditInfoModal {
                 private emergencyContactService: EmergencyContactService,
                 private profileService: ProfileService,
                 private medicalInfoService: MedicalInfoService) {
+
+        this.conditions = ['time', 'love'];
+        this.allergies = ['affection', 'care'];
 
         this.bloodTypes = [
             { name: BloodType.A_NEG, value: BloodType.A_NEG },
@@ -58,10 +65,23 @@ export class EditInfoModal {
         });
 
         this.medicalInfoForm = this.formBuilder.group({
-            blood_type: [this.infoObject ? this.infoObject.blood_type : '', Validators.required],
-            known_conditions: [this.infoObject ? this.infoObject.known_conditions : '', Validators.required],
-            allergies: [this.infoObject ? this.infoObject.allergies : '', Validators.required]
+            blood_type: [this.bloodType, Validators.required],
+            known_conditions: ['', Validators.required],
+            allergies: ['' , Validators.required]
+            // blood_type: [this.infoObject ? this.infoObject.blood_type : '', Validators.required],
+            // known_conditions: [this.infoObject ? this.infoObject.known_conditions : '', Validators.required],
+            // allergies: [this.infoObject ? this.infoObject.allergies : '', Validators.required]
         });
+    }
+
+    addCondition(condition) {
+        this.conditions.push(condition);
+        console.log(this.conditions);
+    }
+
+    addAllergy(allergy) {
+        this.allergies.push(allergy);
+        console.log(this.allergies);
     }
 
     async submitProfileInfo() {
@@ -78,11 +98,11 @@ export class EditInfoModal {
 
     async submitMedicalInfo() {
         const entry = {
-            blood_type: this.medicalInfoForm.value.blood_type,
-            known_conditions: this.medicalInfoForm.value.known_conditions,
-            allergies: this.medicalInfoForm.value.allergies
+            blood_type: this.bloodType,
+            known_conditions: this.conditions,
+            allergies: this.allergies
         };
-        await this.medicalInfoService.save(entry as MedicalInfo);
+        // await this.medicalInfoService.save(entry as MedicalInfo);
         await this.dismiss();
     }
 
