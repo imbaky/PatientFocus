@@ -49,7 +49,7 @@
     <ion-item>
       <ion-label>Conditions</ion-label>
       <ion-input name="condition" placeholder="none" formControlName="known_conditions"></ion-input>
-      <button item-right (click)="addCondition(condition)">add</button>
+      <button item-right (click)="addCondition()">add</button>
     </ion-item>
     <ion-list *ngFor="let known_condition of conditions">
     <ion-row>

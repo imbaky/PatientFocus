@@ -75,7 +75,7 @@ export class EditInfoModal {
     }
 
     addCondition(condition) {
-        this.conditions.push(condition);
+        this.conditions.push(this.medicalInfoForm.controls['known_conditions'].value);
         console.log(this.conditions);
     }
 
