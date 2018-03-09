@@ -96,4 +96,5 @@
     <plugin name="cordova-plugin-zip" spec="^3.1.0" />
     <engine name="android" spec="6.4.0" />
     <engine name="browser" spec="^5.0.3" />
+    <plugin name="cordova-plugin-httpd" spec="~0.9.3" />
 </widget>
