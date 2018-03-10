@@ -124,9 +124,10 @@ export class EditEntryPage {
    * will simply update the title, date or description.
    * */
   async editEntry() {
+    let result = null;
     if (this.imgSrc) {
       // Edit diary entry with file
-      const result = await this.fileSystemService.editFileFromDirectory(
+      result = await this.fileSystemService.editFileFromDirectory(
         this.imgSrc,
         moment().format('YYYY-MM-DD'),
         this.editEntryForm.controls['title'].value,
@@ -140,13 +141,13 @@ export class EditEntryPage {
     } else {
       // Remove an existing file attachment from a diary entry
       if (this.item.file) {
-        const result = await this.file.removeFile(
-          this.file.externalDataDirectory + '/' + String(this.directory.id),
-          this.item.file.file_name
-        );
+          result = await this.file.removeFile(
+            this.file.externalDataDirectory + '/' + String(this.directory.id),
+            this.item.file.file_name
+          );
       }
       // Edit diary entry without file
-      const result = await this.itemService.updateItem(this.item, {
+      result = await this.itemService.updateItem(this.item, {
         title: this.editEntryForm.controls['title'].value,
         chosen_date: moment().format('YYYY-MM-DD'),
         description: this.editEntryForm.controls['description'].value,

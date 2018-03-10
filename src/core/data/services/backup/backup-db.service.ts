@@ -17,22 +17,23 @@ export class BackupDBService {
               private dexieService: DexieService) {}
 
   /**
-   *  Allows to convert the database into an encrypted json string which will then be stored onto a file called
-   *  database.txt. That file will then be placed in a zip file. Additionally, all files of a profile will be
-   *  saved onto the same zip file. The zip file will be stored onto the downloads directory of the phone
-    * @param {number} profile_id The profile id to be exported
+   * Allows to convert the database into an encrypted json string which will then be stored onto a file called
+   * database.txt. That file will then be placed in a zip file. Additionally, all files of a profile will be
+   * saved onto the same zip file. The zip file will be stored onto the downloads directory of the phone
+   * @param {number} profile_id The profile id to be exported
    * @param {string} password The password of the user which will be used as the key to encrypt the database data
    * @returns {Promise<string>} Returns the unencrypted json string
    */
   async exportProfile(profile_id: number, password: string) {
     const jsonTables = {};
     const tables = this.dexieService.tables;
+    let jsonString = '';
     for (const table of tables) {
       const tableObjects = await table.toCollection().toArray();
-      const jsonString = JSON.stringify(tableObjects);
+      jsonString = JSON.stringify(tableObjects);
       jsonTables[String(table.name)] = jsonString;
     }
-    const jsonString = JSON.stringify(jsonTables);
+    jsonString = JSON.stringify(jsonTables);
     const encrpyted = crypto.AES.encrypt(jsonString, password);
     try {
       const zip = new jszip();
@@ -68,14 +69,14 @@ export class BackupDBService {
     try {
       const pathToZipFile = this.file.externalDataDirectory + String(1) + '/' + this.zipFile; // TODO need proper path
       const pathToDestination = this.file.externalDataDirectory + String(1);
-      //let pathToFile = this.file.externalDataDirectory + String(1); // TODO need proper path
-      //let pathToUnZipped = this.rootPath + String(1); // TODO url needs to be changed
+      // let pathToFile = this.file.externalDataDirectory + String(1); // TODO need proper path
+      // let pathToUnZipped = this.rootPath + String(1); // TODO url needs to be changed
       const number = await this.nativeZip.unzip(pathToZipFile, pathToDestination); // 1.
-      /*let number = await this.nativeZip.unzip("test.zip", pathToUnZipped, () => {
+      /* let number = await this.nativeZip.unzip("test.zip", pathToUnZipped, () => {
       });// 2.*/
       const encrypyedJson = await this.file.readAsText(pathToDestination, this.fileName);
       console.log('encrypyedJson', encrypyedJson);
-      //let encrypyedJson = await this.file.readAsText(this.rootPath, this.fileName);
+      // let encrypyedJson = await this.file.readAsText(this.rootPath, this.fileName);
       const bytes = crypto.AES.decrypt(encrypyedJson.toString(), password);
       const decryptedData = JSON.parse(bytes.toString(crypto.enc.Utf8));
       return decryptedData;
