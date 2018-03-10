@@ -185,6 +185,13 @@ export class PortfolioPage {
   }
 
   updateSelected(event, index) {
+    const id = `#item-${index}`;
+    const row = <HTMLElement>document.querySelector(id);
+    if (event.selected) {
+      row.style.backgroundColor = '#ebebeb';
+    } else {
+      row.style.backgroundColor = '#ffffff';
+    }
     this.checkedItems[index] = event.selected;
     this.changeDetector.detectChanges();
   }

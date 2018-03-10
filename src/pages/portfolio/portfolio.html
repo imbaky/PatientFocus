@@ -68,7 +68,7 @@
     <ng-container *ngFor="let item of (directory$ | async)?.items| fileFilterByName:searchTerm |
       fileFilterByDocType:docTerm | fileFilterByFormatType:fileTerm | fileFilterByDate:dateFromTerm:dateToTerm; let i=index">
       <ion-item-sliding>
-        <ion-item *ngIf="item.page === PageType.Portfolio">
+        <ion-item id="{{'item-' + i }}" *ngIf="item.page === PageType.Portfolio">
           <text-avatar [selected]="checkedItems[i]" (update)="updateSelected($event, i)" [text]="item?.file.format" item-start class="item item-avatar"></text-avatar>
           <h3 (tap)="viewDoc($event, item)" tappable>{{ item?.document_type }}
             <span (tap)="viewDoc($event, item)" tappable float-right>{{ item?.chosen_date | date:'MMMM d, y' }}</span>
