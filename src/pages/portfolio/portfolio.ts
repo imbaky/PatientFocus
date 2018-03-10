@@ -10,6 +10,7 @@ import {
   AlertController,
   ToastController
 } from 'ionic-angular';
+import { Httpd, HttpdOptions } from '@ionic-native/httpd';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -20,7 +21,7 @@ import { PortfolioType, FileFormatType } from '@enum/file-type.enum';
 import { UploadType } from '@enum/upload-type.enum';
 import { ProfileService } from '@services/profile/profile.service';
 import { FileSystemService } from '@services/file-system/file-system.service';
-import { WebServerService } from '@services/webserver//webserver.service';
+// import { WebServerService } from '@services/webserver/webserver.service';
 import { PageType } from '@enum/page-type.enum';
 import {Directory} from '@interfaces/directory/directory';
 import {Item} from '@interfaces/item/item';
@@ -61,7 +62,8 @@ export class PortfolioPage {
     public alertCtrl: AlertController,
     public fileSystemService: FileSystemService,
     private toastCtrl: ToastController,
-    public webServerService: WebServerService
+    private httpd: Httpd
+    // public webServerService: WebServerService
   ) {
     // set date to today by default
     // otherwise format is {year: 2017, month: 0, day: 1}
@@ -195,7 +197,22 @@ export class PortfolioPage {
     });
 
     // copy to shared folder
-    this.webServerService.startServer();
+
+    // start the server
+    this.startServer();
+
+  }
+
+  startServer() {
+    const options: HttpdOptions = {
+      www_root: 'sharefolder',
+      port: 8080,
+      localhost_only: false
+    };
+    this.httpd.startServer(options).subscribe((data) => {
+      // document.getElementById('url').innerHTML = 'server is started: <a href=' + data + '>' + data + '</a>';
+      alert('server is started: <a href=' + data + '>' + data + '</a>');
+    });
   }
 
   updateSelected(event, index) {
