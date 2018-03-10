@@ -48,10 +48,10 @@
     </ion-item>
     <ion-item>
       <ion-label>Conditions</ion-label>
-      <ion-input name="condition" placeholder="none" formControlName="known_conditions"></ion-input>
-      <button item-right (click)="addCondition()">add</button>
+      <ion-input formControlName="condition"></ion-input>
+      <button item-right (click)="addConditionOrAllergy()">add</button>
     </ion-item>
-    <ion-list *ngFor="let known_condition of conditions">
+    <ion-list *ngFor="let known_condition of known_conditions">
     <ion-row>
       <ion-chip>
         <ion-icon name="heart" color="gray"></ion-icon>
@@ -61,8 +61,8 @@
   </ion-list>
     <ion-item>
       <ion-label>Allergies</ion-label>
-      <ion-input name="allergy" type="textarea" placeholder="none" formControlName="allergies"></ion-input>
-      <button item-right (click)="addAllergy(allergy)">add</button>
+      <ion-input placeholder="none" formControlName="allergie"></ion-input>
+      <button item-right (click)="addConditionOrAllergy()">add</button>
     </ion-item>
     <ion-list *ngFor="let allergy of allergies">
     <ion-row>
