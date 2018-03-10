@@ -75,6 +75,7 @@ export class EditInfoModal {
     }
 
     async addConditionOrAllergy(event: Event) {
+        console.log(this.medicalInfoForm);
         if (this.known_conditions.length === 0) {
             this.known_conditions = [];
         }
@@ -89,9 +90,10 @@ export class EditInfoModal {
         }
         const entry = {
             blood_type: this.medicalInfoForm.controls['blood_type'].value,
-            known_conditions: this.known_conditions ,
+            known_conditions: this.known_conditions,
             allergies: this.allergies
         };
+        console.log(entry);
         event.preventDefault();
         await this.medicalInfoService.save(entry as MedicalInfo);
         this.medicalInfoForm.controls['condition'].setValue('');

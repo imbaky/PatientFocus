@@ -49,29 +49,29 @@
     <ion-item>
       <ion-label>Conditions</ion-label>
       <ion-input formControlName="condition"></ion-input>
-      <button item-right (click)="addConditionOrAllergy($event)">add</button>
+      <button ion-button item-right (tap)="addConditionOrAllergy($event)">Add</button>
     </ion-item>
-    <ion-list *ngFor="let known_condition of known_conditions">
-    <ion-row>
-      <ion-chip>
-        <ion-icon name="heart" color="gray"></ion-icon>
-        <span>{{ known_condition }}</span>
-      </ion-chip>
+    <ion-row class="chip-list">
+      <ng-container *ngFor="let known_condition of known_conditions">
+        <ion-chip>
+          <ion-icon name="heart" color="gray"></ion-icon>
+          <ion-label>{{ known_condition }}</ion-label>
+        </ion-chip>
+      </ng-container>
     </ion-row>
-  </ion-list>
     <ion-item>
       <ion-label>Allergies</ion-label>
       <ion-input placeholder="none" formControlName="allergie"></ion-input>
-      <button item-right (click)="addConditionOrAllergy($event)">add</button>
+      <button ion-button item-right (tap)="addConditionOrAllergy($event)">Add</button>
     </ion-item>
-    <ion-list *ngFor="let allergy of allergies">
-    <ion-row>
-      <ion-chip>
-        <ion-icon name="heart" color="gray"></ion-icon>
-        <span>{{ allergy }}</span>
-      </ion-chip>
+    <ion-row class="chip-list">
+      <ng-container *ngFor="let allergy of allergies">
+        <ion-chip>
+          <ion-icon name="heart" color="gray"></ion-icon>
+          <ion-label>{{ allergy }}</ion-label>
+        </ion-chip>
+      </ng-container>
     </ion-row>
-    </ion-list>
     <button ion-button type="submit">Submit</button>
   </form>
 </ion-content>
