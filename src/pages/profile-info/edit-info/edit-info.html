@@ -56,6 +56,9 @@
         <ion-chip>
           <ion-icon name="heart" color="gray"></ion-icon>
           <ion-label>{{ known_condition }}</ion-label>
+          <button ion-button clear color="light" (click)="deleteCondition(known_condition)">
+              <ion-icon name="close-circle"></ion-icon>
+          </button>
         </ion-chip>
       </ng-container>
     </ion-row>
@@ -69,10 +72,13 @@
         <ion-chip>
           <ion-icon name="heart" color="gray"></ion-icon>
           <ion-label>{{ allergy }}</ion-label>
+          <button ion-button clear color="light" (click)="deleteAllergy(allergy)">
+              <ion-icon name="close-circle"></ion-icon>
+          </button>
         </ion-chip>
       </ng-container>
     </ion-row>
-    <button ion-button type="submit">Submit</button>
+    <button ion-button type="submit">Save Changes</button>
   </form>
 </ion-content>
 

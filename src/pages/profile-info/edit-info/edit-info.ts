@@ -75,7 +75,6 @@ export class EditInfoModal {
     }
 
     async addConditionOrAllergy(event: Event) {
-        console.log(this.medicalInfoForm);
         if (this.known_conditions.length === 0) {
             this.known_conditions = [];
         }
@@ -93,11 +92,24 @@ export class EditInfoModal {
             known_conditions: this.known_conditions,
             allergies: this.allergies
         };
-        console.log(entry);
         event.preventDefault();
         await this.medicalInfoService.save(entry as MedicalInfo);
         this.medicalInfoForm.controls['condition'].setValue('');
         this.medicalInfoForm.controls['allergie'].setValue('');
+    }
+
+    deleteCondition(condition) {
+      const index = this.known_conditions.indexOf(condition);
+      if (index !== -1) {
+        this.known_conditions.splice(index, 1);
+      }
+    }
+
+    deleteAllergy(allergy) {
+      const index = this.allergies.indexOf(allergy);
+      if (index !== -1) {
+        this.allergies.splice(index, 1);
+      }
     }
 
     async submitProfileInfo() {
