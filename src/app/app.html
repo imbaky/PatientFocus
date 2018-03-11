@@ -12,7 +12,7 @@
     </h3>
     <div class="side-menu-spacer"></div>
     <ion-list>
-      <survey-button *ngIf=true></survey-button> <!-- set to false for prod -->
+      <survey-button *ngIf=isSurvey></survey-button> <!-- set to false for prod -->
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" class="side-menu-item">
         {{p.title}}
       </button>
