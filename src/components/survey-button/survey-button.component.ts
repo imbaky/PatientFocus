@@ -10,7 +10,8 @@ export class SurveyButtonComponent {
   }
 
   openSurvey() {
-    window.open('https://goo.gl/forms/CdyiIxbwyx6ess3a2', '_system', 'location=yes');
+    const url = 'https://goo.gl/forms/CdyiIxbwyx6ess3a2';
+    window.open( url, '_system', 'location=yes');
   }
 
 }

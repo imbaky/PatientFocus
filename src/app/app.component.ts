@@ -23,6 +23,7 @@ export class MyApp implements OnInit {
   name: string;
   profileImg: string;
   pages: Array<{ title: string; component: any }>;
+  isSurvey = true;
 
   constructor(
     public platform: Platform,
