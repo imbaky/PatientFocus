@@ -33,7 +33,6 @@ export class BackupDBService {
       jsonTables[String(table.name)] = jsonString;
     }
     const jsonString = JSON.stringify(jsonTables);
-    const encrpyted = crypto.AES.encrypt(jsonString, password);
     try {
       const zip = new jszip();
       const path = this.file.externalDataDirectory + String(profile_id) + '/';
@@ -46,8 +45,8 @@ export class BackupDBService {
           zip.file(String(profile_id) + '/' + filename, buffer, { base64: true });
         }
       }
-      await zip.file(this.fileName, encrpyted.toString());
-      const content: Blob = await zip.generateAsync({type: 'blob', platform: 'UNIX'});
+      await zip.file(this.fileName, jsonString);
+      const content: Blob = await zip.generateAsync({type:'blob', platform: 'UNIX'});
       await this.file.writeFile(this.file.externalRootDirectory + '/Download/', this.zipFile, content, { replace: true});
     } catch (error) {
       console.log(error);
