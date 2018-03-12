@@ -40,42 +40,42 @@ export class ProfilePage {
     }
 
     async importProfile() {
-      const uri = await this.fileChooser.open();
-      window.resolveLocalFileSystemURL(uri, fileEntry => {
-        fileEntry.getMetadata(async metadata => {
-          let fullPath = await this.filePath.resolveNativePath(uri);
-          //this.profileService.importProfile(fullPath);
-        });
-      });
-      let password = this.enterImportedPassword();
-      console.log(password);
+      try {
+        const uri = await this.fileChooser.open();
+        const fullPath = await this.filePath.resolveNativePath(uri);
+        await this.profileService.importProfile(fullPath);
+        this.successfulImport();
+      } catch (e) {
+        console.log('inside');
+        this.errorImportingProfile();
+      }
     }
 
-    async enterImportedPassword(){
-      let password;
-      let alert = this.alertController.create({
-        title: 'Enter Password',
-        message: "Enter the Profile's Password",
-        inputs: [{
-          name: 'password',
-          placeholder: 'Password',
-          type: 'password'
+  async errorImportingProfile() {
+    const alert = this.alertController.create({
+      title: 'Invalid Profile',
+      message: 'Unable to Import Profile',
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel',
         }
-        ],
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-          },
-          {
-            text: 'Enter',
-            handler: data => {
-              password = data.password;
-            }
-          }
-        ]
-      });
-      await alert.present();
-      return password;
-    }
+      ]
+    });
+    await alert.present();
+  }
+
+  async successfulImport() {
+    const alert = this.alertController.create({
+      title: 'Success!',
+      message: 'Imported Profile Successfully',
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel',
+        }
+      ]
+    });
+    await alert.present();
+  }
 }

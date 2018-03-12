@@ -63,23 +63,13 @@ export class BackupDBService {
    * @returns {Promise<any>} returns the decryptedData database
    */
 
-  async importProfile(password: string) { // TODO used to import profile incomplete
-    try {
-      const pathToZipFile = this.file.externalDataDirectory + String(1) + '/' + this.zipFile; // TODO need proper path
-      const pathToDestination = this.file.externalDataDirectory + String(1);
-      //let pathToFile = this.file.externalDataDirectory + String(1); // TODO need proper path
-      //let pathToUnZipped = this.rootPath + String(1); // TODO url needs to be changed
-      const number = await this.nativeZip.unzip(pathToZipFile, pathToDestination); // 1.
-      /*let number = await this.nativeZip.unzip("test.zip", pathToUnZipped, () => {
-      });// 2.*/
-      const encrypyedJson = await this.file.readAsText(pathToDestination, this.fileName);
-      console.log('encrypyedJson', encrypyedJson);
-      //let encrypyedJson = await this.file.readAsText(this.rootPath, this.fileName);
-      const bytes = crypto.AES.decrypt(encrypyedJson.toString(), password);
-      const decryptedData = JSON.parse(bytes.toString(crypto.enc.Utf8));
-      return decryptedData;
-    } catch (e) {
-      console.log('Could not decrypt zip', e);
+  async importProfile(pathToZip: string) { // TODO used to import profile incomplete
+    const number = await this.nativeZip.unzip(pathToZip, this.file.externalDataDirectory);
+    if (number == -1) {
+      throw new Error('Unable to unzip imported file');
     }
+    const jsonString = await this.file.readAsText(this.file.externalDataDirectory, '1'); // TODO need to pass real profile
+    const json = JSON.parse(jsonString);
+    return json;
   }
 }
