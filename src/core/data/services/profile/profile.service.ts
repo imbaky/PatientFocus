@@ -146,5 +146,9 @@ export class ProfileService {
     const profile = await this.getCurrentProfile();
     this.backUpDBService.exportProfile(profile_id, profile.password);
   }
+
+  importProfile(zipUrl: string, password) {
+
+  }
 }
 

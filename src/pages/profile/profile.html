@@ -10,6 +10,7 @@
             <ion-input type="password" formControlName="password"></ion-input>
         </ion-item>
         <div text-center padding-top>
+            <button ion-button type="button" (click)="importProfile()">Import Profile</button>
             <button ion-button type="submit" [disabled]="!createProfile.valid">Create Profile</button>
         </div>
     </form>
