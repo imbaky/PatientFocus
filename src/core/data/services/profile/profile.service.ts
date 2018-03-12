@@ -147,8 +147,9 @@ export class ProfileService {
     this.backUpDBService.exportProfile(profile_id, profile.password);
   }
 
-  importProfile(zipUrl: string, password) {
-
+  async importProfile(zipUrl: string) {
+    const dataBaseDb = await this.backUpDBService.importProfile(zipUrl);
+    console.log('inside profile', dataBaseDb);
   }
 }
 
