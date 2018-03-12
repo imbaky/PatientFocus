@@ -6,6 +6,7 @@ import { ProfileService } from '@services/profile/profile.service';
 import { MedicalInfoService } from '@services/medical-info/medical-info.service';
 import { BloodType } from '@enum/blood-type.enum';
 import { MedicalInfo, BloodTypeOption} from '@interfaces/medical-info/medical-info';
+import { isUndefined } from 'ionic-angular/util/util';
 
 @Component({
     selector: 'edit-modal',
@@ -21,6 +22,12 @@ export class EditInfoModal {
     private infoForm: string;
     private profileId: number;
     private infoObject: any;
+    private condition: string;
+    private allergie: string;
+    private bloodType: BloodType;
+
+    known_conditions: string[];
+    allergies: string[];
 
     bloodTypes: Array<BloodTypeOption> = [];
 
@@ -30,6 +37,7 @@ export class EditInfoModal {
                 private emergencyContactService: EmergencyContactService,
                 private profileService: ProfileService,
                 private medicalInfoService: MedicalInfoService) {
+
 
         this.bloodTypes = [
             { name: BloodType.A_NEG, value: BloodType.A_NEG },
@@ -44,6 +52,8 @@ export class EditInfoModal {
         this.profileId = this.params.get('profileId');
         this.infoForm = this.params.get('infoForm');
         this.infoObject = this.params.get('infoObject');
+        this.known_conditions = this.infoObject ? this.infoObject.known_conditions : [] ;
+        this.allergies = this.infoObject ? this.infoObject.allergies : [];
 
         this.emergencyContactForm = this.formBuilder.group({
             name: [this.infoObject ? this.infoObject.name : '', Validators.required],
@@ -59,9 +69,47 @@ export class EditInfoModal {
 
         this.medicalInfoForm = this.formBuilder.group({
             blood_type: [this.infoObject ? this.infoObject.blood_type : '', Validators.required],
-            known_conditions: [this.infoObject ? this.infoObject.known_conditions : '', Validators.required],
-            allergies: [this.infoObject ? this.infoObject.allergies : '', Validators.required]
+            condition: [ '' , Validators.required],
+            allergie: [ '' , Validators.required]
         });
+    }
+
+    async addConditionOrAllergy(event: Event) {
+        if (this.known_conditions.length === 0) {
+            this.known_conditions = [];
+        }
+        if (this.allergies.length === 0) {
+            this.allergies = [];
+        }
+        if (this.medicalInfoForm.controls['condition'].value !== '') {
+            this.known_conditions.push(this.medicalInfoForm.controls['condition'].value);
+        }
+        if (this.medicalInfoForm.controls['allergie'].value !== '') {
+            this.allergies.push(this.medicalInfoForm.controls['allergie'].value);
+        }
+        const entry = {
+            blood_type: this.medicalInfoForm.controls['blood_type'].value,
+            known_conditions: this.known_conditions,
+            allergies: this.allergies
+        };
+        event.preventDefault();
+        await this.medicalInfoService.save(entry as MedicalInfo);
+        this.medicalInfoForm.controls['condition'].setValue('');
+        this.medicalInfoForm.controls['allergie'].setValue('');
+    }
+
+    deleteCondition(condition) {
+      const index = this.known_conditions.indexOf(condition);
+      if (index !== -1) {
+        this.known_conditions.splice(index, 1);
+      }
+    }
+
+    deleteAllergy(allergy) {
+      const index = this.allergies.indexOf(allergy);
+      if (index !== -1) {
+        this.allergies.splice(index, 1);
+      }
     }
 
     async submitProfileInfo() {
@@ -78,9 +126,9 @@ export class EditInfoModal {
 
     async submitMedicalInfo() {
         const entry = {
-            blood_type: this.medicalInfoForm.value.blood_type,
-            known_conditions: this.medicalInfoForm.value.known_conditions,
-            allergies: this.medicalInfoForm.value.allergies
+            blood_type: this.medicalInfoForm.controls['blood_type'].value,
+            known_conditions: this.known_conditions,
+            allergies: this.allergies
         };
         await this.medicalInfoService.save(entry as MedicalInfo);
         await this.dismiss();

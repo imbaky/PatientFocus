@@ -14,15 +14,15 @@
             <ion-avatar item-start><img style="height:159px" src="{{profileImg}}" *ngIf="profileImg"/></ion-avatar>
         </div>
     <div class="profile-info-section">
-      <ion-row>
+      <ion-row class="profile-info-header">
         <ion-col col-10>
-          <h5 ion-text color="primary"><ion-icon name="contact"></ion-icon> Personal Information</h5>
+          <span ion-text color="primary"><ion-icon name="contact"></ion-icon> Personal Information</span>
         </ion-col>
         <ion-col col-2 class="btn--edit">
           <ion-icon name="create" (click)="editProfile()"></ion-icon>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row class="profile-info-content">
         <ion-col>
           <p>
             <span ion-text color="primary">Name:</span> {{profile?.name}}</p>
@@ -36,15 +36,15 @@
       </ion-row>
     </div>
     <div class="profile-info-section">
-      <ion-row>
+      <ion-row class="profile-info-header">
         <ion-col col-10>
-          <h5 ion-text color="primary"><ion-icon name="medical"></ion-icon> Medical Information</h5>
+          <span ion-text color="primary"><ion-icon name="medical"></ion-icon> Medical Information</span>
         </ion-col>
         <ion-col col-2 class="btn--edit">
           <ion-icon name="create" (click)="editMedicalInfo()"></ion-icon>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row class="profile-info-content">
         <ion-col>
           <p>
             <span ion-text color="primary">Blood Type: </span> {{medicalInfo?.blood_type}} </p>
@@ -58,15 +58,15 @@
       </ion-row>
     </div>
     <div class="profile-info-section">
-      <ion-row>
+      <ion-row class="profile-info-header">
         <ion-col col-10>
-          <h5 ion-text color="primary"><ion-icon name="contacts"></ion-icon> Emergency Contacts</h5>
+          <span ion-text color="primary"><ion-icon name="contacts"></ion-icon> Emergency Contacts</span>
         </ion-col>
         <ion-col col-2 class="btn--edit">
           <ion-icon name="create" (click)="editEmergencyContact()"></ion-icon>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row class="profile-info-content">
         <ion-col>
           <p>
             <span ion-text color="primary">Name:</span> {{emergencyContact?.name}}</p>

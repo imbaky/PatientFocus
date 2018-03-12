@@ -1,0 +1,15 @@
+edit-modal {
+  .chip-list {
+    margin: 1em;
+  }
+  .chip-list ion-chip:not(:first-child):not(:last-child) {
+    margin-left: 2px;
+    margin-left: 2px;
+  }
+  .chip-list ion-chip:first-child {
+    margin-right: 2px;
+  }
+  .chip-list ion-chip:last-child {
+    margin-left: 2px;
+  }
+}

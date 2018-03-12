@@ -48,13 +48,37 @@
     </ion-item>
     <ion-item>
       <ion-label>Conditions</ion-label>
-      <ion-input type="textarea" placeholder="none" formControlName="known_conditions"></ion-input>
+      <ion-input formControlName="condition"></ion-input>
+      <button ion-button item-right (tap)="addConditionOrAllergy($event)">Add</button>
     </ion-item>
+    <ion-row class="chip-list">
+      <ng-container *ngFor="let known_condition of known_conditions">
+        <ion-chip>
+          <ion-icon name="heart" color="gray"></ion-icon>
+          <ion-label>{{ known_condition }}</ion-label>
+          <button ion-button clear color="light" (click)="deleteCondition(known_condition)">
+              <ion-icon name="close-circle"></ion-icon>
+          </button>
+        </ion-chip>
+      </ng-container>
+    </ion-row>
     <ion-item>
       <ion-label>Allergies</ion-label>
-      <ion-input type="textarea" placeholder="none" formControlName="allergies"></ion-input>
+      <ion-input placeholder="none" formControlName="allergie"></ion-input>
+      <button ion-button item-right (tap)="addConditionOrAllergy($event)">Add</button>
     </ion-item>
-    <button ion-button type="submit">Submit</button>
+    <ion-row class="chip-list">
+      <ng-container *ngFor="let allergy of allergies">
+        <ion-chip>
+          <ion-icon name="heart" color="gray"></ion-icon>
+          <ion-label>{{ allergy }}</ion-label>
+          <button ion-button clear color="light" (click)="deleteAllergy(allergy)">
+              <ion-icon name="close-circle"></ion-icon>
+          </button>
+        </ion-chip>
+      </ng-container>
+    </ion-row>
+    <button ion-button type="submit">Save Changes</button>
   </form>
 </ion-content>
 
