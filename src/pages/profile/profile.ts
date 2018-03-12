@@ -9,6 +9,7 @@ import { TourPage } from '@pages/tour/tour';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import { AlertController } from 'ionic-angular';
+import { PasswordPromptPage } from '@pages/password-prompt/password-prompt';
 
 
 declare var window;
@@ -44,9 +45,10 @@ export class ProfilePage {
         const uri = await this.fileChooser.open();
         const fullPath = await this.filePath.resolveNativePath(uri);
         await this.profileService.importProfile(fullPath);
-        this.successfulImport();
+        await this.successfulImport();
+        this.navCtrl.setRoot(PasswordPromptPage);
       } catch (e) {
-        console.log('inside');
+        console.log(e);
         this.errorImportingProfile();
       }
     }

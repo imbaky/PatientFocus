@@ -148,8 +148,7 @@ export class ProfileService {
   }
 
   async importProfile(zipUrl: string) {
-    const dataBaseDb = await this.backUpDBService.importProfile(zipUrl);
-    console.log('inside profile', dataBaseDb);
+    await this.backUpDBService.importProfile(zipUrl);
   }
 }
 

@@ -68,8 +68,16 @@ export class BackupDBService {
     if (number == -1) {
       throw new Error('Unable to unzip imported file');
     }
-    const jsonString = await this.file.readAsText(this.file.externalDataDirectory, '1'); // TODO need to pass real profile
+    const jsonString = await this.file.readAsText(this.file.externalDataDirectory, 'databse.txt'); // TODO need to pass real profile
     const json = JSON.parse(jsonString);
-    return json;
+    const tables = this.dexieService.tables;
+    console.log(tables);
+    for(var key in json) {
+      tables.forEach( async table => {
+        if(table.name == key.toString()) {
+          await table.bulkAdd(JSON.parse(json[key]));
+        }
+      })
+    }
   }
 }
