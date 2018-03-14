@@ -22,6 +22,7 @@ export interface UserProfile {
   gender?: string;
   dob?: string;
   current_profile: boolean;
+  user_img: string;
 }
 
 @Injectable()
@@ -59,6 +60,7 @@ export class ProfileService {
    */
   cacheProfileImg(path) {
     this.profileImgObserver.next(path);
+    this.getCurrentProfile().then(profile=>{profile.user_img=path})
   }
 
   /**
@@ -105,6 +107,20 @@ export class ProfileService {
     }
     return null;
   }
+   /**
+   * sets the current profile by id
+   */
+  async setCurrentProfile(id:number){
+    console.log(id);
+    const profile=await this.table.get(id);
+    if(profile)
+    {
+      this.profile.current_profile=false;
+      await this.table.put(this.profile);
+      this.profile=profile;
+      this.profile.current_profile=true;
+    }
+  }
 
   /**
    * Retrieves the current profile id
@@ -116,6 +132,14 @@ export class ProfileService {
       return profile.id;
     }
     return null;
+  }
+
+  /**
+   * Retrieves an array of all available profiles
+   * @returns {Promise<any>}
+   */
+  async getAllProfiles(){
+    return await this.table.toArray();
   }
 
   /**
