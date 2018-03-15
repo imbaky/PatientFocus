@@ -10,6 +10,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import { AlertController } from 'ionic-angular';
 import { PasswordPromptPage } from '@pages/password-prompt/password-prompt';
+import { LoadingController } from 'ionic-angular';
 
 
 declare var window;
@@ -26,7 +27,8 @@ export class ProfilePage {
                 private navCtrl: NavController,
                 private fileChooser: FileChooser,
                 private filePath: FilePath,
-                private alertController: AlertController) {
+                private alertController: AlertController,
+                private loadingController: LoadingController) {
         this.createProfile = this.formBuilder.group({
             name: ['', Validators.required],
             password: ['', Validators.required]
@@ -41,14 +43,20 @@ export class ProfilePage {
     }
 
     async importProfile() {
+      let loading = this.loadingController.create({
+        content: 'Importing profile...'
+      });
       try {
         const uri = await this.fileChooser.open();
+        loading.present();
         const fullPath = await this.filePath.resolveNativePath(uri);
         await this.profileService.importProfile(fullPath);
+        loading.dismiss();
         await this.successfulImport();
         this.navCtrl.setRoot(PasswordPromptPage);
       } catch (e) {
         console.log(e);
+        loading.dismiss();
         this.errorImportingProfile();
       }
     }
