@@ -23,7 +23,7 @@ import { DiaryModule } from '@pages/diary/diary.module';
 import { RemindersModule } from '@pages/reminders/reminders.module';
 import { SurveyButtonComponent } from '@components/survey-button/survey-button.component';
 import { TourPage } from '@pages/tour//tour';
-import { BrMaskerModule } from "brmasker-ionic-3";
+import { BrMaskerModule } from 'brmasker-ionic-3';
 
 @NgModule({
     declarations: [

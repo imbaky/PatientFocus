@@ -58,7 +58,7 @@ export class EditInfoModal {
         this.emergencyContactForm = this.formBuilder.group({
             name: [this.infoObject ? this.infoObject.name : '', Validators.required],
             relationship: [this.infoObject ? this.infoObject.relationship : '', Validators.required],
-            phoneNumber: [this.infoObject ? this.infoObject.phoneNumber : '', Validators.pattern("^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$")]
+            phoneNumber: [this.infoObject ? this.infoObject.phoneNumber : '', Validators.pattern('^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$')]
         });
 
         this.profileForm = this.formBuilder.group({
