@@ -68,7 +68,9 @@ export class ReminderService {
                 id: newReminder.frequencies[i].frequency_id,
                 text: newReminder.text,
                 title: newReminder.title,
-                trigger: { every: {hour: hour, minute: min}, count: numberOfDaysToRepeat}
+                trigger: { every: {hour: hour, minute: min}, count: numberOfDaysToRepeat},
+                smallIcon: 'res://pficon.png',
+                icon: 'res://icon.png'
             };
             this.notifications.push(note);
             note = {};
