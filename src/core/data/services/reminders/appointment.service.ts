@@ -66,7 +66,9 @@ export class AppointmentService {
             id: appointment.reminder_id,
             title: appointment.title,
             text: 'Appointment in ' + appointment.reminder + ' day(s)',
-            trigger: { at: reminderDate.toDate() }
+            trigger: { at: reminderDate.toDate() },
+            smallIcon: 'res://pficon.png',
+            icon: 'res://icon.png'
         };
         notifications.push(note);
         note = {};
@@ -75,7 +77,9 @@ export class AppointmentService {
             id: appointment.appointment_id,
             title: appointment.title,
             text: appointment.doctor + ' ' + appointment.address + ' ' + appointment.note,
-            trigger: { at: triggerDate.toDate() }
+            trigger: { at: triggerDate.toDate() },
+            smallIcon: 'res://pficon.png',
+            icon: 'res://icon.png'
         };
         notifications.push(note);
         // send to notification service
