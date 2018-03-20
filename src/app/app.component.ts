@@ -1,3 +1,4 @@
+import { ProfileSelectionPage } from '@pages/profile-selection/profile-selection';
 import { PasswordPromptPage } from '@pages/password-prompt/password-prompt';
 import { Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Nav, Platform, Events } from 'ionic-angular';
@@ -73,5 +74,10 @@ export class MyApp implements OnInit {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  switchProfile() {
+    // Navigate to switch profile page
+    this.nav.setRoot(ProfileSelectionPage);
   }
 }

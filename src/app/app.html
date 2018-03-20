@@ -16,9 +16,15 @@
         {{p.title}}
       </button>
     </ion-list>
+    <div>
+      <div class="side-menu-spacer"></div>
+      <button menuClose ion-item class="side-menu-item" (click)="switchProfile()">
+        <ion-icon name="swap"></ion-icon>
+        Switch profile
+      </button>
+    </div>
     <survey-button *ngIf=isSurvey></survey-button> <!-- set to false for prod -->
   </ion-content>
-
 </ion-menu>
 
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

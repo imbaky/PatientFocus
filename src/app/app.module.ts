@@ -1,5 +1,7 @@
-import { PasswordPromptPageModule } from './../pages/password-prompt/password-prompt.module';
-import { PasswordPromptPage } from './../pages/password-prompt/password-prompt';
+import { ProfileSelectionPageModule } from '@pages/profile-selection/profile-selection.module';
+import { ProfileSelectionPage } from '@pages/profile-selection/profile-selection';
+import { PasswordPromptPageModule } from '@pages/password-prompt/password-prompt.module';
+import { PasswordPromptPage } from '@pages/password-prompt/password-prompt';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -41,6 +43,7 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
         RemindersModule,
         DiaryModule,
         PasswordPromptPageModule,
+        ProfileSelectionPageModule,
         DataModule.forRoot(),
         IonicModule.forRoot(MyApp, {}, {links: []}),
         BrowserAnimationsModule,
@@ -54,7 +57,8 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
         ProfileInfoPage,
         TourPage,
         PersonalInfoModal,
-        PasswordPromptPage
+        PasswordPromptPage,
+        ProfileSelectionPage
     ],
     providers: [
         FileChooserProvider,
