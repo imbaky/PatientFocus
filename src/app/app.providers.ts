@@ -4,15 +4,8 @@ import { FileChooser } from '@ionic-native/file-chooser';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
 import { RemindersService } from '@services/reminders/reminders.service';
-
-class FileChooserMock extends FileChooser {
-  open(): Promise<string> {
-    return new Promise((resolve, reject) => {
-      resolve('');
-    });
-  }
-}
 
 interface EmailComposerOptions {
     app?: string;
@@ -23,6 +16,37 @@ interface EmailComposerOptions {
     subject?: string;
     body?: string;
     isHtml?: boolean;
+}
+interface AFAAuthOptions {
+  clientId: string;
+  username?: string;
+  password?: string;
+  token?: string;
+  disableBackup?: boolean;
+  locale?: string;
+  maxAttempts?: number;
+  userAuthRequired?: boolean;
+  dialogTitle?: string;
+  dialogMessage?: string;
+  dialogHint?: string;
+}
+interface AFADecryptOptions {
+  withFingerprint: boolean;
+  withBackup: boolean;
+  password: string;
+}
+interface AFAEncryptResponse {
+  withFingerprint: boolean;
+  withBackup: boolean;
+  token: string;
+}
+
+class FileChooserMock extends FileChooser {
+  open(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      resolve('');
+    });
+  }
 }
 
 class EmailComposerMock extends EmailComposer {
@@ -76,6 +100,66 @@ class SplashScreenMock extends SplashScreen {
   hide(): void {}
 }
 
+class AndroidFingerprintAuthMock extends AndroidFingerprintAuth {
+  ERRORS: {
+      BAD_PADDING_EXCEPTION: 'BAD_PADDING_EXCEPTION';
+      CERTIFICATE_EXCEPTION: 'CERTIFICATE_EXCEPTION';
+      FINGERPRINT_CANCELLED: 'FINGERPRINT_CANCELLED';
+      FINGERPRINT_DATA_NOT_DELETED: 'FINGERPRINT_DATA_NOT_DELETED';
+      FINGERPRINT_ERROR: 'FINGERPRINT_ERROR';
+      FINGERPRINT_NOT_AVAILABLE: 'FINGERPRINT_NOT_AVAILABLE';
+      FINGERPRINT_PERMISSION_DENIED: 'FINGERPRINT_PERMISSION_DENIED';
+      FINGERPRINT_PERMISSION_DENIED_SHOW_REQUEST: 'FINGERPRINT_PERMISSION_DENIED_SHOW_REQUEST';
+      ILLEGAL_BLOCK_SIZE_EXCEPTION: 'ILLEGAL_BLOCK_SIZE_EXCEPTION';
+      INIT_CIPHER_FAILED: 'INIT_CIPHER_FAILED';
+      INVALID_ALGORITHM_PARAMETER_EXCEPTION: 'INVALID_ALGORITHM_PARAMETER_EXCEPTION';
+      IO_EXCEPTION: 'IO_EXCEPTION';
+      JSON_EXCEPTION: 'JSON_EXCEPTION';
+      MINIMUM_SDK: 'MINIMUM_SDK';
+      MISSING_ACTION_PARAMETERS: 'MISSING_ACTION_PARAMETERS';
+      MISSING_PARAMETERS: 'MISSING_PARAMETERS';
+      NO_SUCH_ALGORITHM_EXCEPTION: 'NO_SUCH_ALGORITHM_EXCEPTION';
+      SECURITY_EXCEPTION: 'SECURITY_EXCEPTION';
+  };
+
+  encrypt(options: AFAAuthOptions): Promise<AFAEncryptResponse> {
+      let reponse: AFAEncryptResponse;
+      return new Promise((resolve, reject) => {
+          resolve(reponse);
+      });
+  }
+
+  decrypt(options: AFAAuthOptions): Promise<AFADecryptOptions> {
+      let reponse: AFADecryptOptions;
+      return new Promise((resolve, reject) => {
+          resolve(reponse);
+      });
+  }
+
+  isAvailable(): Promise<{
+      isAvailable: boolean;
+      isHardwareDetected: boolean;
+      hasEnrolledFingerprints: boolean;
+  }> {
+      const reponse: { isAvailable: boolean, isHardwareDetected: boolean, hasEnrolledFingerprints: boolean} = {isAvailable: true, isHardwareDetected: true, hasEnrolledFingerprints: true};
+      return new Promise((resolve, reject) => {
+          resolve(reponse);
+      });
+  }
+
+  delete(options: {
+      clientId: string;
+      username: string;
+  }): Promise<{
+      deleted: boolean;
+  }> {
+      let reponse: { deleted: boolean};
+      return new Promise((resolve, reject) => {
+          resolve(reponse);
+      });
+  }
+}
+
 export class AppProviders {
   public static getProviders() {
     let providers;
@@ -88,7 +172,8 @@ export class AppProviders {
         { provide: StatusBar, useClass: StatusBarMock },
         { provide: SplashScreen, useClass: SplashScreenMock },
         { provide: ErrorHandler, useClass: IonicErrorHandler },
-        { provide: RemindersService, useClass: RemindersService}
+        { provide: RemindersService, useClass: RemindersService },
+        { provide: AndroidFingerprintAuth, useClass: AndroidFingerprintAuthMock }
       ];
     } else {
       // Use device providers
@@ -97,7 +182,8 @@ export class AppProviders {
         EmailComposer,
         StatusBar,
         SplashScreen,
-        { provide: ErrorHandler, useClass: IonicErrorHandler }
+        { provide: ErrorHandler, useClass: IonicErrorHandler },
+        AndroidFingerprintAuth
       ];
     }
 
