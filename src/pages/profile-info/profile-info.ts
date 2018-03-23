@@ -7,10 +7,10 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { NavController, ModalController, ToastController } from 'ionic-angular';
 import { ProfileService, UserProfile } from '@services/profile/profile.service';
 import { EmergencyContactService } from '@services/emergency-contact/emergency-contact.service';
-import { EditInfoModal } from '@pages/profile-info/edit-info/edit-info';
-import {MedicalInfoService} from '@services/medical-info/medical-info.service';
-import {EmergencyContact} from '@interfaces/emergency-contact/emergency-contact';
-import {MedicalInfo} from '@interfaces/medical-info/medical-info';
+import { MedicalInfoService } from '@services/medical-info/medical-info.service';
+import { EmergencyContact } from '@interfaces/emergency-contact/emergency-contact';
+import { MedicalInfo } from '@interfaces/medical-info/medical-info';
+import { PersonalInfoModal } from '@pages/profile-info/personal-information/personal-information';
 
 
 @Component({
@@ -59,7 +59,7 @@ export class ProfileInfoPage {
     }
 
     async editEmergencyContact() {
-        const modal = this.modalCtrl.create(EditInfoModal,
+        const modal = this.modalCtrl.create(PersonalInfoModal,
             {profileId: this.profile.id,
                 infoForm: 'emergency_contact',
                 infoObject: this.emergencyContact});
@@ -74,7 +74,7 @@ export class ProfileInfoPage {
     }
 
     async editMedicalInfo() {
-        const modal = this.modalCtrl.create(EditInfoModal,
+        const modal = this.modalCtrl.create(PersonalInfoModal,
             {profileId: this.profile.id,
                 infoForm: 'medical_info',
                 infoObject: this.medicalInfo});
@@ -85,7 +85,7 @@ export class ProfileInfoPage {
     }
 
     async editProfile() {
-        const modal = this.modalCtrl.create(EditInfoModal, {profileId: this.profile.id, infoForm: 'profile', infoObject: this.profile});
+        const modal = this.modalCtrl.create(PersonalInfoModal, {profileId: this.profile.id, infoForm: 'profile', infoObject: this.profile});
         await modal.present();
         modal.onDidDismiss(() => this.profileService.getCurrentProfile().then(profile => this.profile = profile));
     }

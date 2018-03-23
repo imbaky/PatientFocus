@@ -10,7 +10,7 @@ import { BackupDBService } from '../backup/backup-db.service';
 import { Zip } from '@ionic-native/zip';
 import Dexie from 'dexie';
 import { SCHEMA } from '@services/dexie/database';
-import {PageType} from '@enum/page-type.enum';
+import { PageType } from '@enum/page-type.enum';
 
 class DATABASE extends Dexie {
   constructor() {
