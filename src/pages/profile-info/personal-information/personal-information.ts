@@ -10,11 +10,11 @@ import { isUndefined } from 'ionic-angular/util/util';
 
 @Component({
     selector: 'edit-modal',
-    templateUrl: 'edit-info.html'
+    templateUrl: 'personal-information.html'
 })
 
 
-export class EditInfoModal {
+export class PersonalInfoModal {
 
     private emergencyContactForm: FormGroup;
     private medicalInfoForm: FormGroup;

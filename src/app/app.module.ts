@@ -17,7 +17,7 @@ import { DataModule } from '../core/data/data.module';
 import { ProfilePage } from '@pages/profile/profile';
 import { DashboardPage } from '@pages/dashboard/dashboard';
 import { ProfileInfoPage } from '@pages/profile-info/profile-info';
-import { EditInfoModal } from '@pages/profile-info/edit-info/edit-info';
+import { PersonalInfoModal } from '@pages/../pages/profile-info/personal-information/personal-information';
 import { PortfolioModule } from '@pages/portfolio/portfolio.module';
 import { DiaryModule } from '@pages/diary/diary.module';
 import { RemindersModule } from '@pages/reminders/reminders.module';
@@ -32,7 +32,7 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
         DashboardPage,
         ProfileInfoPage,
         TourPage,
-        EditInfoModal,
+        PersonalInfoModal,
         SurveyButtonComponent
     ],
     imports: [
@@ -53,7 +53,7 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
         DashboardPage,
         ProfileInfoPage,
         TourPage,
-        EditInfoModal,
+        PersonalInfoModal,
         PasswordPromptPage
     ],
     providers: AppProviders.getProviders()
