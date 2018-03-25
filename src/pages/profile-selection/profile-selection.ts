@@ -11,7 +11,7 @@ import { ProfileService, UserProfile } from '@services/profile/profile.service';
 })
 export class ProfileSelectionPage {
   public profiles: Promise<UserProfile[]>;
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private profileService: ProfileService ) {
   }
@@ -22,10 +22,10 @@ export class ProfileSelectionPage {
   switchProfile(profileId: number) {
     this.profileService.setCurrentProfile(profileId);
     this.navCtrl.setRoot(ProfileInfoPage);
-    this.profileService.getCurrentProfile().then(profile=>{console.log(profile.name);})
+    this.profileService.getCurrentProfile().then(profile => {console.log(profile.name); });
   }
-  
-  createProfile(){
+
+  createProfile() {
     this.navCtrl.setRoot(ProfilePage);
   }
 
