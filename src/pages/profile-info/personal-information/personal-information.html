@@ -50,7 +50,7 @@
         <ion-item>
             <ion-label>Conditions</ion-label>
             <ion-input formControlName="condition"></ion-input>
-            <button ion-button item-right (tap)="addConditionOrAllergy($event)">Add</button>
+            <button type="button" ion-button item-right (tap)="addConditionOrAllergy($event)">Add</button>
         </ion-item>
         <ion-row class="chip-list">
             <ng-container *ngFor="let known_condition of known_conditions">
@@ -66,7 +66,7 @@
         <ion-item>
             <ion-label>Allergies</ion-label>
             <ion-input placeholder="none" formControlName="allergie"></ion-input>
-            <button ion-button item-right (tap)="addConditionOrAllergy($event)">Add</button>
+            <button type="button" ion-button item-right (tap)="addConditionOrAllergy($event)">Add</button>
         </ion-item>
         <ion-row class="chip-list">
             <ng-container *ngFor="let allergy of allergies">

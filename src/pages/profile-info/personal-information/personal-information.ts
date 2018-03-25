@@ -87,13 +87,13 @@ export class PersonalInfoModal {
         if (this.medicalInfoForm.controls['allergie'].value !== '') {
             this.allergies.push(this.medicalInfoForm.controls['allergie'].value);
         }
-        const entry = {
-            blood_type: this.medicalInfoForm.controls['blood_type'].value,
-            known_conditions: this.known_conditions,
-            allergies: this.allergies
-        };
+        // const entry = {
+        //     blood_type: this.medicalInfoForm.controls['blood_type'].value,
+        //     known_conditions: this.known_conditions,
+        //     allergies: this.allergies
+        // };
         event.preventDefault();
-        await this.medicalInfoService.save(entry as MedicalInfo);
+        // await this.medicalInfoService.save(entry as MedicalInfo);
         this.medicalInfoForm.controls['condition'].setValue('');
         this.medicalInfoForm.controls['allergie'].setValue('');
     }
