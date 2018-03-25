@@ -84,7 +84,8 @@ export class ProfileService {
       name: profile.name,
       password:  SHA256(salt + profile.password).toString(),
       salt: salt,
-      current_profile: true
+      current_profile: true,
+      user_img: ""
     };
     const profileId = await this.table.put(newProfile);
     const directoryId = await this.fileSystemService.createNewDirectory(profileId);
