@@ -60,7 +60,7 @@ export class ProfileService {
    */
   cacheProfileImg(path) {
     this.profileImgObserver.next(path);
-    this.getCurrentProfile().then(profile=>{profile.user_img=path})
+    this.getCurrentProfile().then(profile => {profile.user_img = path; });
   }
 
   /**
@@ -85,7 +85,7 @@ export class ProfileService {
       password:  SHA256(salt + profile.password).toString(),
       salt: salt,
       current_profile: true,
-      user_img: ""
+      user_img: ''
     };
     const profileId = await this.table.put(newProfile);
     const directoryId = await this.fileSystemService.createNewDirectory(profileId);
@@ -111,15 +111,14 @@ export class ProfileService {
    /**
    * sets the current profile by id
    */
-  async setCurrentProfile(id:number){
+  async setCurrentProfile(id: number) {
     console.log(id);
-    const profile=await this.table.get(id);
-    if(profile)
-    {
-      this.profile.current_profile=false;
+    const profile = await this.table.get(id);
+    if (profile) {
+      this.profile.current_profile = false;
       await this.table.put(this.profile);
-      this.profile=profile;
-      this.profile.current_profile=true;
+      this.profile = profile;
+      this.profile.current_profile = true;
     }
   }
 
@@ -139,7 +138,7 @@ export class ProfileService {
    * Retrieves an array of all available profiles
    * @returns {Promise<any>}
    */
-  async getAllProfiles(){
+  async getAllProfiles() {
     return await this.table.toArray();
   }
 
