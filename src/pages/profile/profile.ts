@@ -81,8 +81,8 @@ export class ProfilePage {
   createHelpOptions() {
       return  {
         title: 'Import Document',
-        message: 'Select the location of the zip file patient-focus-profile.zip. If the application fails to load the profile ' +
-        'from the Downloads directory, try placing the zip file in another directory.',
+        message: 'Select the location of the zip file patient-focus-profile.zip. If the application fails to load the profile, ' +
+        'from your Downloads folder, try placing the zip file in another folder outside of Downloads.',
         inputs: [
           {
             name: 'downloadDir',
