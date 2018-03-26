@@ -24,6 +24,7 @@ import { RemindersModule } from '@pages/reminders/reminders.module';
 import { SurveyButtonComponent } from '@components/survey-button/survey-button.component';
 import { TourPage } from '@pages/tour/tour';
 import { BrMaskerModule } from 'brmasker-ionic-3';
+import { TabsPage } from '@pages/tabs/tabs';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
         ProfileInfoPage,
         TourPage,
         PersonalInfoModal,
-        SurveyButtonComponent
+        SurveyButtonComponent,
+        TabsPage
     ],
     imports: [
         BrowserModule,
@@ -54,7 +56,8 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
         ProfileInfoPage,
         TourPage,
         PersonalInfoModal,
-        PasswordPromptPage
+        PasswordPromptPage,
+        TabsPage
     ],
     providers: AppProviders.getProviders()
 })
