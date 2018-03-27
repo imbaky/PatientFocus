@@ -52,6 +52,7 @@ export class PasswordPromptPage implements OnInit {
               if (result.withFingerprint || result.withBackup) {
                   this.menu.swipeEnable(true, 'left');
                   this.navCtrl.setRoot(ProfileInfoPage);
+                  this.app.getRootNav().setRoot(TabsPage);
               } else { console.log('Didn\'t authenticate!'); }
             })
             .catch(error => {

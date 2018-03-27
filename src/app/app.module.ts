@@ -25,6 +25,7 @@ import { SurveyButtonComponent } from '@components/survey-button/survey-button.c
 import { TourPage } from '@pages/tour/tour';
 import { BrMaskerModule } from 'brmasker-ionic-3';
 import { TabsPage } from '@pages/tabs/tabs';
+import { MorePage } from '@pages/more/more';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import { TabsPage } from '@pages/tabs/tabs';
         TourPage,
         PersonalInfoModal,
         SurveyButtonComponent,
-        TabsPage
+        TabsPage,
+        MorePage
     ],
     imports: [
         BrowserModule,
@@ -57,7 +59,8 @@ import { TabsPage } from '@pages/tabs/tabs';
         TourPage,
         PersonalInfoModal,
         PasswordPromptPage,
-        TabsPage
+        TabsPage,
+        MorePage
     ],
     providers: AppProviders.getProviders()
 })
