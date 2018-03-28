@@ -41,7 +41,7 @@ interface AFAEncryptResponse {
   token: string;
 }
 
-class FileChooserMock extends FileChooser {
+export class FileChooserMock extends FileChooser {
   open(): Promise<string> {
     return new Promise((resolve, reject) => {
       resolve('');
@@ -49,7 +49,7 @@ class FileChooserMock extends FileChooser {
   }
 }
 
-class EmailComposerMock extends EmailComposer {
+export class EmailComposerMock extends EmailComposer {
     /**
      * Verifies if sending emails is supported on the device.
      *
@@ -82,7 +82,7 @@ class EmailComposerMock extends EmailComposer {
     }
 }
 
-class StatusBarMock extends StatusBar {
+export class StatusBarMock extends StatusBar {
   isVisible: boolean;
   overlaysWebView(doesOverlay: boolean): void {}
   styleDefault(): void {}
@@ -95,12 +95,12 @@ class StatusBarMock extends StatusBar {
   show(): void {}
 }
 
-class SplashScreenMock extends SplashScreen {
+export class SplashScreenMock extends SplashScreen {
   show(): void {}
   hide(): void {}
 }
 
-class AndroidFingerprintAuthMock extends AndroidFingerprintAuth {
+export class AndroidFingerprintAuthMock extends AndroidFingerprintAuth {
   ERRORS: {
       BAD_PADDING_EXCEPTION: 'BAD_PADDING_EXCEPTION';
       CERTIFICATE_EXCEPTION: 'CERTIFICATE_EXCEPTION';
@@ -160,33 +160,25 @@ class AndroidFingerprintAuthMock extends AndroidFingerprintAuth {
   }
 }
 
-export class AppProviders {
-  public static getProviders() {
-    let providers;
 
-    if (document.URL.includes('https://') || document.URL.includes('http://')) {
-      // Use browser providers
-      providers = [
-        { provide: FileChooser, useClass: FileChooserMock },
-        { provide: EmailComposer, useClass: EmailComposerMock },
-        { provide: StatusBar, useClass: StatusBarMock },
-        { provide: SplashScreen, useClass: SplashScreenMock },
-        { provide: ErrorHandler, useClass: IonicErrorHandler },
-        { provide: RemindersService, useClass: RemindersService },
-        { provide: AndroidFingerprintAuth, useClass: AndroidFingerprintAuthMock }
-      ];
-    } else {
-      // Use device providers
-      providers = [
-        FileChooser,
-        EmailComposer,
-        StatusBar,
-        SplashScreen,
-        { provide: ErrorHandler, useClass: IonicErrorHandler },
-        AndroidFingerprintAuth
-      ];
-    }
+export const FileChooserProvider = [
+    { provide: FileChooser, useClass: (document.URL.includes('https://') || document.URL.includes('http://')) ? FileChooserMock : FileChooser },
+  ];
 
-    return providers;
-  }
-}
+export const EmailComposerProvider = [
+    { provide: EmailComposer, useClass: (document.URL.includes('https://') || document.URL.includes('http://')) ? EmailComposerMock : EmailComposer },
+  ];
+
+export const StatusBarProvider = [
+    { provide: StatusBar, useClass: (document.URL.includes('https://') || document.URL.includes('http://')) ? StatusBarMock : StatusBar },
+  ];
+
+export const SplashScreenProvider = [
+    { provide: SplashScreen, useClass: (document.URL.includes('https://') || document.URL.includes('http://')) ? SplashScreenMock : SplashScreen },
+  ];
+
+export const AndroidFingerprintAuthProvider = [
+    { provide: AndroidFingerprintAuth, useClass: (document.URL.includes('https://') || document.URL.includes('http://')) ? AndroidFingerprintAuthMock : AndroidFingerprintAuth },
+  ];
+
+  

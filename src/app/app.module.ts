@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { AppProviders } from './app.providers';
+import { AndroidFingerprintAuthProvider, SplashScreenProvider, StatusBarProvider, EmailComposerProvider, FileChooserProvider } from './app.providers';
 
 import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -56,7 +56,14 @@ import { BrMaskerModule } from 'brmasker-ionic-3';
         PersonalInfoModal,
         PasswordPromptPage
     ],
-    providers: AppProviders.getProviders()
+    providers: [
+        FileChooserProvider,
+        EmailComposerProvider,
+        StatusBarProvider,
+        SplashScreenProvider,
+        { provide: ErrorHandler, useClass: IonicErrorHandler },
+        AndroidFingerprintAuthProvider
+    ]
 })
 export class AppModule {
 }
