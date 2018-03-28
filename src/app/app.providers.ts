@@ -181,4 +181,4 @@ export const AndroidFingerprintAuthProvider = [
     { provide: AndroidFingerprintAuth, useClass: (document.URL.includes('https://') || document.URL.includes('http://')) ? AndroidFingerprintAuthMock : AndroidFingerprintAuth },
   ];
 
-  
+

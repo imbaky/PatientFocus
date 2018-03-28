@@ -46,7 +46,7 @@ export class BackupDBService {
         }
       }
       await zip.file(this.fileName, jsonString);
-      const content: Blob = await zip.generateAsync({type:'blob', platform: 'UNIX'});
+      const content: Blob = await zip.generateAsync({type: 'blob', platform: 'UNIX'});
       await this.file.writeFile(this.file.externalRootDirectory + '/Download/', this.zipFile, content, { replace: true});
     } catch (error) {
       console.log(error);
@@ -72,12 +72,12 @@ export class BackupDBService {
     const json = JSON.parse(jsonString);
     const tables = this.dexieService.tables;
     console.log(tables);
-    for(var key in json) {
+    for (let key in json) {
       tables.forEach( async table => {
-        if(table.name == key.toString()) {
+        if (table.name == key.toString()) {
           await table.bulkAdd(JSON.parse(json[key]));
         }
-      })
+      });
     }
   }
 }
