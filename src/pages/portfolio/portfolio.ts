@@ -8,7 +8,8 @@ import {
   NavController,
   NavParams,
   AlertController,
-  ToastController
+  ToastController,
+  MenuController
 } from 'ionic-angular';
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -60,6 +61,7 @@ export class PortfolioPage {
     public alertCtrl: AlertController,
     public fileSystemService: FileSystemService,
     private toastCtrl: ToastController,
+    private menuCtrl: MenuController
   ) {
     // set date to today by default
     // otherwise format is {year: 2017, month: 0, day: 1}
@@ -76,6 +78,11 @@ export class PortfolioPage {
       this.allItems = documents.items;
       this.checkedItems = new Array(this.allItems.length);
     })();
+  }
+
+  ionViewDidEnter() {
+    this.menuCtrl.enable(true, 'filterMenuPortfolio');
+    this.menuCtrl.enable(false, 'filterMenuDiary');
   }
 
   getDate(chosen_date) {
@@ -137,7 +144,7 @@ export class PortfolioPage {
 
   filterToggle() {
     // we want to hide the add document button
-    const addButton = document.getElementById('addButton');
+    const addButton = document.getElementById('addButtonPortfolio');
     if (addButton.style.visibility === 'hidden') {
       addButton.style.visibility = '';
       return;

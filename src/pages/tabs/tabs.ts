@@ -3,7 +3,7 @@ import { ProfileInfoPage } from '@pages/profile-info/profile-info';
 import { PortfolioPage } from '@pages/portfolio/portfolio';
 import { DiaryPage } from '@pages/diary/diary';
 import { RemindersPage } from '@pages/reminders/reminders';
-import { MorePage } from "@pages/more/more";
+import { MorePage } from '@pages/more/more';
 
 
 @Component({

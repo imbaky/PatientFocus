@@ -13,7 +13,7 @@
 
 <ion-content>
 
-  <ion-menu type="overlay" side="right" id="filterMenu" [content]="filterMenu" (ionOpen)='filterToggle()' (ionClose)='filterToggle()'>
+  <ion-menu type="overlay" side="right" id="filterMenuPortfolio" [content]="filterMenu" (ionOpen)='filterToggle()' (ionClose)='filterToggle()'>
     <ion-content>
       <div class="toolbar-content toolbar-content-md">
         <ion-title class="title title-md">
@@ -49,7 +49,7 @@
 
   <ion-toolbar no-border-top #filterMenu color="primary">
     <ion-buttons start>
-      <button ion-button icon-only menuToggle="filterMenu" color="white">
+      <button ion-button icon-only menuToggle="filterMenuPortfolio" color="white">
         <ion-icon name="md-funnel"></ion-icon>
       </button>
     </ion-buttons>
@@ -94,7 +94,7 @@
 
 <ng-container *ngIf="directory$ | async as directory">
   <ion-fab right bottom>
-    <button ion-fab color="primary" id="addButton" (click)="importNewDocument(directory)">
+    <button ion-fab color="primary" id="addButtonPortfolio" (click)="importNewDocument(directory)">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
