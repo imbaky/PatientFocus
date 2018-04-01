@@ -58,9 +58,11 @@ export class ProfileService {
    * Notifies app component that profile img has changed
    * @param path of img
    */
-  cacheProfileImg(path) {
+  async cacheProfileImg(path) {
+    const currentProfile = await this.getCurrentProfile();
+    currentProfile.user_img = path;
+    await this.table.put(currentProfile);
     this.profileImgObserver.next(path);
-    this.getCurrentProfile().then(profile => {profile.user_img = path; });
   }
 
   /**
@@ -113,12 +115,14 @@ export class ProfileService {
    */
   async setCurrentProfile(id: number) {
     console.log(id);
-    const profile = await this.table.get(id);
-    if (profile) {
-      this.profile.current_profile = false;
-      await this.table.put(this.profile);
-      this.profile = profile;
-      this.profile.current_profile = true;
+    const newProfile = await this.table.get(id);
+    const currentProfile = await this.getCurrentProfile();
+    if (newProfile) {
+      currentProfile.current_profile = false;
+      newProfile.current_profile = true;
+      this.profileImgObserver.next(newProfile.user_img);
+      await this.table.put(currentProfile);
+      await this.table.put(newProfile);
     }
   }
 

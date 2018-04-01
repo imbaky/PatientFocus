@@ -19,10 +19,10 @@ export class ProfileSelectionPage {
   ngOnInit() {
     this.profiles = this.profileService.getAllProfiles();
 }
-  switchProfile(profileId: number) {
-    this.profileService.setCurrentProfile(profileId);
-    this.navCtrl.setRoot(ProfileInfoPage);
+  async switchProfile(profileId: number) {
+    await this.profileService.setCurrentProfile(profileId);
     this.profileService.getCurrentProfile().then(profile => {console.log(profile.name); });
+    this.navCtrl.setRoot(ProfileInfoPage);
   }
 
   createProfile() {
