@@ -1,5 +1,5 @@
 import { SHA256 } from 'crypto-js';
-import { ProfileSelectionPage } from '@pages/profile-selection/profile-selection';
+import { ProfileInfoPage } from './../profile-info/profile-info';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
 import { ProfileService } from '@services/profile/profile.service';
@@ -28,7 +28,7 @@ export class PasswordPromptPage implements OnInit {
         profile.password === SHA256(profile.salt + this.password).toString()
       ) {
         this.menu.swipeEnable(true, 'left');
-        this.navCtrl.setRoot(ProfileSelectionPage);
+        this.navCtrl.setRoot(ProfileInfoPage);
       } else {
         const alert = this.alertCtrl.create({
           title: 'Incorrect password',

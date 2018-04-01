@@ -39,6 +39,7 @@ export class ProfilePage {
 
     async makeNewProfile() {
         const profile = await this.profileService.save(this.createProfile.value);
+        await this.profileService.setCurrentProfile(profile);
         if (profile) {
             this.navCtrl.setRoot(TourPage);
         }
