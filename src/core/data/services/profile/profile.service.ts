@@ -114,7 +114,6 @@ export class ProfileService {
    * sets the current profile by id
    */
   async setCurrentProfile(id: number) {
-    console.log(id);
     const newProfile = await this.table.get(id);
     const currentProfile = await this.getCurrentProfile();
     if (newProfile) {

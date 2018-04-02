@@ -1,5 +1,5 @@
 import { SHA256 } from 'crypto-js';
-import { ProfileInfoPage } from './../profile-info/profile-info';
+import { ProfileInfoPage } from '@pages/profile-info/profile-info';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
 import { ProfileService } from '@services/profile/profile.service';
