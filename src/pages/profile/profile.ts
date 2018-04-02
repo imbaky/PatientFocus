@@ -12,6 +12,7 @@ import { AlertController } from 'ionic-angular';
 import { PasswordPromptPage } from '@pages/password-prompt/password-prompt';
 import { LoadingController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
+import { PasswordValidator } from '@validators/password-validator';
 
 
 declare var window;
@@ -33,10 +34,13 @@ export class ProfilePage {
                 private file: File) {
         this.createProfile = this.formBuilder.group({
             name: ['', Validators.required],
-            password: ['', Validators.required]
+            password: ['', Validators.required],
+            passwordConf: ['', Validators.required]
+        },{
+          validator: PasswordValidator.MatchPassword
         });
     }
-
+    
     async makeNewProfile() {
         const profile = await this.profileService.save(this.createProfile.value);
         await this.profileService.setCurrentProfile(profile);
@@ -50,7 +54,7 @@ export class ProfilePage {
       const helpScreen = this.alertController.create(helpOptions);
       helpScreen.present();
     }
-
+  
   async errorImportingProfile(errorTitle, errorMessage) {
     const alert = this.alertController.create({
       title: errorTitle,

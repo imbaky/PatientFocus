@@ -1,17 +1,27 @@
 <ion-content>
-  <img src="assets/Logo.png" alt=""/>
-    <form [formGroup]="createProfile" (ngSubmit)="makeNewProfile()">
-        <ion-item>
-            <ion-label>Full name</ion-label>
-            <ion-input type="text" formControlName="name"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label>Password</ion-label>
-            <ion-input type="password" formControlName="password"></ion-input>
-        </ion-item>
-        <div text-center padding-top>
-            <button ion-button type="button" (click)="importProfile()">Import Profile</button>
-            <button ion-button type="submit" [disabled]="!createProfile.valid">Create Profile</button>
-        </div>
-    </form>
+  <img src="assets/Logo.png" alt="" />
+  <form [formGroup]="createProfile" (ngSubmit)="makeNewProfile()">
+    <ion-item>
+      <ion-label>Full name</ion-label>
+      <ion-input type="text" formControlName="name" [formGroup]="createProfile"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input type="password" formControlName="password" [formGroup]="createProfile"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Confirm Password</ion-label>
+      <ion-input type="password" formControlName="passwordConf" [formGroup]="createProfile"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="createProfile.controls.passwordConf.errors?.MatchPassword">
+      <span ion-text color="danger">
+        <ion-icon name="alert" item-left> </ion-icon>
+        Your passwords do not match. Please try again.
+      </span>
+    </ion-item>
+    <div text-center padding-top>
+      <button ion-button type="button" (click)="importProfile()">Import Profile</button>
+      <button ion-button type="submit" [disabled]="!createProfile.valid">Create Profile</button>
+    </div>
+  </form>
 </ion-content>
