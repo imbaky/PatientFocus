@@ -19,7 +19,6 @@
             <ion-input type="text" formControlName="name"></ion-input>
         </ion-item>
         <ion-list radio-group formControlName="gender">
-            <ion-label>Gender</ion-label>
             <ion-item>
                 <ion-label>Male</ion-label>
                 <ion-radio value="male"></ion-radio>
@@ -55,7 +54,7 @@
         <ion-row class="chip-list">
             <ng-container *ngFor="let known_condition of known_conditions">
                 <ion-chip>
-                    <ion-icon name="heart" color="gray"></ion-icon>
+                    <ion-icon name="medkit" color="gray"></ion-icon>
                     <ion-label>{{ known_condition }}</ion-label>
                     <button ion-button clear color="light" (click)="deleteCondition(known_condition)">
                         <ion-icon name="close-circle"></ion-icon>
@@ -71,7 +70,7 @@
         <ion-row class="chip-list">
             <ng-container *ngFor="let allergy of allergies">
                 <ion-chip>
-                    <ion-icon name="heart" color="gray"></ion-icon>
+                    <ion-icon name="medkit" color="gray"></ion-icon>
                     <ion-label>{{ allergy }}</ion-label>
                     <button ion-button clear color="light" (click)="deleteAllergy(allergy)">
                         <ion-icon name="close-circle"></ion-icon>

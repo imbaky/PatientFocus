@@ -1,6 +1,6 @@
 import { ProfilePage } from '@pages/profile/profile';
 import { ProfileInfoPage } from '@pages/profile-info/profile-info';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfileService, UserProfile } from '@services/profile/profile.service';
 
@@ -9,7 +9,7 @@ import { ProfileService, UserProfile } from '@services/profile/profile.service';
   selector: 'page-profile-selection',
   templateUrl: 'profile-selection.html',
 })
-export class ProfileSelectionPage {
+export class ProfileSelectionPage  implements OnInit {
   public profiles: Promise<UserProfile[]>;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -21,7 +21,6 @@ export class ProfileSelectionPage {
 }
   async switchProfile(profileId: number) {
     await this.profileService.setCurrentProfile(profileId);
-    this.profileService.getCurrentProfile().then(profile => {console.log(profile.name); });
     this.navCtrl.setRoot(ProfileInfoPage);
   }
 

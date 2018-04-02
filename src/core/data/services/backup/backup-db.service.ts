@@ -71,8 +71,7 @@ export class BackupDBService {
     const jsonString = await this.file.readAsText(this.file.externalDataDirectory, 'databse.txt'); // TODO need to pass real profile
     const json = JSON.parse(jsonString);
     const tables = this.dexieService.tables;
-    console.log(tables);
-    for (let key in json) {
+    for (const key in json) {
       tables.forEach( async table => {
         if (table.name == key.toString()) {
           await table.bulkAdd(JSON.parse(json[key]));
