@@ -12,7 +12,8 @@ if (env === 'prod' || env === 'dev') {
     "@pipes": path.resolve('./src/pipes'),
     "@components": path.resolve('./src/components/'),
     "@directives": path.resolve('./src/directives/'),
-    "@interfaces": path.resolve('./src/core/data/interfaces')
+    "@interfaces": path.resolve('./src/core/data/interfaces'),
+    "@validators": path.resolve('./src/validators/')
   };
 
 } else {
@@ -26,7 +27,8 @@ if (env === 'prod' || env === 'dev') {
     "@pipes": path.resolve('./src/pipes'),
     "@components": path.resolve('./src/components/'),
     "@directives": path.resolve('./src/directives/'),
-    "@interfaces": path.resolve('./src/core/data/interfaces')
+    "@interfaces": path.resolve('./src/core/data/interfaces'),
+    "@validators": path.resolve('./src/validators/')
   };
 
 }
