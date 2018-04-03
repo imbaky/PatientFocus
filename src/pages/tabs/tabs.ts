@@ -7,6 +7,7 @@ import { MorePage } from '@pages/more/more';
 
 
 @Component({
+  selector: 'tabs',
   templateUrl: 'tabs.html',
 })
 export class TabsPage {

@@ -1,16 +1,3 @@
-<ion-header>
-  <ion-navbar color="primary">
-    <ion-title>
-      <ng-container *ngIf="currentEntry; else rootName">
-        {{ currentEntry.title }}
-      </ng-container>
-      <ng-template #rootName>
-        Medical Diary
-      </ng-template>
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content>
 
     <ion-menu type="overlay" side="right" id="filterMenuDiary" [content]="filterMenu" (ionOpen)='filterToggle()' (ionClose)='filterToggle()'>

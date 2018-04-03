@@ -1,16 +1,3 @@
-<ion-header>
-  <ion-navbar color="primary">
-    <ion-title>
-      <ng-container *ngIf="currentItem; else rootName">
-        {{ currentItem.name }}
-      </ng-container>
-      <ng-template #rootName>
-        Medical Portfolio
-      </ng-template>
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content>
 
   <ion-menu type="overlay" side="right" id="filterMenuPortfolio" [content]="filterMenu" (ionOpen)='filterToggle()' (ionClose)='filterToggle()'>
