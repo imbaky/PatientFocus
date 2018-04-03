@@ -18,7 +18,7 @@
     "lint": "ionic-app-scripts lint --bailOnLintError true",
     "lint-fix": "tslint -p . --fix",
     "postinstall": "ionic cordova platform add android --no-interactive --confirm ",
-    "fix-gradle": "sed -i 's/1.0.0@aar/2.0.1@aar/g' platforms/android/cordova-safe/starter-conceal.gradle"
+    "fix-gradle": "sed -i 's/1.0.0@aar/2.0.1@aar/g' platforms/android/cordova-safe/starter-conceal.gradle && echo \"configurations.all {resolutionStrategy {eachDependency { DependencyResolveDetails details ->if (details.requested.group == 'com.android.support') {details.useVersion '27.1.0'}}}}\" >> ./platforms/android/build.gradle"
   },
   "dependencies": {
     "@angular/animations": "^5.0.3",

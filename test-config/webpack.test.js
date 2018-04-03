@@ -12,6 +12,7 @@ module.exports = {
       "@pipes": path.resolve('./src/pipes'),
       "@components": path.resolve('./src/components/'),
       "@directives": path.resolve('./src/directives/'),
+      "@validators": path.resolve('./src/validators/'),
     },
     extensions: ['.ts', '.js']
   },

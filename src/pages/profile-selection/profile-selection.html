@@ -1,0 +1,18 @@
+<ion-content padding>
+  <img src="assets/blue-logo.png" alt="" class="logo"/>
+  <h1>Select profile</h1>
+  <button ion-item (click)="createProfile()">
+    <ion-icon name="add"></ion-icon>
+    Create new profile
+  </button>
+  <ion-list>
+    <button menuClose ion-item *ngFor="let p of (profiles|async)" (click)="switchProfile(p?.id)">
+        <ion-avatar item-start>
+            <img class="profile-thumbnail" src="assets/placeholder-face.png" *ngIf="!p?.user_img" />
+            <img class="profile-thumbnail" src="{{p?.user_img}}" *ngIf="p?.user_img" /> 
+          </ion-avatar>
+      <div class="profile-name">{{p?.name}}</div>
+    </button>
+  </ion-list>
+</ion-content>
+

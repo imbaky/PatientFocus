@@ -1,3 +1,4 @@
+import { ProfileSelectionPage } from '@pages/profile-selection/profile-selection';
 import { PasswordPromptPage } from '@pages/password-prompt/password-prompt';
 import { Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Nav, Platform, Events, App } from 'ionic-angular';

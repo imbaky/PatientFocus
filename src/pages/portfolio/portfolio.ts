@@ -70,10 +70,9 @@ export class PortfolioPage {
     this.dateToTerm = this.getDate({});
     this.dateMaxDate = this.getDate({});
     this.currentItem = this.navParams.get('item');
-    // TODO: get current profile directory id, currently set to 1.
-    const id = !this.currentItem ? 1 : this.currentItem.file_id;
-    this.directory$ = this.directoryService.getDirectoryById(id);
     (async () => {
+      const id = await this.profileService.getCurrentProfileId();
+      this.directory$ = this.directoryService.getDirectoryById(id);
       const documents = await this.directory$;
       this.allItems = documents.items;
       this.checkedItems = new Array(this.allItems.length);

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { ProfileSelectionPage } from "@pages/profile-selection/profile-selection";
+import { App } from "ionic-angular";
 
 
 @Component({
@@ -6,8 +8,15 @@ import { Component } from '@angular/core';
   templateUrl: 'more.html'
 })
 export class MorePage {
+
   isSurvey = true;
 
-  constructor() {
+  constructor(private app: App) {
   }
+
+  switchProfile() {
+    // Navigate to switch profile page
+    this.app.getRootNav().setRoot(ProfileSelectionPage);
+  }
+
 }

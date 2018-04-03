@@ -17,7 +17,8 @@
       "@pipes/*": ["pipes/*"],
       "@components/*": ["components/*"],
       "@directives/*": ["directives/*"],
-      "@interfaces/*": ["core/data/interfaces/*"]
+      "@interfaces/*": ["core/data/interfaces/*"],
+      "@validators/*": ["validators/*"]
     }
   },
   "include": ["src/**/*.ts", "plugins/cordova-plugin-file/types/index.d.ts", "src/**/*.enum.ts"],

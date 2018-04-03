@@ -9,5 +9,11 @@
         <ion-list>
             <survey-button *ngIf=isSurvey></survey-button>
         </ion-list>
+        <ion-list>
+            <button ion-item type="button" (click)="switchProfile()">
+                <ion-icon name="swap"></ion-icon>
+                Switch profile
+            </button>
+        </ion-list>
     </ion-card>
 </ion-content>

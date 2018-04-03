@@ -22,6 +22,7 @@ export interface UserProfile {
   gender?: string;
   dob?: string;
   current_profile: boolean;
+  user_img: string;
 }
 
 @Injectable()
@@ -57,7 +58,10 @@ export class ProfileService {
    * Notifies app component that profile img has changed
    * @param path of img
    */
-  cacheProfileImg(path) {
+  async cacheProfileImg(path) {
+    const currentProfile = await this.getCurrentProfile();
+    currentProfile.user_img = path;
+    await this.table.put(currentProfile);
     this.profileImgObserver.next(path);
   }
 
@@ -82,7 +86,8 @@ export class ProfileService {
       name: profile.name,
       password:  SHA256(salt + profile.password).toString(),
       salt: salt,
-      current_profile: true
+      current_profile: true,
+      user_img: ''
     };
     const profileId = await this.table.put(newProfile);
     const directoryId = await this.fileSystemService.createNewDirectory(profileId);
@@ -105,6 +110,20 @@ export class ProfileService {
     }
     return null;
   }
+   /**
+   * sets the current profile by id
+   */
+  async setCurrentProfile(id: number) {
+    const newProfile = await this.table.get(id);
+    const currentProfile = await this.getCurrentProfile();
+    if (newProfile) {
+      currentProfile.current_profile = false;
+      newProfile.current_profile = true;
+      this.profileImgObserver.next(newProfile.user_img);
+      await this.table.put(currentProfile);
+      await this.table.put(newProfile);
+    }
+  }
 
   /**
    * Retrieves the current profile id
@@ -116,6 +135,14 @@ export class ProfileService {
       return profile.id;
     }
     return null;
+  }
+
+  /**
+   * Retrieves an array of all available profiles
+   * @returns {Promise<any>}
+   */
+  async getAllProfiles() {
+    return await this.table.toArray();
   }
 
   /**

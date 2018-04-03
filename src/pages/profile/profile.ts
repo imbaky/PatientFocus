@@ -12,6 +12,7 @@ import { AlertController } from 'ionic-angular';
 import { PasswordPromptPage } from '@pages/password-prompt/password-prompt';
 import { LoadingController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
+import { PasswordValidator } from '@validators/password-validator';
 
 
 declare var window;
@@ -33,12 +34,16 @@ export class ProfilePage {
                 private file: File) {
         this.createProfile = this.formBuilder.group({
             name: ['', Validators.required],
-            password: ['', Validators.required]
+            password: ['', Validators.required],
+            passwordConf: ['', Validators.required]
+        },{
+          validator: PasswordValidator.MatchPassword
         });
     }
-
+    
     async makeNewProfile() {
         const profile = await this.profileService.save(this.createProfile.value);
+        await this.profileService.setCurrentProfile(profile);
         if (profile) {
             this.navCtrl.setRoot(TourPage);
         }
@@ -46,10 +51,10 @@ export class ProfilePage {
 
     async importProfile() {
       const helpOptions = this.createHelpOptions();
-      let helpScreen = this.alertController.create(helpOptions);
+      const helpScreen = this.alertController.create(helpOptions);
       helpScreen.present();
     }
-
+  
   async errorImportingProfile(errorTitle, errorMessage) {
     const alert = this.alertController.create({
       title: errorTitle,
@@ -115,12 +120,12 @@ export class ProfilePage {
       };
   }
 
-  async getUri(directory){
-    let loading = this.loadingController.create({
+  async getUri(directory) {
+    const loading = this.loadingController.create({
       content: 'Importing profile...'
     });
     let fullPath = '';
-    if(directory == "downloads") { // import from downloads folder
+    if (directory == 'downloads') { // import from downloads folder
       fullPath = this.file.externalRootDirectory + 'Download/patient-focus-profile.zip';
       try {
         loading.present();
@@ -132,8 +137,7 @@ export class ProfilePage {
         loading.dismiss();
         this.errorImportingProfile('Profile Does not Exist', 'File name patient-focus-profile.zip does not exist in your Download folder.');
       }
-    }
-    else { // import from file selector
+    } else { // import from file selector
       const uri = await this.fileChooser.open();
       loading.present();
       fullPath = await this.filePath.resolveNativePath(uri);

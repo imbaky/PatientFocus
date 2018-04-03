@@ -1,11 +1,13 @@
-import { PasswordPromptPageModule } from './../pages/password-prompt/password-prompt.module';
-import { PasswordPromptPage } from './../pages/password-prompt/password-prompt';
+import { ProfileSelectionPageModule } from '@pages/profile-selection/profile-selection.module';
+import { ProfileSelectionPage } from '@pages/profile-selection/profile-selection';
+import { PasswordPromptPageModule } from '@pages/password-prompt/password-prompt.module';
+import { PasswordPromptPage } from '@pages/password-prompt/password-prompt';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { AppProviders } from './app.providers';
+import { AndroidFingerprintAuthProvider, SplashScreenProvider, StatusBarProvider, EmailComposerProvider, FileChooserProvider } from './app.providers';
 
 import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -45,6 +47,7 @@ import { MorePage } from '@pages/more/more';
         RemindersModule,
         DiaryModule,
         PasswordPromptPageModule,
+        ProfileSelectionPageModule,
         DataModule.forRoot(),
         IonicModule.forRoot(MyApp, {}, {links: []}),
         BrowserAnimationsModule,
@@ -60,9 +63,17 @@ import { MorePage } from '@pages/more/more';
         PersonalInfoModal,
         PasswordPromptPage,
         TabsPage,
-        MorePage
+        MorePage,
+        ProfileSelectionPage
     ],
-    providers: AppProviders.getProviders()
+    providers: [
+        FileChooserProvider,
+        EmailComposerProvider,
+        StatusBarProvider,
+        SplashScreenProvider,
+        { provide: ErrorHandler, useClass: IonicErrorHandler },
+        AndroidFingerprintAuthProvider
+    ]
 })
 export class AppModule {
 }
