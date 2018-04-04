@@ -7,7 +7,7 @@ import { App } from "ionic-angular";
   selector: 'page-more',
   templateUrl: 'more.html'
 })
-export class MorePage {
+export class OptionsPage {
 
   isSurvey = true;
 
