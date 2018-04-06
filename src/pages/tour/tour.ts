@@ -1,6 +1,7 @@
 import { Component, ViewChild, trigger, transition, style, state, animate, keyframes } from '@angular/core';
-import { NavController, Slides } from 'ionic-angular';
+import { NavController, Slides, App } from 'ionic-angular';
 import { ProfileInfoPage } from '@pages/profile-info/profile-info';
+import { TabsPage } from '@pages/tabs/tabs';
 
 @Component({
   selector: 'page-tour',
@@ -43,11 +44,11 @@ export class TourPage {
   skipMsg = 'Skip';
   state = 'x';
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, public app: App) {}
 
   skipTour() {
     this.navCtrl.setRoot(ProfileInfoPage);
-    this.navCtrl.push(ProfileInfoPage);
+    this.app.getRootNav().setRoot(TabsPage);
   }
 
   onSlideChanged() {

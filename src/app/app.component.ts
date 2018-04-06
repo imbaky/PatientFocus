@@ -1,7 +1,7 @@
 import { ProfileSelectionPage } from '@pages/profile-selection/profile-selection';
 import { PasswordPromptPage } from '@pages/password-prompt/password-prompt';
 import { Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Nav, Platform, Events } from 'ionic-angular';
+import { Nav, Platform, Events, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -33,7 +33,8 @@ export class MyApp implements OnInit {
     private profileService: ProfileService,
     private itemService: ItemService,
     private ref: ChangeDetectorRef,
-    private events: Events
+    private events: Events,
+    private app: App
 
   ) {
     this.pages = [
@@ -55,9 +56,9 @@ export class MyApp implements OnInit {
   async ngOnInit() {
     const profile = await this.profileService.getCurrentProfile();
     if (profile) {
-      this.rootPage = PasswordPromptPage;
+      this.app.getRootNav().setRoot(PasswordPromptPage);
     } else {
-      this.rootPage = ProfilePage;
+      this.app.getRootNav().setRoot(ProfilePage);
     }
   }
 
@@ -74,10 +75,5 @@ export class MyApp implements OnInit {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
-  }
-
-  switchProfile() {
-    // Navigate to switch profile page
-    this.nav.setRoot(ProfileSelectionPage);
   }
 }

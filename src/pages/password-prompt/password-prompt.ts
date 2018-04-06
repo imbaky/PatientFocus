@@ -1,9 +1,10 @@
 import { SHA256 } from 'crypto-js';
 import { ProfileInfoPage } from '@pages/profile-info/profile-info';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, AlertController, App } from 'ionic-angular';
 import { ProfileService } from '@services/profile/profile.service';
 import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
+import { TabsPage } from '@pages/tabs/tabs';
 
 @IonicPage()
 @Component({
@@ -18,6 +19,7 @@ export class PasswordPromptPage implements OnInit {
     private profileService: ProfileService,
     public menu: MenuController,
     public alertCtrl: AlertController,
+    public app: App,
     private androidFingerprintAuth: AndroidFingerprintAuth
   ) {
     this.menu.swipeEnable(false, 'left');
@@ -29,6 +31,7 @@ export class PasswordPromptPage implements OnInit {
       ) {
         this.menu.swipeEnable(true, 'left');
         this.navCtrl.setRoot(ProfileInfoPage);
+        this.app.getRootNav().setRoot(TabsPage);
       } else {
         const alert = this.alertCtrl.create({
           title: 'Incorrect password',
@@ -49,6 +52,7 @@ export class PasswordPromptPage implements OnInit {
               if (result.withFingerprint || result.withBackup) {
                   this.menu.swipeEnable(true, 'left');
                   this.navCtrl.setRoot(ProfileInfoPage);
+                  this.app.getRootNav().setRoot(TabsPage);
               } else { console.log('Didn\'t authenticate!'); }
             })
             .catch(error => {

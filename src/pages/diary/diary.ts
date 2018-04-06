@@ -3,7 +3,8 @@ import {
   AlertController,
   ModalController,
   NavController,
-  ToastController
+  ToastController,
+  MenuController
 } from 'ionic-angular';
 import * as moment from 'moment';
 import { ProfileService, UserProfile } from '@services/profile/profile.service';
@@ -39,7 +40,8 @@ export class DiaryPage {
     private directoryService: DirectoryService,
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
-    private fileSystemService: FileSystemService
+    private fileSystemService: FileSystemService,
+    private menuCtrl: MenuController
   ) {
     // set date to today by default
     // otherwise format is {year: 2017, month: 0, day: 1}
@@ -49,7 +51,11 @@ export class DiaryPage {
     this.dateMaxDate = this.getDate({});
 
     this.getDiaryEntries();
+  }
 
+  ionViewDidEnter() {
+    this.menuCtrl.enable(false, 'filterMenuPortfolio');
+    this.menuCtrl.enable(true, 'filterMenuDiary');
   }
 
   getDate(chosen_date) {
@@ -60,7 +66,7 @@ export class DiaryPage {
 
   filterToggle() {
     // we want to hide the add entry button
-    const addButton = document.getElementById('addButton');
+    const addButton = document.getElementById('addButtonDiary');
     if (addButton.style.visibility === 'hidden') {
       addButton.style.visibility = '';
       return;

@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Options</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-list>
+            <survey-button *ngIf=isSurvey></survey-button>
+        </ion-list>
+        <ion-list>
+            <button ion-item type="button" (click)="switchProfile()">
+                <ion-icon name="swap" item-left></ion-icon>
+                Switch profile
+            </button>
+        </ion-list>
+    </ion-card>
+</ion-content>
