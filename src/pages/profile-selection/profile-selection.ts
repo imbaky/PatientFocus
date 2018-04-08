@@ -26,7 +26,7 @@ export class ProfileSelectionPage implements OnInit {
   async switchProfile(profileId: number) {
     await this.profileService.setCurrentProfile(profileId);
     this.navCtrl.setRoot(ProfileInfoPage);
-    this.app.getRootNav().setRoot(TabsPage)
+    this.app.getRootNav().setRoot(TabsPage);
   }
 
   createProfile() {

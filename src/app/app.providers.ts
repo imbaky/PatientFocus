@@ -123,16 +123,16 @@ export class AndroidFingerprintAuthMock extends AndroidFingerprintAuth {
   };
 
   encrypt(options: AFAAuthOptions): Promise<AFAEncryptResponse> {
-      let reponse: AFAEncryptResponse;
+      const response: AFAEncryptResponse = null;
       return new Promise((resolve, reject) => {
-          resolve(reponse);
+          resolve(response);
       });
   }
 
   decrypt(options: AFAAuthOptions): Promise<AFADecryptOptions> {
-      let reponse: AFADecryptOptions;
+      const response: AFADecryptOptions = null;
       return new Promise((resolve, reject) => {
-          resolve(reponse);
+          resolve(response);
       });
   }
 
@@ -153,9 +153,9 @@ export class AndroidFingerprintAuthMock extends AndroidFingerprintAuth {
   }): Promise<{
       deleted: boolean;
   }> {
-      let reponse: { deleted: boolean};
+      const response: { deleted: boolean} = null;
       return new Promise((resolve, reject) => {
-          resolve(reponse);
+          resolve(response);
       });
   }
 }

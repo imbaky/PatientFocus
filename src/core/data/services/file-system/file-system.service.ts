@@ -49,7 +49,7 @@ export class FileSystemService {
       const filename = fullPath.substring(fullPath.lastIndexOf('/') + 1);
       const url = fullPath.substring(0, fullPath.lastIndexOf('/'));
       const newFileName: string = await this.createFileName(filename, directory);
-      if ((fullPath && item.file == undefined) || (fullPath !== item.file.path)) {
+      if ((fullPath && item.file === undefined) || (fullPath !== item.file.path)) {
         entry = await this.file.copyFile(url, filename, this.file.externalDataDirectory + '/' + String(directory.id), newFileName);
         const newFile = await this.directoryService.addFileToDirectory(entry, creationDate, directory, newDocumentName, specificValues);
         return await this.deleteFileFromDirectory(item, directory);
@@ -74,14 +74,16 @@ export class FileSystemService {
    */
   async deleteFileFromDirectory(item: Item, directory: Directory): Promise<boolean> {
     try {
+      let result;
       if (item.file) {
-        const result = await this.file.removeFile(this.file.externalDataDirectory + '/' + String(directory.id), item.file.file_name);
+        result = await this.file.removeFile(this.file.externalDataDirectory + '/' + String(directory.id), item.file.file_name);
       }
-      const result = await this.directoryService.deleteItem(item, directory);
+      result = await this.directoryService.deleteItem(item, directory);
     } catch (e) {
       console.error('Failed to remove file from external directory');
       return await false;
     }
+    return await true;
   }
 
   /**
