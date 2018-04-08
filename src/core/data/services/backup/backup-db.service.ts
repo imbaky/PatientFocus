@@ -29,8 +29,7 @@ export class BackupDBService {
     const tables = this.dexieService.tables;
     for (const table of tables) {
       const tableObjects = await table.toCollection().toArray();
-      const jsonString = JSON.stringify(tableObjects);
-      jsonTables[String(table.name)] = jsonString;
+      jsonTables[String(table.name)] = JSON.stringify(tableObjects);
     }
     const jsonString = JSON.stringify(jsonTables);
     try {
@@ -65,18 +64,21 @@ export class BackupDBService {
 
   async importProfile(pathToZip: string) { // TODO used to import profile incomplete
     const number = await this.nativeZip.unzip(pathToZip, this.file.externalDataDirectory);
-    if (number == -1) {
+    if (number === -1) {
       throw new Error('Unable to unzip imported file');
     }
     const jsonString = await this.file.readAsText(this.file.externalDataDirectory, 'databse.txt'); // TODO need to pass real profile
     const json = JSON.parse(jsonString);
     const tables = this.dexieService.tables;
     for (const key in json) {
-      tables.forEach( async table => {
-        if (table.name == key.toString()) {
-          await table.bulkAdd(JSON.parse(json[key]));
-        }
-      });
+      // added if to fix lint error
+      if (key) {
+        tables.forEach( async table => {
+          if (table.name === key.toString()) {
+            await table.bulkAdd(JSON.parse(json[key]));
+          }
+        });
+      }
     }
   }
 }

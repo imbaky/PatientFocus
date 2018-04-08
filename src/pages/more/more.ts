@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { ProfileSelectionPage } from "@pages/profile-selection/profile-selection";
-import { App } from "ionic-angular";
+import { ProfileSelectionPage } from '@pages/profile-selection/profile-selection';
+import { App } from 'ionic-angular';
 
 
 @Component({

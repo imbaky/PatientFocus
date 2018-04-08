@@ -48,8 +48,8 @@ export class PasswordPromptPage implements OnInit {
       .then(result => {
         if (result.isAvailable) {
           this.androidFingerprintAuth.encrypt({ clientId: 'PatientFocus', username: 'myUsername', password: 'myPassword' })
-            .then(result => {
-              if (result.withFingerprint || result.withBackup) {
+            .then(result1 => {
+              if (result1.withFingerprint || result1.withBackup) {
                   this.menu.swipeEnable(true, 'left');
                   this.navCtrl.setRoot(ProfileInfoPage);
                   this.app.getRootNav().setRoot(TabsPage);

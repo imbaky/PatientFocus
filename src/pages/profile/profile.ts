@@ -36,11 +36,11 @@ export class ProfilePage {
             name: ['', Validators.required],
             password: ['', Validators.required],
             passwordConf: ['', Validators.required]
-        },{
+        }, {
           validator: PasswordValidator.MatchPassword
         });
     }
-    
+
     async makeNewProfile() {
         const profile = await this.profileService.save(this.createProfile.value);
         await this.profileService.setCurrentProfile(profile);
@@ -54,7 +54,7 @@ export class ProfilePage {
       const helpScreen = this.alertController.create(helpOptions);
       helpScreen.present();
     }
-  
+
   async errorImportingProfile(errorTitle, errorMessage) {
     const alert = this.alertController.create({
       title: errorTitle,
@@ -125,7 +125,7 @@ export class ProfilePage {
       content: 'Importing profile...'
     });
     let fullPath = '';
-    if (directory == 'downloads') { // import from downloads folder
+    if (directory === 'downloads') { // import from downloads folder
       fullPath = this.file.externalRootDirectory + 'Download/patient-focus-profile.zip';
       try {
         loading.present();
