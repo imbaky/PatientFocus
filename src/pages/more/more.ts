@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ProfileSelectionPage } from '@pages/profile-selection/profile-selection';
-import { App } from 'ionic-angular';
+import { HelpPage } from '@pages/help/help';
+import { App, NavController } from 'ionic-angular';
 
 
 @Component({
@@ -11,7 +12,10 @@ export class OptionsPage {
 
   isSurvey = true;
 
-  constructor(private app: App) {
+  constructor(
+    public navCtrl: NavController,
+    private app: App,
+  ) {
   }
 
   switchProfile() {
@@ -19,4 +23,7 @@ export class OptionsPage {
     this.app.getRootNav().setRoot(ProfileSelectionPage);
   }
 
+  handleHelp() {
+    this.navCtrl.push(HelpPage);
+  }
 }
