@@ -35,22 +35,25 @@
     <div class="profile-info-section">
       <ion-row class="profile-info-header">
         <ion-col col-10>
-          <span ion-text color="primary"><ion-icon name="medical"></ion-icon> Medical Information</span>
+          <span ion-text color="primary"><ion-icon name="medkit"></ion-icon> Medical Information</span>
         </ion-col>
-        <ion-col col-2 class="btn--edit">
+        <ion-col col-2 class="btn--edit" *ngIf="medicalInfo">
           <ion-icon name="create" (click)="editMedicalInfo()"></ion-icon>
         </ion-col>
       </ion-row>
       <ion-row class="profile-info-content">
-        <ion-col>
+        <ion-col *ngIf="medicalInfo">
           <p>
             <span ion-text color="primary">Blood Type: </span> {{medicalInfo?.blood_type}} </p>
           <p>
             <span ion-text color="primary">Known Conditions: </span> {{medicalInfo?.known_conditions}} </p>
         </ion-col>
-        <ion-col>
+        <ion-col *ngIf="medicalInfo">
           <p>
             <span ion-text color="primary">Allergies:</span> {{medicalInfo?.allergies}} </p>
+        </ion-col>
+        <ion-col *ngIf="!medicalInfo">
+          <button ion-button small outline name="create" (click)="editMedicalInfo()">Add medical information</button>
         </ion-col>
       </ion-row>
     </div>
@@ -59,23 +62,26 @@
         <ion-col col-10>
           <span ion-text color="primary"><ion-icon name="contacts"></ion-icon> Emergency Contacts</span>
         </ion-col>
-        <ion-col col-2 class="btn--edit">
+        <ion-col col-2 class="btn--edit" *ngIf="emergencyContact">
           <ion-icon name="create" (click)="editEmergencyContact()"></ion-icon>
         </ion-col>
       </ion-row>
       <ion-row class="profile-info-content">
-        <ion-col>
+        <ion-col *ngIf="emergencyContact">
           <p>
             <span ion-text color="primary">Name:</span> {{emergencyContact?.name}}</p>
           <p>
             <span ion-text color="primary">Phone Number:</span> {{emergencyContact?.phoneNumber}}</p>
         </ion-col>
-        <ion-col>
+        <ion-col *ngIf="emergencyContact">
           <p>
             <span ion-text color="primary">Relationship:</span> {{emergencyContact?.relationship}}</p>
         </ion-col>
+        <ion-col *ngIf="!emergencyContact">
+          <button ion-button small outline name="create" (click)="editEmergencyContact()">Add emergency contact</button>
+        </ion-col>
       </ion-row>
     </div>
-      <button ion-button round (click)="exportProfile()">Export Profile</button>
+      <button ion-button (click)="exportProfile()">Export Profile</button>
   </ion-grid>
 </ion-content>
