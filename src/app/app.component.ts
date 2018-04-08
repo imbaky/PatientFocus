@@ -13,6 +13,7 @@ import { ProfileService } from '@services/profile/profile.service';
 import { PortfolioPage } from '@pages/portfolio/portfolio';
 import { ProfileInfoPage } from '@pages/profile-info/profile-info';
 import { ItemService } from '@services/item/item.service';
+import { HelpPage } from '@pages/help/help';
 
 @Component({
   templateUrl: 'app.html'
@@ -43,6 +44,7 @@ export class MyApp implements OnInit {
       { title: 'Medical Portfolio', component: PortfolioPage },
       { title: 'Personal Diary', component: DiaryPage },
       { title: 'Reminders', component: RemindersPage },
+      { title: 'Help', component: HelpPage}
     ];
     this.events.subscribe('profile:update', profile => {this.name = profile.name; });
 

@@ -28,6 +28,7 @@ import { TourPage } from '@pages/tour/tour';
 import { BrMaskerModule } from 'brmasker-ionic-3';
 import { TabsPage } from '@pages/tabs/tabs';
 import { OptionsPage } from '@pages/more/more';
+import { HelpPage } from '@pages/help/help';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import { OptionsPage } from '@pages/more/more';
         PersonalInfoModal,
         SurveyButtonComponent,
         TabsPage,
-        OptionsPage
+        OptionsPage,
+        HelpPage
     ],
     imports: [
         BrowserModule,
@@ -64,7 +66,8 @@ import { OptionsPage } from '@pages/more/more';
         PasswordPromptPage,
         TabsPage,
         OptionsPage,
-        ProfileSelectionPage
+        ProfileSelectionPage,
+        HelpPage
     ],
     providers: [
         FileChooserProvider,
