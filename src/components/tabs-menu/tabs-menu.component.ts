@@ -3,14 +3,14 @@ import { ProfileInfoPage } from '@pages/profile-info/profile-info';
 import { PortfolioPage } from '@pages/portfolio/portfolio';
 import { DiaryPage } from '@pages/diary/diary';
 import { RemindersPage } from '@pages/reminders/reminders';
-import { OptionsPage } from '@pages/more/more';
+import { OptionsPage } from '@pages/options/options';
 
 
 @Component({
-  selector: 'tabs',
-  templateUrl: 'tabs.html',
+  selector: 'tabs-menu',
+  templateUrl: 'tabs-menu.component.html',
 })
-export class TabsPage {
+export class TabsMenuComponent {
   public PortfolioInfoTab: any;
   public PortfolioTab: any;
   public DiaryTab: any;

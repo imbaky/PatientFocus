@@ -5,8 +5,8 @@ import { App, NavController } from 'ionic-angular';
 
 
 @Component({
-  selector: 'page-more',
-  templateUrl: 'more.html'
+  selector: 'page-options',
+  templateUrl: 'options.html'
 })
 export class OptionsPage {
 

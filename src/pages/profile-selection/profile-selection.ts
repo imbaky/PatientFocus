@@ -3,7 +3,7 @@ import { ProfileInfoPage } from '@pages/profile-info/profile-info';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { ProfileService, UserProfile } from '@services/profile/profile.service';
-import { TabsPage } from '@pages/tabs/tabs';
+import { TabsMenuComponent } from '@components/tabs-menu/tabs-menu.component';
 
 @IonicPage()
 @Component({
@@ -26,7 +26,7 @@ export class ProfileSelectionPage implements OnInit {
   async switchProfile(profileId: number) {
     await this.profileService.setCurrentProfile(profileId);
     this.navCtrl.setRoot(ProfileInfoPage);
-    this.app.getRootNav().setRoot(TabsPage);
+    this.app.getRootNav().setRoot(TabsMenuComponent);
   }
 
   createProfile() {
