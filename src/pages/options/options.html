@@ -13,10 +13,18 @@
             </button>
         </ion-list>
         <ion-list>
+            <button ion-item type="button" (click)="exportProfile()">
+                <ion-icon name="md-download" item-left></ion-icon>
+                Export profile
+            </button>
+        </ion-list>
+        <ion-list>
             <button ion-item type="button" (click)="handleHelp()">
                 <ion-icon name="help-circle" item-left></ion-icon>
                 Help
             </button>
+        </ion-list>
+        <ion-list>
             <survey-button *ngIf=isSurvey></survey-button>
         </ion-list>
     </ion-card>

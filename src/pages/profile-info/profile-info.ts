@@ -35,8 +35,7 @@ export class ProfileInfoPage {
                 private directoryService: DirectoryService,
                 private fileSystemService: FileSystemService,
                 private itemService: ItemService,
-                private ref: ChangeDetectorRef,
-                private toastCtrl: ToastController) {
+                private ref: ChangeDetectorRef) {
 
         this.profileService.getCurrentProfile().then(profile => {
             this.profile = profile;
@@ -112,15 +111,5 @@ export class ProfileInfoPage {
            });
         });
     }
-
-   async exportProfile() {
-     const importToast = this.toastCtrl.create({
-       message: `Profile exported to Downloads folder as patient-focus-profile.zip`,
-       duration: 6000,
-       position: 'bottom'
-     });
-     await importToast.present();
-     this.profileService.exportProfile(this.profile.id);
-   }
 
 }
