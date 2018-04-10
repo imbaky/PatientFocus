@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, AlertController, App } from 'ionic-angular';
 import { ProfileService } from '@services/profile/profile.service';
 import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth';
-import { TabsPage } from '@pages/tabs/tabs';
+import { TabsMenuComponent } from '@components/tabs-menu/tabs-menu.component';
 
 @IonicPage()
 @Component({
@@ -31,7 +31,7 @@ export class PasswordPromptPage implements OnInit {
       ) {
         this.menu.swipeEnable(true, 'left');
         this.navCtrl.setRoot(ProfileInfoPage);
-        this.app.getRootNav().setRoot(TabsPage);
+        this.app.getRootNav().setRoot(TabsMenuComponent);
       } else {
         const alert = this.alertCtrl.create({
           title: 'Incorrect password',
@@ -52,7 +52,7 @@ export class PasswordPromptPage implements OnInit {
               if (result1.withFingerprint || result1.withBackup) {
                   this.menu.swipeEnable(true, 'left');
                   this.navCtrl.setRoot(ProfileInfoPage);
-                  this.app.getRootNav().setRoot(TabsPage);
+                  this.app.getRootNav().setRoot(TabsMenuComponent);
               } else { console.log('Didn\'t authenticate!'); }
             })
             .catch(error => {

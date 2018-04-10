@@ -26,8 +26,8 @@ import { RemindersModule } from '@pages/reminders/reminders.module';
 import { SurveyButtonComponent } from '@components/survey-button/survey-button.component';
 import { TourPage } from '@pages/tour/tour';
 import { BrMaskerModule } from 'brmasker-ionic-3';
-import { TabsPage } from '@pages/tabs/tabs';
-import { OptionsPage } from '@pages/more/more';
+import { TabsMenuComponent } from '@components/tabs-menu/tabs-menu.component';
+import { OptionsPage } from '@pages/options/options';
 import { HelpPage } from '@pages/help/help';
 
 @NgModule({
@@ -39,7 +39,7 @@ import { HelpPage } from '@pages/help/help';
         TourPage,
         PersonalInfoModal,
         SurveyButtonComponent,
-        TabsPage,
+        TabsMenuComponent,
         OptionsPage,
         HelpPage
     ],
@@ -64,7 +64,7 @@ import { HelpPage } from '@pages/help/help';
         TourPage,
         PersonalInfoModal,
         PasswordPromptPage,
-        TabsPage,
+        TabsMenuComponent,
         OptionsPage,
         ProfileSelectionPage,
         HelpPage

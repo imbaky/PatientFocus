@@ -1,7 +1,7 @@
 import { Component, ViewChild, trigger, transition, style, state, animate, keyframes } from '@angular/core';
 import { NavController, Slides, App } from 'ionic-angular';
 import { ProfileInfoPage } from '@pages/profile-info/profile-info';
-import { TabsPage } from '@pages/tabs/tabs';
+import { TabsMenuComponent } from '@components/tabs-menu/tabs-menu.component';
 
 @Component({
   selector: 'page-tour',
@@ -48,7 +48,7 @@ export class TourPage {
 
   skipTour() {
     this.navCtrl.setRoot(ProfileInfoPage);
-    this.app.getRootNav().setRoot(TabsPage);
+    this.app.getRootNav().setRoot(TabsMenuComponent);
   }
 
   onSlideChanged() {
