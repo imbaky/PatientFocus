@@ -8,6 +8,7 @@ if [ ! -d platforms ]; then
     echo "target=android-25" > $1
     echo "android.library.reference.1=CordovaLib" >> $1
     echo "storePassword=$2">> $1
+    echo "keyPassword=$2">> $1
     echo "keyAlias=$3">> $1
     echo "storeFile=../../resources/android/my-release-key.keystore">> $1
 fi
