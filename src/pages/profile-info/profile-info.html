@@ -1,19 +1,23 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Profile Info</ion-title>
+    <ion-title>Profile</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-grid>
-        <div menuClose class="profile-image" (click)="selectFile()">
-            <img src="assets/placeholder-face.png" *ngIf="!profileImg"/>
-            <ion-avatar item-start><img style="height:159px" src="{{profileImg}}" *ngIf="profileImg"/></ion-avatar>
-        </div>
+  <ion-grid>
+    <div menuClose class="profile-image" (click)="selectFile()">
+      <img src="assets/placeholder-face.png" *ngIf="!profileImg" />
+      <ion-avatar item-start>
+        <img style="height:159px" src="{{profileImg}}" *ngIf="profileImg" />
+      </ion-avatar>
+    </div>
+    <!-- Personal Information -->
     <div class="profile-info-section">
       <ion-row class="profile-info-header">
         <ion-col col-10>
-          <span ion-text color="primary"><ion-icon name="contact"></ion-icon> Personal Information</span>
+          <span ion-text color="primary">
+            <ion-icon name="contact"></ion-icon> Personal Information</span>
         </ion-col>
         <ion-col col-2 class="btn--edit">
           <ion-icon name="create" (click)="editProfile()"></ion-icon>
@@ -21,61 +25,71 @@
       </ion-row>
       <ion-row class="profile-info-content">
         <ion-col>
-          <p>
+          <p *ngIf="profile?.name">
             <span ion-text color="primary">Name:</span> {{profile?.name}}</p>
-          <p>
+          <p *ngIf="profile?.gender">
             <span ion-text color="primary">Gender:</span> {{profile?.gender}}</p>
         </ion-col>
         <ion-col>
-          <p>
+          <p *ngIf="profile?.dob">
             <span ion-text color="primary">Date of Birth:</span> {{profile?.dob}}</p>
         </ion-col>
       </ion-row>
     </div>
+    <!-- Medical Information -->
     <div class="profile-info-section">
       <ion-row class="profile-info-header">
         <ion-col col-10>
-          <span ion-text color="primary"><ion-icon name="medical"></ion-icon> Medical Information</span>
+          <span ion-text color="primary">
+            <ion-icon name="medkit"></ion-icon> Medical Information</span>
         </ion-col>
-        <ion-col col-2 class="btn--edit">
+        <ion-col col-2 class="btn--edit" *ngIf="medicalInfo">
           <ion-icon name="create" (click)="editMedicalInfo()"></ion-icon>
         </ion-col>
       </ion-row>
       <ion-row class="profile-info-content">
+        <ion-col *ngIf="!medicalInfo">
+          <button ion-button small outline name="create" (click)="editMedicalInfo()">Add medical information</button>
+        </ion-col>
         <ion-col>
-          <p>
+          <p *ngIf="medicalInfo?.blood_type">
             <span ion-text color="primary">Blood Type: </span> {{medicalInfo?.blood_type}} </p>
-          <p>
+          <p *ngIf="medicalInfo?.known_conditions">
             <span ion-text color="primary">Known Conditions: </span> {{medicalInfo?.known_conditions}} </p>
         </ion-col>
         <ion-col>
-          <p>
+          <p *ngIf="medicalInfo?.allergies">
             <span ion-text color="primary">Allergies:</span> {{medicalInfo?.allergies}} </p>
         </ion-col>
       </ion-row>
     </div>
+    <!-- Emergency Contacts -->
     <div class="profile-info-section">
       <ion-row class="profile-info-header">
         <ion-col col-10>
-          <span ion-text color="primary"><ion-icon name="contacts"></ion-icon> Emergency Contacts</span>
+          <span ion-text color="primary">
+            <ion-icon name="contacts"></ion-icon> Emergency Contacts</span>
         </ion-col>
-        <ion-col col-2 class="btn--edit">
+        <ion-col col-2 class="btn--edit" *ngIf="emergencyContact">
           <ion-icon name="create" (click)="editEmergencyContact()"></ion-icon>
         </ion-col>
       </ion-row>
       <ion-row class="profile-info-content">
+        <ion-col *ngIf="!emergencyContact">
+          <button ion-button small outline name="create" (click)="editEmergencyContact()">Add emergency contact</button>
+        </ion-col>
         <ion-col>
-          <p>
+          <p *ngIf="emergencyContact?.name">
             <span ion-text color="primary">Name:</span> {{emergencyContact?.name}}</p>
-          <p>
+          <p *ngIf="emergencyContact?.phoneNumber">
             <span ion-text color="primary">Phone Number:</span> {{emergencyContact?.phoneNumber}}</p>
         </ion-col>
         <ion-col>
-          <p>
+          <p *ngIf="emergencyContact?.relationship">
             <span ion-text color="primary">Relationship:</span> {{emergencyContact?.relationship}}</p>
         </ion-col>
       </ion-row>
     </div>
-      <button ion-button round (click)="exportProfile()">Export Profile</button>
+    <button ion-button (click)="exportProfile()">Export Profile</button>
   </ion-grid>
 </ion-content>
