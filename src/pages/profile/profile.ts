@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfileService } from '@services/profile/profile.service';
-import { DashboardPage } from '@pages/dashboard/dashboard';
 import { ProfileInfoPage } from '@pages/profile-info/profile-info';
 import { TourPage } from '@pages/tour/tour';
 import { FileChooser } from '@ionic-native/file-chooser';
