@@ -17,7 +17,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 // modules
 import { DataModule } from '../core/data/data.module';
 import { ProfilePage } from '@pages/profile/profile';
-import { DashboardPage } from '@pages/dashboard/dashboard';
 import { ProfileInfoPage } from '@pages/profile-info/profile-info';
 import { PersonalInfoModal } from '@pages/../pages/profile-info/personal-information/personal-information';
 import { PortfolioModule } from '@pages/portfolio/portfolio.module';
@@ -34,7 +33,6 @@ import { HelpPage } from '@pages/help/help';
     declarations: [
         MyApp,
         ProfilePage,
-        DashboardPage,
         ProfileInfoPage,
         TourPage,
         PersonalInfoModal,
@@ -59,7 +57,6 @@ import { HelpPage } from '@pages/help/help';
     entryComponents: [
         MyApp,
         ProfilePage,
-        DashboardPage,
         ProfileInfoPage,
         TourPage,
         PersonalInfoModal,
