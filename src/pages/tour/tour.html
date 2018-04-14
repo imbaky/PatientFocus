@@ -2,7 +2,7 @@
 <ion-content>
   <ion-slides pager (ionSlideDidChange)="onSlideChanged()" (ionSlideDrag)="onSlideDragged()">
     <ion-slide>
-      <div class="tour__card" style="background: url('assets/addDocuments.png') no-repeat">
+      <div class="tour__card" style="background: url('assets/background.svg') no-repeat">
         <ion-icon [@bounce]='state' name="folder-open" color="primary" (@bounce.done)="onSlideDone()"></ion-icon>
         <ion-img style="width: 80px; height: 80px;" src='assets/addDocuments.png' ></ion-img>
       </div>
@@ -21,7 +21,7 @@
       </div>
     </ion-slide>
     <ion-slide>
-      <div class="tour__card" style="background: url('assets/diary.png') no-repeat">
+      <div class="tour__card" style="background: url('assets/backgroung.svg') no-repeat">
         <ion-icon [@bounce]='state' name="bookmark" color="primary"></ion-icon>
         <ion-img style="width: 80px; height: 80px;" src='assets/diary.png' ></ion-img>
       </div>
@@ -40,7 +40,7 @@
       </div>
     </ion-slide>
      <ion-slide>
-      <div class="tour__card" style="background: url('assets/portfolio.png') no-repeat">
+      <div class="tour__card" style="background: url('assets/background.svg') no-repeat">
         <ion-icon [@bounce]='state' name="share" color="primary" ></ion-icon>
         <ion-img style="width: 80px; height: 80px;" src='assets/portfolio.png' ></ion-img>
       </div>
