@@ -1,5 +1,10 @@
-<ion-content>
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Medical Portfolio</ion-title>
+  </ion-navbar>
+</ion-header>
 
+<ion-content>
   <ion-menu type="overlay" side="right" id="filterMenuPortfolio" [content]="filterMenu" (ionOpen)='filterToggle()' (ionClose)='filterToggle()'>
     <ion-content>
       <div class="toolbar-content toolbar-content-md">
