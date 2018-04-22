@@ -4,6 +4,7 @@
     <ion-slide>
       <div class="tour__card" style="background: url('assets/background.svg') no-repeat">
         <ion-icon [@bounce]='state' name="folder-open" color="primary" (@bounce.done)="onSlideDone()"></ion-icon>
+        <ion-img style="width: 300px; height: 500px;" src='assets/addDocuments.png' ></ion-img>
       </div>
       <div [@bounce]='state'>
         <h2 class="tour__title" ion-text color="primary">Store medical documents</h2>
@@ -20,12 +21,32 @@
       </div>
     </ion-slide>
     <ion-slide>
+      <div class="tour__card" style="background: url('assets/backgroung.svg') no-repeat">
+        <ion-icon [@bounce]='state' name="bookmark" color="primary"></ion-icon>
+        <ion-img style="width: 300px; height: 500px;" src='assets/diary.png' ></ion-img>
+      </div>
+      <div [@bounce]='state'>
+        <h2 class="tour__title" ion-text color="primary">Build your diary</h2>
+        <p class="tour__subtitle">Record and never forget important symptoms or events. Useful for future visits to the doctor</p>
+      </div>
+    </ion-slide>
+    <ion-slide>
       <div class="tour__card" style="background: url('assets/background.svg') no-repeat">
         <ion-icon [@bounce]='state' name="share" color="primary" ></ion-icon>
       </div>
       <div [@bounce]='state'>
         <h2 class="tour__title" ion-text color="primary">Share medical data</h2>
         <p class="tour__subtitle">Provide access of your medical information without compromise.</p>
+      </div>
+    </ion-slide>
+     <ion-slide>
+      <div class="tour__card" style="background: url('assets/background.svg') no-repeat">
+        <ion-icon [@bounce]='state' name="share" color="primary" ></ion-icon>
+        <ion-img style="width: 300px; height: 500px;" src='assets/portfolio.png' ></ion-img>
+      </div>
+      <div [@bounce]='state'>
+        <h2 class="tour__title" ion-text color="primary">Keep your information</h2>
+        <p class="tour__subtitle">Access all your documents in one place.</p>
       </div>
     </ion-slide>
   </ion-slides>
